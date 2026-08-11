@@ -1823,7 +1823,11 @@
       +'<h3 style="margin-top:.5rem">Exposer sur ce Village</h3>'
       +'<p>Réservez votre stand et recevez le dossier complet (formats, tarifs, plan de salle).</p>'
       +'<button class="btn btn-blue" style="width:100%;justify-content:center;margin-bottom:.55rem" onclick="openExpo(\'Recruteur / Entreprise\')">Réserver un stand</button>'
-      +'<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="https://matchingsquare.com/" target="_blank" rel="noopener">Candidat : s\'inscrire ↗</a>'
+      +(v.state==='past'
+        ? '<div class="btn btn-off" style="width:100%;justify-content:center;margin-bottom:.55rem">Édition terminée</div>'
+        : (v.ms
+          ? '<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="'+v.ms+'" target="_blank" rel="noopener">Candidat : s\'inscrire ↗</a>'
+          : '<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="#" onclick="openCandForm(\''+v.city+'\');return false;">Candidat : s\'inscrire</a>'))
       +'<div class="price-tag">Stand privatif dès 990 € HT · CVthèque incluse</div>';
     go('village-detail');
   }
