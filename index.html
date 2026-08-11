@@ -46,7 +46,7 @@
   .logo-village-img{height:46px;width:auto;display:block}
   .jobevents-img{height:56px;width:auto;display:block}
   .msq-img{height:34px;width:auto;display:block}
-  .foot-logo-chip{background:transparent;border-radius:14px;padding:.55rem .9rem;display:inline-block}
+  .foot-logo-chip{background:transparent;border-radius:14px;padding:.3rem .5rem;display:inline-block}
   .foot-logo-chip .msq-img{height:48px}
   .ms-pill{background:rgba(255,249,241,.94);border-radius:999px;padding:.5rem 1.05rem;display:inline-flex;align-items:center;box-shadow:0 4px 16px rgba(8,50,79,.16)}
   .ms-pill .msq-img{height:48px}
@@ -128,6 +128,7 @@
   .sec-head{text-align:center;max-width:48ch;margin:0 auto 2.6rem}
   .sec-head h2{font-size:clamp(1.7rem,2.8vw,2.1rem);margin:.6rem 0}
   .sec-head p{color:var(--muted);font-size:1.04rem}
+  #page-matchingsquare .sec-head{max-width:60ch}
 
   /* PROCESS */
   .proc{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;counter-reset:pc}
@@ -489,9 +490,9 @@
   footer a{display:block;color:rgba(36,26,18,.74);padding:.24rem 0;font-size:.9rem;cursor:pointer}
   footer a:hover{color:var(--rose)}
   .foot-brand p{color:rgba(36,26,18,.64);font-size:.9rem;margin-top:.9rem;max-width:34ch}
-  .foot-partners{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;margin-top:1.2rem}
-  .foot-partners .fp-row{display:flex;align-items:center;gap:.65rem}
-  .foot-partners .lbl{font-size:.72rem;color:rgba(36,26,18,.55);text-transform:uppercase;letter-spacing:.1em;min-width:6.5rem}
+  .foot-partners{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin-top:1.1rem}
+  .foot-partners .fp-row{display:flex;align-items:center;gap:.5rem}
+  .foot-partners .lbl{font-size:.72rem;color:rgba(36,26,18,.55);text-transform:uppercase;letter-spacing:.1em;min-width:5.2rem}
   .foot-bottom{border-top:1px solid rgba(60,40,24,.16);margin-top:2.2rem;padding-top:1.3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:rgba(36,26,18,.6);font-size:.85rem}
 
   /* RESPONSIVE */
@@ -540,7 +541,7 @@
           <a onclick="go('formation')">Centres de formation<small>Présenter vos cursus</small></a>
           <a onclick="go('entrepreneuriat')">Entrepreneuriat<small>Révéler des créateurs</small></a>
           <a onclick="go('partenaires')">Partenaires &amp; institutions<small>Co-construire le Village</small></a>
-          <a onclick="go('semaine')">⏱️ La Semaine des Recruteurs<small>L'option qui prolonge le Village une semaine</small></a>
+          <a onclick="go('semaine')">⏱️ La Semaine des Recruteurs<small>Un recruteur qui recrute pour vous</small></a>
           <a onclick="go('simulateur')" style="border-top:1px solid var(--line);margin-top:.2rem;color:var(--rose)">🧮 Simuler mon coût<small>Estimer votre participation</small></a>
         </div>
       </div>
@@ -998,7 +999,7 @@
         <div class="aside-card" style="margin-top:1.1rem;position:static">
           <span class="eyebrow jaune">Autre format Job Events</span>
           <div style="margin:.7rem 0"><img class="sdr-img" alt="La Semaine des Recruteurs"></div>
-          <p style="margin-bottom:.8rem">Envie de prolonger le Village&nbsp;? La Semaine des Recruteurs : l'option phygitale pour recruter sur place puis rencontrer toute la semaine. Dès 690 € HT.</p>
+          <p style="margin-bottom:.8rem">Pas les ressources pour tenir un stand&nbsp;? La Semaine des Recruteurs : un recruteur expert sélectionne les candidats pour vous, vous ne faites que les entretiens. Dès 690 € HT.</p>
           <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="go('semaine')">En savoir plus</button>
         </div>
       </aside>
@@ -1012,11 +1013,11 @@
     <div class="wrap">
       <span class="back" onclick="go('recruteurs')">← Retour à Exposer</span>
       <div style="margin:.2rem 0 .7rem"><img class="sdr-img" style="height:64px;mix-blend-mode:multiply" alt="La Semaine des Recruteurs"></div>
-      <span class="eyebrow jaune">⏱️ Une option du Village · format phygital</span>
-      <h1>Recrutez sur place, puis prolongez toute la semaine</h1>
-      <p>La Semaine des Recruteurs est une <b>option du Village des Recruteurs</b> : le jour J, vous recrutez en direct à votre stand&nbsp;; les jours suivants, les rencontres se prolongent en ligne via Matching Square. Un format <b>phygital</b> — présentiel puis digital — qui étire la dynamique du salon sur toute une semaine, pour rencontrer plus de candidats et faire aboutir vos recrutements. Organisée par Job Events.</p>
+      <span class="eyebrow jaune">⏱️ Une option du Village · recrutement délégué</span>
+      <h1>Un recruteur professionnel recrute pour vous</h1>
+      <p>La Semaine des Recruteurs est un <b>service de recrutement délégué</b>, organisé dans le prolongement de chaque édition du Village. Vous nous confiez vos offres&nbsp;: un <b>recruteur expert, sélectionné par Job Events</b>, prend en charge la sélection des profils, les rencontres au salon et la planification des rendez-vous. Vous n'intervenez qu'au moment des entretiens — en présentiel ou en visio. Proposée en option du Village, ou de façon autonome.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-blue" onclick="openExpo('La Semaine des Recruteurs')">Ajouter l'option à mon stand</button>
+        <button class="btn btn-blue" onclick="openExpo('La Semaine des Recruteurs')">Confier mon recrutement</button>
         <button class="btn btn-ghost" onclick="go('simulateur')">🧮 Simuler mon coût</button>
       </div>
     </div>
@@ -1027,15 +1028,15 @@
     <div class="wrap">
       <div class="sec-head" style="margin-bottom:1.8rem;max-width:780px">
         <span class="eyebrow blue">Le concept</span>
-        <h2>Le Village qui continue toute une semaine</h2>
-        <p>Un Village, c'est une journée intense. La Semaine des Recruteurs <b>prolonge cette dynamique</b> : vous recrutez sur place au salon, puis vous poursuivez les échanges — visios, entretiens, relances — pendant toute la semaine, en ligne. Un concept pensé pour <b>créer des passerelles durables</b> entre vous et les candidats, bien au-delà du jour J.</p>
+        <h2>Un recruteur dédié, un recrutement clé en main</h2>
+        <p>Un Village, c'est une journée intense. La Semaine des Recruteurs va plus loin&nbsp;: un <b>recruteur expert</b> représente votre entreprise au salon, sélectionne les candidats — au Village <b>et</b> sur notre plateforme — et vous présente les meilleurs profils. Vous ne gardez que la décision finale, au moment des entretiens.</p>
       </div>
       <div class="two-col">
         <div>
-          <div class="feature"><div class="fi c2">📍</div><div><b>Le jour J, sur place</b><p>Vous recevez et recrutez en direct à votre stand, au cœur du Village — rencontres, échanges, entretiens.</p></div></div>
-          <div class="feature"><div class="fi c1">🗓️</div><div><b>Toute la semaine, en ligne</b><p>Les échanges continuent après le salon : nouveaux profils, entretiens en visio, relances — sans se déplacer.</p></div></div>
-          <div class="feature"><div class="fi c5">🖥️</div><div><b>Un format phygital</b><p>Présentiel et digital réunis et propulsés par Matching Square : le meilleur des deux mondes.</p></div></div>
-          <div class="feature"><div class="fi c3">🎯</div><div><b>Des candidats pré-qualifiés</b><p>L'IA cible les bons profils avant, pendant et après le salon — vous ne rencontrez que ce qui compte.</p></div></div>
+          <div class="feature"><div class="fi c2">🧭</div><div><b>Un cadrage sur-mesure</b><p>Avant le salon, vous définissez avec votre recruteur les profils recherchés et vos critères.</p></div></div>
+          <div class="feature"><div class="fi c1">👔</div><div><b>Un recruteur expert pour vous</b><p>Sélectionné par Job Events, il représente votre entreprise au salon et pilote toute la sélection.</p></div></div>
+          <div class="feature"><div class="fi c5">🔎</div><div><b>Un sourcing élargi</b><p>Il rencontre les candidats au Village et source aussi sur notre plateforme : des profils bien plus larges que les job boards.</p></div></div>
+          <div class="feature"><div class="fi c3">🎯</div><div><b>Vous ne faites que les entretiens</b><p>On vous présente les profils retenus ; vous recevez les candidats sur deux journées dédiées, en présentiel ou en visio.</p></div></div>
         </div>
         <div class="photo" id="sdr-photo" style="aspect-ratio:16/11"></div>
       </div>
@@ -1045,17 +1046,40 @@
   <!-- Comment ça marche -->
   <section style="background:var(--paper-2)">
     <div class="wrap">
-      <div class="sec-head" style="margin-bottom:2rem">
+      <div class="sec-head" style="margin-bottom:2rem;max-width:680px">
         <span class="eyebrow">Comment ça marche</span>
         <h2>Une semaine, du salon au contrat</h2>
-        <p>Vous ajoutez l'option à votre stand&nbsp;: le Village devient le point de départ d'une semaine de recrutement.</p>
+        <p>Vous confiez vos offres&nbsp;: le Village devient le point de départ d'un recrutement délégué, du cadrage aux entretiens.</p>
       </div>
       <div class="paths" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
-        <div class="path" style="background:linear-gradient(135deg,#006FB7,#004E82);cursor:default"><div class="emoji">①</div><h3>En amont</h3><p>Profils digitaux et premiers rendez-vous préparés via Matching Square, dans les jours qui précèdent.</p></div>
-        <div class="path" style="background:linear-gradient(135deg,#E3007B,#B4005F);cursor:default"><div class="emoji">②</div><h3>Le jour du Village</h3><p>Vous recrutez sur place, à votre stand : rencontres directes, entretiens et coups de cœur.</p></div>
-        <div class="path" style="background:linear-gradient(135deg,#0FAE9E,#0A7D72);cursor:default"><div class="emoji">③</div><h3>Toute la semaine qui suit</h3><p>Les échanges se prolongent en ligne : entretiens en visio, nouveaux candidats, relances.</p></div>
-        <div class="path" style="background:linear-gradient(135deg,#F8B322,#D98E00);cursor:default"><div class="emoji">④</div><h3>Bilan &amp; suivi</h3><p>Reporting complet et transmission des profils pour transformer les rencontres en recrutements.</p></div>
+        <div class="path" style="background:linear-gradient(135deg,#006FB7,#004E82);cursor:default"><div class="emoji">①</div><h3>Cadrage amont</h3><p>Vous définissez les profils recherchés avec votre recruteur, avant le salon.</p></div>
+        <div class="path" style="background:linear-gradient(135deg,#E3007B,#B4005F);cursor:default"><div class="emoji">②</div><h3>Jour J · Salon</h3><p>Le recruteur rencontre et sélectionne les candidats au Village, et source sur la plateforme.</p></div>
+        <div class="path" style="background:linear-gradient(135deg,#0FAE9E,#0A7D72);cursor:default"><div class="emoji">③</div><h3>Débriefing</h3><p>On vous présente les profils retenus, avant les rendez-vous.</p></div>
+        <div class="path" style="background:linear-gradient(135deg,#F8B322,#D98E00);cursor:default"><div class="emoji">④</div><h3>J+7 · Rencontres</h3><p>Vous recevez les candidats sur deux journées dédiées, en présentiel ou en visio.</p></div>
       </div>
+    </div>
+  </section>
+
+  <!-- Calendrier Semaine 2026 -->
+  <section style="padding-top:2.2rem">
+    <div class="wrap">
+      <div class="sec-head" style="max-width:620px">
+        <span class="eyebrow blue">Calendrier 2026</span>
+        <h2>Les dates des rencontres Semaine</h2>
+        <p>Chaque Village a ses deux journées de rencontres dédiées, environ une semaine après le salon.</p>
+      </div>
+      <div style="max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm)">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;background:var(--navy);color:#fff;font-weight:800;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em">
+          <div style="padding:.7rem .9rem">Ville</div><div style="padding:.7rem .9rem">Village</div><div style="padding:.7rem .9rem">Rencontres Semaine</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center"><div style="padding:.6rem .9rem;font-weight:700">Reims</div><div style="padding:.6rem .9rem;color:var(--muted)">19 mai</div><div style="padding:.6rem .9rem;font-weight:700;color:var(--blue)">26 &amp; 27 mai</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center"><div style="padding:.6rem .9rem;font-weight:700">Bordeaux</div><div style="padding:.6rem .9rem;color:var(--muted)">11 juin</div><div style="padding:.6rem .9rem;font-weight:700;color:var(--blue)">18 &amp; 19 juin</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center"><div style="padding:.6rem .9rem;font-weight:700">Toulouse</div><div style="padding:.6rem .9rem;color:var(--muted)">16 &amp; 17 sept.</div><div style="padding:.6rem .9rem;font-weight:700;color:var(--blue)">24 &amp; 25 sept.</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center"><div style="padding:.6rem .9rem;font-weight:700">Dijon</div><div style="padding:.6rem .9rem;color:var(--muted)">24 sept.</div><div style="padding:.6rem .9rem;font-weight:700;color:var(--blue)">1 &amp; 2 oct.</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center"><div style="padding:.6rem .9rem;font-weight:700">Orléans</div><div style="padding:.6rem .9rem;color:var(--muted)">8 oct.</div><div style="padding:.6rem .9rem;font-weight:700;color:var(--blue)">15 &amp; 16 oct.</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;border-top:1px solid var(--line);font-size:.9rem;align-items:center;background:#FFF7E6"><div style="padding:.6rem .9rem;font-weight:800">Lyon ⭐</div><div style="padding:.6rem .9rem;color:var(--muted)">14 &amp; 15 oct.</div><div style="padding:.6rem .9rem;font-weight:800;color:var(--blue)">22 &amp; 23 oct.</div></div>
+      </div>
+      <p class="logo-note" style="text-align:center;margin-top:1rem">Lyon est la date forte de la saison — 5 000 candidats attendus au Village.</p>
     </div>
   </section>
 
@@ -1064,17 +1088,28 @@
     <div class="wrap two-col">
       <div>
         <h2 style="font-size:1.6rem;margin-bottom:.5rem">Pour qui&nbsp;?</h2>
-        <p class="lead" style="margin-bottom:1rem">L'option idéale pour tirer le maximum de votre présence au Village.</p>
-        <div class="feature"><div class="fi c2">🔁</div><div><b>Les recrutements en volume</b><p>Plus de temps = plus de candidats rencontrés. Intérim, distribution, logistique, réseaux, centres d'appels…</p></div></div>
-        <div class="feature"><div class="fi c1">⚡</div><div><b>Les postes en tension</b><p>Multipliez les occasions de rencontre au-delà d'une seule journée, jusqu'à trouver le bon profil.</p></div></div>
-        <div class="feature"><div class="fi c6">🌍</div><div><b>Les candidats empêchés le jour J</b><p>Ceux qui n'ont pas pu venir au salon vous rencontrent en visio dans la semaine — aucun talent perdu.</p></div></div>
+        <p class="lead" style="margin-bottom:1rem">Pensée pour les entreprises qui veulent recruter sans mobiliser une équipe sur un stand.</p>
+        <div class="feature"><div class="fi c2">🏢</div><div><b>Les entreprises sans stand</b><p>Pas les ressources pour exposer ? Un recruteur s'en charge et vous accédez au vivier du Village.</p></div></div>
+        <div class="feature"><div class="fi c1">⚡</div><div><b>Les postes en tension</b><p>Un expert cible et présélectionne : vous ne rencontrez que les bons profils, sans y passer vos journées.</p></div></div>
+        <div class="feature"><div class="fi c6">🌍</div><div><b>Un vivier plus large</b><p>Des candidats sourcés au salon et sur notre plateforme, bien au-delà des job boards classiques.</p></div></div>
       </div>
       <aside>
         <div class="aside-card">
-          <span class="eyebrow jaune">Tarif · en option</span>
+          <span class="eyebrow jaune">Tarif · deux formules</span>
           <h3 style="margin-top:.5rem">Dès 690 € HT</h3>
-          <p>Une option à ajouter à votre participation au Village : le présentiel du jour J, prolongé d'une semaine de rencontres en ligne via Matching Square. Devis selon le nombre de postes.</p>
-          <button class="btn btn-blue" onclick="openExpo('La Semaine des Recruteurs')">Ajouter l'option à mon stand</button>
+          <p style="margin-bottom:.8rem">Les frais d'inscription couvrent l'accès à la plateforme&nbsp;; les honoraires rémunèrent le recruteur.</p>
+          <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem">
+            <div style="border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><b>1 offre</b><b style="color:var(--blue)">690 € HT</b></div>
+              <span style="font-size:.8rem;color:var(--muted)">490 € honoraires + 200 € frais d'inscription</span>
+            </div>
+            <div style="border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><b>2 offres</b><b style="color:var(--blue)">990 € HT</b></div>
+              <span style="font-size:.8rem;color:var(--muted)">590 € honoraires + 400 € frais d'inscription</span>
+            </div>
+          </div>
+          <div style="background:linear-gradient(135deg,#E9F8EE,#fff);border:1px solid #b7e6c6;border-radius:12px;padding:.7rem .85rem;margin-bottom:1rem;font-size:.86rem;color:#166534"><b>✅ Satisfait ou remboursé</b> — moins de 5 candidats par offre ? Vos honoraires sont intégralement remboursés (hors frais d'inscription).</div>
+          <button class="btn btn-blue" onclick="openExpo('La Semaine des Recruteurs')">Confier mon recrutement</button>
           <button class="btn btn-ghost" onclick="go('simulateur')">Simuler mon coût</button>
           <div class="price-tag">Réponse sous 48h ouvrées</div>
         </div>
@@ -1221,7 +1256,7 @@
       <div id="ms-logo-head" style="margin:.2rem 0 .7rem"></div>
       <span class="eyebrow jaune">⚙️ Notre plateforme</span>
       <h1>Matching Square, votre profil digital intelligent</h1>
-      <p>L'IA transforme un CV ou une description de poste en <b>profil digital</b> — que tu ajustes librement. Ces profils s'explorent ensuite comme un job board, alimentent le salon en ligne, et rendent chaque rencontre utile : candidatures, rendez-vous en visio, échanges directs. C'est le moteur qui propulse le Village des Recruteurs — et vos propres événements.</p>
+      <p style="max-width:none">L'IA transforme un CV ou une description de poste en <b>profil digital</b> — que tu ajustes librement. Ces profils s'explorent ensuite comme un job board, alimentent le salon en ligne, et rendent chaque rencontre utile : candidatures, rendez-vous en visio, échanges directs. C'est le moteur qui propulse le Village des Recruteurs — et vos propres événements.</p>
     </div>
   </div>
 
@@ -1371,7 +1406,6 @@
       <div class="sec-head">
         <span class="eyebrow jaune">📲 Nos réseaux</span>
         <h2>Le fil de nos réseaux</h2>
-        <p>Les 5 derniers posts du Village, classés par plateforme : LinkedIn, Facebook et Instagram.</p>
       </div>
       <div class="social-wall" id="social-cols"></div>
     </div>
@@ -1595,7 +1629,7 @@
   var rp=document.getElementById('recr-photo');
   if(rp)rp.innerHTML=photoTile(14,'Recrutez en face à face',false);
   var sdrp=document.getElementById('sdr-photo');
-  if(sdrp)sdrp.innerHTML=photoTile(19,'Les rencontres se poursuivent toute la semaine',false);
+  if(sdrp)sdrp.innerHTML=photoTile(19,'Vous recevez les candidats, en présentiel ou en visio',false);
   /* Galerie « En images » + lightbox */
   var gg=document.getElementById('galerie-grid');
   if(gg){var h='';for(var i=0;i<PH.length;i++){h+='<button class="gcell" onclick="lightbox('+i+')"><img loading="lazy" src="'+PH[i]+'" alt="Village des Recruteurs — photo '+(i+1)+'"></button>';}gg.innerHTML=h;}
@@ -1871,7 +1905,7 @@
     ],
     expo:[
       ['Comment devenir exposant ?','Contactez Job Events via le formulaire « Exposer ». Nous vous envoyons le dossier complet (formats de stand, tarifs, dates) et convenons d\'un échange.'],
-      ['Combien coûte un stand ?','Le stand privatif au Village démarre à <b>990 € HT</b>. En option, <b>La Semaine des Recruteurs</b> — pour prolonger vos rencontres toute la semaine après le salon — démarre à <b>690 € HT</b>.'],
+      ['Combien coûte un stand ?','Le stand privatif au Village démarre à <b>990 € HT</b>. En option ou en autonome, <b>La Semaine des Recruteurs</b> — un recruteur expert qui recrute pour vous — démarre à <b>690 € HT</b>.'],
       ['Qu\'est-ce qui est inclus ?','Un stand privatif toute la journée, l\'accès à la <b>CVthèque</b>, la pré-qualification des candidats via Matching Square, la communication autour de l\'événement et la mise en relation ciblée — Job Events orchestre toute la logistique.'],
       ['Combien de candidats vais-je rencontrer ?','Entre <b>2 000 et 5 000 candidats pré-inscrits</b> par ville, et en moyenne <b>15 à 40 candidats qualifiés</b> rencontrés par exposant et par édition.'],
       ['Les candidats sont-ils qualifiés ?','Oui : le public est pré-orienté et pré-qualifié par l\'IA de Matching Square. 60% des participants s\'inscrivent à l\'avance et arrivent préparés.'],
@@ -1911,7 +1945,7 @@
       {id:'o_web',n:'Webinaire',d:'Webinaire digital avec les candidats inscrits',price:200,type:'check',cat:'dig'},
       {id:'o_ats',n:'Envoi des CV dans votre ATS',d:'Récupération des profils via notre API',price:290,type:'check',cat:'dig'},
       {id:'o_banner',n:'Bannière sur Matching Square',price:200,type:'check',cat:'dig'},
-      {id:'o_semaine',n:'La Semaine des Recruteurs',d:'Option phygitale : prolongez les rencontres toute la semaine après le salon (visio Matching Square)',price:690,type:'check',cat:'prolong'}
+      {id:'o_semaine',n:'La Semaine des Recruteurs',d:'Recrutement délégué : un recruteur expert sélectionne les candidats pour vous (rencontres J+7, présentiel ou visio)',price:690,type:'check',cat:'prolong'}
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
     bestof:[
