@@ -46,7 +46,7 @@
   .logo-village-img{height:46px;width:auto;display:block}
   .jobevents-img{height:56px;width:auto;display:block}
   .msq-img{height:24px;width:auto;display:block}
-  .foot-logo-chip{background:#FFF3E0;border-radius:14px;padding:.55rem .9rem;display:inline-block;box-shadow:0 3px 12px rgba(8,50,79,.12)}
+  .foot-logo-chip{background:#fff;border-radius:14px;padding:.55rem .9rem;display:inline-block;box-shadow:0 3px 12px rgba(8,50,79,.12)}
   .foot-logo-chip .msq-img{height:34px}
   .ms-pill{background:rgba(255,249,241,.94);border-radius:999px;padding:.5rem 1.05rem;display:inline-flex;align-items:center;box-shadow:0 4px 16px rgba(8,50,79,.16)}
   .ms-pill .msq-img{height:36px}
@@ -382,8 +382,8 @@
   .cand-callout p{color:#3a3128;margin:.35rem 0 0;font-size:.94rem;line-height:1.6}
   .evt .meta{font-size:.86rem;color:var(--muted);display:flex;align-items:center;gap:.4em}
   .evt .meta b{color:var(--ink);font-weight:700}
-  .evt .acts{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
-  .evt .acts .btn{padding:.5rem .8rem;font-size:.8rem}
+  .evt .acts{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:nowrap;align-items:stretch}
+  .evt .acts .btn{flex:1 1 0;min-width:0;padding:.5rem .55rem;font-size:.78rem;white-space:normal;text-align:center;justify-content:center;line-height:1.15}
 
   /* SUBPAGE HEADER */
   .phead{padding:3rem 0 2.2rem;position:relative;overflow:hidden}
@@ -438,6 +438,14 @@
   .sw-col{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.1rem;box-shadow:var(--shadow-sm)}
   .sw-head{display:flex;align-items:center;gap:.6rem;font-weight:800;margin-bottom:.8rem}
   .sw-head .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1rem}
+  .sw-plat{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+  .sw-plat-head{display:flex;align-items:center;gap:.55rem;color:#fff;font-weight:800;padding:.8rem 1.05rem;font-size:1rem}
+  .sw-plat-head .ic{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:.95rem}
+  .sw-plat-body{padding:.85rem;display:flex;flex-direction:column;gap:.75rem}
+  .sw-post{border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;background:var(--paper-2)}
+  .sw-post .sw-date{font-size:.72rem;color:var(--muted);font-weight:700}
+  .sw-post p{font-size:.85rem;color:var(--ink);line-height:1.45;margin:.3rem 0 .5rem}
+  .sw-post a{font-weight:800;font-size:.8rem;color:var(--blue)}
   .sw-post{border:1px solid var(--line);border-radius:12px;padding:.8rem;margin-bottom:.7rem}
   .sw-post .ph{height:70px;border-radius:8px;margin-bottom:.5rem}
   .sw-post p{font-size:.83rem;color:var(--muted)}
@@ -464,15 +472,15 @@
   .cta-band .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
 
   /* FOOTER */
-  footer{background:var(--navy);color:#fff;padding:3.2rem 0 2rem}
+  footer{background:linear-gradient(120deg,#F0E6DC,#FCE1CB);color:var(--ink);padding:3.2rem 0 2rem}
   .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2rem}
-  footer h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--jaune);margin-bottom:.9rem}
-  footer a{display:block;color:rgba(255,255,255,.72);padding:.24rem 0;font-size:.9rem;cursor:pointer}
-  footer a:hover{color:#fff}
-  .foot-brand p{color:rgba(255,255,255,.6);font-size:.9rem;margin-top:.9rem;max-width:34ch}
+  footer h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);margin-bottom:.9rem}
+  footer a{display:block;color:rgba(36,26,18,.74);padding:.24rem 0;font-size:.9rem;cursor:pointer}
+  footer a:hover{color:var(--rose)}
+  .foot-brand p{color:rgba(36,26,18,.64);font-size:.9rem;margin-top:.9rem;max-width:34ch}
   .foot-partners{display:flex;align-items:center;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap}
-  .foot-partners .lbl{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em}
-  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:2.2rem;padding-top:1.3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:rgba(255,255,255,.5);font-size:.85rem}
+  .foot-partners .lbl{font-size:.72rem;color:rgba(36,26,18,.55);text-transform:uppercase;letter-spacing:.1em}
+  .foot-bottom{border-top:1px solid rgba(60,40,24,.16);margin-top:2.2rem;padding-top:1.3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:rgba(36,26,18,.6);font-size:.85rem}
 
   /* RESPONSIVE */
   @media(max-width:980px){
@@ -1357,20 +1365,9 @@
       <div class="sec-head">
         <span class="eyebrow jaune">📲 Nos réseaux</span>
         <h2>Le fil de nos réseaux</h2>
-        <p>Le mur social agrège automatiquement nos derniers posts LinkedIn, Instagram et Facebook.</p>
+        <p>Les 5 derniers posts du Village, classés par plateforme : LinkedIn, Facebook et Instagram.</p>
       </div>
-      <div class="social-wall" id="social-wall"></div>
-      <p class="logo-note">Derniers posts agrégés depuis <b>Odoo Social Marketing</b> (LinkedIn, Instagram, Facebook). Instantané mis à jour régulièrement.</p>
-      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.4rem 1.6rem;margin-top:1.6rem;max-width:860px;margin-inline:auto">
-        <b style="display:block;margin-bottom:.5rem">⚙️ Relier vos comptes pour un fil automatique — comment ça marche</b>
-        <div style="background:linear-gradient(135deg,#E1F6E9,#fff);border:1px solid #2FA36B;border-radius:12px;padding:.8rem 1rem;margin-bottom:.7rem">
-          <b style="color:#1c6e45">✅ Solution retenue : Odoo Social Marketing</b>
-          <p style="font-size:.9rem;color:#3a3128;margin-top:.25rem">Puisque le site est destiné à Odoo, le module <b>Social Marketing</b> est la voie la plus cohérente : vous reliez vos comptes <b>LinkedIn, Instagram et Facebook</b> une seule fois, vous programmez et publiez vos posts depuis Odoo, et les flux s'affichent automatiquement ici. Tout reste au même endroit, sans abonnement tiers ni script externe.</p>
-        </div>
-        <p style="font-size:.86rem;color:var(--muted);margin-bottom:.4rem">À titre de comparaison, deux alternatives existent si besoin&nbsp;:</p>
-        <p style="font-size:.86rem;color:var(--muted);margin-bottom:.4rem">• <b>Un agrégateur social</b> (EmbedSocial, Curator.io, Juicer, Elfsight) — rapide, sans développement, mais avec un abonnement (~10–30&nbsp;€/mois).</p>
-        <p style="font-size:.86rem;color:var(--muted)">• <b>Les API officielles</b> (Meta Graph API pour Instagram/Facebook, API Organization pour LinkedIn) — gratuites et robustes, mais demandent du développement et des jetons à renouveler.</p>
-      </div>
+      <div class="social-wall" id="social-cols"></div>
     </div>
   </section>
   <section style="padding-top:1rem">
@@ -1828,21 +1825,43 @@
       +'<div class="ab"><div class="date">Article · '+a[1]+' de lecture</div><h3>'+a[2]+'</h3><p>'+a[3]+'</p><span class="rd">Lire l\'article →</span></div></div>';
   }).join('');
 
-  /* SOCIAL WALL — derniers posts (source : Odoo Social Marketing) */
-  var SOCIALFEED=[
-    {m:"linkedin",a:"Le Village des Recruteurs",d:"09/07/2026",t:"📢 Job Events & Le Village des Recruteurs recrutent ! Vous êtes passionné(e) par l'événementiel et la gestion de projet, vous aimez coordonner des événements d'envergure…",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480908524047347713"},
-    {m:"linkedin",a:"Job Events",d:"09/07/2026",t:"📢 Job Events recrute ! Vous êtes passionné(e) par l'événementiel et la gestion de projet ? Vous aimez coordonner des événements d'envergure et relever des défis au quotidien ?",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480904917394681857"},
-    {m:"linkedin",a:"Le Village des Recruteurs",d:"17/06/2026",t:"Nexity Studéa, acteur historique depuis 1987 et référent de la résidence pour étudiants et jeunes actifs en France, était présent sur le Village…",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7472914479027159041"},
-    {m:"instagram",a:"levillagedesrecruteurs",d:"12/06/2026",t:"✨ Retour sur le Village des Recruteurs de Bordeaux — recruteurs, candidats et partenaires réunis pour une belle journée de rencontres !",l:"https://www.instagram.com/reel/DZfSzhsI0w2/"},
-    {m:"linkedin",a:"Le Village des Recruteurs",d:"12/06/2026",t:"1 250 participants et 49 exposants se sont retrouvés autour d'un même objectif : faire les bonnes rencontres. Merci à toutes et tous !",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471170948713476097"},
-    {m:"linkedin",a:"Le Village des Recruteurs",d:"12/06/2026",t:"Depuis son premier magasin Penneys en Irlande, l'histoire de Primark est marquée par un succès incontestable — un partenaire du Village !",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471168440792297472"}
-  ];
-  var SOCMETA={linkedin:['#0A66C2','in','LinkedIn'],instagram:['#E1306C','◎','Instagram'],facebook:['#1877F2','f','Facebook'],twitter:['#111','𝕏','X'],youtube:['#FF0000','▶','YouTube']};
-  var sw=document.getElementById('social-wall');
-  if(sw)sw.innerHTML=SOCIALFEED.map(function(p){
-    var mm=SOCMETA[p.m]||['#666','•',p.m];
-    return '<div class="sw-col"><div class="sw-head"><span class="ic" style="background:'+mm[0]+'">'+mm[1]+'</span><div><b>'+p.a+'</b><span style="display:block;font-size:.72rem;color:var(--muted);font-weight:600">'+mm[2]+' · '+p.d+'</span></div></div><p style="font-size:.9rem;color:var(--ink);line-height:1.5">'+p.t+'</p><a href="'+p.l+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:.7rem;font-weight:800;font-size:.85rem;color:var(--blue)">Voir le post ↗</a></div>';
-  }).join('');
+  /* SOCIAL — 5 derniers posts du Village par plateforme (source : Odoo Social Marketing, comptes « Le Village des Recruteurs ») */
+  var SOCIALCOLS={
+    linkedin:[
+      {d:"09/07/2026",t:"📢 Job Events & Le Village des Recruteurs recrutent ! Vous êtes passionné(e) par l'événementiel et la gestion de projet ? Vous aimez…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480908524047347713"},
+      {d:"17/06/2026",t:"Nexity Studéa, acteur historique depuis 1987 et aujourd'hui référent de la résidence pour étudiants et jeunes actifs en France, est présent…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7472914479027159041"},
+      {d:"12/06/2026",t:"1 250 participants et 49 exposants se sont retrouvés hier autour d'un même objectif : faire les bonnes rencontres. Les candidats présents…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471170948713476097"},
+      {d:"12/06/2026",t:"Depuis son tout premier magasin Penneys en Irlande, l'histoire de Primark est marquée par un succès incontestable. La conviction profonde…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471168440792297472"},
+      {d:"12/06/2026",t:"Alison CARREIRA, cheffe de projet du Village des Recruteurs, revient sur cette 10e édition bordelaise. 1 250 participants, près de 50…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471129348310433792"}
+    ],
+    facebook:[
+      {d:"10/06/2026",t:"🎬 J-1 avant le Village des Recruteurs à Bordeaux ! Petit aperçu des coulisses et des derniers préparatifs avant l'ouverture des portes. 🚀…",u:"https://www.facebook.com/107862676212389_1317961040467086"},
+      {d:"09/06/2026",t:"Webinaire gratuit pour t'aider à trouver une alternance ! 👀 Demain 16h30-17h30 inscription sur le village des recruteurs de bordeaux…",u:"https://www.facebook.com/107862676212389_1316967217233135"},
+      {d:"09/06/2026",t:"Tu ne sais pas trop comment te présenter à un recruteur ? Demain au Hangar 14, des partenaires emploi sont là dès 9h30 pour t'aider à te…",u:"https://www.facebook.com/107862676212389_1316709703925553"},
+      {d:"04/06/2026",t:"Envoyer 50 candidatures sans jamais avoir de retour, c'est le red flag qu'on connaît tous. Le 11 juin à Bordeaux, tu parles à un vrai…",u:"https://www.facebook.com/107862676212389_1312579031005287"},
+      {d:"02/06/2026",t:"Tu cherches à aller à un salon emploi et tu ne sais pas trop à quoi t'attendre ? 👀 On t'explique tout : les entreprises présentes, les…",u:"https://www.facebook.com/107862676212389_1310907994505724"}
+    ],
+    instagram:[
+      {d:"12/06/2026",t:"✨ Retour sur le Village des Recruteurs de Bordeaux. Hier, recruteurs, candidats et partenaires se sont réunis pour une journée placée sous…",u:"https://www.instagram.com/reel/DZfSzhsI0w2/"},
+      {d:"10/06/2026",t:"🎬 J-1 avant le Village des Recruteurs à Bordeaux ! Petit aperçu des coulisses et des derniers préparatifs avant l'ouverture des portes. 🚀…",u:"https://www.instagram.com/reel/DZah6UVMshP/"},
+      {d:"09/06/2026",t:"Webinaire gratuit pour t'aider à trouver une alternance ! 👀 Demain 16h30-17h30 inscription sur le village des recruteurs de bordeaux…",u:"https://www.instagram.com/reel/DZXkJBMoLDd/"},
+      {d:"09/06/2026",t:"Tu ne sais pas trop comment te présenter à un recruteur ? Demain au Hangar 14, des partenaires emploi sont là dès 9h30 pour t'aider à te…",u:"https://www.instagram.com/p/DZW2JYLCAqZ/"},
+      {d:"04/06/2026",t:"Envoyer 50 candidatures sans jamais avoir de retour, c'est le red flag qu'on connaît tous. Le 11 juin à Bordeaux, tu parles à un vrai…",u:"https://www.instagram.com/p/DZKscaQDHOo/"}
+    ]
+  };
+  var SOCMETA={linkedin:['#0A66C2','in','LinkedIn'],facebook:['#1877F2','f','Facebook'],instagram:['#E1306C','◎','Instagram']};
+  (function(){
+    var host=document.getElementById('social-cols');
+    if(!host)return;
+    var order=['linkedin','facebook','instagram'];
+    host.innerHTML=order.map(function(k){
+      var mm=SOCMETA[k];
+      var cards=(SOCIALCOLS[k]||[]).map(function(p){
+        return '<div class="sw-post"><span class="sw-date">'+p.d+'</span><p>'+p.t+'</p><a href="'+p.u+'" target="_blank" rel="noopener">Voir le post ↗</a></div>';
+      }).join('');
+      return '<div class="sw-plat"><div class="sw-plat-head" style="background:'+mm[0]+'"><span class="ic">'+mm[1]+'</span>'+mm[2]+'</div><div class="sw-plat-body">'+cards+'</div></div>';
+    }).join('');
+  })();
 
   /* FAQ */
   var FAQ={
