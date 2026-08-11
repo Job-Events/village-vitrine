@@ -46,8 +46,10 @@
   .logo-village-img{height:46px;width:auto;display:block}
   .jobevents-img{height:56px;width:auto;display:block}
   .msq-img{height:24px;width:auto;display:block}
-  .foot-logo-chip{background:#fff;border-radius:12px;padding:.5rem .7rem;display:inline-block}
-  .ms-pill{background:#fff;border-radius:999px;padding:.35rem .75rem;display:inline-flex;align-items:center}
+  .foot-logo-chip{background:#FFF3E0;border-radius:14px;padding:.55rem .9rem;display:inline-block;box-shadow:0 3px 12px rgba(8,50,79,.12)}
+  .foot-logo-chip .msq-img{height:34px}
+  .ms-pill{background:rgba(255,249,241,.94);border-radius:999px;padding:.5rem 1.05rem;display:inline-flex;align-items:center;box-shadow:0 4px 16px rgba(8,50,79,.16)}
+  .ms-pill .msq-img{height:36px}
   .sdr-img{height:56px;width:auto;display:block}
 
   /* HEADER */
@@ -169,6 +171,8 @@
   .duo.color{background:#Eee}
   .duo.color img{filter:none;mix-blend-mode:normal}
   .duo.color::after{content:none;display:none}
+  .duo.comp{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#fff}
+  .duo.comp img{width:100%;height:100%;object-fit:cover;filter:none;mix-blend-mode:normal}
   .photo .cap,.photo .ph-badge{z-index:3}
   .hero-visual{position:relative;width:min(400px,86%);margin-inline:auto}
   .hero-visual .duo{position:relative;aspect-ratio:4/5;border-radius:200px 200px 26px 26px;box-shadow:var(--shadow);z-index:1}
@@ -340,6 +344,23 @@
   .evt .top .city{font-size:1.25rem;font-weight:900}
   .evt .status{position:absolute;top:.7rem;right:.8rem;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.24rem .6rem;border-radius:999px;background:rgba(255,255,255,.94);color:var(--green)}
   .evt .status.soon{color:var(--rose)}
+  .evt .status.done{color:#7a6a58}
+  .evt.is-past .top{filter:grayscale(.55) opacity(.9)}
+  .evt.is-past .body{opacity:.82}
+  .btn-off{background:#ece4d8;color:#9a8c78;border:2px solid transparent;cursor:not-allowed}
+  /* Modale candidat */
+  .cand-ov{position:fixed;inset:0;z-index:200;background:rgba(8,50,79,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1.2rem}
+  .cand-ov.open{display:flex}
+  .cand-box{position:relative;width:min(560px,100%);background:var(--paper,#FFF9F1);border-radius:22px;box-shadow:0 30px 80px rgba(8,50,79,.35);padding:2rem 1.9rem;max-height:92vh;overflow:auto}
+  .cand-x{position:absolute;top:.9rem;right:1rem;background:none;border:none;font-size:1.2rem;color:var(--muted);cursor:pointer;line-height:1}
+  .cand-h{font-size:1.5rem;margin:.5rem 0 .3rem;color:var(--navy)}
+  .cand-sub{color:var(--muted);font-size:.94rem;margin-bottom:1.1rem}
+  .cand-consent{display:flex;gap:.5rem;align-items:flex-start;font-size:.84rem;color:var(--muted);margin-top:.9rem;font-weight:600}
+  .cand-consent input{margin-top:.15rem}
+  .cand-ok{text-align:center;padding:1rem .5rem}
+  .cand-ok-ic{font-size:2.6rem}
+  .cand-ok h3{font-size:1.5rem;color:var(--navy);margin:.4rem 0}
+  .cand-ok p{color:var(--muted);margin-bottom:1.2rem}
   .evt .body{padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:.35rem}
   .coprod-band{font-size:.74rem;font-weight:800;color:var(--blue-d);background:#E7F1FA;border:1px solid #CFE3F5;border-radius:8px;padding:.35rem .6rem;margin-bottom:.5rem;line-height:1.3;min-height:2.1rem;display:flex;align-items:center;gap:.35em}
   .coprod-band.vdr{color:var(--rose);background:#FCEFF6;border-color:#F6BdD8}
@@ -1594,17 +1615,21 @@
     return '<div class="'+cls+'"><img loading="lazy" src="'+(PH[idx]||'')+'" alt="'+(label||'Village des Recruteurs')+'"></div>'
       +(label?'<span class="cap">'+label+'</span>':'');
   }
+  function compositeTile(idxs,label){
+    var imgs=idxs.map(function(i){return '<img loading="lazy" src="'+(PH[i]||'')+'" alt="'+(label||'')+'">';}).join('');
+    return '<div class="duo color comp">'+imgs+'</div>'+(label?'<span class="cap">'+label+'</span>':'');
+  }
   var gallery=[
     [20,'L\'affluence — Palais de la Bourse, Lyon',false],
-    [14,'La poignée de main',false],
+    [14,'Visite officielle',false],
     [19,'Recruteurs × candidats',false],
     [5,'Conférences & médias',false],
     [45,'Ateliers & coaching CV',false],
-    [13,'Partout en France',false],
-    [17,'Un accueil qui compte',true]
+    {composite:[8,30,42,55],label:'Partout en France'},
+    [17,'Un accueil qui compte',false]
   ];
   var hgl=document.getElementById('home-gallery');
-  if(hgl)gallery.forEach(function(p){var d=document.createElement('div');d.className='photo';d.innerHTML=photoTile(p[0],p[1],p[2]);hgl.appendChild(d);});
+  if(hgl)gallery.forEach(function(p){var d=document.createElement('div');d.className='photo';d.innerHTML=p.composite?compositeTile(p.composite,p.label):photoTile(p[0],p[1],p[2]);hgl.appendChild(d);});
   var cp=document.getElementById('cand-photo');
   if(cp)cp.innerHTML=photoTile(19,'Ta journée au Village',false);
   var hi=document.getElementById('hero-photo-img');
@@ -1705,13 +1730,13 @@
 
   /* EVENTS */
   var villages2026=[
-    {city:'Nantes',mois:'Mars',venue:'Exponantes',date:'3 mars 2026',count:'≈ 1 500 candidats',cA:'#E3007B',cB:'#B4005F',region:'Pays de la Loire',status:'',sectors:['Industrie','Logistique','Commerce','Numérique','Santé']},
-    {city:'Reims',mois:'Mai',venue:'Caveau Castelnau',date:'19 mai 2026',count:'≈ 1 150 candidats',cA:'#006FB7',cB:'#004E82',region:'Grand Est',status:'',sectors:['Vigne & agro','Commerce','Services','Industrie']},
-    {city:'Bordeaux',mois:'Juin',venue:'Hangar 14',date:'11 juin 2026',count:'≈ 2 000 candidats',cA:'#0FAE9E',cB:'#0A7D72',region:'Nouvelle-Aquitaine',status:'',sectors:['Numérique','BTP','Commerce','Tourisme','Santé']},
-    {city:'Toulouse',mois:'Septembre',venue:'Salle Mermoz',date:'16–17 sept. 2026',count:'≈ 5 000 candidats',cA:'#2FA36B',cB:'#1c6e45',region:'Occitanie',status:'',sectors:['Aéronautique','Numérique','Industrie','Services']},
-    {city:'Dijon',mois:'Septembre',venue:'Parc des Expositions',date:'24 sept. 2026',count:'≈ 2 500 candidats',cA:'#F8B322',cB:'#D98E00',region:'Bourgogne-Franche-Comté',status:'',sectors:['Agroalimentaire','Santé','Commerce','Industrie']},
-    {city:'Orléans',mois:'Octobre',venue:'Centre de Conférences',date:'8 oct. 2026',count:'≈ 2 000 candidats',cA:'#006FB7',cB:'#08324F',region:'Centre-Val de Loire',status:'',sectors:['Logistique','Cosmétique','Commerce','Services']},
-    {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
+    {city:'Nantes',mois:'Mars',venue:'Exponantes',date:'3 mars 2026',count:'≈ 1 500 candidats',cA:'#E3007B',cB:'#B4005F',region:'Pays de la Loire',status:'',state:'past',sectors:['Industrie','Logistique','Commerce','Numérique','Santé']},
+    {city:'Reims',mois:'Mai',venue:'Caveau Castelnau',date:'19 mai 2026',count:'≈ 1 150 candidats',cA:'#006FB7',cB:'#004E82',region:'Grand Est',status:'',state:'past',sectors:['Vigne & agro','Commerce','Services','Industrie']},
+    {city:'Bordeaux',mois:'Juin',venue:'Hangar 14',date:'11 juin 2026',count:'≈ 2 000 candidats',cA:'#0FAE9E',cB:'#0A7D72',region:'Nouvelle-Aquitaine',status:'',state:'past',sectors:['Numérique','BTP','Commerce','Tourisme','Santé']},
+    {city:'Toulouse',mois:'Septembre',venue:'Salle Mermoz',date:'16–17 sept. 2026',count:'≈ 5 000 candidats',cA:'#2FA36B',cB:'#1c6e45',region:'Occitanie',status:'',state:'open',ms:'https://toulouse.levillagedesrecruteurs.fr/02dabfb6-81f0-42c9-9169-bfaebe93472d/login',sectors:['Aéronautique','Numérique','Industrie','Services']},
+    {city:'Dijon',mois:'Septembre',venue:'Parc des Expositions',date:'24 sept. 2026',count:'≈ 2 500 candidats',cA:'#F8B322',cB:'#D98E00',region:'Bourgogne-Franche-Comté',status:'',state:'open',ms:'https://dijon.levillagedesrecruteurs.fr/e1adf45e-fb1d-4836-b0ed-5a5ba3387d03/login',sectors:['Agroalimentaire','Santé','Commerce','Industrie']},
+    {city:'Orléans',mois:'Octobre',venue:'Centre de Conférences',date:'8 oct. 2026',count:'≈ 2 000 candidats',cA:'#006FB7',cB:'#08324F',region:'Centre-Val de Loire',status:'',state:'open',ms:'https://orleans.levillagedesrecruteurs.fr/f2105e95-3f13-40ee-b90a-199fb1570be2/login',sectors:['Logistique','Cosmétique','Commerce','Services']},
+    {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
   ];
   var villages2027=[
     {city:'Nancy',mois:'Janvier',date:'Janvier 2027',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Projet RH'},
@@ -1727,10 +1752,19 @@
     {city:'Rennes',mois:'Novembre',date:'Novembre 2027',cA:'#E3007B',cB:'#B4005F',coprod:'Co-produit avec Projet RH'}
   ];
   function evtCard2026(v,idx){
+    if(v.state==='past'){
+      return '<div class="evt is-past">'
+        +'<div class="top" onclick="openVillage('+idx+')" style="background:linear-gradient(135deg,'+v.cA+','+v.cB+')"><span class="status done">'+v.mois+' · Édition passée</span><span class="city">'+v.city+'</span></div>'
+        +'<div class="body"><div class="meta">📍 <b>'+v.venue+'</b></div><div class="meta">🗓️ <b>'+v.date+'</b></div><div class="meta">👥 '+v.count+'</div>'
+        +'<div class="acts"><button class="btn btn-off" disabled>Édition terminée</button><button class="btn btn-ghost" onclick="openVillage('+idx+')">Revoir l\'édition</button></div></div></div>';
+    }
+    var reg = v.ms
+      ? '<a class="btn btn-primary" href="'+v.ms+'" target="_blank" rel="noopener">S\'inscrire ↗</a>'
+      : '<a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">S\'inscrire</a>';
     return '<div class="evt">'
       +'<div class="top" onclick="openVillage('+idx+')" style="background:linear-gradient(135deg,'+v.cA+','+v.cB+')"><span class="status">'+v.mois+' · Inscriptions ouvertes</span><span class="city">'+v.city+'</span></div>'
       +'<div class="body"><div class="meta">📍 <b>'+v.venue+'</b></div><div class="meta">🗓️ <b>'+v.date+'</b></div><div class="meta">👥 '+v.count+'</div>'
-      +'<div class="acts"><a class="btn btn-primary" href="'+odooUrl('/event','event-'+v.city)+'" target="_blank" rel="noopener">S\'inscrire ↗</a><button class="btn btn-ghost" onclick="openVillage('+idx+')">Exposer / détails</button></div></div></div>';
+      +'<div class="acts">'+reg+'<button class="btn btn-ghost" onclick="openVillage('+idx+')">Exposer / détails</button></div></div></div>';
   }
   function evtCard2027(v){
     var band=v.coprod
@@ -1739,12 +1773,12 @@
     return '<div class="evt">'
       +'<div class="top" style="background:linear-gradient(135deg,'+v.cA+','+v.cB+')"><span class="status soon">'+v.mois+' · Pré-inscription</span><span class="city">'+v.city+'</span></div>'
       +'<div class="body">'+band+'<div class="meta">🗓️ <b>'+v.date+'</b></div><div class="meta">📍 <b>Lieu à confirmer</b></div><div class="meta">👥 Save the date</div>'
-      +'<div class="acts"><button class="btn btn-primary" onclick="go(\'contact\')">Être alerté·e</button><button class="btn btn-ghost" onclick="openExpo(\'Recruteur / Entreprise\')">Réserver un stand</button></div></div></div>';
+      +'<div class="acts"><a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">S\'inscrire</a><button class="btn btn-ghost" onclick="openExpo(\'Recruteur / Entreprise\')">Réserver un stand</button></div></div></div>';
   }
   (function(){
     var a=document.getElementById('all-events-2026');if(a)a.innerHTML=villages2026.map(evtCard2026).join('');
     var b=document.getElementById('all-events-2027');if(b)b.innerHTML=villages2027.map(evtCard2027).join('');
-    var h=document.getElementById('home-events');if(h)h.innerHTML=villages2026.slice(0,3).map(evtCard2026).join('');
+    var h=document.getElementById('home-events');if(h){var openv=villages2026.map(function(v,i){return {v:v,i:i};}).filter(function(o){return o.v.state!=='past';}).slice(0,3);h.innerHTML=openv.map(function(o){return evtCard2026(o.v,o.i);}).join('');}
   })();
   function setYear(y){
     document.querySelectorAll('.evt-tab').forEach(t=>t.classList.toggle('active',t.dataset.year===y));
@@ -1901,10 +1935,10 @@
     document.getElementById('sim-pack-desc').textContent=p.desc;
     computeSim();
   }
-  function cityList(){return (simState.year==='2027'?villages2027:villages2026).map(function(v){return v.city;});}
+  function cityList(){return (simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past';}).map(function(v){return v.city;});}
   function renderCities(){
     var wrap=document.getElementById('sim-cities');if(!wrap)return;
-    var arr=(simState.year==='2027'?villages2027:villages2026);
+    var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past';});
     wrap.innerHTML=arr.map(function(v){return '<label><input type="checkbox" class="sim-city" value="'+v.city+'"> <span class="ci-mois">'+v.mois+'</span> '+v.city+'</label>';}).join('');
     wrap.querySelectorAll('input').forEach(function(i){i.addEventListener('change',computeSim);});
     var ea=document.getElementById('d-early'), line=document.getElementById('line-early');
@@ -2004,6 +2038,75 @@
     window.location.href=odooUrl('/contactus','exposer'+(type?':'+type:''));
   }
   function submitForm(e,which){e.preventDefault();var s=document.getElementById('ok-'+which);s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});return false;}
+
+  /* ---- FORMULAIRE CANDIDAT (salons à venir) → liste de distribution par ville ---- */
+  // Villes proposées : la tournée à venir (éditions non encore ouvertes)
+  var CAND_CITIES=(function(){var seen={},out=[];villages2027.forEach(function(v){if(!seen[v.city]){seen[v.city]=1;out.push(v.city);}});return out;})();
+  // Correspondance ville → liste de distribution Odoo (Web-marketing). À compléter après création des listes.
+  var CAND_LISTS=window.CAND_LISTS||{};
+  function openCandForm(city){
+    var ov=document.getElementById('cand-ov');if(!ov)return;
+    var sel=document.getElementById('cand-ville');
+    if(sel&&!sel.dataset.built){
+      sel.innerHTML=CAND_CITIES.map(function(c){return '<option>'+c+'</option>';}).join('');
+      sel.dataset.built='1';
+    }
+    if(sel&&city){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===city){sel.selectedIndex=i;break;}}}
+    document.getElementById('cand-ok').style.display='none';
+    document.getElementById('cand-body').style.display='block';
+    ov.classList.add('open');document.body.style.overflow='hidden';
+  }
+  function closeCandForm(){var ov=document.getElementById('cand-ov');if(ov)ov.classList.remove('open');document.body.style.overflow='';}
+  function submitCand(e){
+    e.preventDefault();
+    var ville=document.getElementById('cand-ville').value;
+    var okVille=document.getElementById('cand-ok-ville');if(okVille)okVille.textContent=ville;
+    // Enregistrement dans la liste Odoo de la ville (branché à l'étape Odoo — voir CAND_LISTS)
+    var listId=CAND_LISTS[ville];
+    if(listId){
+      try{
+        var fd=new FormData();
+        fd.append('list_id',listId);
+        fd.append('value',document.getElementById('cand-email').value);
+        fd.append('subscription_type','email');
+        fetch('https://evenements.levillagedesrecruteurs.fr/website_mass_mailing/subscribe',{method:'POST',mode:'no-cors',body:fd});
+      }catch(err){}
+    }
+    document.getElementById('cand-body').style.display='none';
+    document.getElementById('cand-ok').style.display='block';
+    return false;
+  }
+  window.openCandForm=openCandForm;window.closeCandForm=closeCandForm;
 </script>
+
+<div class="cand-ov" id="cand-ov" onclick="if(event.target===this)closeCandForm()">
+  <div class="cand-box">
+    <button class="cand-x" onclick="closeCandForm()" aria-label="Fermer">✕</button>
+    <div id="cand-body">
+      <span class="eyebrow">🎟️ Édition à venir</span>
+      <h3 class="cand-h">Je m'inscris pour être candidat·e</h3>
+      <p class="cand-sub">Laisse-nous tes coordonnées&nbsp;: dès l'ouverture des inscriptions de ton Village, on t'invite à créer ton profil et à préparer tes rendez-vous.</p>
+      <form onsubmit="return submitCand(event)">
+        <div class="fgrid">
+          <div><label>Prénom *</label><input id="cand-prenom" required placeholder="Ton prénom"></div>
+          <div><label>Nom *</label><input id="cand-nom" required placeholder="Ton nom"></div>
+        </div>
+        <div class="fgrid">
+          <div><label>E-mail *</label><input id="cand-email" type="email" required placeholder="toi@email.com"></div>
+          <div><label>Ville du Village *</label><select id="cand-ville" required></select></div>
+        </div>
+        <label class="cand-consent"><input type="checkbox" required> J'accepte d'être recontacté·e à propos de cette édition.</label>
+        <div style="margin-top:1rem"><button class="btn btn-primary" type="submit" style="width:100%">Rejoindre la liste ↗</button></div>
+      </form>
+      <p class="form-note">Tes coordonnées sont ajoutées à la liste de ta ville pour t'inviter à l'ouverture des inscriptions.</p>
+    </div>
+    <div class="cand-ok" id="cand-ok" style="display:none">
+      <div class="cand-ok-ic">✅</div>
+      <h3>C'est noté&nbsp;!</h3>
+      <p>Tu es inscrit·e sur la liste du Village de <b id="cand-ok-ville"></b>. On te recontacte dès l'ouverture des inscriptions pour préparer ta journée.</p>
+      <button class="btn btn-primary" onclick="closeCandForm()">Fermer</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
