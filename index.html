@@ -208,6 +208,7 @@
   /* LOGO WALL */
   .uc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
   .uc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.4rem;box-shadow:var(--shadow-sm)}
+  .uc .fi{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:1.3rem}
   .uc h3{font-size:1.05rem;margin:.7rem 0 .3rem;color:var(--navy)}
   .uc p{font-size:.9rem;color:var(--muted)}
   @media(max-width:820px){.uc-grid{grid-template-columns:repeat(2,1fr)}}
@@ -1360,7 +1361,7 @@
         <p>Le mur social agrège automatiquement nos derniers posts LinkedIn, Instagram et Facebook.</p>
       </div>
       <div class="social-wall" id="social-wall"></div>
-      <p class="logo-note">Aperçu de démonstration — une fois connecté, le fil se met à jour tout seul (voir « Comment ça marche » ci-dessous).</p>
+      <p class="logo-note">Derniers posts agrégés depuis <b>Odoo Social Marketing</b> (LinkedIn, Instagram, Facebook). Instantané mis à jour régulièrement.</p>
       <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.4rem 1.6rem;margin-top:1.6rem;max-width:860px;margin-inline:auto">
         <b style="display:block;margin-bottom:.5rem">⚙️ Relier vos comptes pour un fil automatique — comment ça marche</b>
         <div style="background:linear-gradient(135deg,#E1F6E9,#fff);border:1px solid #2FA36B;border-radius:12px;padding:.8rem 1rem;margin-bottom:.7rem">
@@ -1842,16 +1843,20 @@
       +'<div class="ab"><div class="date">Article · '+a[1]+' de lecture</div><h3>'+a[2]+'</h3><p>'+a[3]+'</p><span class="rd">Lire l\'article →</span></div></div>';
   }).join('');
 
-  /* SOCIAL WALL */
-  var socials=[
-    ['LinkedIn','#0A66C2','in',[['#0FAE9E','#0A7D72','Job Events x Matching Square : le recrutement hybride'],['#006FB7','#08324F','Nos conseils recruteurs pour un stand qui convertit']]],
-    ['Instagram','#E1306C','◎',[['#F8B322','#D98E00','Les coulisses du montage à Bordeaux 📸'],['#FF5A5F','#c62a3f','Témoignage : « J\'ai trouvé mon alternance »']]],
-    ['Facebook','#1877F2','f',[['#E3007B','#B4005F','Retour en images sur le Village de Nantes 🎉'],['#006FB7','#004E82','400 entreprises vous attendent en 2026 !']]]
+  /* SOCIAL WALL — derniers posts (source : Odoo Social Marketing) */
+  var SOCIALFEED=[
+    {m:"linkedin",a:"Le Village des Recruteurs",d:"09/07/2026",t:"📢 Job Events & Le Village des Recruteurs recrutent ! Vous êtes passionné(e) par l'événementiel et la gestion de projet, vous aimez coordonner des événements d'envergure…",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480908524047347713"},
+    {m:"linkedin",a:"Job Events",d:"09/07/2026",t:"📢 Job Events recrute ! Vous êtes passionné(e) par l'événementiel et la gestion de projet ? Vous aimez coordonner des événements d'envergure et relever des défis au quotidien ?",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480904917394681857"},
+    {m:"linkedin",a:"Le Village des Recruteurs",d:"17/06/2026",t:"Nexity Studéa, acteur historique depuis 1987 et référent de la résidence pour étudiants et jeunes actifs en France, était présent sur le Village…",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7472914479027159041"},
+    {m:"instagram",a:"levillagedesrecruteurs",d:"12/06/2026",t:"✨ Retour sur le Village des Recruteurs de Bordeaux — recruteurs, candidats et partenaires réunis pour une belle journée de rencontres !",l:"https://www.instagram.com/reel/DZfSzhsI0w2/"},
+    {m:"linkedin",a:"Le Village des Recruteurs",d:"12/06/2026",t:"1 250 participants et 49 exposants se sont retrouvés autour d'un même objectif : faire les bonnes rencontres. Merci à toutes et tous !",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471170948713476097"},
+    {m:"linkedin",a:"Le Village des Recruteurs",d:"12/06/2026",t:"Depuis son premier magasin Penneys en Irlande, l'histoire de Primark est marquée par un succès incontestable — un partenaire du Village !",l:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471168440792297472"}
   ];
+  var SOCMETA={linkedin:['#0A66C2','in','LinkedIn'],instagram:['#E1306C','◎','Instagram'],facebook:['#1877F2','f','Facebook'],twitter:['#111','𝕏','X'],youtube:['#FF0000','▶','YouTube']};
   var sw=document.getElementById('social-wall');
-  if(sw)sw.innerHTML=socials.map(function(s){
-    var posts=s[3].map(function(p){return '<div class="sw-post"><div class="ph" style="background:linear-gradient(135deg,'+p[0]+','+p[1]+')"></div><p>'+p[2]+'</p><div class="mt">❤ 128 · 💬 14 · ↗ Partager</div></div>';}).join('');
-    return '<div class="sw-col"><div class="sw-head"><span class="ic" style="background:'+s[1]+'">'+s[2]+'</span>'+s[0]+'</div>'+posts+'</div>';
+  if(sw)sw.innerHTML=SOCIALFEED.map(function(p){
+    var mm=SOCMETA[p.m]||['#666','•',p.m];
+    return '<div class="sw-col"><div class="sw-head"><span class="ic" style="background:'+mm[0]+'">'+mm[1]+'</span><div><b>'+p.a+'</b><span style="display:block;font-size:.72rem;color:var(--muted);font-weight:600">'+mm[2]+' · '+p.d+'</span></div></div><p style="font-size:.9rem;color:var(--ink);line-height:1.5">'+p.t+'</p><a href="'+p.l+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:.7rem;font-weight:800;font-size:.85rem;color:var(--blue)">Voir le post ↗</a></div>';
   }).join('');
 
   /* FAQ */
