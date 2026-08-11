@@ -2049,17 +2049,14 @@
   var CAND_CITIES=(function(){var seen={},out=[];villages2027.forEach(function(v){if(!seen[v.city]){seen[v.city]=1;out.push(v.city);}});return out;})();
   // Correspondance ville → liste de distribution Odoo (Web-marketing). À compléter après création des listes.
   var CAND_LISTS=window.CAND_LISTS||{};
+  // Le bouton S'inscrire (salons à venir) redirige vers la page d'inscription native Odoo,
+  // avec la ville pré-sélectionnée et un suivi UTM. La page écrit dans la liste de distribution de la ville.
   function openCandForm(city){
-    var ov=document.getElementById('cand-ov');if(!ov)return;
-    var sel=document.getElementById('cand-ville');
-    if(sel&&!sel.dataset.built){
-      sel.innerHTML=CAND_CITIES.map(function(c){return '<option>'+c+'</option>';}).join('');
-      sel.dataset.built='1';
-    }
-    if(sel&&city){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===city){sel.selectedIndex=i;break;}}}
-    document.getElementById('cand-ok').style.display='none';
-    document.getElementById('cand-body').style.display='block';
-    ov.classList.add('open');document.body.style.overflow='hidden';
+    var base='https://www.levillagedesrecruteurs.fr/inscription-candidat';
+    var u=base+'?ville='+encodeURIComponent(city||'')
+      +'&utm_source=vitrine&utm_medium=site&utm_campaign=village'
+      +'&utm_content='+encodeURIComponent('inscription-'+(city||''));
+    window.location.href=u;
   }
   function closeCandForm(){var ov=document.getElementById('cand-ov');if(ov)ov.classList.remove('open');document.body.style.overflow='';}
   function submitCand(e){
