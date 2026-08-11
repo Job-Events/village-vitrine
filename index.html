@@ -875,8 +875,7 @@
       <h1>Le Village t'aide à trouver le bon emploi</h1>
       <p>Pas juste un job de plus : celui qui correspond à tes compétences et à tes ambitions. Au Village, tu es au centre : on t'oriente, on te connecte aux entreprises qui recrutent vraiment, on te suit avant, pendant et 5 jours après. Job Events coordonne tous ces acteurs ; l'inscription passe par Matching Square, pour arriver préparé.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
-        <a class="btn btn-primary" href="https://matchingsquare.com/" target="_blank" rel="noopener">Je m'inscris (gratuit) ↗</a>
-        <button class="btn btn-ghost" onclick="go('evenements')">Voir les Villages</button>
+        <button class="btn btn-primary" onclick="go('evenements')">Voir les événements</button>
       </div>
     </div>
   </div>
@@ -933,8 +932,9 @@
       <h1>Recrutez les bons profils, en face à face</h1>
       <p>Des candidats qui se déplacent pour vous, pré-qualifiés par Matching Square, et une organisation clé en main par Job Events. 15 à 40 candidats qualifiés par édition, de l'alternance au senior — un ROI mesurable dès le premier salon. Du concret, pas des promesses.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-blue" onclick="openExpo('Recruteur / Entreprise')">Découvrir les conditions pour exposer</button>
-        <button class="btn btn-ghost" onclick="go('evenements')">Voir les Villages &amp; dates</button>
+        <button class="btn btn-blue" onclick="go('evenements')">Voir les Villages</button>
+        <button class="btn btn-ghost" onclick="go('simulateur')">🧮 Simuler mon coût</button>
+        <button class="btn btn-ghost" onclick="openExpo('Recruteur / Entreprise')">Nous contacter</button>
       </div>
     </div>
   </div>
@@ -1749,10 +1749,10 @@
     {city:'Nantes',mois:'Mars',venue:'Exponantes',date:'3 mars 2026',count:'≈ 1 500 candidats',cA:'#E3007B',cB:'#B4005F',region:'Pays de la Loire',status:'',state:'past',sectors:['Industrie','Logistique','Commerce','Numérique','Santé']},
     {city:'Reims',mois:'Mai',venue:'Caveau Castelnau',date:'19 mai 2026',count:'≈ 1 150 candidats',cA:'#006FB7',cB:'#004E82',region:'Grand Est',status:'',state:'past',sectors:['Vigne & agro','Commerce','Services','Industrie']},
     {city:'Bordeaux',mois:'Juin',venue:'Hangar 14',date:'11 juin 2026',count:'≈ 2 000 candidats',cA:'#0FAE9E',cB:'#0A7D72',region:'Nouvelle-Aquitaine',status:'',state:'past',sectors:['Numérique','BTP','Commerce','Tourisme','Santé']},
-    {city:'Toulouse',mois:'Septembre',venue:'Salle Mermoz',date:'16–17 sept. 2026',count:'≈ 5 000 candidats',cA:'#2FA36B',cB:'#1c6e45',region:'Occitanie',status:'',state:'open',ms:'https://toulouse.levillagedesrecruteurs.fr/02dabfb6-81f0-42c9-9169-bfaebe93472d/login',photo:'https://www.levillagedesrecruteurs.fr/web/image/15142-redirect/loto-tekno-salle-jean-mermoz.webp',sectors:['Aéronautique','Numérique','Industrie','Services']},
-    {city:'Dijon',mois:'Septembre',venue:'Parc des Expositions',date:'24 sept. 2026',count:'≈ 2 500 candidats',cA:'#F8B322',cB:'#D98E00',region:'Bourgogne-Franche-Comté',status:'',state:'open',ms:'https://dijon.levillagedesrecruteurs.fr/e1adf45e-fb1d-4836-b0ed-5a5ba3387d03/login',photo:'https://www.levillagedesrecruteurs.fr/web/image/15151-f46e4010/0702967875396-web-tete.webp',sectors:['Agroalimentaire','Santé','Commerce','Industrie']},
-    {city:'Orléans',mois:'Octobre',venue:'Centre de Conférences',date:'8 oct. 2026',count:'≈ 2 000 candidats',cA:'#006FB7',cB:'#08324F',region:'Centre-Val de Loire',status:'',state:'open',ms:'https://orleans.levillagedesrecruteurs.fr/f2105e95-3f13-40ee-b90a-199fb1570be2/login',photo:'https://www.levillagedesrecruteurs.fr/web/image/15152-3ff6ef6d/facade-Ph.-Montigny.webp',sectors:['Logistique','Cosmétique','Commerce','Services']},
-    {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login',photo:'https://www.levillagedesrecruteurs.fr/web/image/15150-redirect/COUV-ARTICLES-1920x1080-2023-03-15T133744.914.jpg',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
+    {city:'Toulouse',mois:'Septembre',venue:'Salle Mermoz',date:'16–17 sept. 2026',count:'≈ 5 000 candidats',cA:'#2FA36B',cB:'#1c6e45',region:'Occitanie',status:'',state:'open',ms:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-1/register',photo:'https://www.levillagedesrecruteurs.fr/web/image/15142-redirect/loto-tekno-salle-jean-mermoz.webp',sectors:['Aéronautique','Numérique','Industrie','Services']},
+    {city:'Dijon',mois:'Septembre',venue:'Parc des Expositions',date:'24 sept. 2026',count:'≈ 2 500 candidats',cA:'#F8B322',cB:'#D98E00',region:'Bourgogne-Franche-Comté',status:'',state:'open',ms:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2/register',photo:'https://www.levillagedesrecruteurs.fr/web/image/15151-f46e4010/0702967875396-web-tete.webp',sectors:['Agroalimentaire','Santé','Commerce','Industrie']},
+    {city:'Orléans',mois:'Octobre',venue:'Centre de Conférences',date:'8 oct. 2026',count:'≈ 2 000 candidats',cA:'#006FB7',cB:'#08324F',region:'Centre-Val de Loire',status:'',state:'open',ms:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-orleans-3/register',photo:'https://www.levillagedesrecruteurs.fr/web/image/15152-3ff6ef6d/facade-Ph.-Montigny.webp',sectors:['Logistique','Cosmétique','Commerce','Services']},
+    {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-4/register',photo:'https://www.levillagedesrecruteurs.fr/web/image/15150-redirect/COUV-ARTICLES-1920x1080-2023-03-15T133744.914.jpg',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
   ];
   var villages2027=[
     {city:'Nancy',mois:'Janvier',date:'Janvier 2027',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Projet RH'},
@@ -2007,6 +2007,7 @@
     var volAmt=afterPack*evtPct, suAmt=afterPack*suPct, eaAmt=afterPack*eaPct;
     var coutParSalon=afterPack-volAmt-suAmt-eaAmt;
     var ht=coutParSalon*N;
+    simState.lastHT=ht;simState.lastN=N;
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné — estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+' — remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
     var rows='';
@@ -2021,7 +2022,7 @@
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
       +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
-      +'<button class="btn btn-primary" onclick="openExpo(\'Recruteur / Entreprise\')">Demander une offre ferme</button>'
+      +'<button class="btn btn-primary" onclick="demandeSimulateur()">Demander une offre ferme (avec ma simulation)</button>'
       +'<button class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4);width:100%;justify-content:center;margin-top:.5rem" onclick="resetSim()">↺ Réinitialiser</button>';
     document.getElementById('sim-recap').innerHTML=recap;
   }
@@ -2055,9 +2056,34 @@
     document.getElementById('form-candidat').style.display=tab==='candidat'?'block':'none';
     document.getElementById('form-expo').style.display=tab==='expo'?'block':'none';
   }
-  function openExpo(type){
-    window.location.href=odooUrl('/contactus','exposer'+(type?':'+type:''));
+  /* ---- DEMANDE EXPOSANT → page de contact native Odoo (avec simulation en option) ---- */
+  function demandeUrl(opts){
+    opts=opts||{};
+    var u='https://www.levillagedesrecruteurs.fr/demande-exposant?utm_source=vitrine&utm_medium=site&utm_campaign=village';
+    if(opts.type)u+='&type='+encodeURIComponent(opts.type);
+    if(opts.produits)u+='&produits='+encodeURIComponent(opts.produits);
+    return u;
   }
+  /* Résumé texte de la configuration du simulateur (produits + villes + remises + total) */
+  function simSelection(){
+    var lines=[];
+    SIM.packs.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+' — '+euro(it.price*q));});
+    SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+' — '+euro(it.price*q));});
+    var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
+    var disc=[];
+    if(simState.packName)disc.push(simState.packName+' (-'+Math.round(simState.packDisc*100)+'%)');
+    if(document.getElementById('d-startup')&&document.getElementById('d-startup').checked)disc.push('Société < 5 ans (-15%)');
+    if(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked)disc.push('Réservation anticipée (-10%)');
+    var txt='=== Ma configuration (simulateur) ===\n'+(lines.length?lines.join('\n'):'(aucun produit sélectionné)');
+    if(cities.length)txt+='\n\nVillages : '+cities.join(', ');
+    txt+='\nNombre de salons : × '+(simState.lastN||1);
+    if(disc.length)txt+='\nRemises : '+disc.join(', ');
+    txt+='\n\nEstimation : '+euro(simState.lastHT||0)+' HT ('+euro((simState.lastHT||0)*1.2)+' TTC — TVA 20%)';
+    txt+='\n(Estimation indicative issue du simulateur en ligne, à confirmer.)';
+    return txt;
+  }
+  function openExpo(type){window.location.href=demandeUrl({type:type||'Recruteur / Entreprise'});}
+  function demandeSimulateur(){window.location.href=demandeUrl({type:'Recruteur / Entreprise',produits:simSelection()});}
   function submitForm(e,which){e.preventDefault();var s=document.getElementById('ok-'+which);s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});return false;}
 
   /* ---- FORMULAIRE CANDIDAT (salons à venir) → liste de distribution par ville ---- */
