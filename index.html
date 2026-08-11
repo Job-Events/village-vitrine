@@ -833,7 +833,7 @@
         <div class="evt-grid" id="all-events-2027"></div>
         <div style="text-align:center;margin-top:2rem">
           <button class="btn btn-primary" onclick="openExpo('Recruteur / Entreprise')">Réserver un stand 2027</button>
-          <button class="btn btn-ghost" onclick="go('contact')" style="margin-left:.6rem">Être alerté·e des dates</button>
+          <button class="btn btn-ghost" onclick="openCandContact()" style="margin-left:.6rem">Être alerté·e des dates</button>
         </div>
         <p class="logo-note">Programmation prévisionnelle 2027 — dates précises, lieux et co-productions confirmés au fil de l'eau.</p>
       </div>
@@ -922,7 +922,7 @@
           <h3 style="margin-top:.5rem">Réserve ta place</h3>
           <p>Crée ton profil sur Matching Square : profil, matching et agenda inclus. Tu découvres une partie des offres en avance — et tu prépares ta journée.</p>
           <a class="btn btn-primary" href="https://matchingsquare.com/" target="_blank" rel="noopener">M'inscrire maintenant ↗</a>
-          <button class="btn btn-ghost" onclick="go('contact')">Poser une question</button>
+          <button class="btn btn-ghost" onclick="openCandContact()">Poser une question</button>
           <div class="price-tag">✔ Sans engagement · ✔ Présentiel ou hybride</div>
         </div>
       </aside>
@@ -1441,11 +1441,27 @@
       <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
       <span class="eyebrow">❓ Foire aux questions</span>
       <h1>Vos questions, nos réponses</h1>
-      <p>Tout ce qu'il faut savoir avant de rejoindre le Village — que tu viennes chercher un emploi ou que vous souhaitiez exposer. Une question sans réponse ici ? <a onclick="go('contact')" style="color:var(--rose);cursor:pointer;font-weight:700">Écrivez-nous</a>.</p>
+      <p>Tout ce qu'il faut savoir avant de rejoindre le Village — que tu viennes chercher un emploi ou que vous souhaitiez exposer. Une question sans réponse ici ? <a onclick="openCandContact()" style="color:var(--rose);cursor:pointer;font-weight:700">Écrivez-nous</a>.</p>
     </div>
   </div>
   <section style="padding-top:2rem">
     <div class="wrap">
+      <div id="faq-cand-contact" style="max-width:820px;margin:0 auto 2rem">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.5rem 1.4rem;box-shadow:var(--shadow-sm)">
+          <span class="eyebrow">🙋 Une question ?</span>
+          <h3 style="margin:.4rem 0 .3rem;font-size:1.3rem">Écris à l'équipe du Village</h3>
+          <p style="color:var(--muted);font-size:.94rem;margin-bottom:1.1rem">Ton inscription, tes rendez-vous, un Village en particulier… Pose ta question, on te répond par e-mail.</p>
+          <form onsubmit="return sendCandContact(event)">
+            <div class="fgrid">
+              <div><label>Ton nom *</label><input id="cc-nom" required placeholder="Camille Dupont"></div>
+              <div><label>Ton e-mail *</label><input id="cc-email" type="email" required placeholder="camille@email.com"></div>
+            </div>
+            <label>Ton message *</label>
+            <textarea id="cc-msg" required placeholder="Ta question…"></textarea>
+            <div style="margin-top:1rem"><button class="btn btn-primary" type="submit">Envoyer ma question →</button></div>
+          </form>
+        </div>
+      </div>
       <div class="faq-tabs">
         <button class="faq-tab active" data-faq="cand" onclick="setFaq('cand')">🙋 Candidats</button>
         <button class="faq-tab" data-faq="expo" onclick="setFaq('expo')">🏢 Exposants</button>
@@ -1468,62 +1484,23 @@
     </div>
   </div>
   <section style="padding-top:1.4rem">
-    <div class="wrap" style="max-width:820px">
-      <div class="form-tabs">
-        <button class="form-tab active" data-tab="candidat" onclick="setTab('candidat')">🙋 Je suis candidat·e</button>
-        <button class="form-tab" data-tab="expo" onclick="setTab('expo')">🏢 Je veux exposer / un événement</button>
+    <div class="wrap" style="max-width:900px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem">
+        <div class="aside-card">
+          <span class="eyebrow">🙋 Je suis candidat·e</span>
+          <h3 style="margin:.5rem 0 .3rem">Une question ?</h3>
+          <p style="color:var(--muted)">Ton inscription, tes rendez-vous, un Village en particulier… Écris-nous, on te répond par e-mail. Et pour t'inscrire à un salon, ça se passe sur Matching Square.</p>
+          <button class="btn btn-primary" onclick="openCandContact()">Écrire à l'équipe →</button>
+          <a class="btn btn-ghost" href="https://matchingsquare.com/" target="_blank" rel="noopener">M'inscrire sur Matching Square ↗</a>
+        </div>
+        <div class="aside-card">
+          <span class="eyebrow blue">🏢 Recruteur, formateur, partenaire</span>
+          <h3 style="margin:.5rem 0 .3rem">Exposer ou co-construire un événement</h3>
+          <p style="color:var(--muted)">Recevez les conditions et convenons d'un échange. Vous pouvez joindre votre estimation issue du simulateur.</p>
+          <button class="btn btn-blue" onclick="openExpo('Recruteur / Entreprise')">Faire une demande →</button>
+          <button class="btn btn-ghost" onclick="go('simulateur')">🧮 Simuler mon coût</button>
+        </div>
       </div>
-      <form id="form-candidat" onsubmit="return submitForm(event,'candidat')">
-        <h3 style="margin-bottom:.3rem">Candidat·e — inscription gratuite</h3>
-        <p style="color:var(--muted);font-size:.92rem">L'inscription officielle se fait sur Matching Square. Laisse-nous tes infos et on te guide, ou inscris-toi directement.</p>
-        <div style="margin:1rem 0 1.3rem"><a class="btn btn-primary" href="https://matchingsquare.com/" target="_blank" rel="noopener">M'inscrire sur Matching Square ↗</a></div>
-        <div class="fgrid">
-          <div><label>Prénom *</label><input required placeholder="Camille"></div>
-          <div><label>Nom *</label><input required placeholder="Dupont"></div>
-        </div>
-        <div class="fgrid">
-          <div><label>E-mail *</label><input type="email" required placeholder="camille@email.com"></div>
-          <div><label>Village visé</label>
-            <select><option>Sélectionne une ville</option><option>Nantes</option><option>Reims</option><option>Bordeaux</option><option>Toulouse</option><option>Dijon</option><option>Orléans</option><option>Lyon</option></select>
-          </div>
-        </div>
-        <label>Ce que je cherche</label>
-        <select><option>Un emploi</option><option>Une orientation</option><option>Une formation</option><option>Une mission d'intérim</option><option>Créer mon activité</option><option>Je ne sais pas encore</option></select>
-        <div style="margin-top:1.1rem"><button class="btn btn-blue" type="submit">Être recontacté·e</button></div>
-        <div class="success" id="ok-candidat">✅ Merci&nbsp;! On te recontacte (prototype). Pense à finaliser ton inscription sur Matching Square pour préparer tes rendez-vous.</div>
-        <p class="form-note">Prototype de démonstration — aucune donnée n'est réellement transmise.</p>
-      </form>
-      <form id="form-expo" onsubmit="return submitForm(event,'expo')" style="display:none">
-        <h3 style="margin-bottom:.3rem">Exposer / organiser un événement</h3>
-        <p style="color:var(--muted);font-size:.92rem">On vous envoie le dossier et on convient d'un échange.</p>
-        <div class="fgrid">
-          <div><label>Organisation *</label><input required placeholder="Nom de votre structure"></div>
-          <div><label>Vous êtes *</label>
-            <select id="expo-type" required>
-              <option value="">Sélectionnez</option>
-              <option>Recruteur / Entreprise</option><option>Agence d'intérim</option>
-              <option>La Semaine des Recruteurs</option>
-              <option>Centre de formation</option><option>Entrepreneuriat</option>
-              <option>Partenaire / Institution</option><option>Événement sur mesure</option>
-            </select>
-          </div>
-        </div>
-        <div class="fgrid">
-          <div><label>Contact — nom *</label><input required placeholder="Votre nom"></div>
-          <div><label>E-mail professionnel *</label><input type="email" required placeholder="vous@organisation.com"></div>
-        </div>
-        <div class="fgrid">
-          <div><label>Téléphone</label><input placeholder="+32 / +33 ..."></div>
-          <div><label>Village(s) ou format visé</label>
-            <select><option>À discuter</option><option>Tournée 2026</option><option>Tournée 2027</option><option>Événement hybride</option><option>Événement sur mesure (Matching Square)</option></select>
-          </div>
-        </div>
-        <label>Votre projet / vos besoins</label>
-        <textarea placeholder="Ex : nous recrutons 15 profils logistique et souhaitons un stand sur le Village de Lyon..."></textarea>
-        <div style="margin-top:1.1rem"><button class="btn btn-navy" type="submit">Recevoir les conditions →</button></div>
-        <div class="success" id="ok-expo">✅ Merci&nbsp;! Votre demande est bien reçue (prototype). L'équipe Job Events vous recontacterait sous 48h ouvrées.</div>
-        <p class="form-note">Prototype de démonstration — aucune donnée n'est réellement transmise.</p>
-      </form>
     </div>
   </section>
 </div>
@@ -1898,6 +1875,7 @@
     document.querySelectorAll('.faq-tab').forEach(t=>t.classList.toggle('active',t.dataset.faq===which));
     document.getElementById('faq-cand').style.display=which==='cand'?'block':'none';
     document.getElementById('faq-expo').style.display=which==='expo'?'block':'none';
+    var _cc=document.getElementById('faq-cand-contact');if(_cc)_cc.style.display=which==='cand'?'block':'none';
   }
 
   /* ---- SIMULATEUR DE COUT (grille 2027, EUR HT) ---- */
@@ -2056,11 +2034,6 @@
   }
   window.addEventListener('hashchange',function(){var h=(location.hash||'').replace('#','');if(h&&document.getElementById('page-'+h))go(h);});
   window.addEventListener('load',function(){var h=(location.hash||'').replace('#','');if(h&&document.getElementById('page-'+h))go(h);});
-  function setTab(tab){
-    document.querySelectorAll('.form-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-    document.getElementById('form-candidat').style.display=tab==='candidat'?'block':'none';
-    document.getElementById('form-expo').style.display=tab==='expo'?'block':'none';
-  }
   /* ---- DEMANDE EXPOSANT → page de contact native Odoo (avec simulation en option) ---- */
   function demandeUrl(opts){
     opts=opts||{};
@@ -2089,7 +2062,6 @@
   }
   function openExpo(type){window.location.href=demandeUrl({type:type||'Recruteur / Entreprise'});}
   function demandeSimulateur(){window.location.href=demandeUrl({type:'Recruteur / Entreprise',produits:simSelection()});}
-  function submitForm(e,which){e.preventDefault();var s=document.getElementById('ok-'+which);s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});return false;}
 
   /* ---- FORMULAIRE CANDIDAT (salons à venir) → liste de distribution par ville ---- */
   // Villes proposées : la tournée à venir (éditions non encore ouvertes)
@@ -2126,6 +2098,28 @@
     return false;
   }
   window.openCandForm=openCandForm;window.closeCandForm=closeCandForm;
+
+  /* ---- CONTACT CANDIDAT → page native Odoo (e-mail à communication@job.events) ---- */
+  function candContactUrl(opts){
+    opts=opts||{};
+    var u='https://www.levillagedesrecruteurs.fr/contact-candidat?utm_source=vitrine&utm_medium=site&utm_campaign=contact-candidat';
+    if(opts.nom)u+='&nom='+encodeURIComponent(opts.nom);
+    if(opts.email)u+='&email='+encodeURIComponent(opts.email);
+    if(opts.ville)u+='&ville='+encodeURIComponent(opts.ville);
+    if(opts.message)u+='&message='+encodeURIComponent(opts.message);
+    if(opts.auto)u+='&auto=1';
+    return u;
+  }
+  function openCandContact(){ window.location.href=candContactUrl({}); }
+  function sendCandContact(e){
+    if(e&&e.preventDefault)e.preventDefault();
+    var nom=((document.getElementById('cc-nom')||{}).value||'').trim();
+    var email=((document.getElementById('cc-email')||{}).value||'').trim();
+    var msg=((document.getElementById('cc-msg')||{}).value||'').trim();
+    window.location.href=candContactUrl({nom:nom,email:email,message:msg,auto:true});
+    return false;
+  }
+  window.openCandContact=openCandContact;window.sendCandContact=sendCandContact;
 </script>
 
 <div class="cand-ov" id="cand-ov" onclick="if(event.target===this)closeCandForm()">
