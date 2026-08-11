@@ -45,11 +45,11 @@
   .logo-village{display:inline-flex;align-items:center;cursor:pointer}
   .logo-village-img{height:46px;width:auto;display:block}
   .jobevents-img{height:56px;width:auto;display:block}
-  .msq-img{height:34px;width:auto;display:block}
+  .msq-img{height:44px;width:auto;display:block}
   .foot-logo-chip{background:transparent;border-radius:14px;padding:.3rem .5rem;display:inline-block}
-  .foot-logo-chip .msq-img{height:48px}
+  .foot-logo-chip .msq-img{height:60px}
   .ms-pill{background:rgba(255,249,241,.94);border-radius:999px;padding:.5rem 1.05rem;display:inline-flex;align-items:center;box-shadow:0 4px 16px rgba(8,50,79,.16)}
-  .ms-pill .msq-img{height:48px}
+  .ms-pill .msq-img{height:60px}
   .sdr-img{height:56px;width:auto;display:block}
 
   /* HEADER */
@@ -1589,7 +1589,7 @@
   /* MS badges on dark bands: white pill with logo */
   function msPill(){return '<span class="ms-powered">Propulsé par <span class="ms-pill"><img class="msq-img" src="'+LOGOS.msq+'" alt="Matching Square"></span></span>';}
   ['ms-badge-home','ms-badge-evt'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=msPill();});
-  var mh=document.getElementById('ms-logo-head');if(mh)mh.innerHTML='<img src="'+LOGOS.msq+'" style="height:40px" alt="Matching Square">';
+  var mh=document.getElementById('ms-logo-head');if(mh)mh.innerHTML='<img src="'+LOGOS.msq+'" style="height:58px" alt="Matching Square">';
 
   /* PHOTOS */
   function photoSVG(g1,g2,icon,label,badge){
