@@ -1461,7 +1461,6 @@
         </div>
         <div class="sim-card">
           <h3>Autres réductions</h3>
-          <div class="sim-line"><label><input type="checkbox" id="d-startup"> Société de moins de 5 ans <small>Jeune entreprise / start-up</small></label><span class="price">−15%</span></div>
           <div class="sim-line" id="line-early"><label><input type="checkbox" id="d-early"> Réservation anticipée <small id="early-note">Early booking — Tournée 2027 uniquement</small></label><span class="price">−10%</span></div>
         </div>
         <div class="sim-recap" id="sim-recap"></div>
@@ -2035,10 +2034,9 @@
       else if(nCities>=3)evtPct=0.15;
       else if(nCities===2)evtPct=0.10;
     }
-    var suPct=document.getElementById('d-startup').checked?0.15:0;
     var eaPct=(simState.year==='2027' && document.getElementById('d-early').checked)?0.10:0;
-    var volAmt=afterPack*evtPct, suAmt=afterPack*suPct, eaAmt=afterPack*eaPct;
-    var coutParSalon=afterPack-volAmt-suAmt-eaAmt;
+    var volAmt=afterPack*evtPct, eaAmt=afterPack*eaPct;
+    var coutParSalon=afterPack-volAmt-eaAmt;
     var ht=coutParSalon*N;
     simState.lastHT=ht;simState.lastN=N;
     var note=document.getElementById('sim-cities-note');
@@ -2050,9 +2048,8 @@
     rows+='<div class="sim-row"><span>Options</span><span>'+euro(opts)+'</span></div>';
     if(packDiscAmt>0)rows+='<div class="sim-row disc"><span>Remise '+(simState.packName||'pack')+' (-'+Math.round(simState.packDisc*100)+'%)</span><span>-'+euro(packDiscAmt)+'</span></div>';
     if(volAmt>0)rows+='<div class="sim-row disc"><span>Remise volume ('+nCities+' salons, -'+Math.round(evtPct*100)+'%)</span><span>-'+euro(volAmt)+'</span></div>';
-    if(suAmt>0)rows+='<div class="sim-row disc"><span>Remise société &lt; 5 ans (-15%)</span><span>-'+euro(suAmt)+'</span></div>';
     if(eaAmt>0)rows+='<div class="sim-row disc"><span>Remise early booking (-10%)</span><span>-'+euro(eaAmt)+'</span></div>';
-    rows+='<div class="sim-row" style="font-weight:800"><span>Coût par salon <small style="opacity:.7;font-weight:500">toutes remises incluses</small></span><span>'+euro(coutParSalon)+'</span></div>';
+    rows+='<div class="sim-row" style="font-weight:900;font-size:1.12rem;margin-top:.5rem;padding:.55rem .7rem;border-radius:10px;background:rgba(248,179,34,.16);border:1px solid rgba(248,179,34,.5)"><span>Coût par salon <small style="opacity:.75;font-weight:500;display:block">toutes remises incluses</small></span><span style="color:#F8B322">'+euro(coutParSalon)+'</span></div>';
     rows+='<div class="sim-row"><span>Nombre de salons</span><span>× '+N+'</span></div>';
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
@@ -2064,7 +2061,7 @@
   function resetSim(){
     SIM.packs.concat(SIM.options).forEach(function(it){setFieldVal(it.id, it.def?true:(it.type==='qty'?0:false));});
     document.querySelectorAll('#sim-cities .sim-city').forEach(function(c){c.checked=false;});
-    var su=document.getElementById('d-startup'), ea=document.getElementById('d-early'); if(su)su.checked=false; if(ea)ea.checked=false;
+    var ea=document.getElementById('d-early'); if(ea)ea.checked=false;
     simState.packDisc=0; simState.packName='';
     document.querySelectorAll('#sim-packs-choice button').forEach(function(b){b.classList.remove('active');});
     var pd=document.getElementById('sim-pack-desc'); if(pd)pd.textContent='';
@@ -2105,7 +2102,6 @@
     var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
     var disc=[];
     if(simState.packName)disc.push(simState.packName+' (-'+Math.round(simState.packDisc*100)+'%)');
-    if(document.getElementById('d-startup')&&document.getElementById('d-startup').checked)disc.push('Société < 5 ans (-15%)');
     if(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked)disc.push('Réservation anticipée (-10%)');
     var txt='=== Ma configuration (simulateur) ===\n'+(lines.length?lines.join('\n'):'(aucun produit sélectionné)');
     if(cities.length)txt+='\n\nVillages : '+cities.join(', ');
