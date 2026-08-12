@@ -2052,10 +2052,10 @@
     if(packDiscAmt>0)rows+='<div class="sim-row disc"><span>Remise '+(simState.packName||'pack')+' (-'+Math.round(simState.packDisc*100)+'%)</span><span>-'+euro(packDiscAmt)+'</span></div>';
     if(volAmt>0)rows+='<div class="sim-row disc"><span>Remise volume ('+nCities+' salons, -'+Math.round(evtPct*100)+'%)</span><span>-'+euro(volAmt)+'</span></div>';
     if(eaAmt>0)rows+='<div class="sim-row disc"><span>Remise early booking (-10%)</span><span>-'+euro(eaAmt)+'</span></div>';
-    rows+='<div class="sim-row" style="font-weight:900;font-size:1.12rem;margin-top:.5rem;padding:.55rem .7rem;border-radius:10px;background:rgba(248,179,34,.16);border:1px solid rgba(248,179,34,.5)"><span>Coût par salon <small style="opacity:.75;font-weight:500;display:block">toutes remises incluses</small></span><span style="color:#F8B322">'+euro(coutParSalon)+'</span></div>';
+    rows+='<div class="sim-row" style="font-weight:900;font-size:1.12rem;margin-top:.5rem;padding:.55rem .7rem;border-radius:10px;background:rgba(248,179,34,.16);border:1px solid rgba(248,179,34,.5)"><span>Coût par salon</span><span style="color:#F8B322">'+euro(coutParSalon)+'</span></div>';
     rows+='<div class="sim-row"><span>Nombre de salons</span><span>× '+N+'</span></div>';
     rows+='<div class="sim-row"><span>Sous-total salons</span><span>'+euro(coutParSalon*N)+'</span></div>';
-    if(fraisNet>0)rows+='<div class="sim-row"><span>Frais d\'inscription <small style="opacity:.7;font-weight:500;display:block">une seule fois, quel que soit le nombre de salons</small></span><span>'+euro(fraisNet)+'</span></div>';
+    if(fraisNet>0)rows+='<div class="sim-row"><span>Frais d\'inscription</span><span>'+euro(fraisNet)+'</span></div>';
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
       +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
