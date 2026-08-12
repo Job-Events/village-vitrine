@@ -1930,7 +1930,7 @@
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
       {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:3},
       {id:'p_j2',n:'Deuxième jour',d:'Participation un second jour (Lyon uniquement)',price:300,type:'check'},
-      {id:'p_tpe',n:'Pack TPE',d:'Réduction petite entreprise',price:-250,type:'check'}
+      {id:'p_tpe',n:'Pack TPE',d:'Réduction — société de moins de 3 ans',price:-250,type:'check'}
     ],
     options:[
       {id:'o_digital',n:'Pack digital — 10 jours de RDV en ligne',d:'Prise de RDV en ligne avec les candidats + accès intégral à la CVthèque',price:400,type:'check',cat:'dig'},
@@ -2021,7 +2021,8 @@
     SIM.packs.forEach(function(it){packs+=it.price*val(it.id);});
     SIM.options.forEach(function(it){opts+=it.price*val(it.id);});
     var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
-    var subtotal=packs+frais+opts;
+    /* Coût par salon = stand + options ; les frais d'inscription sont comptés une seule fois */
+    var subtotal=packs+opts;
     var packDiscAmt=subtotal*simState.packDisc;
     var afterPack=subtotal-packDiscAmt;
     /* villes -> nombre de salons + remise volume */
@@ -2037,20 +2038,24 @@
     var eaPct=(simState.year==='2027' && document.getElementById('d-early').checked)?0.10:0;
     var volAmt=afterPack*evtPct, eaAmt=afterPack*eaPct;
     var coutParSalon=afterPack-volAmt-eaAmt;
-    var ht=coutParSalon*N;
+    /* Frais d'inscription : une seule fois au total, avec les mêmes remises appliquées */
+    var discFactor=(1-simState.packDisc)*(1-evtPct-eaPct);
+    var fraisNet=frais*discFactor;
+    var ht=coutParSalon*N + fraisNet;
     simState.lastHT=ht;simState.lastN=N;
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné — estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+' — remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
     var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     var rows='';
     rows+='<div class="sim-row"><span>Stand &amp; participation'+(_m2>0?' <small style="opacity:.7;font-weight:500">stand de '+_m2+' m² · '+_ppl+' pro'+(_ppl>1?'s':'')+'</small>':'')+'</span><span>'+euro(packs)+'</span></div>';
-    if(frais>0)rows+='<div class="sim-row"><span>Frais d\'inscription <small style="opacity:.7;font-weight:500">inclus avec le stand</small></span><span>'+euro(frais)+'</span></div>';
     rows+='<div class="sim-row"><span>Options</span><span>'+euro(opts)+'</span></div>';
     if(packDiscAmt>0)rows+='<div class="sim-row disc"><span>Remise '+(simState.packName||'pack')+' (-'+Math.round(simState.packDisc*100)+'%)</span><span>-'+euro(packDiscAmt)+'</span></div>';
     if(volAmt>0)rows+='<div class="sim-row disc"><span>Remise volume ('+nCities+' salons, -'+Math.round(evtPct*100)+'%)</span><span>-'+euro(volAmt)+'</span></div>';
     if(eaAmt>0)rows+='<div class="sim-row disc"><span>Remise early booking (-10%)</span><span>-'+euro(eaAmt)+'</span></div>';
     rows+='<div class="sim-row" style="font-weight:900;font-size:1.12rem;margin-top:.5rem;padding:.55rem .7rem;border-radius:10px;background:rgba(248,179,34,.16);border:1px solid rgba(248,179,34,.5)"><span>Coût par salon <small style="opacity:.75;font-weight:500;display:block">toutes remises incluses</small></span><span style="color:#F8B322">'+euro(coutParSalon)+'</span></div>';
     rows+='<div class="sim-row"><span>Nombre de salons</span><span>× '+N+'</span></div>';
+    rows+='<div class="sim-row"><span>Sous-total salons</span><span>'+euro(coutParSalon*N)+'</span></div>';
+    if(fraisNet>0)rows+='<div class="sim-row"><span>Frais d\'inscription <small style="opacity:.7;font-weight:500;display:block">une seule fois, quel que soit le nombre de salons</small></span><span>'+euro(fraisNet)+'</span></div>';
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
       +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
@@ -2097,7 +2102,7 @@
     var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     if(_m2>0)lines.push('• Stand de '+_m2+' m² — '+_ppl+' professionnel'+(_ppl>1?'s':''));
     SIM.packs.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+' — '+euro(it.price*q));});
-    if(val('p_present'))lines.push("• Frais d'inscription (inclus avec le stand) — "+euro(FRAIS_INSCRIPTION));
+    if(val('p_present'))lines.push("• Frais d'inscription (une seule fois, pour l'ensemble des salons) — "+euro(FRAIS_INSCRIPTION));
     SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+' — '+euro(it.price*q));});
     var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
     var disc=[];
