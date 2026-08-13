@@ -442,7 +442,14 @@
   .ml-wrap .muted{color:var(--muted);font-size:.9rem}
   .ml-fill{background:#FFF3C4;padding:0 .3rem;border-radius:4px;font-weight:700;color:#7a5b00}
   .ml-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem 1.3rem;margin:.6rem 0 1.2rem;box-shadow:var(--shadow-sm)}
-  footer .foot-bottom a{color:inherit;text-decoration:underline;cursor:pointer}
+  footer .foot-bottom a{display:inline;color:inherit;text-decoration:underline;cursor:pointer}
+  .prep-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  .prep-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.2rem;box-shadow:var(--shadow-sm)}
+  .prep-card .pi{font-size:1.6rem;display:block;margin-bottom:.35rem}
+  .prep-card b{display:block;margin-bottom:.25rem}
+  .prep-card p{color:var(--muted);font-size:.9rem;line-height:1.45;margin:0}
+  @media(max-width:900px){.prep-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.prep-grid{grid-template-columns:1fr}}
   @media(max-width:900px){.nv-layout{grid-template-columns:1fr}.nv-mapcol{position:static}}
   @media(max-width:520px){#nv-cards{grid-template-columns:1fr}}
 
@@ -548,7 +555,7 @@
   .foot-partners{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin-top:1.1rem}
   .foot-partners .fp-row{display:flex;align-items:center;gap:.5rem}
   .foot-partners .lbl{font-size:.72rem;color:rgba(36,26,18,.55);text-transform:uppercase;letter-spacing:.1em;min-width:5.2rem}
-  .foot-bottom{border-top:1px solid rgba(60,40,24,.16);margin-top:2.2rem;padding-top:1.3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:rgba(36,26,18,.6);font-size:.85rem}
+  .foot-bottom{border-top:1px solid rgba(60,40,24,.16);margin-top:2.2rem;padding-top:1.3rem;display:flex;justify-content:center;text-align:center;flex-wrap:wrap;gap:.4rem;color:rgba(36,26,18,.6);font-size:.85rem}
 
   /* RESPONSIVE */
   @media(max-width:980px){
@@ -616,10 +623,10 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow">🎯 Salon de l'emploi gratuit, en présentiel, près de chez toi</span>
+        <span class="eyebrow">🎯 Salon de l'emploi gratuit, en présentiel, près de chez vous</span>
         <h1>Il faut tout un Village<br>pour <span class="hl">trouver le bon emploi</span></h1>
-        <p class="lead">Le Village des Recruteurs, c'est un <b>salon de l'emploi gratuit</b> organisé comme un village : une journée, dans ta ville, où l'on réunit au même endroit tous ceux qui peuvent t'aider. Des entreprises qui recrutent (CDI, CDD, intérim), la formation, l'alternance et l'apprentissage, la reconversion, la création d'activité et les services publics de l'emploi. Tu rencontres tout le monde en direct, tu passes des entretiens sur place, tu repars avec des pistes concrètes.</p>
-        <p class="lead" style="font-size:.98rem;margin-top:-.3rem">Étudiant, jeune diplômé, en alternance ou en stage, demandeur d'emploi, en reconversion ou cadre : ce salon est fait pour toi. <b>7 villes en 2026, 11 en 2027.</b> Entrée libre et gratuite.</p>
+        <p class="lead">Le Village des Recruteurs, c'est un <b>salon de l'emploi gratuit</b> organisé comme un village : une journée, dans votre ville, où l'on réunit au même endroit tous ceux qui peuvent vous aider. Des entreprises qui recrutent (CDI, CDD, intérim), la formation, l'alternance et l'apprentissage, la reconversion, la création d'activité et les services publics de l'emploi. Vous rencontrez tout le monde en direct, vous passez des entretiens sur place, vous repartez avec des pistes concrètes.</p>
+        <p class="lead" style="font-size:.98rem;margin-top:-.3rem">Étudiant, jeune diplômé, en alternance ou en stage, demandeur d'emploi, en reconversion ou cadre : ce salon est fait pour vous. <b>7 villes en 2026, 11 en 2027.</b> Entrée libre et gratuite.</p>
         <div class="hero-cta">
           <button class="btn btn-primary" onclick="go('evenements')">Trouver le salon près de chez moi</button>
           <button class="btn btn-ghost" onclick="go('recruteurs')">Je recrute / exposer</button>
@@ -958,7 +965,7 @@
         <div class="feature"><div class="fi c6">🚀</div><div><b>Oser entreprendre</b><p>Et si ton projet devenait ton métier ? Des organismes te montrent comment.</p></div></div>
         <div class="feature"><div class="fi c7">🎤</div><div><b>T'inspirer</b><p>Conférences, témoignages et ateliers animés par des experts.</p></div></div>
 
-        <h2 style="font-size:1.6rem;margin:2.2rem 0 .4rem">Ta journée, étape par étape</h2>
+        <h2 style="font-size:1.6rem;margin:2.2rem 0 .4rem">Ton forum emploi, étape par étape</h2>
         <ol class="timeline">
           <li><b>Je m'inscris via Matching Square</b><p>Je crée mon profil, l'IA me propose les bons recruteurs.</p></li>
           <li><b>Je prépare mes rendez-vous</b><p>Agenda pré-qualifié, présentiel ou hybride, jusqu'à 5 jours avant.</p></li>
@@ -977,6 +984,21 @@
           <div class="price-tag">✔ Sans engagement · ✔ Présentiel ou hybride</div>
         </div>
       </aside>
+    </div>
+  </section>
+  <section style="padding-top:1rem;padding-bottom:2.6rem">
+    <div class="wrap">
+      <div class="sec-head" style="max-width:60ch;margin-bottom:1.4rem">
+        <span class="eyebrow">🎒 Le jour J</span>
+        <h2>Bien préparer votre visite</h2>
+        <p>Quelques repères pour profiter pleinement de votre journée au Village.</p>
+      </div>
+      <div class="prep-grid">
+        <div class="prep-card"><span class="pi">⏱️</span><b>Comptez 1h30 à 3h</b><p>La durée dépend du nombre de recruteurs que vous rencontrez et du temps que vous consacrez aux partenaires, conseillers et recruteurs présents. Prévoyez davantage si vous participez à des conférences ou des ateliers.</p></div>
+        <div class="prep-card"><span class="pi">📄</span><b>À emporter</b><p>Quelques copies imprimées de votre CV, un carnet et un stylo.</p></div>
+        <div class="prep-card"><span class="pi">🤝</span><b>Sur place</b><p>Allez à la rencontre de vos futurs employeurs et des conseillers, et préparez une présentation brève et percutante de votre profil.</p></div>
+        <div class="prep-card"><span class="pi">💡</span><b>Encore plus d'astuces</b><p>Retrouvez nos conseils pour réussir votre journée dans la rubrique <a onclick="go('blog')" style="color:var(--rose);font-weight:700;cursor:pointer">Actualité</a>.</p></div>
+      </div>
     </div>
   </section>
 </div>
@@ -1568,38 +1590,38 @@
   <section style="padding-top:2rem">
     <div class="wrap"><div class="ml-wrap">
       <div class="ml-card" style="border-left:4px solid var(--jaune)">
-        <p class="muted" style="margin:0">📝 Modèle à compléter et à faire valider juridiquement. Les éléments surlignés <span class="ml-fill">comme ceci</span> sont à renseigner avec les informations réelles de la société.</p>
+        <p class="muted" style="margin:0">ℹ️ Informations renseignées d'après l'extrait Kbis. Document indicatif, à faire valider par un professionnel du droit.</p>
       </div>
 
       <h2>1. Éditeur du site</h2>
-      <p>Le présent site est édité par <span class="ml-fill">[Dénomination sociale]</span>, <span class="ml-fill">[forme juridique, ex. SAS]</span> au capital de <span class="ml-fill">[montant] €</span>.</p>
-      <p>Siège social : <span class="ml-fill">[adresse complète]</span>.<br>
-      Immatriculée au RCS de <span class="ml-fill">[ville]</span> sous le numéro <span class="ml-fill">[n° RCS]</span> — SIRET <span class="ml-fill">[n° SIRET]</span>.<br>
-      TVA intracommunautaire : <span class="ml-fill">[n° TVA]</span>.</p>
-      <p>Directeur·rice de la publication : <span class="ml-fill">[nom et qualité]</span>.<br>
-      Contact : <span class="ml-fill">[adresse e-mail]</span> — <span class="ml-fill">[téléphone]</span>.</p>
+      <p>Le présent site est édité par Job Events, société par actions simplifiée (SAS) au capital de 6 000 €.</p>
+      <p>Siège social : 10 Chemin de l'Industrie, 69570 Dardilly.<br>
+      Immatriculée au RCS de Lyon sous le numéro 993 251 479 (n° de gestion 2025B09864) — SIREN 993 251 479.<br>
+      TVA intracommunautaire : FR03 993 251 479.</p>
+      <p>Directeur·rice de la publication : Marc-Antoine Henroz.<br>
+      Contact : marc-antoine@job.events — +32 471 50 49 27.</p>
 
       <h2>2. Hébergement</h2>
-      <p>Ce site est hébergé par <b>GitHub, Inc.</b> (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p>
+      <p>Ce site est hébergé par <b>GitHub, Inc.</b> (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com" target="_blank" rel="noopener">github.com</a>. Le site est constitué de pages statiques et n'héberge aucune donnée personnelle.</p>
       <p class="muted">En cas de changement d'hébergeur, pensez à mettre ces informations à jour.</p>
 
       <h2>3. Propriété intellectuelle</h2>
       <p>L'ensemble des contenus du site (textes, mise en page, éléments graphiques) est protégé par le droit de la propriété intellectuelle. Les marques, les logos des partenaires et exposants ainsi que les photographies des lieux et des salles demeurent la propriété de leurs titulaires respectifs et sont affichés à titre d'illustration ou avec leur autorisation. Toute reproduction ou réutilisation sans autorisation préalable est interdite.</p>
 
       <h2 id="ml-confid">4. Données personnelles (RGPD)</h2>
-      <p><b>Responsable de traitement :</b> <span class="ml-fill">[Dénomination sociale de l'éditeur]</span>.</p>
+      <p><b>Responsable de traitement :</b> Job Events (SAS), représentée par Marc-Antoine Henroz.</p>
       <p><b>Données collectées :</b> selon les formulaires utilisés — nom, prénom, adresse e-mail, téléphone, ville ou salon concerné, et informations de profil communiquées par le candidat.</p>
       <p><b>Finalités :</b> gestion des inscriptions aux Villages des Recruteurs, information sur les éditions à venir (alertes et listes de distribution), mise en relation des candidats et des recruteurs via Matching Square, traitement des demandes de contact et des demandes d'exposants.</p>
       <p><b>Bases légales :</b> votre consentement (alertes et communications), l'exécution de mesures précontractuelles et du contrat (inscription, réservation de stand) et l'intérêt légitime de l'organisateur (bon fonctionnement et amélioration du service).</p>
       <p><b>Destinataires :</b> Job Events (organisateur), la plateforme Matching Square, l'outil de gestion événementielle et d'e-mailing Odoo, ainsi que les prestataires techniques strictement nécessaires. Vos données ne sont pas vendues à des tiers.</p>
-      <p><b>Durée de conservation :</b> <span class="ml-fill">[à préciser — ex. 3 ans à compter du dernier contact]</span>.</p>
-      <p><b>Transferts hors Union européenne :</b> l'hébergement du site peut impliquer un transfert de données hors UE, encadré par des garanties appropriées.</p>
-      <p><b>Vos droits :</b> accès, rectification, effacement, limitation, opposition et portabilité, ainsi que le droit de retirer votre consentement à tout moment. Pour les exercer, écrivez à <span class="ml-fill">[e-mail dédié / DPO]</span>. Vous pouvez aussi introduire une réclamation auprès de la CNIL — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+      <p><b>Durée de conservation :</b> 3 ans à compter du dernier contact.</p>
+      <p><b>Hébergement des données :</b> le site n'héberge aucune donnée personnelle directement. Les informations transmises via les formulaires sont collectées, traitées et hébergées par les plateformes <b>Odoo</b> et <b>Matching Square</b>, sur des serveurs situés dans l'Union européenne.</p>
+      <p><b>Vos droits :</b> accès, rectification, effacement, limitation, opposition et portabilité, ainsi que le droit de retirer votre consentement à tout moment. Pour les exercer, écrivez à communication@job.events. Vous pouvez aussi introduire une réclamation auprès de la CNIL — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
 
       <h2 id="ml-cookies">5. Cookies</h2>
-      <p>Ce site utilise uniquement les cookies techniques nécessaires à son fonctionnement <span class="ml-fill">[à confirmer selon les outils réellement utilisés]</span>. Les redirections vers Matching Square et Odoo peuvent déposer leurs propres cookies, régis par les politiques de confidentialité de ces services. Si des outils de mesure d'audience ou de marketing sont ajoutés, un bandeau de recueil du consentement conforme aux recommandations de la CNIL sera mis en place.</p>
+      <p>Ce site utilise uniquement les cookies techniques nécessaires à son fonctionnement. Les redirections vers Matching Square et Odoo peuvent déposer leurs propres cookies, régis par les politiques de confidentialité de ces services. Si des outils de mesure d'audience ou de marketing sont ajoutés, un bandeau de recueil du consentement conforme aux recommandations de la CNIL sera mis en place.</p>
 
-      <p class="muted" style="margin-top:2rem">Dernière mise à jour : <span class="ml-fill">[date]</span> · Modèle indicatif, à faire valider par un professionnel du droit.</p>
+      <p class="muted" style="margin-top:2rem">Dernière mise à jour : 13 août 2026 · Modèle indicatif, à faire valider par un professionnel du droit.</p>
     </div></div>
   </section>
 </div>
@@ -1642,8 +1664,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Job Events, Le Village des Recruteurs · Propulsé par Matching Square · Prototype de concept</span>
-      <span><a onclick="go('mentions')">Mentions légales</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-confid');if(e)e.scrollIntoView();},60)">Confidentialité</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-cookies');if(e)e.scrollIntoView();},60)">Cookies</a></span>
+      <span>© 2026 Job Events, Le Village des Recruteurs · Propulsé par Matching Square · <a onclick="go('mentions')">Mentions légales</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-confid');if(e)e.scrollIntoView();},60)">Confidentialité</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-cookies');if(e)e.scrollIntoView();},60)">Cookies</a></span>
     </div>
   </div>
 </footer>
