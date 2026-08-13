@@ -1768,14 +1768,14 @@
   ];
   var villages2027=[
     {city:'Nancy',mois:'Janvier',date:'Janvier 2027',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Projet RH'},
-    {city:'Nantes',mois:'Février',date:'Février 2027',cA:'#E3007B',cB:'#B4005F',coprod:''},
-    {city:'Paris',mois:'Mars',date:'Mars 2027',cA:'#08324F',cB:'#006FB7',coprod:'En co-production (partenaire à préciser)'},
+    {city:'Nantes',mois:'Février',date:'Février 2027',venue:'Exponantes',cA:'#E3007B',cB:'#B4005F',coprod:''},
+    {city:'Paris',mois:'Mars',date:'Mars 2027',venue:'Parc des Princes',cA:'#08324F',cB:'#006FB7',coprod:'En co-production (partenaire à préciser)'},
     {city:'Lille',mois:'Avril',date:'Avril 2027',cA:'#0FAE9E',cB:'#0A7D72',coprod:''},
-    {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
-    {city:'Bordeaux',mois:'Juin',date:'Juin 2027',cA:'#2FA36B',cB:'#1c6e45',coprod:''},
-    {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
+    {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',venue:'Casino Pasino',cA:'#F8B322',cB:'#D98E00',coprod:''},
+    {city:'Bordeaux',mois:'Juin',date:'Juin 2027',venue:'Hôtel de Ville',cA:'#2FA36B',cB:'#1c6e45',coprod:''},
+    {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',venue:'Salle Mermoz',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
     {city:'Dijon',mois:'Septembre',date:'Septembre 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
-    {city:'Strasbourg',mois:'Septembre',date:'Septembre 2027',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Les Traqueurs de l\'Emploi'},
+    {city:'Strasbourg',mois:'Septembre',date:'Septembre 2027',venue:'Zénith de Strasbourg',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Les Traqueurs de l\'Emploi'},
     {city:'Lyon',mois:'Octobre',date:'Octobre 2027',cA:'#1C6DA8',cB:'#08324F',coprod:''},
     {city:'Rennes',mois:'Novembre',date:'Novembre 2027',cA:'#E3007B',cB:'#B4005F',coprod:'Co-produit avec Projet RH'}
   ];
@@ -1828,7 +1828,8 @@
   var NV_ODOO_FALLBACK='https://jobevents.odoo.com';
   function nvStatut(v){return v.statut||(v.state==='past'?'cloture':(v.ms?'ouvert':'avenir'));}
   function applyLinks(cfg){try{[['2026',villages2026],['2027',villages2027]].forEach(function(p){var m=cfg[p[0]]||{};p[1].forEach(function(v){var c=m[v.city];if(!c)return;if(c.statut)v.statut=c.statut;if('ms' in c)v.ms=c.ms;if('odoo' in c)v.odoo=c.odoo;if('candList' in c)v.candList=c.candList;});});}catch(e){}}
-  function nvPhoto(v,up){var sl=nvSlug(v.city);if(!up&&NV_PHOTOS[sl])return '<img loading="lazy" src="'+NV_PHOTOS[sl]+'" alt="'+((v.venue||'')+', '+v.city)+'">';return '<div class="nv-ph"><span>\uD83D\uDCCD</span><b>Lieu \u00e0 venir</b></div>';}
+  var VENUE_PHOTO={'exponantes':'nantes','salle-mermoz':'toulouse','hangar-14':'bordeaux','caveau-castelnau':'reims','parc-des-expositions':'dijon','centre-de-conferences':'orleans','palais-de-la-bourse':'lyon'};
+  function nvPhoto(v){var ck=VENUE_PHOTO[nvSlug(v.venue||'')];if(ck&&NV_PHOTOS[ck])return '<img loading="lazy" src="'+NV_PHOTOS[ck]+'" alt="'+((v.venue||'')+', '+v.city)+'">';var lbl=v.venue?v.venue:'Lieu à venir';return '<div class="nv-ph"><span>📍</span><b>'+lbl+'</b></div>';}
   function nvBadge(v){var s=nvStatut(v);if(s==='cloture')return '<span class="nv-hi closed">\u00c9v\u00e9nement cl\u00f4tur\u00e9</span>';if(s==='ouvert')return '<span class="nv-hi live">\u25CF Inscriptions ouvertes</span>';return '<span class="nv-hi soon">\u00c0 venir \u2728</span>';}
   function nvBtns(v){
     var st=nvStatut(v);
@@ -1846,7 +1847,7 @@
     return '<article class="nv-card '+(nvStatut(v)==='cloture'?'past':'')+' '+(up?'soon':'')+'" data-city="'+nvSlug(v.city)+'" style="--ac:'+v.cA+'">'
       +'<div class="nv-top">'+nvPhoto(v,up)+nvBadge(v)+'</div>'
       +'<div class="nv-b"><div class="nv-row"><h3>'+v.city+'</h3><span class="nv-date">'+v.date+'</span></div>'
-      +'<div class="nv-venue">\uD83D\uDCCD '+venue+' \u00b7 '+v.region+'</div>'
+      +'<div class="nv-venue">\uD83D\uDCCD '+venue+(v.region?' \u00b7 '+v.region:'')+'</div>'
       +'<div class="nv-meta2">'+nvMeta(v,up)+'</div>'
       +'<div class="nv-ctas">'+nvBtns(v)+'</div></div></article>';
   }
