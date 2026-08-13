@@ -436,6 +436,13 @@
   .nv-closed{display:block;text-align:center;background:var(--paper-2);color:var(--muted);font-weight:800;font-size:.82rem;border-radius:11px;padding:.55rem;border:1px dashed var(--line)}
   @keyframes nvpulse{0%{box-shadow:0 0 0 0 var(--ac,var(--blue))}100%{box-shadow:0 0 0 16px transparent}}
   .nv-card.pulse{animation:nvpulse .7s ease-out}
+  .ml-wrap{max-width:820px;margin:0 auto}
+  .ml-wrap h2{font-size:1.25rem;margin:1.8rem 0 .4rem}
+  .ml-wrap p{color:var(--ink);line-height:1.6;margin:.45rem 0}
+  .ml-wrap .muted{color:var(--muted);font-size:.9rem}
+  .ml-fill{background:#FFF3C4;padding:0 .3rem;border-radius:4px;font-weight:700;color:#7a5b00}
+  .ml-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem 1.3rem;margin:.6rem 0 1.2rem;box-shadow:var(--shadow-sm)}
+  footer .foot-bottom a{color:inherit;text-decoration:underline;cursor:pointer}
   @media(max-width:900px){.nv-layout{grid-template-columns:1fr}.nv-mapcol{position:static}}
   @media(max-width:520px){#nv-cards{grid-template-columns:1fr}}
 
@@ -1548,6 +1555,55 @@
   </section>
 </div>
 
+<!-- ===================== MENTIONS LÉGALES ===================== -->
+<div class="page" id="page-mentions">
+  <div class="phead">
+    <div class="wrap">
+      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <span class="eyebrow">⚖️ Informations légales</span>
+      <h1>Mentions légales &amp; Confidentialité</h1>
+      <p>Informations légales relatives à l'éditeur du site et politique de protection des données personnelles.</p>
+    </div>
+  </div>
+  <section style="padding-top:2rem">
+    <div class="wrap"><div class="ml-wrap">
+      <div class="ml-card" style="border-left:4px solid var(--jaune)">
+        <p class="muted" style="margin:0">📝 Modèle à compléter et à faire valider juridiquement. Les éléments surlignés <span class="ml-fill">comme ceci</span> sont à renseigner avec les informations réelles de la société.</p>
+      </div>
+
+      <h2>1. Éditeur du site</h2>
+      <p>Le présent site est édité par <span class="ml-fill">[Dénomination sociale]</span>, <span class="ml-fill">[forme juridique, ex. SAS]</span> au capital de <span class="ml-fill">[montant] €</span>.</p>
+      <p>Siège social : <span class="ml-fill">[adresse complète]</span>.<br>
+      Immatriculée au RCS de <span class="ml-fill">[ville]</span> sous le numéro <span class="ml-fill">[n° RCS]</span> — SIRET <span class="ml-fill">[n° SIRET]</span>.<br>
+      TVA intracommunautaire : <span class="ml-fill">[n° TVA]</span>.</p>
+      <p>Directeur·rice de la publication : <span class="ml-fill">[nom et qualité]</span>.<br>
+      Contact : <span class="ml-fill">[adresse e-mail]</span> — <span class="ml-fill">[téléphone]</span>.</p>
+
+      <h2>2. Hébergement</h2>
+      <p>Ce site est hébergé par <b>GitHub, Inc.</b> (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com" target="_blank" rel="noopener">github.com</a>.</p>
+      <p class="muted">En cas de changement d'hébergeur, pensez à mettre ces informations à jour.</p>
+
+      <h2>3. Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus du site (textes, mise en page, éléments graphiques) est protégé par le droit de la propriété intellectuelle. Les marques, les logos des partenaires et exposants ainsi que les photographies des lieux et des salles demeurent la propriété de leurs titulaires respectifs et sont affichés à titre d'illustration ou avec leur autorisation. Toute reproduction ou réutilisation sans autorisation préalable est interdite.</p>
+
+      <h2 id="ml-confid">4. Données personnelles (RGPD)</h2>
+      <p><b>Responsable de traitement :</b> <span class="ml-fill">[Dénomination sociale de l'éditeur]</span>.</p>
+      <p><b>Données collectées :</b> selon les formulaires utilisés — nom, prénom, adresse e-mail, téléphone, ville ou salon concerné, et informations de profil communiquées par le candidat.</p>
+      <p><b>Finalités :</b> gestion des inscriptions aux Villages des Recruteurs, information sur les éditions à venir (alertes et listes de distribution), mise en relation des candidats et des recruteurs via Matching Square, traitement des demandes de contact et des demandes d'exposants.</p>
+      <p><b>Bases légales :</b> votre consentement (alertes et communications), l'exécution de mesures précontractuelles et du contrat (inscription, réservation de stand) et l'intérêt légitime de l'organisateur (bon fonctionnement et amélioration du service).</p>
+      <p><b>Destinataires :</b> Job Events (organisateur), la plateforme Matching Square, l'outil de gestion événementielle et d'e-mailing Odoo, ainsi que les prestataires techniques strictement nécessaires. Vos données ne sont pas vendues à des tiers.</p>
+      <p><b>Durée de conservation :</b> <span class="ml-fill">[à préciser — ex. 3 ans à compter du dernier contact]</span>.</p>
+      <p><b>Transferts hors Union européenne :</b> l'hébergement du site peut impliquer un transfert de données hors UE, encadré par des garanties appropriées.</p>
+      <p><b>Vos droits :</b> accès, rectification, effacement, limitation, opposition et portabilité, ainsi que le droit de retirer votre consentement à tout moment. Pour les exercer, écrivez à <span class="ml-fill">[e-mail dédié / DPO]</span>. Vous pouvez aussi introduire une réclamation auprès de la CNIL — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+
+      <h2 id="ml-cookies">5. Cookies</h2>
+      <p>Ce site utilise uniquement les cookies techniques nécessaires à son fonctionnement <span class="ml-fill">[à confirmer selon les outils réellement utilisés]</span>. Les redirections vers Matching Square et Odoo peuvent déposer leurs propres cookies, régis par les politiques de confidentialité de ces services. Si des outils de mesure d'audience ou de marketing sont ajoutés, un bandeau de recueil du consentement conforme aux recommandations de la CNIL sera mis en place.</p>
+
+      <p class="muted" style="margin-top:2rem">Dernière mise à jour : <span class="ml-fill">[date]</span> · Modèle indicatif, à faire valider par un professionnel du droit.</p>
+    </div></div>
+  </section>
+</div>
+
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="wrap">
@@ -1587,7 +1643,7 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 Job Events, Le Village des Recruteurs · Propulsé par Matching Square · Prototype de concept</span>
-      <span>Mentions légales · Confidentialité · Cookies</span>
+      <span><a onclick="go('mentions')">Mentions légales</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-confid');if(e)e.scrollIntoView();},60)">Confidentialité</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-cookies');if(e)e.scrollIntoView();},60)">Cookies</a></span>
     </div>
   </div>
 </footer>
