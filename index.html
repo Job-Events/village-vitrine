@@ -302,6 +302,9 @@
   .seg button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
   .sim-subhead{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:.9rem 0 .1rem;padding-top:.7rem;border-top:1px dashed var(--line)}
   .sim-subhead:first-child{border-top:none;padding-top:0;margin-top:0}
+  .sim-selall{border:2px solid var(--blue);background:#fff;color:var(--blue);border-radius:9px;padding:.34rem .7rem;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .sim-selall:hover{background:var(--blue);color:#fff}
+  .sim-selall:disabled{opacity:.5;cursor:default}
   .sim-cities{display:grid;grid-template-columns:1fr 1fr;gap:.15rem .8rem;margin-top:.2rem}
   .sim-cities label{display:flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;cursor:pointer;padding:.25rem 0}
   .sim-cities input{width:18px;height:18px;accent-color:var(--rose);flex:0 0 auto}
@@ -621,7 +624,7 @@
       <div class="sec-head">
         <span class="eyebrow teal">Les habitants du Village</span>
         <h2>Emploi, alternance, formation : tout au même endroit</h2>
-        <p>Sur un seul salon, tu trouves des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de ta première question au premier jour de travail.</p>
+        <p style="max-width:42rem">Sur un seul salon, tu trouves des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de ta première question au premier jour de travail.</p>
       </div>
       <div class="eco-grid" id="eco-grid"></div>
       <p class="logo-note">Survolez (ou touchez) une étiquette pour découvrir des exemples d'acteurs.</p>
@@ -1436,6 +1439,7 @@
           <h3>Vos événements</h3>
           <p class="hint">Choisissez les Villages où vous exposez : la remise volume s'applique automatiquement (2 salons −10%, 3 salons et + −15%, toute la tournée −20%). Le coût est multiplié par le nombre de salons.</p>
           <div class="seg" id="sim-year" style="margin-bottom:.6rem"></div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:.45rem"><button type="button" id="sim-selall" class="sim-selall" onclick="toggleAllCities()">Tout sélectionner</button></div>
           <div class="sim-cities" id="sim-cities"></div>
           <p class="hint" id="sim-cities-note" style="margin:.6rem 0 0"></p>
         </div>
@@ -1909,7 +1913,7 @@
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
       {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:3},
-      {id:'p_j2',n:'Deuxième jour',d:'Participation un second jour (Lyon uniquement)',price:300,type:'check'},
+      {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
     options:[
@@ -1940,6 +1944,8 @@
     ]
   };
   var CATS=[['dig','Pack digital & visibilité en ligne'],['com',"Communication, magazine de l'événement"],['salon','Sur le salon'],['prolong','Vous ne pouvez pas être présent ?']];
+  /* Villes proposant un second jour, par tournée */
+  var J2_ELIGIBLE={'2026':['Toulouse','Lyon'],'2027':['Lyon']};
   var simState={packDisc:0,packName:'',year:'2026'};
   function euro(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0')+' €';}
   function lineHTML(it){
@@ -1998,7 +2004,7 @@
   function val(id){var e=document.querySelector('#page-simulateur [data-id="'+id+'"]');if(!e)return 0;return e.type==='checkbox'?(e.checked?1:0):(parseInt(e.value)||0);}
   function computeSim(){
     var packs=0, opts=0;
-    SIM.packs.forEach(function(it){packs+=it.price*val(it.id);});
+    SIM.packs.forEach(function(it){if(it.id==='p_j2')return;packs+=it.price*val(it.id);});
     SIM.options.forEach(function(it){opts+=it.price*val(it.id);});
     var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
     /* Coût par salon = stand + options ; les frais d'inscription sont comptés une seule fois */
@@ -2021,7 +2027,12 @@
     /* Frais d'inscription : une seule fois au total, avec les mêmes remises appliquées */
     var discFactor=(1-simState.packDisc)*(1-evtPct-eaPct);
     var fraisNet=frais*discFactor;
-    var ht=coutParSalon*N + fraisNet;
+    /* Deuxième jour : +300 € par ville éligible sélectionnée (tarif fixe, hors remises) */
+    var selCities=[].map.call(document.querySelectorAll('#sim-cities .sim-city:checked'),function(c){return c.value;});
+    var j2Elig=(J2_ELIGIBLE[simState.year]||[]);
+    var nJ2=val('p_j2')?selCities.filter(function(c){return j2Elig.indexOf(c)>-1;}).length:0;
+    var j2Cost=nJ2*300;
+    var ht=coutParSalon*N + fraisNet + j2Cost;
     simState.lastHT=ht;simState.lastN=N;
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+', remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
@@ -2036,12 +2047,17 @@
     rows+='<div class="sim-row"><span>Nombre de salons</span><span>× '+N+'</span></div>';
     rows+='<div class="sim-row"><span>Sous-total salons</span><span>'+euro(coutParSalon*N)+'</span></div>';
     if(fraisNet>0)rows+='<div class="sim-row"><span>Frais d\'inscription</span><span>'+euro(fraisNet)+'</span></div>';
+    if(val('p_j2')){
+      if(nJ2>0)rows+='<div class="sim-row"><span>Deuxième jour <small style="opacity:.7;font-weight:500">'+nJ2+' ville'+(nJ2>1?'s':'')+' éligible'+(nJ2>1?'s':'')+' × 300 €</small></span><span>'+euro(j2Cost)+'</span></div>';
+      else rows+='<div class="sim-row" style="opacity:.7"><span>Deuxième jour <small>aucune ville éligible sélectionnée</small></span><span>'+euro(0)+'</span></div>';
+    }
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
       +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
       +'<button class="btn btn-primary" onclick="demandeSimulateur()">Demander une offre ferme (avec ma simulation)</button>'
       +'<button class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4);width:100%;justify-content:center;margin-top:.5rem" onclick="resetSim()">↺ Réinitialiser</button>';
     document.getElementById('sim-recap').innerHTML=recap;
+    updateSelAllBtn();
   }
   function resetSim(){
     SIM.packs.concat(SIM.options).forEach(function(it){setFieldVal(it.id, it.def?true:(it.type==='qty'?0:false));});
@@ -2051,6 +2067,20 @@
     document.querySelectorAll('#sim-packs-choice button').forEach(function(b){b.classList.remove('active');});
     var pd=document.getElementById('sim-pack-desc'); if(pd)pd.textContent='';
     computeSim();
+  }
+  function toggleAllCities(){
+    var boxes=[].slice.call(document.querySelectorAll('#sim-cities .sim-city'));
+    var allOn=boxes.length>0 && boxes.every(function(b){return b.checked;});
+    boxes.forEach(function(b){b.checked=!allOn;});
+    computeSim();
+  }
+  window.toggleAllCities=toggleAllCities;
+  function updateSelAllBtn(){
+    var btn=document.getElementById('sim-selall');if(!btn)return;
+    var boxes=[].slice.call(document.querySelectorAll('#sim-cities .sim-city'));
+    var allOn=boxes.length>0 && boxes.every(function(b){return b.checked;});
+    btn.textContent=allOn?'Tout désélectionner':'Tout sélectionner';
+    btn.disabled=boxes.length===0;
   }
 
   /* ===== Intégration Odoo (événements + contact) + UTM ===== */
@@ -2081,10 +2111,11 @@
     var lines=[];
     var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     if(_m2>0)lines.push('• Stand de '+_m2+' m², '+_ppl+' professionnel'+(_ppl>1?'s':''));
-    SIM.packs.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
+    SIM.packs.forEach(function(it){if(it.id==='p_j2')return;var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
     if(val('p_present'))lines.push("• Frais d'inscription (une seule fois, pour l'ensemble des salons), "+euro(FRAIS_INSCRIPTION));
     SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
     var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
+    if(val('p_j2')){var _elig=(J2_ELIGIBLE[simState.year]||[]);var _j2c=cities.filter(function(c){return _elig.indexOf(c)>-1;});if(_j2c.length)lines.push('• Deuxième jour × '+_j2c.length+' ('+_j2c.join(', ')+'), '+euro(_j2c.length*300));}
     var disc=[];
     if(simState.packName)disc.push(simState.packName+' (-'+Math.round(simState.packDisc*100)+'%)');
     if(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked)disc.push('Réservation anticipée (-10%)');
