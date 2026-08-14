@@ -1960,7 +1960,7 @@
   }
   function setYear(y){document.querySelectorAll('.nv-yr').forEach(function(b){b.classList.toggle('on',b.dataset.year===y);});renderNV(y);}
   window.setYear=setYear;
-  (function(){if(!document.getElementById('nv-cards'))return;renderNV('2026');if(EVT_LINKS_URL){fetch(EVT_LINKS_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){applyLinks(cfg);var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2026');}).catch(function(){});}})();
+  (function(){if(!document.getElementById('nv-cards'))return;renderNV('2026');if(EVT_LINKS_URL){fetch(EVT_LINKS_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){applyLinks(cfg.links||cfg);var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2026');}).catch(function(){});}})();
 
   /* VILLAGE DETAIL */
   function openVillage(i){
@@ -2057,7 +2057,20 @@
   }
   (function(){
     renderSocial(SOCIALCOLS);
-    if(SOCIAL_URL){fetch(SOCIAL_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){renderSocial(j);}).catch(function(){});}
+    if(SOCIAL_URL){fetch(SOCIAL_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){renderSocial(j.social||j);}).catch(function(){});}
+  })();
+
+  /* SITE_CONFIG_URL : UNE seule page Odoo qui pilote à la fois les liens des événements ET l'Actualité.
+     Format attendu : { "links": { "2026": {…}, "2027": {…} }, "social": { "linkedin":[…], "facebook":[…], "instagram":[…] } }
+     Renseignez cette URL et laissez EVT_LINKS_URL / SOCIAL_URL vides. Si le fetch échoue, le site garde ses listes intégrées. */
+  var SITE_CONFIG_URL='';
+  (function(){
+    if(!SITE_CONFIG_URL)return;
+    fetch(SITE_CONFIG_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){
+      if(!cfg)return;
+      if(cfg.links){applyLinks(cfg.links);if(document.getElementById('nv-cards')){var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2026');}}
+      if(cfg.social){renderSocial(cfg.social);}
+    }).catch(function(){});
   })();
 
   /* FAQ */
