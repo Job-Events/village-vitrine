@@ -2035,13 +2035,18 @@
     ]
   };
   var SOCMETA={linkedin:['#0A66C2','#E7F0FB','in','LinkedIn'],facebook:['#1877F2','#E7F0FE','f','Facebook'],instagram:['#E1306C','#FCE7F1','◎','Instagram']};
-  (function(){
+  /* SOCIAL_URL : coller ici l'URL JSON publique (hébergée sur Odoo) pour piloter l'Actualité sans redéploiement.
+     Format attendu : {"linkedin":[{"d":"JJ/MM/AAAA","t":"texte du post…","u":"https://lien-du-post"}], "facebook":[…], "instagram":[…]}
+     Tant que SOCIAL_URL est vide, le site affiche la liste SOCIALCOLS ci-dessus. Si le fetch échoue, on garde aussi cette liste. */
+  var SOCIAL_URL='';
+  function renderSocial(data){
     var host=document.getElementById('social-cols');
     if(!host)return;
     var order=['linkedin','facebook','instagram'];
     host.innerHTML=order.map(function(k){
       var m=SOCMETA[k];
-      var cards=(SOCIALCOLS[k]||[]).map(function(p,i){
+      var list=(data&&data[k]&&data[k].length)?data[k]:(SOCIALCOLS[k]||[]);
+      var cards=list.map(function(p,i){
         return '<article class="sw-card'+(i===0?' feat':'')+'" style="--pc:'+m[0]+';--pcl:'+m[1]+'">'
           +'<div class="hd"><span class="av">'+m[2]+'</span><div><div class="who">Le Village des Recruteurs</div><span class="dt">'+m[3]+' · '+p.d+'</span></div></div>'
           +'<p class="tx">'+p.t+'</p>'
@@ -2049,6 +2054,10 @@
       }).join('');
       return '<div class="sw-col2"><div class="sw-col-head" style="background:'+m[0]+'"><span class="ic">'+m[2]+'</span>'+m[3]+'</div>'+cards+'</div>';
     }).join('');
+  }
+  (function(){
+    renderSocial(SOCIALCOLS);
+    if(SOCIAL_URL){fetch(SOCIAL_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){renderSocial(j);}).catch(function(){});}
   })();
 
   /* FAQ */
