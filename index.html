@@ -414,6 +414,27 @@
   .nv-pin:hover .nv-lbl,.nv-pin.active .nv-lbl,.nv-pin:focus .nv-lbl{opacity:1}
   .nv-pin:hover .nv-halo,.nv-pin.active .nv-halo{opacity:.34}
   #nv-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.nv-ov{background:linear-gradient(180deg,#fff,#fffdf9);border:1px solid var(--line);border-radius:18px;padding:1.1rem 1.3rem 1.3rem;box-shadow:var(--shadow-sm);margin:0 0 1.8rem}
+.nvf-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.nvf-title{font-size:1.12rem;font-weight:900;color:var(--navy)}
+.nvf-title small{display:block;font-size:.76rem;font-weight:600;color:var(--muted)}
+.nvf-stats{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted);align-items:center}
+.nvf-stats b{color:var(--navy);font-weight:900}.nvf-stats span{white-space:nowrap}
+.nvf-rail{position:relative;display:flex;align-items:flex-start;margin-top:1.6rem;overflow-x:auto;padding-bottom:.2rem}
+.nvf-rail::before{content:"";position:absolute;left:1.5%;right:1.5%;top:46px;height:4px;background:var(--line);border-radius:3px}
+.nvf-prog{position:absolute;left:1.5%;top:46px;height:4px;border-radius:3px;background:linear-gradient(90deg,var(--rose),var(--jaune));z-index:1}
+.nvf-stop{position:relative;z-index:2;flex:1 0 92px;display:flex;flex-direction:column;align-items:center;text-align:center;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+.nvf-city{font-weight:900;font-size:.88rem;color:var(--navy);line-height:1;margin-bottom:.35rem;min-height:2em;display:flex;align-items:flex-end}
+.nvf-stop.tbd .nvf-city{color:var(--muted)}
+.nvf-node{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem}
+.nvf-node.open{background:var(--ac);color:#fff;box-shadow:0 0 0 6px color-mix(in srgb,var(--ac) 20%,transparent)}
+.nvf-node.past{background:var(--ac);color:#fff;opacity:.5;border-color:transparent}
+.nvf-mois{font-size:.66rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-top:.35rem}
+.nvf-date{font-size:.72rem;color:var(--ink);font-weight:700}
+.nvf-cnt{font-size:.66rem;color:var(--muted)}
+.nvf-stop.past .nvf-city,.nvf-stop.past .nvf-date{opacity:.65}
+.nvf-stop:hover .nvf-city{text-decoration:underline}
+@media(max-width:640px){.nvf-stats{display:none}.nvf-stop{flex:0 0 84px}}
   .nv-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);border-top:5px solid var(--ac,var(--blue));transition:.22s;scroll-margin-top:96px;display:flex;flex-direction:column}
   .nv-card:hover,.nv-card.active{transform:translateY(-4px);box-shadow:var(--shadow)}
   .nv-card.active{outline:3px solid var(--ac,var(--blue));outline-offset:2px}
@@ -626,7 +647,7 @@
         <span class="eyebrow">🎯 Salon de l'emploi gratuit, en présentiel, près de chez vous</span>
         <h1>Il faut tout un Village<br>pour <span class="hl">trouver le bon emploi</span></h1>
         <p class="lead">Le Village des Recruteurs, c'est un <b>salon de l'emploi gratuit</b> organisé comme un village : une journée, dans votre ville, où l'on réunit au même endroit tous ceux qui peuvent vous aider. Des entreprises qui recrutent (CDI, CDD, intérim), la formation, l'alternance et l'apprentissage, la reconversion, la création d'activité et les services publics de l'emploi. Vous rencontrez tout le monde en direct, vous passez des entretiens sur place, vous repartez avec des pistes concrètes.</p>
-        <p class="lead" style="margin-top:-.3rem">Étudiant, jeune diplômé, en alternance ou en stage, demandeur d'emploi, en reconversion ou cadre : ce salon est fait pour vous. <b>7 villes en 2026, 11 en 2027.</b> Entrée libre et gratuite.</p>
+        <p class="lead" style="margin-top:-.3rem">Étudiant, jeune diplômé, en alternance ou en stage, demandeur d'emploi, en reconversion ou cadre : ce salon est fait pour vous. <b>7 villes en 2026, 8 en 2027.</b> Entrée libre et gratuite.</p>
         <div class="hero-cta">
           <button class="btn btn-primary" onclick="go('evenements')">Trouver le salon près de chez moi</button>
           <button class="btn btn-ghost" onclick="go('recruteurs')">Je recrute / exposer</button>
@@ -649,8 +670,8 @@
 
   <div class="marquee">
     <div class="track">
-      <span>Salon de l'emploi gratuit <b class="dot">●</b> 7 villes en 2026, 11 en 2027 <b class="dot">●</b> 85+ éditions depuis 2015 <b class="dot">●</b> 15 000+ candidats, 400+ entreprises en 2026 <b class="dot">●</b> CDI, alternance, stage, intérim <b class="dot">●</b> entrée libre et gratuite <b class="dot">●</b> propulsé par Matching Square &nbsp;&nbsp;</span>
-      <span>Salon de l'emploi gratuit <b class="dot">●</b> 7 villes en 2026, 11 en 2027 <b class="dot">●</b> 85+ éditions depuis 2015 <b class="dot">●</b> 15 000+ candidats, 400+ entreprises en 2026 <b class="dot">●</b> CDI, alternance, stage, intérim <b class="dot">●</b> entrée libre et gratuite <b class="dot">●</b> propulsé par Matching Square &nbsp;&nbsp;</span>
+      <span>Salon de l'emploi gratuit <b class="dot">●</b> 7 villes en 2026, 8 en 2027 <b class="dot">●</b> 85+ éditions depuis 2015 <b class="dot">●</b> 15 000+ candidats, 400+ entreprises en 2026 <b class="dot">●</b> CDI, alternance, stage, intérim <b class="dot">●</b> entrée libre et gratuite <b class="dot">●</b> propulsé par Matching Square &nbsp;&nbsp;</span>
+      <span>Salon de l'emploi gratuit <b class="dot">●</b> 7 villes en 2026, 8 en 2027 <b class="dot">●</b> 85+ éditions depuis 2015 <b class="dot">●</b> 15 000+ candidats, 400+ entreprises en 2026 <b class="dot">●</b> CDI, alternance, stage, intérim <b class="dot">●</b> entrée libre et gratuite <b class="dot">●</b> propulsé par Matching Square &nbsp;&nbsp;</span>
     </div>
   </div>
 
@@ -859,7 +880,7 @@
       <div class="sec-head">
         <span class="eyebrow">📍 Nos salons 2026</span>
         <h2>Un salon de recrutement près de chez vous</h2>
-        <p>7 villes en 2026, 11 en 2027. Prochaines dates : Toulouse, Dijon, Orléans et Lyon. Trouvez la date de votre ville, découvrez les entreprises présentes et réservez votre place. C'est gratuit.</p>
+        <p>7 villes en 2026, 8 en 2027. Prochaines dates : Toulouse, Dijon, Orléans et Lyon. Trouvez la date de votre ville, découvrez les entreprises présentes et réservez votre place. C'est gratuit.</p>
       </div>
       <div style="text-align:center;margin-top:.6rem">
         <button class="btn btn-blue" onclick="go('evenements')">Voir toutes les dates et villes →</button>
@@ -884,16 +905,8 @@
         <button class="nv-yr on" data-year="2026" onclick="setYear('2026')">Tournée 2026</button>
         <button class="nv-yr" data-year="2027" onclick="setYear('2027')">Tournée 2027 ✨</button>
       </div>
-      <div class="nv-layout">
-        <div class="nv-mapcol"><div class="nv-mapcard">
-          <h2 id="nv-mtitle">7 Villages · Tournée 2026</h2>
-          <p>Survolez ou cliquez une ville pour filer à sa carte.</p>
-          <svg viewBox="0 0 560 553" width="100%" role="img" aria-label="Carte de France des Villages">
-            <path class="nv-land" d="M541.2 461.0 L540.3 468.8 L540.9 471.2 L542.3 472.8 L542.9 474.6 L544.0 495.6 L543.7 497.3 L539.2 505.7 L538.3 508.2 L538.0 518.7 L537.2 521.5 L535.6 524.3 L532.8 533.2 L530.3 537.2 L523.6 532.3 L519.6 530.2 L517.7 527.9 L516.4 526.3 L517.2 524.2 L519.0 522.0 L519.3 520.3 L515.1 518.3 L513.1 517.0 L513.1 514.8 L514.5 511.2 L513.9 508.3 L511.5 508.4 L509.5 508.0 L509.3 506.4 L510.7 504.4 L512.5 501.9 L512.4 499.1 L510.3 497.9 L508.3 495.6 L507.5 492.5 L509.1 490.4 L511.5 489.0 L509.7 485.8 L508.4 485.7 L507.5 485.1 L508.3 483.6 L510.1 481.3 L512.9 474.7 L516.7 471.6 L523.3 469.6 L525.1 468.7 L526.7 466.4 L528.6 464.9 L530.7 465.1 L532.8 466.0 L534.0 467.0 L535.1 466.0 L535.9 463.1 L535.4 460.5 L535.6 453.6 L536.8 449.6 L538.8 449.4 L540.5 451.6 L540.4 453.5 L541.1 458.0 L541.2 461.0 ZM472.4 204.0 L467.9 206.5 L467.0 208.6 L465.3 211.4 L462.4 212.6 L459.6 213.0 L457.2 212.6 L455.8 211.5 L456.0 210.5 L454.8 209.6 L451.7 209.6 L448.5 211.6 L446.0 214.7 L446.8 216.5 L449.2 217.0 L449.7 217.6 L449.7 218.6 L448.9 219.7 L448.0 221.5 L443.1 227.1 L438.2 232.7 L437.4 234.4 L435.9 235.6 L429.7 238.6 L429.0 239.8 L428.6 244.8 L428.0 249.0 L423.3 252.9 L418.8 256.8 L417.6 259.1 L416.8 261.8 L415.4 265.0 L415.1 266.6 L417.3 269.3 L417.1 271.4 L416.4 274.6 L414.2 276.8 L411.8 278.0 L411.8 281.5 L413.1 281.9 L416.0 281.6 L420.3 279.2 L422.9 276.0 L421.3 273.0 L421.5 271.7 L424.8 268.4 L428.6 266.5 L434.2 266.1 L440.8 267.2 L441.5 267.7 L441.1 269.7 L441.8 272.7 L443.0 274.8 L441.4 280.7 L442.6 282.5 L444.4 284.7 L445.9 286.8 L448.0 288.6 L449.9 291.7 L450.5 293.5 L447.5 296.6 L442.6 299.5 L441.9 301.3 L442.0 303.5 L442.6 305.1 L445.4 307.3 L448.3 312.0 L450.3 316.3 L454.4 320.5 L455.4 321.7 L455.2 322.7 L454.0 324.5 L452.7 330.4 L450.9 331.3 L449.1 331.7 L443.9 336.0 L441.6 335.4 L438.3 335.5 L436.1 336.9 L436.2 339.5 L438.3 342.0 L439.5 344.6 L440.0 347.4 L442.4 349.5 L445.6 350.7 L447.5 350.8 L448.7 351.5 L449.5 352.5 L450.8 358.4 L450.0 359.9 L448.3 360.6 L447.2 363.0 L445.1 366.6 L443.9 369.5 L445.2 372.0 L445.8 373.9 L445.1 375.9 L446.0 378.8 L448.5 381.8 L455.2 386.1 L461.4 389.5 L463.4 390.0 L471.8 387.9 L473.2 388.1 L474.3 390.7 L474.7 392.4 L473.8 395.0 L471.5 398.8 L469.0 401.7 L467.5 404.2 L467.8 406.4 L467.9 409.4 L465.9 410.3 L465.0 409.2 L463.8 410.1 L463.7 411.3 L459.4 413.2 L456.4 415.2 L444.7 427.0 L439.2 430.5 L438.2 432.6 L437.1 436.5 L433.9 439.9 L431.0 441.4 L424.1 443.1 L417.1 446.7 L414.0 445.2 L405.8 445.3 L400.7 441.0 L390.9 438.3 L387.7 432.0 L383.4 431.7 L380.4 431.9 L378.7 430.9 L378.2 428.8 L378.2 426.7 L375.1 427.7 L372.7 427.7 L371.3 428.5 L370.2 429.4 L368.9 428.8 L368.1 429.1 L368.2 430.3 L365.3 430.5 L362.2 429.8 L354.1 426.5 L353.0 426.1 L347.4 424.9 L345.1 423.6 L343.3 420.3 L341.8 419.4 L341.0 418.7 L335.8 420.3 L334.0 422.8 L331.2 425.8 L311.8 440.2 L308.2 446.2 L304.1 455.1 L303.8 459.2 L305.6 472.5 L309.5 479.5 L310.1 481.1 L307.8 481.1 L304.1 480.2 L301.0 479.2 L298.3 479.7 L295.5 481.2 L292.9 482.1 L291.2 482.4 L290.0 483.1 L289.5 484.8 L289.4 486.0 L286.3 485.7 L279.1 483.3 L272.8 481.6 L268.9 483.5 L266.5 485.2 L264.8 485.0 L263.6 483.2 L262.7 481.3 L260.2 479.7 L254.4 477.2 L254.8 476.0 L255.8 474.3 L255.8 473.3 L254.6 471.8 L249.4 470.1 L247.0 469.8 L245.4 470.9 L244.2 472.3 L241.3 467.2 L239.3 466.1 L236.1 466.0 L232.5 464.4 L228.8 462.4 L219.8 459.2 L217.3 458.9 L216.3 459.3 L215.7 461.3 L215.3 466.6 L210.6 467.4 L205.5 466.7 L203.1 467.1 L200.9 467.1 L198.9 465.6 L190.1 467.3 L188.6 466.4 L186.5 464.0 L183.9 462.0 L182.1 461.1 L180.5 459.9 L179.0 459.7 L176.9 460.8 L173.9 461.3 L171.3 461.2 L170.0 461.4 L164.3 455.4 L163.5 453.8 L160.6 453.4 L157.1 453.3 L148.2 449.5 L144.1 447.3 L143.6 446.1 L143.6 445.2 L141.7 447.1 L141.1 448.5 L140.1 448.8 L138.9 448.6 L137.7 447.8 L136.9 446.8 L137.7 444.9 L139.1 442.6 L139.7 440.0 L139.6 437.7 L137.3 436.2 L134.0 435.6 L131.6 435.4 L128.5 434.1 L126.9 433.2 L125.5 430.5 L125.4 428.7 L131.4 427.1 L136.8 420.3 L142.0 395.8 L145.7 366.8 L148.4 361.4 L151.8 359.8 L149.0 355.9 L147.3 357.9 L146.6 360.0 L145.7 361.1 L147.7 334.6 L149.2 324.8 L151.7 314.6 L156.9 318.6 L161.1 322.7 L163.4 326.4 L166.2 338.2 L168.1 340.7 L171.3 343.1 L170.1 340.4 L167.9 338.4 L164.6 322.6 L162.4 318.1 L159.1 314.4 L148.5 306.4 L147.4 304.8 L146.9 301.9 L150.5 302.0 L153.5 303.5 L153.1 301.8 L152.2 300.0 L150.9 293.6 L149.7 278.6 L149.8 276.0 L149.3 272.8 L145.8 272.1 L143.2 272.0 L140.3 270.7 L125.7 261.9 L120.8 252.8 L115.6 246.1 L114.4 243.1 L114.5 240.1 L117.2 233.8 L114.8 229.8 L112.5 229.1 L110.5 227.1 L112.4 223.9 L113.8 221.7 L116.8 221.2 L120.8 221.9 L124.5 223.8 L127.3 224.3 L118.8 219.2 L104.8 220.9 L101.8 220.2 L99.2 219.1 L98.3 215.4 L100.3 213.7 L102.0 210.6 L100.0 208.4 L97.4 207.6 L93.3 207.7 L89.4 208.3 L88.5 207.0 L90.7 203.6 L88.8 202.3 L86.1 202.9 L82.2 203.6 L78.5 202.5 L75.1 198.6 L72.8 198.6 L71.2 199.1 L68.8 197.6 L66.3 197.2 L64.6 197.7 L62.2 195.5 L47.7 190.9 L41.5 190.3 L35.8 192.4 L32.6 191.7 L30.2 188.8 L28.3 183.9 L19.1 180.1 L20.9 177.6 L25.2 177.0 L30.1 175.2 L31.9 173.1 L28.1 170.5 L25.2 169.8 L24.0 168.9 L22.8 166.7 L24.5 165.5 L25.7 166.1 L29.1 166.5 L35.1 165.9 L33.0 163.6 L30.6 163.0 L29.5 162.5 L24.8 162.2 L22.5 163.0 L17.6 162.7 L16.4 160.1 L16.0 158.0 L17.5 153.3 L24.5 149.0 L41.9 144.2 L49.3 144.9 L54.6 144.0 L60.9 141.1 L63.5 138.5 L72.4 137.0 L80.8 139.7 L88.6 149.9 L92.3 153.3 L101.4 147.4 L114.9 147.6 L117.7 150.9 L118.8 148.1 L121.3 144.8 L123.3 146.3 L124.3 148.3 L138.5 147.8 L140.8 147.2 L136.9 144.8 L133.9 139.0 L133.2 117.7 L129.2 111.7 L124.7 102.2 L122.6 96.6 L122.5 94.6 L123.1 91.8 L128.7 91.9 L133.0 92.7 L141.2 90.5 L145.2 92.0 L144.9 96.4 L146.1 102.0 L147.6 104.6 L149.6 107.7 L156.2 107.4 L163.4 109.2 L172.4 109.5 L185.5 112.6 L191.1 110.8 L196.6 106.9 L206.9 104.4 L207.8 103.1 L201.9 103.7 L196.3 101.3 L195.6 98.6 L196.3 96.2 L198.4 90.8 L214.3 82.2 L225.6 79.6 L237.4 75.0 L243.4 70.1 L247.4 63.8 L248.7 62.5 L250.3 61.3 L248.7 59.0 L249.8 35.2 L251.0 30.9 L253.2 27.4 L256.8 24.7 L262.1 21.7 L281.8 17.6 L284.7 16.0 L285.1 18.5 L286.6 21.8 L287.5 23.5 L286.7 25.9 L287.4 27.8 L290.0 31.3 L293.3 34.5 L296.3 36.7 L297.2 36.4 L299.3 35.8 L303.0 33.7 L306.2 33.1 L307.9 34.6 L308.9 35.6 L310.9 39.3 L311.4 43.1 L312.3 46.3 L313.9 47.6 L319.8 48.1 L324.1 49.3 L325.3 50.3 L326.8 57.4 L327.6 58.4 L328.8 57.6 L329.9 56.4 L331.3 56.3 L333.8 56.7 L337.3 56.8 L340.7 57.6 L345.5 61.7 L345.4 63.0 L344.5 65.3 L344.1 67.2 L344.9 67.9 L346.2 69.8 L345.9 72.0 L344.6 73.6 L344.2 74.9 L344.2 75.7 L345.7 76.9 L352.7 77.8 L359.2 76.9 L363.3 74.7 L364.0 72.4 L365.2 69.7 L367.6 67.3 L369.3 66.6 L370.9 67.5 L368.2 77.0 L370.1 79.5 L370.3 83.1 L371.1 86.3 L373.4 86.2 L376.2 86.7 L378.2 87.9 L380.6 89.8 L383.9 91.6 L386.3 92.1 L387.1 93.6 L389.1 95.3 L392.0 98.7 L394.6 101.1 L396.0 101.1 L398.5 100.1 L402.2 99.6 L405.1 99.7 L406.3 101.4 L409.2 102.2 L410.2 102.9 L411.4 104.1 L413.2 104.6 L415.6 104.1 L417.2 102.5 L419.5 101.7 L421.7 102.0 L423.1 102.9 L425.6 104.2 L426.9 104.0 L429.7 104.8 L432.6 107.3 L433.7 109.9 L434.1 111.3 L435.3 112.9 L439.9 119.9 L441.5 120.3 L443.1 119.1 L444.2 117.7 L445.8 117.4 L448.1 118.0 L449.7 118.9 L450.5 121.9 L452.1 121.8 L454.1 121.7 L457.0 122.4 L461.3 121.6 L464.6 120.3 L466.3 120.4 L469.1 123.9 L472.3 125.2 L479.2 126.2 L486.6 127.9 L489.6 129.3 L491.6 130.0 L491.8 134.6 L491.2 135.4 L483.7 144.7 L480.7 148.0 L479.1 152.9 L477.9 160.1 L475.8 167.1 L472.4 173.7 L471.2 178.8 L472.2 182.0 L471.6 187.3 L469.7 194.3 L469.3 199.7 L470.6 203.3 L472.4 204.0 ZM148.1 294.7 L146.8 299.4 L144.4 295.1 L141.1 291.2 L140.4 287.8 L140.4 286.9 L144.2 289.4 L148.1 294.7 Z"></path><g id="nv-pins"></g>
-          </svg>
-        </div></div>
-        <div id="nv-cards"></div>
-      </div>
+      <div class="nv-ov" id="nv-ov"></div>
+      <div id="nv-cards"></div>
       <p class="logo-note" id="nv-note">Tournée 2026 — inscription candidats via Matching Square, détails exposant sur Odoo.</p>
 
       <div class="ms-band" style="margin-top:2.6rem">
@@ -1948,9 +1961,31 @@
       k.addEventListener('mouseenter',function(){if(pin)pin.classList.add('active');});
       k.addEventListener('mouseleave',function(){if(pin)pin.classList.remove('active');});});
   }
+  function nvFrise(y){
+    var host=document.getElementById('nv-ov');if(!host)return;
+    var list=(y==='2027'?villages2027:villages2026);
+    var n=list.length, lastPast=-1;
+    list.forEach(function(e,i){if((e.state||'')==='past')lastPast=i;});
+    var prog=lastPast>=0?((lastPast+0.5)/n*97):0;
+    var stops=list.map(function(e){
+      var st=e.tbd?'soon':((e.state==='past')?'past':(e.state==='open'?'open':'soon'));
+      var sym=st==='past'?'✓':(st==='open'?'●':'○');
+      var cnt=e.count?('<span class="nvf-cnt">'+String(e.count).replace(/\s*candidats?/i,'')+'</span>'):'';
+      var dt=(e.date||'').replace(/\s*20\d\d/,'');
+      return '<button class="nvf-stop '+st+(e.tbd?' tbd':'')+'" style="--ac:'+(e.cA||'#08324F')+'" data-city="'+nvSlug(e.city)+'">'
+        +'<span class="nvf-city">'+e.city+'</span>'
+        +'<span class="nvf-node '+st+'">'+sym+'</span>'
+        +'<span class="nvf-mois">'+(e.mois||'').toUpperCase()+'</span>'
+        +'<span class="nvf-date">'+dt+'</span>'+cnt+'</button>';
+    }).join('');
+    host.innerHTML='<div class="nvf-head"><div class="nvf-title">La tournée en un coup d’œil<small>'+n+' rendez-vous · Tournée '+y+'</small></div>'
+      +'<div class="nvf-stats"><span><b>85+</b> éditions depuis 2015</span><span><b>150 000+</b> candidats accompagnés</span><span><b>400+</b> entreprises / an</span></div></div>'
+      +'<div class="nvf-rail"><div class="nvf-prog" style="width:'+prog+'%"></div>'+stops+'</div>';
+    host.querySelectorAll('.nvf-stop').forEach(function(b){b.addEventListener('click',function(){var c=document.querySelector('#nv-cards .nv-card[data-city="'+b.dataset.city+'"]');if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('pulse');void c.offsetWidth;c.classList.add('pulse');}});});
+  }
   function renderNV(y){
     var list=y==='2027'?villages2027:villages2026;
-    var cards=document.getElementById('nv-cards');if(cards)cards.innerHTML=list.map(nvCard).join('');
+    var cards=document.getElementById('nv-cards');if(cards)cards.innerHTML=list.map(nvCard).join('');nvFrise(y);
     var pins=document.getElementById('nv-pins');if(pins)pins.innerHTML=nvPins(list);
     var t=document.getElementById('nv-mtitle');if(t)t.textContent=(y==='2027'?'8 Villages \u00b7 Tourn\u00e9e 2027':'7 Villages \u00b7 Tourn\u00e9e 2026');
     var note=document.getElementById('nv-note');if(note)note.textContent=(y==='2027'?'Programmation pr\u00e9visionnelle 2027 \u2014 dates, lieux et co-productions confirm\u00e9s au fil de l\'eau.':'Tourn\u00e9e 2026 \u2014 inscription candidats via Matching Square, d\u00e9tails exposant sur Odoo.');
