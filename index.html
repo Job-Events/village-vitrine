@@ -1847,18 +1847,15 @@
     {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-4/register',photo:'https://www.levillagedesrecruteurs.fr/web/image/15150-redirect/COUV-ARTICLES-1920x1080-2023-03-15T133744.914.jpg',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
   ];
   var villages2027=[
-    {city:'Nancy',mois:'Janvier',date:'Janvier 2027',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Projet RH'},
-    {city:'Nantes',mois:'Février',date:'Février 2027',venue:'Exponantes',cA:'#E3007B',cB:'#B4005F',coprod:''},
-    {city:'Paris',mois:'Mars',date:'Mars 2027',venue:'Parc des Princes',cA:'#08324F',cB:'#006FB7',coprod:'En co-production (partenaire à préciser)'},
-    {city:'Lille',mois:'Avril',date:'Avril 2027',cA:'#0FAE9E',cB:'#0A7D72',coprod:''},
-    {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',venue:'Casino Pasino',cA:'#F8B322',cB:'#D98E00',coprod:''},
-    {city:'Bordeaux',mois:'Juin',date:'Juin 2027',venue:'Hôtel de Ville',cA:'#2FA36B',cB:'#1c6e45',coprod:''},
-    {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',venue:'Salle Mermoz',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
-    {city:'Dijon',mois:'Septembre',date:'Septembre 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
-    {city:'Strasbourg',mois:'Septembre',date:'Septembre 2027',venue:'Zénith de Strasbourg',cA:'#006FB7',cB:'#004E82',coprod:'Co-produit avec Les Traqueurs de l\'Emploi'},
-    {city:'Lyon',mois:'Octobre',date:'Octobre 2027',cA:'#1C6DA8',cB:'#08324F',coprod:''},
-    {city:'Rennes',mois:'Novembre',date:'Novembre 2027',cA:'#E3007B',cB:'#B4005F',coprod:'Co-produit avec Projet RH'}
-  ];
+     {city:'Nantes',mois:'Février',date:'Février 2027',venue:'Exponantes',cA:'#E3007B',cB:'#B4005F',coprod:''},
+     {city:'À confirmer',mois:'Mars',date:'Mars 2027',cA:'#08324F',cB:'#006FB7',coprod:'',tbd:true},
+     {city:'Lille',mois:'Avril',date:'Avril 2027',cA:'#0FAE9E',cB:'#0A7D72',coprod:''},
+     {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',venue:'Casino Pasino',cA:'#F8B322',cB:'#D98E00',coprod:''},
+     {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',venue:'Salle Mermoz',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
+     {city:'Bordeaux',mois:'Septembre',date:'Septembre 2027',venue:'Hôtel de Ville',cA:'#2FA36B',cB:'#1c6e45',coprod:''},
+     {city:'Dijon',mois:'Octobre',date:'Octobre 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
+     {city:'Lyon',mois:'Octobre',date:'Octobre 2027',cA:'#1C6DA8',cB:'#08324F',coprod:''}
+   ];
   function evtTopStyle(v){
     return v.photo
       ? 'background-image:linear-gradient(160deg,rgba(8,50,79,.28),rgba(8,50,79,.66)),url('+v.photo+');background-size:cover;background-position:center'
@@ -1919,6 +1916,7 @@
     var st=nvStatut(v);
     var odoo=v.odoo||NV_ODOO_FALLBACK;
     var expo='<a class="nv-cta alt" href="'+odoo+'" target="_blank" rel="noopener">Exposer / plus de d\u00e9tails</a>';
+    if(v.tbd){return '<span class="nv-closed">Ville d\u00e9voil\u00e9e bient\u00f4t</span>'+expo;}
     var cand;
     if(st==='ouvert'){cand='<a class="nv-cta" href="'+(v.ms||'#')+'" target="_blank" rel="noopener">Je m\'inscris comme candidat</a>';}
     else if(st==='avenir'){cand=v.candList?('<a class="nv-cta" href="'+v.candList+'" target="_blank" rel="noopener">\u00catre alert\u00e9\u00b7e</a>'):('<a class="nv-cta" href="#" onclick="openCandForm(\''+String(v.city).replace(/\'/g,"\\'")+'\');return false;">\u00catre alert\u00e9\u00b7e</a>');}
@@ -1954,7 +1952,7 @@
     var list=y==='2027'?villages2027:villages2026;
     var cards=document.getElementById('nv-cards');if(cards)cards.innerHTML=list.map(nvCard).join('');
     var pins=document.getElementById('nv-pins');if(pins)pins.innerHTML=nvPins(list);
-    var t=document.getElementById('nv-mtitle');if(t)t.textContent=(y==='2027'?'11 Villages \u00b7 Tourn\u00e9e 2027':'7 Villages \u00b7 Tourn\u00e9e 2026');
+    var t=document.getElementById('nv-mtitle');if(t)t.textContent=(y==='2027'?'8 Villages \u00b7 Tourn\u00e9e 2027':'7 Villages \u00b7 Tourn\u00e9e 2026');
     var note=document.getElementById('nv-note');if(note)note.textContent=(y==='2027'?'Programmation pr\u00e9visionnelle 2027 \u2014 dates, lieux et co-productions confirm\u00e9s au fil de l\'eau.':'Tourn\u00e9e 2026 \u2014 inscription candidats via Matching Square, d\u00e9tails exposant sur Odoo.');
     nvWire();
   }
@@ -2173,10 +2171,10 @@
     document.getElementById('sim-pack-desc').textContent=p.desc;
     computeSim();
   }
-  function cityList(){return (simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past';}).map(function(v){return v.city;});}
+  function cityList(){return (simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past'&&!v.tbd;}).map(function(v){return v.city;});}
   function renderCities(){
     var wrap=document.getElementById('sim-cities');if(!wrap)return;
-    var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past';});
+    var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past'&&!v.tbd;});
     wrap.innerHTML=arr.map(function(v){return '<label><input type="checkbox" class="sim-city" value="'+v.city+'"> <span class="ci-mois">'+v.mois+'</span> '+v.city+'</label>';}).join('');
     wrap.querySelectorAll('input').forEach(function(i){i.addEventListener('change',computeSim);});
     var ea=document.getElementById('d-early'), line=document.getElementById('line-early');
