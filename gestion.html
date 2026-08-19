@@ -1,0 +1,194 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Console de gestion — Village des Recruteurs (liens & actualité)</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#006FB7;--rose:#E3007B;--jaune:#F8B322;--navy:#08324F;--green:#2FA36B;--coral:#FF5A5F;--ink:#241A12;--paper:#FFF9F1;--paper2:#FDEBD8;--muted:#7A6A5B;--line:rgba(60,40,24,.16);--li:#0A66C2;--fb:#1877F2;--ig:#E1306C}
+*{box-sizing:border-box}body{margin:0;font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+.wrap{max-width:1240px;margin:0 auto;padding:1.6rem 18px 5rem}
+h1{font-size:1.7rem;font-weight:900;margin:.2rem 0 .3rem}
+h2{font-size:1.15rem;font-weight:900;margin:1.6rem 0 .2rem}
+.sub{color:var(--muted);max-width:82ch;margin:0 0 1rem}
+.tabs{display:flex;gap:.5rem;margin:1rem 0 .4rem;flex-wrap:wrap}
+.tab{font-family:inherit;font-weight:800;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;padding:.45rem 1.1rem;cursor:pointer}
+.tab.on{background:var(--navy);color:#fff}
+.panel{display:none}.panel.on{display:block}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin:.8rem 0 1.2rem}
+.rule{background:#fff;border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:12px;padding:.7rem .9rem}
+.rule b{display:block;font-size:.92rem} .rule span{font-size:.82rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.86rem}
+th,td{padding:.5rem .55rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:var(--navy);color:#fff;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+tr.y2027 td:first-child{color:var(--rose);font-weight:800}
+td input,td select{width:100%;font-family:inherit;font-size:.82rem;padding:.32rem .4rem;border:1px solid var(--line);border-radius:7px;background:#fff}
+td input::placeholder,textarea::placeholder{color:#bbae9f}
+.city{font-weight:800;white-space:nowrap} .date{color:var(--muted);white-space:nowrap}
+.prev{font-size:.76rem;font-weight:700;white-space:nowrap}
+.pill{display:inline-block;padding:.12rem .5rem;border-radius:999px;font-size:.7rem;font-weight:800}
+.pill.avenir{background:rgba(0,111,183,.14);color:var(--blue)} .pill.ouvert{background:rgba(47,163,107,.16);color:var(--green)} .pill.cloture{background:#eee;color:#888}
+.soc-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:900px){.soc-cols{grid-template-columns:1fr}}
+.soc-col{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.soc-head{color:#fff;font-weight:900;padding:.6rem .9rem;display:flex;align-items:center;justify-content:space-between}
+.soc-head .ic{display:inline-flex;width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.22);align-items:center;justify-content:center;margin-right:.5rem;font-weight:900}
+.soc-body{padding:.7rem .8rem;display:flex;flex-direction:column;gap:.7rem}
+.post{border:1px solid var(--line);border-radius:11px;padding:.6rem;background:var(--paper)}
+.post .row1{display:flex;gap:.4rem;align-items:center;margin-bottom:.35rem}
+.post input.d{width:130px;font-family:inherit;font-size:.8rem;padding:.3rem .4rem;border:1px solid var(--line);border-radius:7px}
+.post .idx{font-size:.7rem;font-weight:800;color:var(--muted);margin-right:auto}
+.post .feat{font-size:.64rem;font-weight:900;color:var(--rose);text-transform:uppercase;letter-spacing:.04em}
+.post textarea{width:100%;min-height:56px;font-family:inherit;font-size:.82rem;border:1px solid var(--line);border-radius:7px;padding:.4rem;resize:vertical}
+.post input.u{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:.72rem;padding:.3rem .4rem;border:1px solid var(--line);border-radius:7px;margin-top:.35rem}
+.post .ctr{display:flex;gap:.3rem;margin-top:.4rem}
+.mini{font-family:inherit;font-weight:800;font-size:.72rem;border:1px solid var(--line);background:#fff;border-radius:7px;padding:.25rem .5rem;cursor:pointer}
+.mini.del{color:var(--coral);border-color:rgba(255,90,95,.4)}
+.addp{font-family:inherit;font-weight:800;font-size:.8rem;border:2px dashed var(--line);background:#fff;border-radius:9px;padding:.5rem;cursor:pointer;color:var(--navy)}
+.bar{position:sticky;bottom:0;background:var(--paper);padding:.9rem 0;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1.2rem;border-top:1px solid var(--line);z-index:5}
+button.act{font-family:inherit;font-weight:800;border:none;border-radius:10px;padding:.6rem 1.1rem;cursor:pointer}
+.primary{background:var(--rose);color:#fff}.ghost{background:#fff;border:2px solid var(--navy);color:var(--navy)}
+textarea#out{width:100%;min-height:180px;font-family:ui-monospace,Menlo,monospace;font-size:.76rem;border:1px solid var(--line);border-radius:10px;padding:.7rem;margin-top:.6rem;background:#fff}
+.note{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+code{background:var(--paper2);padding:.05rem .35rem;border-radius:5px}
+details{margin-top:1rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem}
+summary{font-weight:800;cursor:pointer}
+</style></head><body><div class="wrap">
+<h1>Console de gestion du site — liens & actualité</h1>
+<p class="sub">Une seule page pour tout piloter sans toucher au code : les <b>liens des boutons des Villages</b> (onglet Événements) et les <b>posts affichés sur la page Actualité</b> (onglet Actualité). Modifiez, puis cliquez <b>Exporter le JSON</b> et collez-le sur votre page technique Odoo. Le site se met à jour tout seul au prochain chargement.</p>
+
+<div class="tabs">
+  <button class="tab on" data-p="ev" onclick="tab('ev')">📅 Événements &amp; liens</button>
+  <button class="tab" data-p="ac" onclick="tab('ac')">📰 Actualité (réseaux)</button>
+</div>
+
+<!-- ======== PANEL ÉVÉNEMENTS ======== -->
+<section class="panel on" id="p-ev">
+  <div class="rules">
+    <div class="rule" style="--ac:var(--blue)"><b>À venir</b><span>Bouton <b>« Être alerté·e »</b> → lien <b>liste de distribution</b> (Cand_list). Si vide : formulaire ville par défaut.</span></div>
+    <div class="rule" style="--ac:var(--green)"><b>Ouvert</b><span>Bouton <b>« Je m'inscris comme candidat »</b> → lien <b>Matching Square</b>.</span></div>
+    <div class="rule" style="--ac:#888"><b>Clôturé</b><span><b>« Événement clôturé »</b> — aucun lien candidat.</span></div>
+    <div class="rule" style="--ac:var(--jaune)"><b>Toujours</b><span>Bouton <b>« Exposer / plus de détails »</b> → lien <b>Odoo</b> de l'événement.</span></div>
+  </div>
+  <div style="overflow:auto"><table id="tbl"><thead><tr>
+    <th>Année</th><th>Ville</th><th>Date</th><th>Statut</th>
+    <th>Lien liste de distribution (Cand_list)</th><th>Lien Matching Square</th><th>Lien Odoo (page événement)</th><th>Aperçu bouton candidat</th>
+  </tr></thead><tbody></tbody></table></div>
+</section>
+
+<!-- ======== PANEL ACTUALITÉ ======== -->
+<section class="panel" id="p-ac">
+  <p class="sub">Chaque colonne = une plateforme. Le <b>1ᵉʳ post</b> de chaque colonne est mis en avant sur le site. Renseignez la <b>date</b>, le <b>texte</b> (un extrait suffit) et le <b>lien</b> du post. Utilisez ▲▼ pour réordonner, ✕ pour retirer, « + Ajouter un post » pour compléter.</p>
+  <div class="soc-cols" id="soc-cols"></div>
+</section>
+
+<div class="bar">
+  <button class="act primary" onclick="exportJSON()">⬇ Exporter le JSON (liens + actualité)</button>
+  <button class="act ghost" onclick="copyJSON()">Copier</button>
+  <span class="note" id="copied"></span>
+</div>
+<textarea id="out" readonly placeholder="Le JSON complet apparaîtra ici…"></textarea>
+
+<details><summary>Comment brancher cette page au site (Odoo) — à faire une seule fois</summary>
+<p class="note">1. Créez sur Odoo <b>une page technique</b> qui renvoie ce JSON (type <code>application/json</code>) avec l'en-tête <code>Access-Control-Allow-Origin: *</code>.<br>
+2. Dans le site (<code>index.html</code>), renseignez la constante <code>var SITE_CONFIG_URL='…';</code> avec l'URL de cette page Odoo, et laissez <code>EVT_LINKS_URL</code> / <code>SOCIAL_URL</code> vides.<br>
+3. C'est tout : le site lit liens + actualité à chaque chargement. Pour mettre à jour, vous modifiez cette console, exportez, et remplacez le contenu de la page Odoo — <b>aucun redéploiement du site</b>.<br>
+Format complet : <code>{ "links": { "2026": {…}, "2027": {…} }, "social": { "linkedin": [ {"d":"JJ/MM/AAAA","t":"…","u":"https://…"} ], "facebook": […], "instagram": […] } }</code></p></details>
+
+<script>
+/* ---------- Données événements ---------- */
+var ROWS=[{"year":"2026","city":"Nantes","date":"3 mars 2026","statut":"cloture","candList":"","ms":"","odoo":""},{"year":"2026","city":"Reims","date":"19 mai 2026","statut":"cloture","candList":"","ms":"","odoo":""},{"year":"2026","city":"Bordeaux","date":"11 juin 2026","statut":"cloture","candList":"","ms":"","odoo":""},{"year":"2026","city":"Toulouse","date":"16–17 sept. 2026","statut":"ouvert","candList":"","ms":"https://toulouse.levillagedesrecruteurs.fr/02dabfb6-81f0-42c9-9169-bfaebe93472d/login","odoo":"https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-1/register"},{"year":"2026","city":"Dijon","date":"24 sept. 2026","statut":"ouvert","candList":"","ms":"https://dijon.levillagedesrecruteurs.fr/e1adf45e-fb1d-4836-b0ed-5a5ba3387d03/login","odoo":"https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2/register"},{"year":"2026","city":"Orléans","date":"8 oct. 2026","statut":"ouvert","candList":"","ms":"https://orleans.levillagedesrecruteurs.fr/f2105e95-3f13-40ee-b90a-199fb1570be2/login","odoo":"https://jobevents.odoo.com/event/le-village-des-recruteurs-d-orleans-3/register"},{"year":"2026","city":"Lyon","date":"14–15 oct. 2026","statut":"ouvert","candList":"","ms":"https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login","odoo":"https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-4/register"},{"year":"2027","city":"Nantes","date":"Février 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Reims","date":"Mars 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Lille","date":"Avril 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Aix-en-Provence","date":"Mai 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Toulouse","date":"Septembre 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Bordeaux","date":"Septembre 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Dijon","date":"Octobre 2027","statut":"avenir","candList":"","ms":"","odoo":""},{"year":"2027","city":"Lyon","date":"Octobre 2027","statut":"avenir","candList":"","ms":"","odoo":""}];
+
+/* ---------- Données actualité (posts actuels) ---------- */
+var SOCIAL={
+  linkedin:[
+    {d:"09/07/2026",t:"📢 Job Events & Le Village des Recruteurs recrutent ! Vous êtes passionné(e) par l'événementiel et la gestion de projet ? Vous aimez…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480908524047347713"},
+    {d:"17/06/2026",t:"Nexity Studéa, acteur historique depuis 1987 et aujourd'hui référent de la résidence pour étudiants et jeunes actifs en France, est présent…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7472914479027159041"},
+    {d:"12/06/2026",t:"1 250 participants et 49 exposants se sont retrouvés hier autour d'un même objectif : faire les bonnes rencontres. Les candidats présents…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471170948713476097"},
+    {d:"12/06/2026",t:"Depuis son tout premier magasin Penneys en Irlande, l'histoire de Primark est marquée par un succès incontestable. La conviction profonde…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471168440792297472"},
+    {d:"12/06/2026",t:"Alison CARREIRA, cheffe de projet du Village des Recruteurs, revient sur cette 10e édition bordelaise. 1 250 participants, près de 50…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471129348310433792"}
+  ],
+  facebook:[
+    {d:"10/06/2026",t:"🎬 J-1 avant le Village des Recruteurs à Bordeaux ! Petit aperçu des coulisses et des derniers préparatifs avant l'ouverture des portes. 🚀…",u:"https://www.facebook.com/107862676212389_1317961040467086"},
+    {d:"09/06/2026",t:"Webinaire gratuit pour vous aider à trouver une alternance ! 👀 Demain 16h30-17h30 inscription sur le village des recruteurs de bordeaux…",u:"https://www.facebook.com/107862676212389_1316967217233135"},
+    {d:"09/06/2026",t:"Vous ne savez pas trop comment vous présenter à un recruteur ? Demain au Hangar 14, des partenaires emploi sont là dès 9h30 pour vous aider à vous…",u:"https://www.facebook.com/107862676212389_1316709703925553"},
+    {d:"04/06/2026",t:"Envoyer 50 candidatures sans jamais avoir de retour, c'est le red flag qu'on connaît tous. Le 11 juin à Bordeaux, vous parlez à un vrai…",u:"https://www.facebook.com/107862676212389_1312579031005287"},
+    {d:"02/06/2026",t:"Vous cherchez à aller à un salon emploi et vous ne savez pas trop à quoi vous attendre ? 👀 On vous explique tout : les entreprises présentes, les…",u:"https://www.facebook.com/107862676212389_1310907994505724"}
+  ],
+  instagram:[
+    {d:"12/06/2026",t:"✨ Retour sur le Village des Recruteurs de Bordeaux. Hier, recruteurs, candidats et partenaires se sont réunis pour une journée placée sous…",u:"https://www.instagram.com/reel/DZfSzhsI0w2/"},
+    {d:"10/06/2026",t:"🎬 J-1 avant le Village des Recruteurs à Bordeaux ! Petit aperçu des coulisses et des derniers préparatifs avant l'ouverture des portes. 🚀…",u:"https://www.instagram.com/reel/DZah6UVMshP/"},
+    {d:"09/06/2026",t:"Webinaire gratuit pour vous aider à trouver une alternance ! 👀 Demain 16h30-17h30 inscription sur le village des recruteurs de bordeaux…",u:"https://www.instagram.com/reel/DZXkJBMoLDd/"},
+    {d:"09/06/2026",t:"Vous ne savez pas trop comment vous présenter à un recruteur ? Demain au Hangar 14, des partenaires emploi sont là dès 9h30 pour vous aider à vous…",u:"https://www.instagram.com/p/DZW2JYLCAqZ/"},
+    {d:"04/06/2026",t:"Envoyer 50 candidatures sans jamais avoir de retour, c'est le red flag qu'on connaît tous. Le 11 juin à Bordeaux, vous parlez à un vrai…",u:"https://www.instagram.com/p/DZKscaQDHOo/"}
+  ]
+};
+var SOCMETA={linkedin:['LinkedIn','var(--li)','in'],facebook:['Facebook','var(--fb)','f'],instagram:['Instagram','var(--ig)','◎']};
+
+function tab(p){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.p===p);});document.querySelectorAll('.panel').forEach(function(s){s.classList.toggle('on',s.id==='p-'+p);});}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ----- Événements ----- */
+function preview(r){
+  if(r.statut==='ouvert')return '<span class="pill ouvert">Je m\'inscris</span> → '+(r.ms?'MS':'<i>ms manquant</i>');
+  if(r.statut==='avenir')return '<span class="pill avenir">Être alerté·e</span> → '+(r.candList?'Cand_list':'form. ville');
+  return '<span class="pill cloture">Clôturé</span> → —';
+}
+function renderEv(){
+  var tb=document.querySelector('#tbl tbody');tb.innerHTML='';
+  ROWS.forEach(function(r,i){
+    var tr=document.createElement('tr'); if(r.year==='2027')tr.className='y2027';
+    tr.innerHTML='<td>'+r.year+'</td><td class="city">'+r.city+'</td><td class="date">'+r.date+'</td>'
+      +'<td><select data-i="'+i+'" data-k="statut">'+['avenir','ouvert','cloture'].map(function(s){return '<option value="'+s+'"'+(r.statut===s?' selected':'')+'>'+({avenir:'À venir',ouvert:'Ouvert',cloture:'Clôturé'})[s]+'</option>';}).join('')+'</select></td>'
+      +'<td><input data-i="'+i+'" data-k="candList" value="'+esc(r.candList||'')+'" placeholder="https://…/inscription-candidat?ville='+encodeURIComponent(r.city)+'"></td>'
+      +'<td><input data-i="'+i+'" data-k="ms" value="'+esc(r.ms||'')+'" placeholder="https://'+r.city.toLowerCase()+'.levillagedesrecruteurs.fr/…"></td>'
+      +'<td><input data-i="'+i+'" data-k="odoo" value="'+esc(r.odoo||'')+'" placeholder="https://jobevents.odoo.com/event/…"></td>'
+      +'<td class="prev">'+preview(r)+'</td>';
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',function(){ROWS[+el.dataset.i][el.dataset.k]=el.value;renderEv();buildJSON();});});
+}
+
+/* ----- Actualité ----- */
+function renderSoc(){
+  var host=document.getElementById('soc-cols');host.innerHTML='';
+  ['linkedin','facebook','instagram'].forEach(function(k){
+    var m=SOCMETA[k];
+    var col=document.createElement('div');col.className='soc-col';
+    var posts=SOCIAL[k]||[];
+    col.innerHTML='<div class="soc-head" style="background:'+m[1]+'"><span><span class="ic">'+m[2]+'</span>'+m[0]+'</span><span style="font-size:.75rem;opacity:.9">'+posts.length+' post'+(posts.length>1?'s':'')+'</span></div>'
+      +'<div class="soc-body">'
+      +posts.map(function(p,i){
+        return '<div class="post">'
+          +'<div class="row1"><span class="idx">#'+(i+1)+(i===0?' <span class="feat">• mis en avant</span>':'')+'</span>'
+          +'<input class="d" data-k="'+k+'" data-i="'+i+'" data-f="d" value="'+esc(p.d||'')+'" placeholder="JJ/MM/AAAA"></div>'
+          +'<textarea data-k="'+k+'" data-i="'+i+'" data-f="t" placeholder="Texte du post (un extrait suffit)…">'+esc(p.t||'')+'</textarea>'
+          +'<input class="u" data-k="'+k+'" data-i="'+i+'" data-f="u" value="'+esc(p.u||'')+'" placeholder="https://lien-du-post">'
+          +'<div class="ctr"><button class="mini" onclick="mv(\''+k+'\','+i+',-1)">▲</button>'
+          +'<button class="mini" onclick="mv(\''+k+'\','+i+',1)">▼</button>'
+          +'<button class="mini del" onclick="del(\''+k+'\','+i+')" style="margin-left:auto">✕ Retirer</button></div>'
+          +'</div>';
+      }).join('')
+      +'<button class="addp" onclick="add(\''+k+'\')">+ Ajouter un post</button>'
+      +'</div>';
+    host.appendChild(col);
+  });
+  host.querySelectorAll('input,textarea').forEach(function(el){el.addEventListener('input',function(){SOCIAL[el.dataset.k][+el.dataset.i][el.dataset.f]=el.value;buildJSON();});});
+}
+function add(k){SOCIAL[k].push({d:'',t:'',u:''});renderSoc();buildJSON();}
+function del(k,i){SOCIAL[k].splice(i,1);renderSoc();buildJSON();}
+function mv(k,i,dir){var j=i+dir;if(j<0||j>=SOCIAL[k].length)return;var a=SOCIAL[k];var t=a[i];a[i]=a[j];a[j]=t;renderSoc();buildJSON();}
+
+/* ----- Export combiné ----- */
+function buildJSON(){
+  var links={'2026':{},'2027':{}};
+  ROWS.forEach(function(r){links[r.year][r.city]={statut:r.statut,candList:r.candList||'',ms:r.ms||'',odoo:r.odoo||''};});
+  var social={};
+  ['linkedin','facebook','instagram'].forEach(function(k){social[k]=(SOCIAL[k]||[]).map(function(p){return {d:p.d||'',t:p.t||'',u:p.u||''};});});
+  var o={links:links,social:social};
+  document.getElementById('out').value=JSON.stringify(o,null,2);
+  return o;
+}
+function copyJSON(){var t=document.getElementById('out');t.select();document.execCommand('copy');document.getElementById('copied').textContent='Copié ✓';setTimeout(function(){document.getElementById('copied').textContent='';},1800);}
+function exportJSON(){var blob=new Blob([document.getElementById('out').value],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='config-site.json';a.click();}
+
+renderEv();renderSoc();buildJSON();
+</script></div></body></html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marcantoinehenroz-web.github.io/village-vitrine/sitemap.xml
