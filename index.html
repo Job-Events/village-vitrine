@@ -414,13 +414,13 @@
   .nv-pin:hover .nv-lbl,.nv-pin.active .nv-lbl,.nv-pin:focus .nv-lbl{opacity:1}
   .nv-pin:hover .nv-halo,.nv-pin.active .nv-halo{opacity:.34}
   #nv-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
-.nv-ov{background:linear-gradient(180deg,#fff,#fffdf9);border:1px solid var(--line);border-radius:18px;padding:1.1rem 1.3rem 1.3rem;box-shadow:0 6px 18px rgba(8,50,79,.10);margin:0 0 1.8rem;position:sticky;top:64px;z-index:40}
+.nv-ov{background:linear-gradient(180deg,#fff,#fffdf9);border:1px solid var(--line);border-radius:18px;padding:.85rem 1.2rem .95rem;box-shadow:0 6px 18px rgba(8,50,79,.10);margin:0 0 1.6rem;position:sticky;top:64px;z-index:40}
 .nvf-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .nvf-title{font-size:1.12rem;font-weight:900;color:var(--navy)}
 .nvf-title small{display:block;font-size:.76rem;font-weight:600;color:var(--muted)}
 .nvf-stats{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted);align-items:center}
 .nvf-stats b{color:var(--navy);font-weight:900}.nvf-stats span{white-space:nowrap}
-.nvf-rail{position:relative;display:flex;align-items:flex-start;margin-top:1.6rem;overflow-x:auto;padding-bottom:.2rem}
+.nvf-rail{position:relative;display:flex;align-items:flex-start;margin-top:1.2rem;overflow-x:auto;padding-bottom:.2rem}
 .nvf-rail::before{content:"";position:absolute;left:1.5%;right:1.5%;top:46px;height:4px;background:var(--line);border-radius:3px}
 .nvf-prog{position:absolute;left:1.5%;top:46px;height:4px;border-radius:3px;background:linear-gradient(90deg,var(--rose),var(--jaune));z-index:1}
 .nvf-stop{position:relative;z-index:2;flex:1 0 92px;display:flex;flex-direction:column;align-items:center;text-align:center;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
@@ -434,7 +434,15 @@
 .nvf-cnt{font-size:.66rem;color:var(--muted)}
 .nvf-stop.past .nvf-city,.nvf-stop.past .nvf-date{opacity:.65}
 .nvf-stop:hover .nvf-city{text-decoration:underline}
-@media(max-width:640px){.nvf-stats{display:none}.nvf-stop{flex:0 0 84px}}
+@media(max-width:640px){
+  .nv-ov{padding:.6rem .7rem .7rem;top:56px;border-radius:14px}
+  .nvf-stats{display:none}
+  .nvf-title{font-size:.95rem}.nvf-title small{font-size:.7rem}
+  .nvf-rail{margin-top:.9rem}
+  .nvf-stop{flex:0 0 72px}
+  .nvf-city{font-size:.76rem;min-height:2.2em;margin-bottom:.3rem}
+  .nvf-mois{font-size:.6rem;margin-top:.28rem}.nvf-cnt{font-size:.6rem}
+}
   .nv-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);border-top:5px solid var(--ac,var(--blue));transition:.22s;scroll-margin-top:96px;display:flex;flex-direction:column}
   .nv-card:hover,.nv-card.active{transform:translateY(-4px);box-shadow:var(--shadow)}
   .nv-card.active{outline:3px solid var(--ac,var(--blue));outline-offset:2px}
@@ -895,7 +903,7 @@
     <div class="wrap">
       <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
       <span class="eyebrow">📍 La tournée</span>
-      <h1>La tournée des Villages des Recruteurs</h1>
+      <h1>La tournée du Village des Recruteurs</h1>
       <p>Chaque Village réunit orientation, entreprises, formation et entrepreneuriat le temps d'une journée. <b>Candidats</b> : inscrivez-vous via Matching Square (présentiel ou hybride). <b>Exposants</b> : ouvrez le détail d'un Village pour tout savoir et réserver votre stand.</p>
     </div>
   </div>
@@ -1861,7 +1869,7 @@
   ];
   var villages2027=[
      {city:'Nantes',mois:'Février',date:'Février 2027',venue:'Exponantes',cA:'#E3007B',cB:'#B4005F',coprod:''},
-     {city:'À confirmer',mois:'Mars',date:'Mars 2027',cA:'#08324F',cB:'#006FB7',coprod:'',tbd:true},
+     {city:'Reims',mois:'Mars',date:'Mars 2027',cA:'#006FB7',cB:'#004E82',coprod:''},
      {city:'Lille',mois:'Avril',date:'Avril 2027',cA:'#0FAE9E',cB:'#0A7D72',coprod:''},
      {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',venue:'Casino Pasino',cA:'#F8B322',cB:'#D98E00',coprod:''},
      {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',venue:'Salle Mermoz',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
@@ -1976,9 +1984,10 @@
         +'<span class="nvf-city">'+e.city+'</span>'
         +'<span class="nvf-node '+st+'">'+sym+'</span>'
         +'<span class="nvf-mois">'+(e.mois||'').toUpperCase()+'</span>'
-        +'<span class="nvf-date">'+dt+'</span>'+cnt+'</button>';
+        +cnt+'</button>';
     }).join('');
-    host.innerHTML='<div class="nvf-head"><div class="nvf-title">La tournée en un coup d’œil<small>'+n+' rendez-vous · Tournée '+y+'</small></div>'
+    var ynote=(y==='2027')?' · dates et lieux à confirmer fin septembre 2026':'';
+    host.innerHTML='<div class="nvf-head"><div class="nvf-title">La tournée en un coup d’œil<small>'+n+' rendez-vous · Tournée '+y+ynote+'</small></div>'
       +'<div class="nvf-stats"><span><b>85+</b> éditions depuis 2015</span><span><b>150 000+</b> candidats accompagnés</span><span><b>400+</b> entreprises / an</span></div></div>'
       +'<div class="nvf-rail"><div class="nvf-prog" style="width:'+prog+'%"></div>'+stops+'</div>';
     host.querySelectorAll('.nvf-stop').forEach(function(b){b.addEventListener('click',function(){var c=document.querySelector('#nv-cards .nv-card[data-city="'+b.dataset.city+'"]');if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('pulse');void c.offsetWidth;c.classList.add('pulse');}});});
