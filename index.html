@@ -194,6 +194,10 @@
 
   /* ECO GRID */
   .eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+  .ms-habitant{margin-top:1.6rem;background:linear-gradient(135deg,var(--navy),#0b4a75);color:#fff;border-radius:20px;padding:1.5rem 1.7rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:flex-start}
+  .ms-habitant .eyebrow{color:var(--jaune)}
+  .ms-habitant h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.6rem);margin:.35rem 0 .5rem}
+  .ms-habitant p{opacity:.93;max-width:82ch;margin:0 0 1.1rem}
   /* Cartes qui se retournent */
   .eco{background:transparent;border:none;padding:0;height:250px;perspective:1200px;cursor:pointer}
   .eco-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
@@ -769,10 +773,16 @@
       <div class="sec-head">
         <span class="eyebrow teal">Les habitants du Village</span>
         <h2>Emploi, alternance, formation : tout au même endroit</h2>
-        <p style="max-width:42rem">Sur un seul salon, vous trouvez des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de votre première question au premier jour de travail.</p>
+        <p style="max-width:42rem">Sur un seul salon, vous trouvez des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de votre première question au premier jour de travail. Et une dimension digitale, <b>Matching Square</b>, prépare la rencontre en amont pour la rendre plus riche le jour J.</p>
       </div>
       <div class="eco-grid" id="eco-grid"></div>
       <p class="logo-note">Survolez (ou touchez) une étiquette pour découvrir des exemples d'acteurs.</p>
+      <div class="ms-habitant">
+        <span class="eyebrow teal">⚙️ Et une dimension digitale</span>
+        <h3>Matching Square : mieux s'informer avant, mieux se rencontrer le jour J</h3>
+        <p>Aux côtés de tous ces acteurs, Matching Square ajoute la couche digitale du Village. Avant l'événement, chacun s'informe et se prépare : les candidats créent leur profil digital et repèrent les bons interlocuteurs, les entreprises ciblent les talents. Les personnes à distance peuvent aussi participer via notre plateforme de rencontre virtuelle. Résultat : des rencontres plus riches et plus utiles, sur place comme en ligne.</p>
+        <button class="btn btn-primary" onclick="go('matchingsquare')">Découvrir Matching Square →</button>
+      </div>
     </div>
   </section>
 
@@ -2215,11 +2225,11 @@
       {d:"12/06/2026",t:"Alison CARREIRA, cheffe de projet du Village des Recruteurs, revient sur cette 10e édition bordelaise. 1 250 participants, près de 50…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471129348310433792"}
     ],
     facebook:[
+      {d:"06/08/2026",t:"📸 Album VDR Reims 2026 : retour en images sur l'édition rémoise du Village des Recruteurs, une journée dédiée à l'emploi, à la formation et aux rencontres. 31 photos à découvrir…",u:"https://www.facebook.com/LeVillageDesRecruteurs/posts/pfbid02SZNBEZrRFjnbwMYpujtjKtf6wK8bfdTXuzk9TRVZmRmcB5iFb1fVwB87z8g8Hqarl"},
       {d:"10/06/2026",t:"🎬 J-1 avant le Village des Recruteurs à Bordeaux ! Petit aperçu des coulisses et des derniers préparatifs avant l'ouverture des portes. 🚀…",u:"https://www.facebook.com/107862676212389_1317961040467086"},
       {d:"09/06/2026",t:"Webinaire gratuit pour vous aider à trouver une alternance ! 👀 Demain 16h30-17h30 inscription sur le village des recruteurs de bordeaux…",u:"https://www.facebook.com/107862676212389_1316967217233135"},
       {d:"09/06/2026",t:"Vous ne savez pas trop comment vous présenter à un recruteur ? Demain au Hangar 14, des partenaires emploi sont là dès 9h30 pour vous aider à vous…",u:"https://www.facebook.com/107862676212389_1316709703925553"},
       {d:"04/06/2026",t:"Envoyer 50 candidatures sans jamais avoir de retour, c'est le red flag qu'on connaît tous. Le 11 juin à Bordeaux, vous parlez à un vrai…",u:"https://www.facebook.com/107862676212389_1312579031005287"},
-      {d:"02/06/2026",t:"Vous cherchez à aller à un salon emploi et vous ne savez pas trop à quoi vous attendre ? 👀 On vous explique tout : les entreprises présentes, les…",u:"https://www.facebook.com/107862676212389_1310907994505724"}
     ],
     instagram:[
       {d:"12/06/2026",t:"✨ Retour sur le Village des Recruteurs de Bordeaux. Hier, recruteurs, candidats et partenaires se sont réunis pour une journée placée sous…",u:"https://www.instagram.com/reel/DZfSzhsI0w2/"},
