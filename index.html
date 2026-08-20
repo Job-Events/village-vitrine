@@ -66,6 +66,26 @@
   .logo-village{display:inline-flex;align-items:center;cursor:pointer}
   .logo-village-img{height:46px;width:auto;display:block}
   .jobevents-img{height:56px;width:auto;display:block}
+.brand-lockup{display:flex;align-items:center;gap:.55rem}
+.by-je{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer;padding-left:.55rem;border-left:1px solid var(--line)}
+.by-je .by-txt{font-size:.72rem;font-weight:700;color:var(--muted)}
+.brand-lockup .je-mini{height:32px}
+@media(max-width:560px){.by-je .by-txt{display:none}.brand-lockup .je-mini{height:26px}.logo-village-img{height:38px}}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-top:1.2rem}
+.team-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;display:flex;gap:.75rem;align-items:center;box-shadow:var(--shadow-sm)}
+.tm-av{width:46px;height:46px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.95rem}
+.team-card b{display:block;color:var(--navy);font-size:1rem;line-height:1.1}
+.team-card .role{font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
+.je-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:.4rem}
+.join{background:linear-gradient(135deg,var(--navy),#0b4a75);color:#fff;border-radius:22px;padding:1.6rem 1.6rem 1.7rem;margin:1.6rem 0}
+.join h2{color:#fff;font-size:clamp(1.5rem,2.6vw,2rem);margin:.2rem 0 .6rem}
+.join p{opacity:.92;max-width:74ch}
+.join .vals{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.join .vals span{background:rgba(255,255,255,.14);border-radius:999px;padding:.25rem .7rem;font-size:.8rem;font-weight:700}
+.join-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}
+@media(max-width:760px){.join-cards{grid-template-columns:1fr}}
+.join-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:1rem}
+.join-card b{color:#fff}
   .msq-img{height:44px;width:auto;display:block}
   .foot-logo-chip{background:transparent;border-radius:14px;padding:.3rem .5rem;display:inline-block}
   .foot-logo-chip .msq-img{height:60px}
@@ -643,7 +663,10 @@
 <!-- ===================== HEADER ===================== -->
 <header>
   <div class="wrap nav">
-    <div class="logo-village" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></div>
+    <div class="brand-lockup">
+      <div class="logo-village" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></div>
+      <span class="by-je" onclick="go('jobevents')" title="Job Events — l'agence"><span class="by-txt">by</span><img class="jobevents-img je-mini" alt="Job Events"></span>
+    </div>
     <nav class="nav-links" id="navlinks">
       <a data-nav="accueil" onclick="go('accueil')">Accueil</a>
       <a data-nav="evenements" onclick="go('evenements')">Nos Villages</a>
@@ -803,7 +826,7 @@
             <span class="eyebrow">Le chef d'orchestre · depuis 2015</span>
             <div style="margin:1rem 0 .3rem"><img class="jobevents-img" alt="Job Events"></div>
             <h2 style="font-size:clamp(1.7rem,2.8vw,2.1rem);margin:.5rem 0 1rem">Job Events met tous ces acteurs en musique</h2>
-            <p class="lead">Anciennement Aglaé Events, Job Events conçoit et organise des salons de recrutement en présentiel partout en France depuis 12 ans : 85+ éditions, 150 000+ candidats accompagnés, 3 200+ entreprises accueillies. Curation des exposants, scénographie, conférences et mise en relation ciblée : du concret, pas des promesses.</p>
+            <p class="lead">Anciennement Aglaé Events, Job Events conçoit et organise des salons de recrutement en présentiel partout en France depuis 2015. <a onclick="go('jobevents')" style="color:var(--rose);font-weight:700;cursor:pointer">En savoir plus sur l’agence →</a></p>
             <div class="chip-row">
               <span class="chip"><span class="d">◆</span> Curation des exposants</span>
               <span class="chip"><span class="d">◆</span> Scénographie de l'événement</span>
@@ -1673,6 +1696,60 @@
 </div>
 
 <!-- ===================== FOOTER ===================== -->
+<div class="page" id="page-jobevents">
+  <div class="phead" style="background:linear-gradient(120deg,#E7F0FB,#FCE7F1)">
+    <div class="wrap">
+      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <span class="eyebrow">🎪 L'agence · depuis 2015</span>
+      <div style="margin:.7rem 0 .3rem"><img class="jobevents-img" alt="Job Events" style="height:64px"></div>
+      <h1>La rencontre humaine au cœur du recrutement</h1>
+      <p>Job Events est une agence événementielle et de communication RH spécialisée dans les événements dédiés à l'emploi, au recrutement et à la formation. Notre ADN : replacer la <b>rencontre humaine</b> au cœur du recrutement, à l'heure du tout-numérique et des job boards.</p>
+    </div>
+  </div>
+  <section><div class="wrap">
+    <div class="orch"><div class="orch-grid">
+      <div>
+        <span class="eyebrow">Notre métier</span>
+        <h2 style="font-size:clamp(1.7rem,2.8vw,2.1rem);margin:.5rem 0 1rem">Nous concevons des événements qui font se rencontrer candidats et recruteurs</h2>
+        <p class="lead">Basés dans la région lyonnaise, nous travaillons main dans la main avec les métropoles, les collectivités et les acteurs locaux de l'emploi. Notre événement signature, <b>Le Village des Recruteurs</b>, entre l'an prochain dans sa <b>12ᵉ année</b> : plus de 150 000 candidats et 3 200 entreprises déjà accompagnés. Chaque étape réunit de 40 à 100 entreprises et centres de formation, 8 à 15 partenaires institutionnels et médias, et 1 500 à 5 000 candidats.</p>
+        <div class="chip-row">
+          <span class="chip"><span class="d">◆</span> Curation des exposants</span>
+          <span class="chip"><span class="d">◆</span> Scénographie de l'événement</span>
+          <span class="chip"><span class="d">◆</span> Programme de conférences</span>
+          <span class="chip"><span class="d">◆</span> Mise en relation ciblée</span>
+        </div>
+        <div style="margin-top:1.2rem"><button class="btn btn-primary" onclick="go('evenements')">Découvrir Le Village des Recruteurs →</button></div>
+      </div>
+      <div>
+        <div class="je-stats">
+          <div class="s"><b>85+</b><span>éditions depuis 2015</span></div>
+          <div class="s"><b>150 000+</b><span>candidats accompagnés</span></div>
+          <div class="s"><b>3 200+</b><span>entreprises accueillies</span></div>
+          <div class="s"><b>40–100</b><span>exposants par étape</span></div>
+        </div>
+      </div>
+    </div></div>
+  </div></section>
+  <section><div class="wrap">
+    <span class="eyebrow">🤝 L'équipe</span>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2rem);margin:.4rem 0 .2rem">Celles et ceux qui font vivre le Village</h2>
+    <p class="lead" style="max-width:72ch">Une équipe commerciale, communication et production qui construit chaque édition, du premier appel au jour J.</p>
+    <div class="team-grid"><div class="team-card"><span class="tm-av" style="background:#006FB7;color:#fff">MA</span><div><b>Marc-Antoine</b><span class="role">Président de Job Events & Matching Square — stratégie, finance & digital</span></div></div><div class="team-card"><span class="tm-av" style="background:#E3007B;color:#fff">A</span><div><b>Antoine</b><span class="role">Fondateur du Village des Recruteurs — business development, commerce, presse & médias</span></div></div><div class="team-card"><span class="tm-av" style="background:#0FAE9E;color:#fff">H</span><div><b>Héléna</b><span class="role">Team Leader commerciale</span></div></div><div class="team-card"><span class="tm-av" style="background:#F8B322;color:#08324F">L</span><div><b>Lucille</b><span class="role">Commerciale indépendante</span></div></div><div class="team-card"><span class="tm-av" style="background:#2FA36B;color:#fff">M</span><div><b>Marie</b><span class="role">Commerciale indépendante</span></div></div><div class="team-card"><span class="tm-av" style="background:#FF5A5F;color:#fff">T</span><div><b>Thibaud</b><span class="role">Commercial en alternance</span></div></div><div class="team-card"><span class="tm-av" style="background:#08324F;color:#fff">Ma</span><div><b>Mathilde</b><span class="role">Responsable communication & gestion de projets</span></div></div><div class="team-card"><span class="tm-av" style="background:#1C6DA8;color:#fff">J</span><div><b>Jesse</b><span class="role">Marketing digital en alternance</span></div></div><div class="team-card"><span class="tm-av" style="background:#E3007B;color:#fff">R</span><div><b>Rémi</b><span class="role">Chef de projet des Villages (par intérim)</span></div></div><div class="team-card"><span class="tm-av" style="background:#0FAE9E;color:#fff">La</span><div><b>Laetitia</b><span class="role">Responsable administrative, paie & assistante de direction</span></div></div></div>
+  </div></section>
+  <section><div class="wrap">
+    <div class="join">
+      <span class="eyebrow" style="color:#fff;opacity:.9">💼 Rejoignez-nous</span>
+      <h2>Envie de construire des événements qui comptent ?</h2>
+      <p>Chez Job Events, on crée des événements — et l'événementiel est un métier vivant, rythmé par des dates qui ne bougent pas. On y avance en équipe, avec de l'énergie, de l'entraide et la capacité à rebondir quand tout ne se passe pas comme prévu. Si vous aimez les environnements où l'on se dit « il reste trois semaines, on a un objectif — qu'est-ce qu'on met en place pour aller le chercher ? », vous êtes au bon endroit.</p>
+      <div class="vals"><span>Énergie</span><span>Entraide</span><span>Positif</span><span>Orienté résultats</span><span>Esprit village</span></div>
+      <div class="join-cards">
+        <div class="join-card"><b>Poste ouvert — Commercial(e) sédentaire BtoB</b><p style="opacity:.9;margin:.4rem 0 0">Événementiel · CDI, temps plein · Lyon (Dardilly, puis Lyon Part-Dieu dès nov. 2026). Vous remplissez nos Villages d'entreprises qui recrutent : prospection, vente, fidélisation.</p></div>
+        <div class="join-card"><b>Candidature</b><p style="opacity:.9;margin:.4rem 0 0">Envoyez CV + lettre de motivation. On lit tout, on répond.</p><p style="margin:.5rem 0 0"><b>commercial@jobevents.odoo.com</b><br>04 72 33 87 56</p></div>
+      </div>
+      <a class="btn btn-primary" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20Job%20Events" style="margin-top:1.1rem">Postuler / nous écrire ↗</a>
+    </div>
+  </div></section>
+</div>
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -1680,7 +1757,7 @@
         <div class="foot-logo-chip logo-village" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></div>
         <p>Il faut tout un Village pour vous aider à trouver le bon emploi. Job Events organise et coordonne tous les acteurs qui vous accompagnent.</p>
         <div class="foot-partners">
-          <div class="fp-row"><span class="lbl">Un événement</span><div class="foot-logo-chip"><img class="jobevents-img" style="height:40px" alt="Job Events"></div></div>
+          <div class="fp-row"><span class="lbl">Un événement</span><div class="foot-logo-chip" onclick="go('jobevents')" style="cursor:pointer" title="Job Events — l'agence"><img class="jobevents-img" style="height:40px" alt="Job Events"></div></div>
           <div class="fp-row"><span class="lbl">Propulsé par</span><div class="foot-logo-chip"><img class="msq-img" alt="Matching Square"></div></div>
         </div>
       </div>
@@ -1692,6 +1769,7 @@
         <a onclick="go('blog')">Actualité</a>
         <a onclick="go('faq')">FAQ</a>
         <a onclick="go('matchingsquare')">Matching Square</a>
+        <a onclick="go('jobevents')">Job Events (l'agence)</a>
       </div>
       <div>
         <h4>Parcours</h4>
