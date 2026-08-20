@@ -82,6 +82,8 @@
 .je-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:.4rem}
 .je-row{grid-template-columns:repeat(4,1fr);margin-top:1.4rem}
 @media(max-width:700px){.je-row{grid-template-columns:repeat(2,1fr)}}
+.je-stats .s b{display:block;font-size:1.5rem;font-weight:900;color:var(--blue);line-height:1.1}
+.je-stats .s span{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.2rem}
 .je-photo{border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--line);height:100%}
 .je-photo img{display:block;width:100%;height:100%;object-fit:cover;max-height:480px}
 .contact-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
@@ -1389,8 +1391,8 @@
       <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
       <div id="ms-logo-head" style="margin:.2rem 0 .7rem"></div>
       <span class="eyebrow jaune">⚙️ La dimension digitale du Village</span>
-      <h1>Matching Square, le digital au service de la rencontre</h1>
-      <p style="max-width:none">Matching Square ajoute la <b>dimension digitale</b> à un Village avant tout présentiel : les personnes à distance peuvent <b>participer</b>, les candidats se <b>préparent</b> en amont, et les entreprises <b>recherchent les talents avant et après</b> le jour J. Une dimension supplémentaire qui complète un dispositif déjà très complet sur le terrain — sans jamais remplacer la rencontre en vrai. Ensuite, tout se joue autour du <b>profil digital</b> et du <b>matching</b>.</p>
+      <h1>Matching Square : le digital pour renforcer le présentiel</h1>
+      <p style="max-width:none">Matching Square ajoute la <b>dimension digitale</b> à un Village avant tout présentiel. Les personnes à distance peuvent <b>participer au travers de notre plateforme de rencontre virtuelle</b>, les candidats peuvent <b>se préparer et postuler avant l’événement</b>, et les entreprises recherchent les talents avant et après le jour J. Une dimension supplémentaire qui complète un dispositif déjà très complet sur le terrain — sans jamais remplacer la rencontre en vrai. Ensuite, tout se joue autour du <b>profil digital</b> et du <b>matching</b>.</p>
     </div>
   </div>
 
@@ -1399,8 +1401,8 @@
     <div class="wrap">
       <div class="sec-head" style="margin-bottom:2rem">
         <span class="eyebrow">① Le profil digital</span>
-        <h2>Du CV au profil, en un instant</h2>
-        <p>L'IA transforme votre CV, ou votre description de poste, côté entreprise, en <b>profil digital</b>, que vous ajustez librement pour qu'il vous ressemble vraiment.</p>
+        <h2>Du CV au profil digital en un instant</h2>
+        <p>L’IA transforme votre CV — ou votre offre, côté entreprise — en <b>profil digital</b>, que vous ajustez librement pour qu’il vous ressemble.</p>
       </div>
       <div class="two-col">
         <div>
@@ -1492,7 +1494,7 @@
       <div class="sec-head">
         <span class="eyebrow jaune">🛠️ Sur mesure</span>
         <h2>Votre événement, sur mesure</h2>
-        <p>Fédérations, organismes de formation, entreprises et institutions : concevez un événement de recrutement ou de networking entièrement ajustable à vos besoins, avec notre outil et l'accompagnement de Job Events.</p>
+        <p style="max-width:74ch">Fédérations, organismes de formation, entreprises et institutions : concevez un événement de recrutement ou de networking entièrement ajustable à vos besoins, avec notre outil et l'accompagnement de Job Events.</p>
       </div>
       <div class="uc-grid">
         <div class="uc"><div class="fi c8">🤝</div><h3>Fédérations</h3><p>Un job-dating dédié à vos entreprises membres et à leurs besoins.</p></div>
@@ -1776,15 +1778,15 @@
   </div></section>
   <section><div class="wrap">
     <div class="join">
-      <span class="eyebrow" style="color:#fff;opacity:.9">💼 Rejoignez-nous</span>
+      <span class="eyebrow" style="color:var(--jaune);opacity:1;font-size:1rem;font-weight:800;letter-spacing:.06em">💼 Rejoignez l’équipe Job Events</span>
       <h2>Envie de construire des événements qui comptent ?</h2>
       <p>Chez Job Events, on crée des événements — et l'événementiel est un métier vivant, rythmé par des dates qui ne bougent pas. On y avance en équipe, avec de l'énergie, de l'entraide et la capacité à rebondir quand tout ne se passe pas comme prévu. Si vous aimez les environnements où l'on se dit « il reste trois semaines, on a un objectif — qu'est-ce qu'on met en place pour aller le chercher ? », vous êtes au bon endroit.</p>
       <div class="vals"><span>Énergie</span><span>Entraide</span><span>Positif</span><span>Orienté résultats</span><span>Esprit village</span></div>
       <div class="join-cards">
         <div class="join-card"><b>Poste ouvert — Commercial(e) sédentaire BtoB</b><p style="opacity:.9;margin:.4rem 0 0">Événementiel · CDI, temps plein · Lyon (Dardilly, puis Lyon Part-Dieu dès nov. 2026). Vous remplissez nos Villages d'entreprises qui recrutent : prospection, vente, fidélisation.</p></div>
-        <div class="join-card"><b>Candidature</b><p style="opacity:.9;margin:.4rem 0 0">Envoyez CV + lettre de motivation. On lit tout, on répond.</p><p style="margin:.5rem 0 0"><b>commercial@jobevents.odoo.com</b><br>04 72 33 87 56</p></div>
+        <div class="join-card"><b>Candidature spontanée bienvenue</b><p style="opacity:.9;margin:.4rem 0 0">Pas de poste ouvert qui vous corresponde ? Envoyez tout de même votre CV + un mot : on lit tout, on répond, et on garde votre profil.</p><p style="margin:.5rem 0 0"><b>commercial@jobevents.odoo.com</b><br>04 72 33 87 56</p></div>
       </div>
-      <a class="btn btn-primary" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20Job%20Events" style="margin-top:1.1rem">Postuler / nous écrire ↗</a>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem"><a class="btn btn-primary" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20-%20poste%20ouvert%20Job%20Events">Postuler au poste ouvert ↗</a><a class="btn btn-ghost" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20spontan%C3%A9e%20Job%20Events" style="color:#fff;border-color:rgba(255,255,255,.55)">Candidature spontanée ↗</a></div>
     </div>
   </div></section>
 </div>
