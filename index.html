@@ -88,9 +88,9 @@
 .je-photo img{display:block;width:100%;height:100%;object-fit:cover;max-height:480px}
 .contact-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
 @media(max-width:700px){.contact-row{grid-template-columns:1fr}}
-.contact-card{display:block;background:#fff;border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:12px;padding:.9rem 1rem;text-decoration:none;box-shadow:var(--shadow-sm)}
-.contact-card b{display:block;color:var(--navy)}
-.contact-card span{color:var(--rose);font-weight:700;font-size:.9rem}
+.contact-card{display:block;background:#fff;border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:12px;padding:1.1rem 1.25rem;text-decoration:none;box-shadow:var(--shadow-sm)}
+.contact-card b{display:block;color:var(--navy);font-size:1.02rem}
+.contact-card span{color:var(--rose);font-weight:800;font-size:1.18rem;margin-top:.15rem;display:block}
 .join{background:linear-gradient(135deg,var(--navy),#0b4a75);color:#fff;border-radius:22px;padding:1.6rem 1.6rem 1.7rem;margin:1.6rem 0}
 .join h2{color:#fff;font-size:clamp(1.5rem,2.6vw,2rem);margin:.2rem 0 .6rem}
 .join p{opacity:.92;max-width:74ch}
@@ -194,10 +194,6 @@
 
   /* ECO GRID */
   .eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
-  .ms-habitant{margin-top:1.6rem;background:linear-gradient(135deg,var(--navy),#0b4a75);color:#fff;border-radius:20px;padding:1.5rem 1.7rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:flex-start}
-  .ms-habitant .eyebrow{color:var(--jaune)}
-  .ms-habitant h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.6rem);margin:.35rem 0 .5rem}
-  .ms-habitant p{opacity:.93;max-width:82ch;margin:0 0 1.1rem}
   /* Cartes qui se retournent */
   .eco{background:transparent;border:none;padding:0;height:250px;perspective:1200px;cursor:pointer}
   .eco-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
@@ -701,6 +697,7 @@
         </div>
       </div>
       <a data-nav="matchingsquare" onclick="go('matchingsquare')">Matching&nbsp;Square</a>
+      <a data-nav="jobevents" onclick="go('jobevents')">L'équipe</a>
       <a data-nav="galerie" onclick="go('galerie')">Galerie</a>
       <a data-nav="blog" onclick="go('blog')">Actualité</a>
       <a data-nav="faq" onclick="go('faq')">FAQ</a>
@@ -773,16 +770,10 @@
       <div class="sec-head">
         <span class="eyebrow teal">Les habitants du Village</span>
         <h2>Emploi, alternance, formation : tout au même endroit</h2>
-        <p style="max-width:42rem">Sur un seul salon, vous trouvez des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de votre première question au premier jour de travail. Et une dimension digitale, <b>Matching Square</b>, prépare la rencontre en amont pour la rendre plus riche le jour J.</p>
+        <p style="max-width:42rem">Sur un seul salon, vous trouvez des entreprises qui recrutent (CDI, CDD, intérim), des centres de formation, de l'alternance et de l'apprentissage, l'accompagnement à la reconversion et à la création d'activité, et les services publics de l'emploi. Chacun apporte sa pierre, de votre première question au premier jour de travail.</p>
       </div>
       <div class="eco-grid" id="eco-grid"></div>
       <p class="logo-note">Survolez (ou touchez) une étiquette pour découvrir des exemples d'acteurs.</p>
-      <div class="ms-habitant">
-        <span class="eyebrow teal">⚙️ Et une dimension digitale</span>
-        <h3>Matching Square : mieux s'informer avant, mieux se rencontrer le jour J</h3>
-        <p>Aux côtés de tous ces acteurs, Matching Square ajoute la couche digitale du Village. Avant l'événement, chacun s'informe et se prépare : les candidats créent leur profil digital et repèrent les bons interlocuteurs, les entreprises ciblent les talents. Les personnes à distance peuvent aussi participer via notre plateforme de rencontre virtuelle. Résultat : des rencontres plus riches et plus utiles, sur place comme en ligne.</p>
-        <button class="btn btn-primary" onclick="go('matchingsquare')">Découvrir Matching Square →</button>
-      </div>
     </div>
   </section>
 
@@ -1728,8 +1719,8 @@
       <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
       <span class="eyebrow">🎪 L'agence · depuis 2015</span>
       <div style="margin:.7rem 0 .3rem"><img class="jobevents-img" alt="Job Events" style="height:64px"></div>
-      <h1>La rencontre humaine au cœur du recrutement</h1>
-      <p>Job Events est une agence événementielle et de communication RH spécialisée dans les événements dédiés à l'emploi, au recrutement et à la formation. Notre ADN : replacer la <b>rencontre humaine</b> au cœur du recrutement, à l'heure du tout-numérique et des job boards.</p>
+      <h1>La rencontre au cœur du recrutement</h1>
+      <p>Job Events est une agence événementielle et de communication RH spécialisée dans les <b>événements dédiés à l'emploi, à la formation et à l'entrepreneuriat</b>. Notre ADN : replacer la <b>rencontre</b> au cœur du recrutement, à l'heure du tout-numérique et des job boards.</p>
     </div>
   </div>
   <section><div class="wrap">
@@ -1760,14 +1751,14 @@
   <section><div class="wrap">
     <span class="eyebrow">🤝 L'équipe</span>
     <h2 style="font-size:clamp(1.6rem,2.6vw,2rem);margin:.4rem 0 .2rem">Celles et ceux qui font vivre le Village</h2>
-    <p class="lead" style="max-width:80ch">L'équipe Job Events organise <b>Le Village des Recruteurs</b>, <b>La Semaine des Recruteurs</b> et des <b>événements sur mesure</b>. Une équipe commerciale, communication et production qui construit chaque édition, du premier appel au jour J.</p>
+    <p class="lead" style="max-width:74ch">L'équipe Job Events organise <b>Le Village des Recruteurs</b>, <b>La Semaine des Recruteurs</b> et des <b>événements sur mesure</b> — commercial, communication et production, du premier appel au jour J.</p>
     <div class="team-grid"><div class="team-card"><div class="tm-photo" style="background:#006FB7;color:#fff">MA</div><div class="tm-body"><b>Marc-Antoine</b><span class="role">Président de Job Events & Matching Square — stratégie, finance & digital</span><a class="mail" href="mailto:marc-antoine@job.events">marc-antoine@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#E3007B;color:#fff">A</div><div class="tm-body"><b>Antoine</b><span class="role">Fondateur du Village des Recruteurs — business dev., commerce, presse & médias</span><a class="mail" href="mailto:antoine@job.events">antoine@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#0FAE9E;color:#fff">H</div><div class="tm-body"><b>Héléna</b><span class="role">Team Leader commerciale</span><a class="mail" href="mailto:helena@job.events">helena@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#F8B322;color:#08324F">L</div><div class="tm-body"><b>Lucille</b><span class="role">Commerciale indépendante</span><a class="mail" href="mailto:lucille@job.events">lucille@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#2FA36B;color:#fff">M</div><div class="tm-body"><b>Marie</b><span class="role">Commerciale indépendante</span><a class="mail" href="mailto:marie@job.events">marie@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#FF5A5F;color:#fff">T</div><div class="tm-body"><b>Thibaud</b><span class="role">Commercial en alternance</span><a class="mail" href="mailto:thibaud@job.events">thibaud@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#08324F;color:#fff">Ma</div><div class="tm-body"><b>Mathilde</b><span class="role">Responsable communication & gestion de projets</span><a class="mail" href="mailto:mathilde@job.events">mathilde@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#1C6DA8;color:#fff">J</div><div class="tm-body"><b>Jesse</b><span class="role">Marketing digital en alternance</span><a class="mail" href="mailto:jesse@job.events">jesse@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#E3007B;color:#fff">R</div><div class="tm-body"><b>Rémi</b><span class="role">Chef de projet des Villages (par intérim)</span><a class="mail" href="mailto:remi@job.events">remi@job.events</a></div></div><div class="team-card"><div class="tm-photo" style="background:#0FAE9E;color:#fff">La</div><div class="tm-body"><b>Laetitia</b><span class="role">Responsable administrative, paie & assistante de direction</span><a class="mail" href="mailto:laetitia@job.events">laetitia@job.events</a></div></div></div>
   </div></section>
   <section style="background:var(--paper-2)"><div class="wrap">
     <div class="sec-head">
       <span class="eyebrow jaune">🛠️ Sur mesure</span>
       <h2>Nous concevons aussi votre événement sur mesure</h2>
-      <p>Au-delà du Village et de la Semaine des Recruteurs, Job Events imagine des événements de recrutement et de networking entièrement ajustables à vos besoins.</p>
+      <p style="max-width:72ch">Au-delà du Village et de la Semaine des Recruteurs, Job Events imagine des événements de recrutement et de networking entièrement ajustables à vos besoins.</p>
     </div>
     <div class="uc-grid">
       <div class="uc"><div class="fi c8">🤝</div><h3>Fédérations</h3><p>Un job-dating dédié à vos entreprises membres et à leurs besoins.</p></div>
@@ -1790,10 +1781,10 @@
     <div class="join">
       <span class="eyebrow" style="color:var(--jaune);opacity:1;font-size:1rem;font-weight:800;letter-spacing:.06em">💼 Rejoignez l’équipe Job Events</span>
       <h2>Envie de construire des événements qui comptent ?</h2>
-      <p>Chez Job Events, on crée des événements — et l'événementiel est un métier vivant, rythmé par des dates qui ne bougent pas. On y avance en équipe, avec de l'énergie, de l'entraide et la capacité à rebondir quand tout ne se passe pas comme prévu. Si vous aimez les environnements où l'on se dit « il reste trois semaines, on a un objectif — qu'est-ce qu'on met en place pour aller le chercher ? », vous êtes au bon endroit.</p>
+      <p>Rejoindre Job Events, c'est participer à des événements qui aident concrètement des milliers de personnes à trouver un emploi, dans une équipe soudée où l'énergie, l'entraide et le goût du résultat comptent autant que l'expérience. L'événementiel est un métier vivant, rythmé par des dates qui ne bougent pas : on avance ensemble, on rebondit, et on voit l'impact de son travail le jour J. Nous sommes par ailleurs <b>en permanence à la recherche de commerciaux B2B</b> qui aiment le contact téléphonique et la relation client.</p>
       <div class="vals"><span>Énergie</span><span>Entraide</span><span>Positif</span><span>Orienté résultats</span><span>Esprit village</span></div>
       <div class="join-cards">
-        <div class="join-card"><b>Poste ouvert — Commercial(e) sédentaire BtoB</b><p style="opacity:.9;margin:.4rem 0 0">Événementiel · CDI, temps plein · Lyon (Dardilly, puis Lyon Part-Dieu dès nov. 2026). Vous remplissez nos Villages d'entreprises qui recrutent : prospection, vente, fidélisation.</p></div>
+        <div class="join-card"><b>Commercial(e) sédentaire B2B — recrutement permanent</b><p style="opacity:.9;margin:.4rem 0 0">CDI, temps plein · Lyon (Dardilly, puis Lyon Part-Dieu dès nov. 2026). Au téléphone, vous remplissez nos Villages d'entreprises qui recrutent : prospection, vente, fidélisation.</p></div>
         <div class="join-card"><b>Candidature spontanée bienvenue</b><p style="opacity:.9;margin:.4rem 0 0">Pas de poste ouvert qui vous corresponde ? Envoyez tout de même votre CV + un mot : on lit tout, on répond, et on garde votre profil.</p><p style="margin:.5rem 0 0"><b>commercial@jobevents.odoo.com</b><br>04 72 33 87 56</p></div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem"><a class="btn btn-primary" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20-%20poste%20ouvert%20Job%20Events">Postuler au poste ouvert ↗</a><a class="btn btn-ghost" href="mailto:commercial@jobevents.odoo.com?subject=Candidature%20spontan%C3%A9e%20Job%20Events" style="color:#fff;border-color:rgba(255,255,255,.55)">Candidature spontanée ↗</a></div>
@@ -1988,21 +1979,21 @@
 
   /* ECOSYSTÈME (cartes qui se retournent) */
   var ECO=[
-    ['🧭','c1','Orientation &amp; accompagnement','Ceux qui aident à définir un cap, à préparer et à valoriser un profil.','#E3007B','#fff','France Travail · APEC · Cap Emploi · NQT · Agefiph · CIDFF · Unis-Cité · Carsat · EPIDE · Info Jeunes…'],
+    ['🧭','c1','Orientation &amp; accompagnement','Ceux qui aident à définir un cap, à préparer et valoriser un profil — et à faire vivre l\'événement.','#E3007B','#fff','France Travail · APEC · Cap Emploi · NQT · Agefiph · CIDFF · Unis-Cité · Carsat · EPIDE · Info Jeunes · coachs &amp; conférenciers · journalistes emploi · Champagne FM…'],
     ['🏢','c2','Entreprises qui recrutent','De l\'alternance aux fonctions seniors, de vrais postes à pourvoir tout de suite.','#006FB7','#fff','Carrefour · Lidl · ALDI · Leroy Merlin · McDonald\'s · SNCF · Keolis · La Poste · Naval Group · Otis · Crédit Agricole · AXA · Veolia · Engie · Croix-Rouge…'],
     ['⚡','c3','Agences d\'intérim','Des opportunités nombreuses et rapides pour se remettre en mouvement.','#0FAE9E','#fff','Manpower · Randstad · Synergie · Proman · Crit · Actual · Abalone · Artus · DLSI · Domino RH · Expectra · Gezim · Happy Job…'],
     ['🎓','c4','Centres de formation','Acquérir ou renforcer les compétences qui font la différence.','#F8B322','#08324F','AFPA · Greta · CESI · Le Wagon · IDRAC · Apprentis d\'Auteuil · AFTRAL · ICAM · ECEMA · Groupe Alternance · E2C · EPSI…'],
     ['🚀','c6','Entrepreneuriat','Ceux qui révèlent et accompagnent la voie de l\'indépendance.','#2FA36B','#fff','BGE · ADIE · Réseau Entreprendre · CPME · Club des Entreprises · FACE · French Tech…'],
     ['🏛️','c5','Métropoles &amp; service public','Partenaires institutionnels et grands pourvoyeurs d\'emplois de proximité.','#08324F','#fff','Métropoles de Lyon, Nantes, Toulouse, Bordeaux, Lille, Dijon · Gendarmerie · Police nationale · Marine nationale · Armée de Terre · Armée de l\'Air · DGA · CAF · Douanes…'],
     ['🤝','c8','Fédérations d\'entreprises','Elles fédèrent les employeurs et les aident à mieux recruter.','#8A5A2B','#fff','UIMM · MEDEF · CPME · CCI · FDSEA · FACE · clubs d\'entreprises…'],
-    ['🎤','c7','Experts &amp; animation','Ceux qui font vivre l\'événement et inspirent les candidats.','#FF5A5F','#fff','Journalistes emploi · coachs · conférenciers · Champagne FM · prestataires horeca (Elior · Arteloge · Azureva)…']
+    ['⚙️','c3','Matching Square, la dimension digitale','Le digital qui prépare la rencontre : mieux s\'informer avant, pour des échanges plus riches le jour J.','#08324F','#fff','Profil digital créé par l\'IA · recherche &amp; matching · préparation des rendez-vous · job dating en ligne avant/après · participation à distance…','Ce que ça change']
   ];
   (function(){
     var g=document.getElementById('eco-grid');if(!g)return;
     g.innerHTML=ECO.map(function(e){
       return '<div class="eco" onclick="this.classList.toggle(\'flipped\')"><div class="eco-inner">'
         +'<div class="eco-face eco-front"><div class="ico '+e[1]+'">'+e[0]+'</div><h3>'+e[2]+'</h3><p>'+e[3]+'</p><span class="flip-hint">Voir les acteurs ↻</span></div>'
-        +'<div class="eco-face eco-back" style="background:'+e[4]+';color:'+e[5]+'"><div class="bt">Quelques acteurs</div><h3>'+e[2]+'</h3><div class="names">'+e[6]+'</div></div>'
+        +'<div class="eco-face eco-back" style="background:'+e[4]+';color:'+e[5]+'"><div class="bt">'+(e[7]||'Quelques acteurs')+'</div><h3>'+e[2]+'</h3><div class="names">'+e[6]+'</div></div>'
         +'</div></div>';
     }).join('');
   })();
