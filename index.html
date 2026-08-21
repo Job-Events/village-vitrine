@@ -2031,10 +2031,10 @@
         +'<div class="acts"><button class="btn btn-off" disabled>Édition terminée</button><button class="btn btn-ghost" onclick="openVillage('+idx+')">Revoir l\'édition</button></div></div></div>';
     }
     var reg = v.ms
-      ? '<a class="btn btn-primary" href="'+v.ms+'" target="_blank" rel="noopener">S\'inscrire comme candidat ↗</a>'
+      ? '<a class="btn btn-primary" href="'+v.ms+'">S\'inscrire comme candidat</a>'
       : '<a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">S\'inscrire comme candidat</a>';
-    var det = '<a class="btn btn-ghost" href="'+expoTarget(v)+'" target="_blank" rel="noopener">Exposer'+(v.odoo?' / détails':'')+' ↗</a>';
-    var topAct = v.odoo ? 'onclick="window.open(\''+v.odoo+'\',\'_blank\',\'noopener\')"' : 'onclick="openVillage('+idx+')"';
+    var det = '<a class="btn btn-ghost" href="'+expoTarget(v)+'">Exposer'+(v.odoo?' / détails':'')+'</a>';
+    var topAct = v.odoo ? 'onclick="window.location.href=\''+v.odoo+'\'"' : 'onclick="openVillage('+idx+')"';
     return '<div class="evt">'
       +'<div class="top" '+topAct+' style="'+evtTopStyle(v)+'"><span class="status">'+v.mois+' · Inscriptions ouvertes</span><span class="city">'+v.city+'</span></div>'
       +'<div class="body"><div class="meta">📍 <b>'+v.venue+'</b></div><div class="meta">🗓️ <b>'+v.date+'</b></div><div class="meta">👥 '+v.count+'</div>'
@@ -2047,7 +2047,7 @@
     return '<div class="evt">'
       +'<div class="top" style="background:linear-gradient(135deg,'+v.cA+','+v.cB+')"><span class="status soon">'+v.mois+' · Pré-inscription</span><span class="city">'+v.city+'</span></div>'
       +'<div class="body">'+band+'<div class="meta">🗓️ <b>'+v.date+'</b></div><div class="meta">📍 <b>Lieu à confirmer</b></div><div class="meta">👥 Save the date</div>'
-      +'<div class="acts"><a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">Tenez-moi informé·e</a><a class="btn btn-ghost" href="'+expoTarget(v)+'" target="_blank" rel="noopener">Réserver un stand</a></div></div></div>';
+      +'<div class="acts"><a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">Tenez-moi informé·e</a><a class="btn btn-ghost" href="'+expoTarget(v)+'">Réserver un stand</a></div></div></div>';
   }
   (function(){
     var a=document.getElementById('all-events-2026');if(a)a.innerHTML=villages2026.map(evtCard2026).join('');
@@ -2088,11 +2088,11 @@
   function nvBtns(v){
     var st=nvStatut(v);
     var odoo=v.odoo||NV_ODOO_FALLBACK;
-    var expo='<a class="nv-cta alt" href="'+expoTarget(v)+'" target="_blank" rel="noopener">Exposer / plus de d\u00e9tails</a>';
+    var expo='<a class="nv-cta alt" href="'+expoTarget(v)+'">Exposer / plus de d\u00e9tails</a>';
     if(v.tbd){return '<span class="nv-closed">Ville d\u00e9voil\u00e9e bient\u00f4t</span>'+expo;}
     var cand;
-    if(st==='ouvert'){cand='<a class="nv-cta" href="'+(v.ms||'#')+'" target="_blank" rel="noopener">Je m\'inscris comme candidat</a>';}
-    else if(st==='avenir'){cand=v.candList?('<a class="nv-cta" href="'+v.candList+'" target="_blank" rel="noopener">\u00catre alert\u00e9\u00b7e</a>'):('<a class="nv-cta" href="#" onclick="openCandForm(\''+String(v.city).replace(/\'/g,"\\'")+'\');return false;">\u00catre alert\u00e9\u00b7e</a>');}
+    if(st==='ouvert'){cand='<a class="nv-cta" href="'+(v.ms||'#')+'">Je m\'inscris comme candidat</a>';}
+    else if(st==='avenir'){cand=v.candList?('<a class="nv-cta" href="'+v.candList+'">\u00catre alert\u00e9\u00b7e</a>'):('<a class="nv-cta" href="#" onclick="openCandForm(\''+String(v.city).replace(/\'/g,"\\'")+'\');return false;">\u00catre alert\u00e9\u00b7e</a>');}
     else{cand='<span class="nv-closed">\u00c9v\u00e9nement cl\u00f4tur\u00e9</span>';}
     return cand+expo;
   }
@@ -2178,11 +2178,11 @@
       '<span class="eyebrow blue">Village de '+v.city+'</span>'
       +'<h3 style="margin-top:.5rem">Exposer sur ce Village</h3>'
       +'<p>Réservez votre stand et recevez le dossier complet (formats, tarifs, plan de salle).</p>'
-      +'<a class="btn btn-blue" style="width:100%;justify-content:center;margin-bottom:.55rem" href="'+expoTarget(v)+'" target="_blank" rel="noopener">'+(v.odoo?'Réserver un stand · voir l\'événement ↗':'Réserver un stand')+'</a>'
+      +'<a class="btn btn-blue" style="width:100%;justify-content:center;margin-bottom:.55rem" href="'+expoTarget(v)+'">'+(v.odoo?'Réserver un stand · voir l\'événement':'Réserver un stand')+'</a>'
       +(v.state==='past'
         ? '<div class="btn btn-off" style="width:100%;justify-content:center;margin-bottom:.55rem">Édition terminée</div>'
         : (v.ms
-          ? '<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="'+v.ms+'" target="_blank" rel="noopener">S\'inscrire comme candidat ↗</a>'
+          ? '<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="'+v.ms+'">S\'inscrire comme candidat</a>'
           : '<a class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:.55rem" href="#" onclick="openCandForm(\''+v.city+'\');return false;">S\'inscrire comme candidat</a>'))
       +'<div class="price-tag">Stand privatif dès 990 € HT · CVthèque incluse</div>';
     go('village-detail');
