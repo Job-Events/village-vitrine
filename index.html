@@ -685,29 +685,29 @@
 <header>
   <div class="wrap nav">
     <div class="brand-lockup">
-      <div class="logo-village" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></div>
-      <span class="by-je" onclick="go('jobevents')" title="Job Events — l'agence"><span class="by-txt">by</span><img class="jobevents-img je-mini" alt="Job Events"></span>
+      <a class="logo-village" href="#accueil" onclick="go('accueil')" aria-label="Le Village des Recruteurs, retour à l'accueil"><img class="logo-village-img" alt="Le Village des Recruteurs"></a>
+      <a class="by-je" href="#jobevents" onclick="go('jobevents')" title="Job Events, l'agence"><span class="by-txt">by</span><img class="jobevents-img je-mini" alt="Job Events"></a>
     </div>
     <nav class="nav-links" id="navlinks">
-      <a data-nav="accueil" onclick="go('accueil')">Accueil</a>
-      <a data-nav="evenements" onclick="go('evenements')">Nos Villages</a>
-      <a data-nav="candidats" onclick="go('candidats')">Candidats</a>
+      <a href="#accueil" data-nav="accueil" onclick="go('accueil')">Accueil</a>
+      <a href="#evenements" data-nav="evenements" onclick="go('evenements')">Nos Villages</a>
+      <a href="#candidats" data-nav="candidats" onclick="go('candidats')">Candidats</a>
       <div class="nav-drop">
         <a class="drop-toggle">Exposer ▾</a>
         <div class="drop-menu">
-          <a onclick="go('recruteurs')">Recruteurs &amp; intérim<small>Recruter en face à face</small></a>
-          <a onclick="go('formation')">Centres de formation<small>Présenter vos cursus</small></a>
-          <a onclick="go('entrepreneuriat')">Entrepreneuriat<small>Révéler des créateurs</small></a>
-          <a onclick="go('partenaires')">Partenaires &amp; institutions<small>Co-construire le Village</small></a>
-          <a onclick="go('semaine')">⏱La Semaine des Recruteurs<small>Un recruteur qui recrute pour vous</small></a>
-          <a onclick="go('simulateur')" style="border-top:1px solid var(--line);margin-top:.2rem;color:var(--rose)">Simuler mon coût<small>Estimer votre participation</small></a>
+          <a href="#recruteurs" onclick="go('recruteurs')">Recruteurs &amp; intérim<small>Recruter en face à face</small></a>
+          <a href="#formation" onclick="go('formation')">Centres de formation<small>Présenter vos cursus</small></a>
+          <a href="#entrepreneuriat" onclick="go('entrepreneuriat')">Entrepreneuriat<small>Révéler des créateurs</small></a>
+          <a href="#partenaires" onclick="go('partenaires')">Partenaires &amp; institutions<small>Co-construire le Village</small></a>
+          <a href="#semaine" onclick="go('semaine')">⏱La Semaine des Recruteurs<small>Un recruteur qui recrute pour vous</small></a>
+          <a href="#simulateur" onclick="go('simulateur')" style="border-top:1px solid var(--line);margin-top:.2rem;color:var(--rose)">Simuler mon coût<small>Estimer votre participation</small></a>
         </div>
       </div>
-      <a data-nav="matchingsquare" onclick="go('matchingsquare')">Matching&nbsp;Square</a>
-      <a data-nav="jobevents" onclick="go('jobevents')">L'équipe</a>
-      <a data-nav="galerie" onclick="go('galerie')">Galerie</a>
-      <a data-nav="blog" onclick="go('blog')">Actualité</a>
-      <a data-nav="faq" onclick="go('faq')">FAQ</a>
+      <a href="#matchingsquare" data-nav="matchingsquare" onclick="go('matchingsquare')">Matching&nbsp;Square</a>
+      <a href="#jobevents" data-nav="jobevents" onclick="go('jobevents')">L'équipe</a>
+      <a href="#galerie" data-nav="galerie" onclick="go('galerie')">Galerie</a>
+      <a href="#blog" data-nav="blog" onclick="go('blog')">Actualité</a>
+      <a href="#faq" data-nav="faq" onclick="go('faq')">FAQ</a>
     </nav>
     <button class="burger" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
   </div>
@@ -847,7 +847,7 @@
         <p>Le candidat est au centre, mais recruteurs, formateurs, entrepreneurs et partenaires ont, eux aussi, toute leur place dans le Village.</p>
       </div>
       <div class="paths">
-        <div class="path big p-cand" onclick="go('candidats')">
+        <a class="path big p-cand" href="#candidats" onclick="go('candidats')">
           <div class="emoji"></div>
           <div class="pc">
             <div class="tag">Vous cherchez un emploi, une alternance, un stage ou une reconversion</div>
@@ -855,22 +855,22 @@
             <p>Emploi (CDI, CDD, intérim), alternance, apprentissage, stage, formation, création d'activité : explorez toutes vos options et arrivez préparé·e grâce à Matching Square. C'est gratuit.</p>
             <span class="go">Découvrir mon parcours →</span>
           </div>
-        </div>
-        <div class="path p-recr" onclick="go('recruteurs')">
+        </a>
+        <a class="path p-recr" href="#recruteurs" onclick="go('recruteurs')">
           <div class="tag">Entreprises &amp; intérim</div><h3>Je recrute</h3>
           <p>Rencontrez 15 à 40 candidats qualifiés par édition, de l'alternance au senior.</p><span class="go">Exposer →</span>
-        </div>
-        <div class="path p-form" onclick="go('formation')">
+        </a>
+        <a class="path p-form" href="#formation" onclick="go('formation')">
           <div class="tag">Organismes de formation</div><h3>Je forme</h3>
           <p>Présentez vos cursus aux profils qui cherchent à monter en compétences.</p><span class="go">Exposer →</span>
-        </div>
-        <div class="path p-entr" onclick="go('entrepreneuriat')">
+        </a>
+        <a class="path p-entr" href="#entrepreneuriat" onclick="go('entrepreneuriat')">
           <div class="tag">Accompagnement à la création</div><h3>Je révèle des entrepreneurs</h3>
           <p>Ouvrez la voie de l'indépendance à ceux qui hésitent à se lancer.</p><span class="go">Exposer →</span>
-        </div>
+        </a>
       </div>
       <div style="margin-top:1.3rem">
-        <div class="path big p-part" onclick="go('partenaires')">
+        <a class="path big p-part" href="#partenaires" onclick="go('partenaires')">
           <div class="emoji"></div>
           <div class="pc">
             <div class="tag">Métropoles, service public, fédérations, experts &amp; horeca</div>
@@ -878,7 +878,7 @@
             <p>Institutions, fédérations, journalistes, coaches, conférenciers, prestataires : construisons ensemble des événements complets, y compris sur mesure avec Matching Square.</p>
             <span class="go">Devenir partenaire →</span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -892,7 +892,7 @@
             <span class="eyebrow">Le chef d'orchestre · depuis 2015</span>
             <div style="margin:1rem 0 .3rem"><img class="jobevents-img" alt="Job Events"></div>
             <h2 style="font-size:clamp(1.7rem,2.8vw,2.1rem);margin:.5rem 0 1rem">Job Events met tous ces acteurs en musique</h2>
-            <p class="lead">Anciennement Aglaé Events, Job Events conçoit et organise des salons de recrutement en présentiel partout en France depuis 2015. <a onclick="go('jobevents')" style="color:var(--rose);font-weight:700;cursor:pointer">En savoir plus sur l’agence →</a></p>
+            <p class="lead">Anciennement Aglaé Events, Job Events conçoit et organise des salons de recrutement en présentiel partout en France depuis 2015. <a href="#jobevents" onclick="go('jobevents')" style="color:var(--rose);font-weight:700;cursor:pointer">En savoir plus sur l’agence →</a></p>
             <div class="chip-row">
               <span class="chip"><span class="d">◆</span> Curation des exposants</span>
               <span class="chip"><span class="d">◆</span> Scénographie de l'événement</span>
@@ -969,7 +969,7 @@
 <div class="page" id="page-evenements">
   <div class="phead tint-evt">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">La tournée</span>
       <h1>La tournée du Village des Recruteurs</h1>
       <p>Chaque Village réunit orientation, entreprises, formation et entrepreneuriat le temps d'une journée.<br><b>Candidats</b> : inscrivez-vous via Matching Square (présentiel ou hybride).<br><b>Exposants</b> : ouvrez le détail d'un Village pour tout savoir et réserver votre stand.</p>
@@ -1008,7 +1008,7 @@
 <div class="page" id="page-village-detail">
   <div class="phead" style="padding-bottom:1.4rem">
     <div class="wrap">
-      <span class="back" onclick="go('evenements')">← Toute la tournée</span>
+      <a class="back" href="#evenements" onclick="go('evenements')">← Toute la tournée</a>
       <div id="vd-hero"></div>
     </div>
   </div>
@@ -1024,7 +1024,7 @@
 <div class="page" id="page-candidats">
   <div class="phead tint-cand">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Votre parcours</span>
       <h1>Le Village vous aide à trouver le bon emploi</h1>
       <p>Pas juste un job de plus : celui qui correspond à vos compétences et à vos ambitions. Au Village, vous êtes au centre : on vous oriente, on vous connecte aux entreprises qui recrutent vraiment, on vous suit avant, pendant et 5 jours après. Job Events coordonne tous ces acteurs ; l'inscription passe par Matching Square, pour arriver préparé.</p>
@@ -1086,7 +1086,7 @@
         <div class="prep-card"><span class="pi">⏱</span><b>Comptez 1h30 à 3h</b><p>La durée dépend du nombre de recruteurs que vous rencontrez et du temps que vous consacrez aux partenaires, conseillers et recruteurs présents. Prévoyez davantage si vous participez à des conférences ou des ateliers.</p></div>
         <div class="prep-card"><span class="pi"></span><b>À emporter</b><p>Quelques copies imprimées de votre CV, un carnet et un stylo.</p></div>
         <div class="prep-card"><span class="pi"></span><b>Sur place</b><p>Allez à la rencontre de vos futurs employeurs et des conseillers, et préparez une présentation brève et percutante de votre profil.</p></div>
-        <div class="prep-card"><span class="pi"></span><b>Encore plus d'astuces</b><p>Retrouvez nos conseils pour réussir votre journée dans la rubrique <a onclick="go('blog')" style="color:var(--rose);font-weight:700;cursor:pointer">Actualité</a>.</p></div>
+        <div class="prep-card"><span class="pi"></span><b>Encore plus d'astuces</b><p>Retrouvez nos conseils pour réussir votre journée dans la rubrique <a href="#blog" onclick="go('blog')" style="color:var(--rose);font-weight:700;cursor:pointer">Actualité</a>.</p></div>
       </div>
     </div>
   </section>
@@ -1096,7 +1096,7 @@
 <div class="page" id="page-recruteurs">
   <div class="phead tint-recr">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow blue">Exposer au Village</span>
       <h1>Recrutez les bons profils, en face à face</h1>
       <p>Des candidats qui se déplacent pour vous, pré-qualifiés par Matching Square, et une organisation clé en main par Job Events. 15 à 40 candidats qualifiés par édition, de l'alternance au senior, un ROI mesurable dès le premier salon. Du concret, pas des promesses.</p>
@@ -1152,7 +1152,7 @@
 <div class="page" id="page-semaine">
   <div class="phead tint-recr">
     <div class="wrap">
-      <span class="back" onclick="go('recruteurs')">← Retour à l'espace exposer</span>
+      <a class="back" href="#recruteurs" onclick="go('recruteurs')">← Retour à l'espace exposer</a>
       <div style="margin:.2rem 0 .7rem"><img class="sdr-img" style="height:64px;mix-blend-mode:multiply" alt="La Semaine des Recruteurs"></div>
       <span class="eyebrow jaune">⏱Une option du Village · recrutement délégué</span>
       <h1>Un recruteur professionnel recrute pour vous</h1>
@@ -1263,7 +1263,7 @@
 <div class="page" id="page-formation">
   <div class="phead tint-form">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow teal">Exposer au Village</span>
       <h1>Centres de formation : rencontrez ceux qui veulent apprendre</h1>
       <p>La compétence est le cœur du Village. Présentez vos cursus à des candidats en quête de reconversion, de qualification ou de spécialisation, et concevez même vos propres événements avec Matching Square.</p>
@@ -1300,7 +1300,7 @@
 <div class="page" id="page-entrepreneuriat">
   <div class="phead tint-entr">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow jaune">Exposer au Village</span>
       <h1>Entrepreneuriat : révélez ceux qui n'osent pas encore</h1>
       <p>L'emploi n'est pas la seule voie. Pour beaucoup, la vraie réponse est de créer leur propre activité, encore faut-il leur montrer que c'est possible.</p>
@@ -1336,7 +1336,7 @@
 <div class="page" id="page-partenaires">
   <div class="phead tint-part">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Construisons ensemble</span>
       <h1>Partenaires &amp; institutions : faisons vivre le Village</h1>
       <p>Métropoles, services publics, fédérations d'entreprises, journalistes, coaches, conférenciers, prestataires horeca : chaque partenaire enrichit l'expérience, et peut même co-construire un événement sur mesure avec Matching Square.</p>
@@ -1395,7 +1395,7 @@
 <div class="page" id="page-matchingsquare">
   <div class="phead tint-ms">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <div id="ms-logo-head" style="margin:.2rem 0 .7rem"></div>
       <span class="eyebrow jaune">La dimension digitale du Village</span>
       <h1>Matching Square : le digital pour renforcer le présentiel</h1>
@@ -1501,7 +1501,7 @@
 <div class="page" id="page-galerie">
   <div class="phead tint-cand">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">En images</span>
       <h1>Le Village des Recruteurs, en images</h1>
       <p>Halls prestigieux, stands animés, poignées de main et coups de cœur : l'ambiance de nos éditions à travers la France. Cliquez sur une photo pour l'agrandir.</p>
@@ -1519,7 +1519,7 @@
 <div class="page" id="page-blog">
   <div class="phead tint-blog">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Actualité</span>
       <h1>L'actualité du Village, en direct de nos réseaux</h1>
       <p>Nos derniers posts LinkedIn, Instagram et Facebook réunis au même endroit, suivis de nos articles de fond pour préparer votre Village, recruter mieux et comprendre le marché.</p>
@@ -1550,7 +1550,7 @@
 <div class="page" id="page-simulateur">
   <div class="phead tint-recr">
     <div class="wrap">
-      <span class="back" onclick="go('recruteurs')">← Retour à l'espace exposer</span>
+      <a class="back" href="#recruteurs" onclick="go('recruteurs')">← Retour à l'espace exposer</a>
       <span class="eyebrow blue">Exposants</span>
       <h1>Simulez votre participation</h1>
       <p>Composez votre stand et vos options : le coût s'ajuste en direct, remises comprises. Tarifs <b>prévente 2027, en € HT</b>, une estimation indicative, l'offre finale est confirmée par votre contact Job Events.</p>
@@ -1599,7 +1599,7 @@
 <div class="page" id="page-faq">
   <div class="phead tint-blog">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Foire aux questions</span>
       <h1>Vos questions, nos réponses</h1>
       <p>Tout savoir avant de rejoindre le Village, côté candidat comme côté exposant. Une question sans réponse ici ? <a onclick="openCandContact()" style="color:var(--rose);cursor:pointer;font-weight:700">Écrivez-nous</a>.</p>
@@ -1621,7 +1621,7 @@
 <div class="page" id="page-contact">
   <div class="phead">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Entrons en contact</span>
       <h1>Rejoignez le Village des Recruteurs</h1>
       <p>Côté candidat, vous vous inscrivez sur Matching Square. Recruteur, formateur, entrepreneur ou partenaire : découvrez les conditions pour exposer ou co-construire un événement.</p>
@@ -1635,7 +1635,7 @@
           <h3 style="margin:.5rem 0 .3rem">Une question ?</h3>
           <p style="color:var(--muted)">Votre inscription, vos rendez-vous, un Village en particulier… Écrivez-nous, on vous répond par e-mail. Et pour vous inscrire à un salon, choisissez votre ville dans la tournée.</p>
           <button class="btn btn-cand-sec" onclick="openCandContact()">Écrire à l'équipe →</button>
-          <a class="btn btn-blue" href="#evenements" onclick="go('evenements');return false;">Choisir ma ville et m'inscrire</a>
+          <a class="btn btn-blue" href="#evenements" onclick="go('evenements')">Choisir ma ville et m'inscrire</a>
         </div>
         <div class="aside-card">
           <span class="eyebrow blue">Recruteur, formateur, partenaire</span>
@@ -1653,7 +1653,7 @@
 <div class="page" id="page-mentions">
   <div class="phead">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Informations légales</span>
       <h1>Mentions légales &amp; Confidentialité</h1>
       <p>Informations légales relatives à l'éditeur du site et politique de protection des données personnelles.</p>
@@ -1702,7 +1702,7 @@
 <div class="page" id="page-jobevents">
   <div class="phead" style="background:linear-gradient(120deg,#E7F0FB,#FCE7F1)">
     <div class="wrap">
-      <span class="back" onclick="go('accueil')">← Retour à l'accueil</span>
+      <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">L'agence · depuis 2015</span>
       <div style="margin:.7rem 0 .3rem"><img class="jobevents-img" alt="Job Events" style="height:64px"></div>
       <h1>La rencontre au cœur du recrutement</h1>
@@ -1781,41 +1781,41 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="foot-logo-chip logo-village" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></div>
+        <a class="foot-logo-chip logo-village" href="#accueil" aria-label="Le Village des Recruteurs, retour à l'accueil" onclick="go('accueil')"><img class="logo-village-img" alt="Le Village des Recruteurs"></a>
         <p>Il faut tout un Village pour vous aider à trouver le bon emploi. Job Events organise et coordonne tous les acteurs qui vous accompagnent.</p>
         <div class="foot-partners">
-          <div class="fp-row"><span class="lbl">Un événement</span><div class="foot-logo-chip" onclick="go('jobevents')" style="cursor:pointer" title="Job Events — l'agence"><img class="jobevents-img" style="height:40px" alt="Job Events"></div></div>
+          <div class="fp-row"><span class="lbl">Un événement</span><a class="foot-logo-chip" href="#jobevents" onclick="go('jobevents')" style="cursor:pointer" title="Job Events, l'agence"><img class="jobevents-img" style="height:40px" alt="Job Events"></a></div>
           <div class="fp-row"><span class="lbl">Propulsé par</span><div class="foot-logo-chip"><img class="msq-img" alt="Matching Square"></div></div>
         </div>
       </div>
       <div>
         <h4>Le Village</h4>
-        <a onclick="go('accueil')">Le concept</a>
-        <a onclick="go('evenements')">Nos Villages</a>
-        <a onclick="go('galerie')">Galerie photos</a>
-        <a onclick="go('blog')">Actualité</a>
-        <a onclick="go('faq')">FAQ</a>
-        <a onclick="go('matchingsquare')">Matching Square</a>
-        <a onclick="go('jobevents')">Job Events (l'agence)</a>
+        <a href="#accueil" onclick="go('accueil')">Le concept</a>
+        <a href="#evenements" onclick="go('evenements')">Nos Villages</a>
+        <a href="#galerie" onclick="go('galerie')">Galerie photos</a>
+        <a href="#blog" onclick="go('blog')">Actualité</a>
+        <a href="#faq" onclick="go('faq')">FAQ</a>
+        <a href="#matchingsquare" onclick="go('matchingsquare')">Matching Square</a>
+        <a href="#jobevents" onclick="go('jobevents')">Job Events (l'agence)</a>
       </div>
       <div>
         <h4>Parcours</h4>
-        <a onclick="go('candidats')">Candidats</a>
-        <a onclick="go('recruteurs')">Recruteurs</a>
-        <a onclick="go('formation')">Formation</a>
-        <a onclick="go('entrepreneuriat')">Entrepreneuriat</a>
-        <a onclick="go('partenaires')">Partenaires</a>
+        <a href="#candidats" onclick="go('candidats')">Candidats</a>
+        <a href="#recruteurs" onclick="go('recruteurs')">Recruteurs</a>
+        <a href="#formation" onclick="go('formation')">Formation</a>
+        <a href="#entrepreneuriat" onclick="go('entrepreneuriat')">Entrepreneuriat</a>
+        <a href="#partenaires" onclick="go('partenaires')">Partenaires</a>
       </div>
       <div>
         <h4>Agir</h4>
-        <a href="#evenements" onclick="go('evenements');return false;">M'inscrire (candidat)</a>
-        <a onclick="openExpo()">Exposer</a>
-        <a onclick="openExpo('Événement sur mesure')">Événement sur mesure</a>
-        <a onclick="go('contact')">Nous contacter</a>
+        <a href="#evenements" onclick="go('evenements')">M'inscrire (candidat)</a>
+        <a href="https://jobevents.odoo.com/demande-exposant?utm_source=vitrine&amp;utm_medium=site&amp;utm_campaign=village&amp;type=Recruteur%20/%20Entreprise" onclick="openExpo();return false;">Exposer</a>
+        <a href="https://jobevents.odoo.com/demande-exposant?utm_source=vitrine&amp;utm_medium=site&amp;utm_campaign=village&amp;type=%C3%89v%C3%A9nement%20sur%20mesure" onclick="openExpo('Événement sur mesure');return false;">Événement sur mesure</a>
+        <a href="#contact" onclick="go('contact')">Nous contacter</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Job Events, Le Village des Recruteurs · Propulsé par Matching Square · <a onclick="go('mentions')">Mentions légales</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-confid');if(e)e.scrollIntoView();},60)">Confidentialité</a> · <a onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-cookies');if(e)e.scrollIntoView();},60)">Cookies</a></span>
+      <span>© 2026 Job Events, Le Village des Recruteurs · Propulsé par Matching Square · <a href="#mentions" onclick="go('mentions')">Mentions légales</a> · <a href="#mentions" onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-confid');if(e)e.scrollIntoView();},60)">Confidentialité</a> · <a href="#mentions" onclick="go('mentions');setTimeout(function(){var e=document.getElementById('ml-cookies');if(e)e.scrollIntoView();},60)">Cookies</a></span>
     </div>
   </div>
 </footer>
