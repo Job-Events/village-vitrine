@@ -1522,7 +1522,7 @@
       <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Actualité</span>
       <h1>L'actualité du Village, en direct de nos réseaux</h1>
-      <p>Nos derniers posts LinkedIn, Instagram et Facebook réunis au même endroit, suivis de nos articles de fond pour préparer votre Village, recruter mieux et comprendre le marché.</p>
+      <p>Nos derniers posts LinkedIn, Instagram et Facebook, réunis au même endroit.</p>
     </div>
   </div>
   <section style="padding-top:2rem">
@@ -1534,16 +1534,22 @@
       <div class="social-wall" id="social-cols"></div>
     </div>
   </section>
+  <!-- SECTION MASQUEE le 25/08/2026, point 7.4 de l'audit.
+       Les six articles annonces n'existent pas : les blocs affichaient un temps de
+       lecture et un bouton "Lire l'article" qui rechargeait la page courante.
+       A reactiver quand les articles seront rediges. Le tableau de donnees est
+       conserve dans le script, chercher "var articles".
   <section style="padding-top:1rem">
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Articles de fond</span>
-        <h2>À lire pour aller plus loin</h2>
-        <p>Conseils candidats, coulisses des Villages, guides recruteurs et décryptages du marché.</p>
+        <h2>A lire pour aller plus loin</h2>
+        <p>Conseils candidats, coulisses des Villages, guides recruteurs et decryptages du marche.</p>
       </div>
       <div class="blog-grid" id="blog-list"></div>
     </div>
   </section>
+  -->
 </div>
 
 <!-- ===================== SIMULATEUR ===================== -->
@@ -1661,10 +1667,6 @@
   </div>
   <section style="padding-top:2rem">
     <div class="wrap"><div class="ml-wrap">
-      <div class="ml-card" style="border-left:4px solid var(--jaune)">
-        <p class="muted" style="margin:0">ℹInformations renseignées d'après l'extrait Kbis. Document indicatif, à faire valider par un professionnel du droit.</p>
-      </div>
-
       <h2>1. Éditeur du site</h2>
       <p>Le présent site est édité par Job Events, société par actions simplifiée (SAS) au capital de 6 000 €.</p>
       <p>Siège social : 10 Chemin de l'Industrie, 69570 Dardilly.<br>
@@ -1675,7 +1677,6 @@
 
       <h2>2. Hébergement</h2>
       <p>Ce site est hébergé par <b>GitHub, Inc.</b> (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com" target="_blank" rel="noopener">github.com</a>. Le site est constitué de pages statiques et n'héberge aucune donnée personnelle.</p>
-      <p class="muted">En cas de changement d'hébergeur, pensez à mettre ces informations à jour.</p>
 
       <h2>3. Propriété intellectuelle</h2>
       <p>L'ensemble des contenus du site (textes, mise en page, éléments graphiques) est protégé par le droit de la propriété intellectuelle. Les marques, les logos des partenaires et exposants ainsi que les photographies des lieux et des salles demeurent la propriété de leurs titulaires respectifs et sont affichés à titre d'illustration ou avec leur autorisation. Toute reproduction ou réutilisation sans autorisation préalable est interdite.</p>
@@ -1693,7 +1694,7 @@
       <h2 id="ml-cookies">5. Cookies</h2>
       <p>Ce site utilise uniquement les cookies techniques nécessaires à son fonctionnement. Les redirections vers Matching Square et Odoo peuvent déposer leurs propres cookies, régis par les politiques de confidentialité de ces services. Si des outils de mesure d'audience ou de marketing sont ajoutés, un bandeau de recueil du consentement conforme aux recommandations de la CNIL sera mis en place.</p>
 
-      <p class="muted" style="margin-top:2rem">Dernière mise à jour : 13 août 2026 · Modèle indicatif, à faire valider par un professionnel du droit.</p>
+      <p class="muted" style="margin-top:2rem">Dernière mise à jour : 25 août 2026.</p>
     </div></div>
   </section>
 </div>
@@ -2588,10 +2589,10 @@
           <div><label>E-mail *</label><input id="cand-email" type="email" required placeholder="vous@email.com"></div>
           <div><label>Ville du Village *</label><select id="cand-ville" required></select></div>
         </div>
-        <label class="cand-consent"><input type="checkbox" required> J'accepte d'être recontacté·e à propos de cette édition.</label>
+        <label class="cand-consent"><input type="checkbox" id="cand-rgpd" name="consentement" required> J'accepte d'être recontacté·e à propos de cette édition.</label>
         <div style="margin-top:1rem"><button class="btn btn-primary" type="submit" style="width:100%">Rejoindre la liste ↗</button></div>
       </form>
-      <p class="form-note">Vos coordonnées sont ajoutées à la liste de votre ville pour vous inviter à l'ouverture des inscriptions.</p>
+      <p class="form-note">Vos coordonnées sont ajoutées à la liste de votre ville pour vous inviter à l'ouverture des inscriptions. Responsable du traitement : Job Events. Durée de conservation : 3 ans. Vos droits d'accès, de rectification et de suppression sont détaillés dans notre <a href="#mentions" onclick="go('mentions')" style="color:var(--rose);font-weight:700">politique de confidentialité</a>.</p>
     </div>
     <div class="cand-ok" id="cand-ok" style="display:none">
       <div class="cand-ok-ic">✓</div>
