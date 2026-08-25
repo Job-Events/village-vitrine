@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="preload" href="fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le Village des Recruteurs, Le rendez-vous qui connecte vos ambitions</title>
 <meta name="description" content="Le salon de l’emploi gratuit du Village des Recruteurs : rencontrez en direct les entreprises qui recrutent, la formation, l’alternance et la reconversion, près de chez vous. Inscription candidats via Matching Square.">
@@ -24,7 +25,32 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Le Village des Recruteurs", "alternateName": "Job Events", "url": "https://www.levillagedesrecruteurs.fr/", "logo": "https://www.levillagedesrecruteurs.fr/og-image.png", "description": "Le salon de l’emploi gratuit du Village des Recruteurs : rencontrez en direct les entreprises qui recrutent, la formation, l’alternance et la reconversion, près de chez vous. Inscription candidats via Matching Square."}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Le Village des Recruteurs", "url": "https://www.levillagedesrecruteurs.fr/", "inLanguage": "fr-FR"}</script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap');
+  /* Police servie depuis le site, et non depuis fonts.googleapis.com. Un import
+     creait une requete en cascade, resolue apres l analyse du CSS, et
+     transmettait l adresse IP du visiteur a un tiers, ce que la politique de
+     confidentialite ne mentionne pas. Voir le point 7.5 de l audit.
+     Jost est une police variable : un seul fichier par plage de caracteres
+     couvre les six graisses employees, de 400 a 900. */
+  @font-face{
+    font-family:'Jost';
+    font-style:normal;
+    font-weight:100 900;
+    font-display:swap;
+    src:url('fonts/jost-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+      U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+      U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face{
+    font-family:'Jost';
+    font-style:normal;
+    font-weight:100 900;
+    font-display:swap;
+    src:url('fonts/jost-latin-ext.woff2') format('woff2');
+    unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,
+      U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,
+      U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   }
