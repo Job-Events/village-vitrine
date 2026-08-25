@@ -151,7 +151,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
 
   /* ECOSYSTÈME (cartes qui se retournent) */
   var ECO=[
-    ['','c1','Orientation &amp; accompagnement','Ceux qui aident à définir un cap, à préparer et valoriser un profil — et à faire vivre l’événement.','#E3007B','#fff','France Travail · APEC · Cap Emploi · NQT · Agefiph · CIDFF · Unis-Cité · Carsat · EPIDE · Info Jeunes · coachs &amp; conférenciers · journalistes emploi · Champagne FM…'],
+    ['','c1','Orientation &amp; accompagnement','Ceux qui aident à définir un cap, à préparer et valoriser un profil, et à faire vivre l’événement.','#E3007B','#fff','France Travail · APEC · Cap Emploi · NQT · Agefiph · CIDFF · Unis-Cité · Carsat · EPIDE · Info Jeunes · coachs &amp; conférenciers · journalistes emploi · Champagne FM…'],
     ['','c2','Entreprises qui recrutent','De l’alternance aux fonctions seniors, de vrais postes à pourvoir tout de suite.','#006FB7','#fff','Carrefour · Lidl · ALDI · Leroy Merlin · McDonald’s · SNCF · Keolis · La Poste · Naval Group · Otis · Crédit Agricole · AXA · Veolia · Engie · Croix-Rouge…'],
     ['','c3','Agences d’intérim','Des opportunités nombreuses et rapides pour se remettre en mouvement.','#0B8478','#fff','Manpower · Randstad · Synergie · Proman · Crit · Actual · Abalone · Artus · DLSI · Domino RH · Expectra · Gezim · Happy Job…'],
     ['','c4','Centres de formation','Acquérir ou renforcer les compétences qui font la différence.','#F8B322','#08324F','AFPA · Greta · CESI · Le Wagon · IDRAC · Apprentis d’Auteuil · AFTRAL · ICAM · ECEMA · Groupe Alternance · E2C · EPSI…'],
