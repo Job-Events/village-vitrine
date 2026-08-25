@@ -33,6 +33,13 @@
     --rose-d:#B4005F;
     --jaune:#F8B322;
     --jaune-d:#D98E00;
+    /* Variantes reservees au TEXTE, WCAG 2.1 niveau AA.
+       Les aplats gardent la couleur de charte ci-dessus. */
+    --jaune-txt:#9A6F15;
+    --teal-txt:#0B8478;
+    --green-txt:#278658;
+    --coral-txt:#CC484C;
+    --rose-txt:#C3006A;
     --navy:#08324F;
     --teal:#0FAE9E;
     --green:#2FA36B;
@@ -43,7 +50,7 @@
     --paper-3:#FBDFC6;
     --cream:#FFF4E8;
     --paper-blue:#E4F1FA;
-    --muted:#7A6A5B;
+    --muted:#786859;
     --line:rgba(60,40,24,.12);
     --shadow:0 18px 50px -20px rgba(80,45,20,.40);
     --shadow-sm:0 8px 24px -12px rgba(80,45,20,.30);
@@ -81,7 +88,7 @@
  .tm-accent{width:30px;height:3px;border-radius:3px;margin:.6rem auto .1rem}
  .tm-sec{font-size:.47rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);line-height:1.5;padding:0 .1rem;margin-top:.5rem}
  .tm-sec b{color:var(--ink);font-weight:600}
- .team-card .mail{margin-top:auto;padding-top:.75rem;font-size:.72rem;font-weight:700;color:var(--rose);text-decoration:none;white-space:nowrap}
+ .team-card .mail{margin-top:auto;padding-top:.75rem;font-size:.72rem;font-weight:700;color:var(--rose-txt);text-decoration:none;white-space:nowrap}
  .team-card .mail:hover{text-decoration:underline}
 .je-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:.4rem}
 .je-row{grid-template-columns:repeat(4,1fr);margin-top:1.4rem}
@@ -225,7 +232,7 @@
   /* TESTIMONIALS */
   .tmoins{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
   .tmoin{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.5rem;box-shadow:var(--shadow-sm)}
-  .tmoin .stars{color:var(--jaune);font-size:.95rem;letter-spacing:.1em}
+  .tmoin .stars{color:var(--jaune-txt);font-size:.95rem;letter-spacing:.1em}
   .tmoin p{font-size:.98rem;margin:.6rem 0 1.1rem}
   .tmoin .who{display:flex;align-items:center;gap:.7rem}
   .tmoin .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;flex:0 0 auto}
@@ -301,7 +308,7 @@
   .pole-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.3rem}
   .pole-chip{border:2px solid rgba(255,255,255,.22);background:transparent;color:#fff;border-radius:999px;padding:.55rem 1rem;min-height:44px;font-weight:700;font-size:.84rem;cursor:pointer;transition:.2s;font-family:inherit;display:inline-flex;align-items:center;gap:.45em}
   .pole-chip:hover{border-color:#fff}
-  .pole-chip.active{color:var(--navy);border-color:transparent}
+  .pole-chip.active{color:#fff;border-color:transparent}
   .pole-chip.static{cursor:default}
   .pole-chip i{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .pole-head{text-align:center;margin-bottom:1.1rem;min-height:26px;font-weight:800}
@@ -447,7 +454,7 @@
   .evt .body{padding:1rem 1.1rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:.35rem}
   .coprod-band{font-size:.74rem;font-weight:800;color:var(--blue-d);background:#E7F1FA;border:1px solid #CFE3F5;border-radius:8px;padding:.35rem .6rem;margin-bottom:.5rem;line-height:1.3;min-height:2.1rem;display:flex;align-items:center;gap:.35em}
   .coprod-band.vdr{color:var(--rose);background:#FCEFF6;border-color:#F6BdD8}
-  .ci-mois{display:inline-block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--rose);background:#FCD9EA;padding:.1em .45em;border-radius:6px;margin-right:.15em}
+  .ci-mois{display:inline-block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--rose-txt);background:#FCD9EA;padding:.1em .45em;border-radius:6px;margin-right:.15em}
   .cand-callout{display:flex;gap:1rem;align-items:flex-start;background:linear-gradient(135deg,#FCD9EA,#FFF9F1);border:1px solid #F6BdD8;border-left:5px solid var(--rose);border-radius:16px;padding:1.2rem 1.4rem}
   .cand-callout .cc-ico{font-size:1.8rem;flex:0 0 auto;line-height:1}
   .cand-callout b{font-size:1.05rem}
@@ -486,7 +493,7 @@
 .nvf-stop{position:relative;z-index:2;flex:1 0 92px;display:flex;flex-direction:column;align-items:center;text-align:center;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
 .nvf-city{font-weight:900;font-size:.88rem;color:var(--navy);line-height:1;margin-bottom:.35rem;min-height:2em;display:flex;align-items:flex-end}
 .nvf-stop.tbd .nvf-city{color:var(--muted)}
-.nvf-node{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem}
+.nvf-node{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--ac);color:var(--ac-txt,var(--ac));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem}
 .nvf-node.open{background:var(--ac);color:#fff;box-shadow:0 0 0 6px color-mix(in srgb,var(--ac) 20%,transparent)}
 .nvf-node.past{background:var(--ac);color:#fff;opacity:.5;border-color:transparent}
 .nvf-mois{font-size:.66rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-top:.35rem}
@@ -515,11 +522,11 @@
   .nv-mon svg{width:44%;height:74%;color:var(--ac,var(--blue));fill:var(--ac,var(--blue))}
   .nv-card.past .nv-mon{filter:none}
   .nv-hi{position:absolute;bottom:.6rem;left:.6rem;color:#fff;font-weight:800;font-size:.74rem;padding:.28rem .7rem;border-radius:999px}
-  .nv-hi.live{background:var(--green)} .nv-hi.soon{background:var(--ac,var(--blue))} .nv-hi.closed{background:rgba(20,20,20,.72)}
+  .nv-hi.live{background:var(--green-txt)} .nv-hi.soon{background:var(--ac,var(--blue))} .nv-hi.closed{background:rgba(20,20,20,.72)}
   .nv-b{padding:.8rem .9rem 1rem;display:flex;flex-direction:column;flex:1}
   .nv-row{display:flex;align-items:baseline;justify-content:space-between;gap:.4rem}
   .nv-row h3{font-size:1.2rem;font-weight:900;margin:0}
-  .nv-date{font-size:.76rem;font-weight:800;color:var(--ac,var(--blue));text-align:right;white-space:nowrap}
+  .nv-date{font-size:.76rem;font-weight:800;color:var(--ac-txt,var(--blue));text-align:right;white-space:nowrap}
   .nv-venue{font-size:.78rem;color:var(--muted);margin:.15rem 0 .25rem}
   .nv-meta2{font-size:.78rem;color:var(--ink);font-weight:600;margin-bottom:.7rem}
   .nv-ctas{display:flex;flex-direction:row;gap:.5rem;margin-top:auto;align-items:stretch}
@@ -602,7 +609,7 @@
   /* Actualité, cartes façon post social */
   .sw-col2{display:flex;flex-direction:column;gap:1rem}
   .sw-col-head{display:flex;align-items:center;gap:.55rem;color:#fff;font-weight:800;padding:.7rem 1rem;border-radius:12px;font-size:1rem;box-shadow:var(--shadow-sm)}
-  .sw-col-head .ic{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:.9rem}
+  .sw-col-head .ic{width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,.18);display:grid;place-items:center;font-size:.9rem}
   .sw-card{position:relative;background:#fff;border:1px solid var(--line);border-top:3px solid var(--pc);border-radius:16px;padding:1rem 1.05rem;box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s}
   .sw-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
   .sw-card.feat{background:linear-gradient(160deg,var(--pcl),#fff)}
@@ -612,7 +619,7 @@
   .sw-card .dt{font-size:.72rem;color:var(--muted);font-weight:600}
   .sw-card .tx{font-size:.87rem;color:var(--ink);line-height:1.5;margin:0 0 .75rem}
   .sw-card.feat .tx{font-size:.92rem}
-  .sw-card .go{font-weight:800;font-size:.8rem;color:var(--pc);display:inline-flex;align-items:center;gap:.3rem}
+  .sw-card .go{font-weight:800;font-size:.8rem;color:var(--pct,var(--pc));display:inline-flex;align-items:center;gap:.3rem}
   .sw-post p{font-size:.83rem;color:var(--muted)}
   .sw-post .mt{font-size:.74rem;color:var(--muted);margin-top:.4rem;font-weight:600}
 
@@ -1904,6 +1911,14 @@
       +'<text x="62" y="52" font-family="Jost,Segoe UI,Arial" font-size="10" font-weight="600" fill="#8A7C6C">'+name[1]+'</text></svg>';
   }
   /* ---- PÔLES : diversité des participants ---- */
+  /* Couleurs de la charte declinees pour le TEXTE. Les aplats conservent
+     la couleur de charte : seules les declarations de couleur de texte
+     passent par ct(). Chaque valeur atteint 4,5 sur fond clair. Voir le
+     journal des corrections, entree 005. */
+  var TXT_SAFE={'#E3007B':'#C3006A','#F8B322':'#9A6F15','#0FAE9E':'#0B8478',
+                '#2FA36B':'#278658','#FF5A5F':'#CC484C','#D98E00':'#B87A00',
+                '#1877F2':'#1772E8','#E1306C':'#D82E68'};
+  function ct(c){return TXT_SAFE[String(c).toUpperCase()]||c;}
   var POLES=[
     {label:"Intérim & emploi",emo:"",color:'#E3007B',cos:["Gs Nice - Groupe Solano", "Dlsi", "Happy Job", "Intercontinental Lyon - Hote…", "Aegis RH", "Actua", "Crit", "Lip", "Slash Interim", "Association Pour L'Emploi De…", "Cibc Bourgogne Sud", "Temporis", "Manpower", "2Ab", "Caheris – Absolis Intérim Na…", "Metier Interim Et Cdi", "Artus Interim", "Geiq Proprete Nantes 44 Et 35"]},
     {label:"Service public & défense",emo:"",color:'#006FB7',cos:["Armée De L'Air Et De L'Espace", "Region Bourgogne-Franche-Comte", "Academie De", "Délégation Générale Du Québe…", "Dr Pays De Loire", "Mission Locale P La Jeunesse", "Mission Locale Bordeaux Aven…", "Maison Metropolitaine D'Inse…", "Cirfa Marine De", "Academie De Police", "Caisse D' Assurance Retraite…", "Metropole Nantes Metropole", "CAF Des Bouches Du Rhône", "CPAM De Loire Atlantique", "Becom Drce Cegn (Gendarmerie)", "Caisse D Allocations Familia…", "Marine Nationale", "CIR Dijon - Centre D'Informa…"]},
@@ -1961,7 +1976,7 @@
     pw.innerHTML=SECKEYS.map(function(key,i){
       var arr=NL[key]||[];if(!arr.length)return '';
       var p=POLES[i];
-      return '<div class="sec-block"><h3 class="sec-h" style="color:'+p.color+'"><span>'+p.emo+'</span> '+p.label+' <b>'+Math.min(arr.length,30)+'</b></h3><div class="logo-wall">'+secLogosHTML(key)+'</div></div>';
+      return '<div class="sec-block"><h3 class="sec-h" style="color:'+ct(p.color)+'"><span>'+p.emo+'</span> '+p.label+' <b>'+Math.min(arr.length,30)+'</b></h3><div class="logo-wall">'+secLogosHTML(key)+'</div></div>';
     }).join('');
   }
 
@@ -1969,9 +1984,9 @@
   var ECO=[
     ['','c1','Orientation &amp; accompagnement','Ceux qui aident à définir un cap, à préparer et valoriser un profil — et à faire vivre l\'événement.','#E3007B','#fff','France Travail · APEC · Cap Emploi · NQT · Agefiph · CIDFF · Unis-Cité · Carsat · EPIDE · Info Jeunes · coachs &amp; conférenciers · journalistes emploi · Champagne FM…'],
     ['','c2','Entreprises qui recrutent','De l\'alternance aux fonctions seniors, de vrais postes à pourvoir tout de suite.','#006FB7','#fff','Carrefour · Lidl · ALDI · Leroy Merlin · McDonald\'s · SNCF · Keolis · La Poste · Naval Group · Otis · Crédit Agricole · AXA · Veolia · Engie · Croix-Rouge…'],
-    ['','c3','Agences d\'intérim','Des opportunités nombreuses et rapides pour se remettre en mouvement.','#0FAE9E','#fff','Manpower · Randstad · Synergie · Proman · Crit · Actual · Abalone · Artus · DLSI · Domino RH · Expectra · Gezim · Happy Job…'],
+    ['','c3','Agences d\'intérim','Des opportunités nombreuses et rapides pour se remettre en mouvement.','#0B8478','#fff','Manpower · Randstad · Synergie · Proman · Crit · Actual · Abalone · Artus · DLSI · Domino RH · Expectra · Gezim · Happy Job…'],
     ['','c4','Centres de formation','Acquérir ou renforcer les compétences qui font la différence.','#F8B322','#08324F','AFPA · Greta · CESI · Le Wagon · IDRAC · Apprentis d\'Auteuil · AFTRAL · ICAM · ECEMA · Groupe Alternance · E2C · EPSI…'],
-    ['','c6','Entrepreneuriat','Ceux qui révèlent et accompagnent la voie de l\'indépendance.','#2FA36B','#fff','BGE · ADIE · Réseau Entreprendre · CPME · Club des Entreprises · FACE · French Tech…'],
+    ['','c6','Entrepreneuriat','Ceux qui révèlent et accompagnent la voie de l\'indépendance.','#278658','#fff','BGE · ADIE · Réseau Entreprendre · CPME · Club des Entreprises · FACE · French Tech…'],
     ['','c5','Métropoles &amp; service public','Partenaires institutionnels et grands pourvoyeurs d\'emplois de proximité.','#08324F','#fff','Métropoles de Lyon, Nantes, Toulouse, Bordeaux, Lille, Dijon · Gendarmerie · Police nationale · Marine nationale · Armée de Terre · Armée de l\'Air · DGA · CAF · Douanes…'],
     ['','c8','Fédérations d\'entreprises','Elles fédèrent les employeurs et les aident à mieux recruter.','#8A5A2B','#fff','UIMM · MEDEF · CPME · CCI · FDSEA · FACE · clubs d\'entreprises…'],
     ['','c3','Matching Square, la dimension digitale','Le digital qui prépare la rencontre : mieux s\'informer avant, pour des échanges plus riches le jour J.','#08324F','#fff','Profil digital créé par l\'IA · recherche &amp; matching · préparation des rendez-vous · job dating en ligne avant/après · participation à distance…','Ce que ça change']
@@ -2087,7 +2102,7 @@
   function nvMeta(v,up){if(up)return v.coprod?('\uD83E\uDD1D '+v.coprod):'Programmation en cours \u00b7 pr\u00e9-inscriptions';return v.count?('\uD83D\uDC65 '+v.count):'';}
   function nvCard(v){
     var up=nvStatut(v)==='avenir'; var venue=v.venue?v.venue:'Lieu \u00e0 venir';
-    return '<article class="nv-card '+(nvStatut(v)==='cloture'?'past':'')+' '+(up?'soon':'')+'" data-city="'+nvSlug(v.city)+'" style="--ac:'+v.cA+'">'
+    return '<article class="nv-card '+(nvStatut(v)==='cloture'?'past':'')+' '+(up?'soon':'')+'" data-city="'+nvSlug(v.city)+'" style="--ac:'+v.cA+';--ac-txt:'+ct(v.cA)+'">'
       +'<div class="nv-top">'+nvPhoto(v,up)+nvBadge(v)+'</div>'
       +'<div class="nv-b"><div class="nv-row"><h3>'+v.city+'</h3><span class="nv-date">'+v.date+'</span></div>'
       +'<div class="nv-venue">\uD83D\uDCCD '+venue+(v.region?' \u00b7 '+v.region:'')+'</div>'
@@ -2120,7 +2135,7 @@
       var sym=st==='past'?'✓':(st==='open'?'●':'○');
       var cnt=e.count?('<span class="nvf-cnt">'+String(e.count).replace(/\s*candidats?/i,'')+'</span>'):'';
       var dt=(e.date||'').replace(/\s*20\d\d/,'');
-      return '<button class="nvf-stop '+st+(e.tbd?' tbd':'')+'" style="--ac:'+(e.cA||'#08324F')+'" data-city="'+nvSlug(e.city)+'">'
+      return '<button class="nvf-stop '+st+(e.tbd?' tbd':'')+'" style="--ac:'+(e.cA||'#08324F')+';--ac-txt:'+ct(e.cA||'#08324F')+'" data-city="'+nvSlug(e.city)+'">'
         +'<span class="nvf-city">'+e.city+'</span>'
         +'<span class="nvf-node '+st+'">'+sym+'</span>'
         +'<span class="nvf-mois">'+(e.mois||'').toUpperCase()+'</span>'
@@ -2228,12 +2243,12 @@
       var m=SOCMETA[k];
       var list=(data&&data[k]&&data[k].length)?data[k]:(SOCIALCOLS[k]||[]);
       var cards=list.map(function(p,i){
-        return '<article class="sw-card'+(i===0?' feat':'')+'" style="--pc:'+m[0]+';--pcl:'+m[1]+'">'
+        return '<article class="sw-card'+(i===0?' feat':'')+'" style="--pc:'+m[0]+';--pcl:'+m[1]+';--pct:'+ct(m[0])+'">'
           +'<div class="hd"><span class="av">'+m[2]+'</span><div><div class="who">Le Village des Recruteurs</div><span class="dt">'+m[3]+' · '+p.d+'</span></div></div>'
           +'<p class="tx">'+p.t+'</p>'
           +'<a class="go" href="'+p.u+'" target="_blank" rel="noopener">Voir le post ↗</a></article>';
       }).join('');
-      return '<div class="sw-col2"><div class="sw-col-head" style="background:'+m[0]+'"><span class="ic">'+m[2]+'</span>'+m[3]+'</div>'+cards+'</div>';
+      return '<div class="sw-col2"><div class="sw-col-head" style="background:'+ct(m[0])+'"><span class="ic">'+m[2]+'</span>'+m[3]+'</div>'+cards+'</div>';
     }).join('');
   }
   (function(){
