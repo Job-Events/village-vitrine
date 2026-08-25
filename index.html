@@ -25,6 +25,9 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Le Village des Recruteurs", "url": "https://www.levillagedesrecruteurs.fr/", "inLanguage": "fr-FR"}</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap');
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  }
   :root{
     /* Charte officielle Le Village des Recruteurs */
     --blue:#006FB7;
@@ -127,7 +130,9 @@
   .nav-links a.active{background:var(--blue);color:#fff}
   .nav-drop{position:relative}
   .drop-menu{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:.4rem;display:none;min-width:236px;z-index:70}
-  .nav-drop:hover .drop-menu{display:block}
+  .nav-drop:hover .drop-menu,.nav-drop.ouvert .drop-menu{display:block}
+  .drop-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:.5rem .7rem;border-radius:999px;font-weight:600;font-size:.88rem;white-space:nowrap}
+  .drop-toggle:hover{background:var(--paper-2)}
   .drop-menu a{display:block;padding:.55rem .7rem;border-radius:10px;font-size:.88rem;font-weight:600}
   .drop-menu a:hover{background:var(--paper-2)}
   .drop-menu a small{display:block;font-weight:500;color:var(--muted);font-size:.76rem}
@@ -209,7 +214,7 @@
   /* ECO GRID */
   .eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
   /* Cartes qui se retournent */
-  .eco{background:transparent;border:none;padding:0;height:250px;perspective:1200px;cursor:pointer}
+  .eco{background:transparent;border:none;padding:0;height:250px;perspective:1200px;cursor:pointer;font:inherit;color:inherit;text-align:left;width:100%;display:block}
   .eco-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
   .eco:hover .eco-inner,.eco.flipped .eco-inner{transform:rotateY(180deg)}
   .eco-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:1.35rem;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
@@ -631,7 +636,7 @@
   .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   label{display:block;font-weight:700;font-size:.85rem;margin:.85rem 0 .35rem}
   input,select,textarea{width:100%;padding:.72rem .9rem;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--paper);transition:.2s}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--rose);background:#fff}
+  input:focus,select:focus,textarea:focus{outline-style:solid;outline-width:2px;outline-color:#C3006A;outline-offset:1px;border-color:#C3006A;background:#fff}
   a:focus-visible,button:focus-visible,.btn:focus-visible,[onclick]:focus-visible,[tabindex]:not([tabindex="-1"]):focus-visible{outline-style:solid;outline-width:3px;outline-color:#E3007B;outline-offset:2px;border-radius:4px}
   textarea{min-height:104px;resize:vertical}
   .form-note{font-size:.8rem;color:var(--muted);margin-top:1rem}
@@ -700,8 +705,8 @@
       <a href="#evenements" data-nav="evenements" onclick="go('evenements')">Nos Villages</a>
       <a href="#candidats" data-nav="candidats" onclick="go('candidats')">Candidats</a>
       <div class="nav-drop">
-        <a class="drop-toggle">Exposer ▾</a>
-        <div class="drop-menu">
+        <button type="button" class="drop-toggle" aria-expanded="false" aria-controls="menu-exposer" onclick="var d=this.closest('.nav-drop');var o=d.classList.toggle('ouvert');this.setAttribute('aria-expanded',o);">Exposer <span aria-hidden="true">▾</span></button>
+        <div class="drop-menu" id="menu-exposer">
           <a href="#recruteurs" onclick="go('recruteurs')">Recruteurs &amp; intérim<small>Recruter en face à face</small></a>
           <a href="#formation" onclick="go('formation')">Centres de formation<small>Présenter vos cursus</small></a>
           <a href="#entrepreneuriat" onclick="go('entrepreneuriat')">Entrepreneuriat<small>Révéler des créateurs</small></a>
@@ -716,7 +721,7 @@
       <a href="#blog" data-nav="blog" onclick="go('blog')">Actualité</a>
       <a href="#faq" data-nav="faq" onclick="go('faq')">FAQ</a>
     </nav>
-    <button class="burger" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navlinks" onclick="var o=document.getElementById('navlinks').classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu');"><span aria-hidden="true">☰</span></button>
   </div>
 </header>
 <main id="main" tabindex="-1">
@@ -1615,7 +1620,7 @@
       <a class="back" href="#accueil" onclick="go('accueil')">← Retour à l'accueil</a>
       <span class="eyebrow">Foire aux questions</span>
       <h1>Vos questions, nos réponses</h1>
-      <p>Tout savoir avant de rejoindre le Village, côté candidat comme côté exposant. Une question sans réponse ici ? <a onclick="openCandContact()" style="color:var(--rose);cursor:pointer;font-weight:700">Écrivez-nous</a>.</p>
+      <p>Tout savoir avant de rejoindre le Village, côté candidat comme côté exposant. Une question sans réponse ici ? <a href="https://jobevents.odoo.com/contact-candidat?utm_source=vitrine&amp;utm_medium=site&amp;utm_campaign=contact-candidat" onclick="openCandContact();return false;" style="color:var(--rose-txt);font-weight:700">Écrivez-nous</a>.</p>
     </div>
   </div>
   <section style="padding-top:2rem">
@@ -1994,10 +1999,10 @@
   (function(){
     var g=document.getElementById('eco-grid');if(!g)return;
     g.innerHTML=ECO.map(function(e){
-      return '<div class="eco" onclick="this.classList.toggle(\'flipped\')"><div class="eco-inner">'
+      return '<button type="button" class="eco" aria-pressed="false" onclick="var f=this.classList.toggle(\'flipped\');this.setAttribute(\'aria-pressed\',f);"><div class="eco-inner">'
         +'<div class="eco-face eco-front"><div class="ico '+e[1]+'">'+e[0]+'</div><h3>'+e[2]+'</h3><p>'+e[3]+'</p><span class="flip-hint">Voir les acteurs ↻</span></div>'
         +'<div class="eco-face eco-back" style="background:'+e[4]+';color:'+e[5]+'"><div class="bt">'+(e[7]||'Quelques acteurs')+'</div><h3>'+e[2]+'</h3><div class="names">'+e[6]+'</div></div>'
-        +'</div></div>';
+        +'</div></button>';
     }).join('');
   })();
 
