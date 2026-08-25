@@ -80,6 +80,12 @@ def echappe(s):
              .replace('>', '&gt;').replace('"', '&quot;'))
 
 
+def de(nom):
+    """elision devant une voyelle : de Lyon, mais d Orleans"""
+    return (u"d\u2019" + nom) if nom[:1].lower() in u"aeiouyh\u00e9\u00e8\u00ea" \
+           else (u"de " + nom)
+
+
 # ---------------------------------------------------------------- lecture de la source
 h = io.open(SOURCE, encoding='utf-8', newline='').read()
 
@@ -170,7 +176,7 @@ def page_ville(v):
 '    <div class="wrap">\r\n'
 '      <a class="back" href="/nos-villages/">← Toute la tournée</a>\r\n'
 '      <span class="eyebrow">%(mois)s 2026 · %(region)s</span>\r\n'
-'      <h1>Village des Recruteurs de %(city)s</h1>\r\n'
+'      <h1>Village des Recruteurs %(de_city)s</h1>\r\n'
 '      <p class="lead">Salon de l’emploi gratuit, le %(date)s, de %(horaire)s, '
 '%(venue)s à %(city)s. Entrée libre sur inscription.</p>\r\n'
 '    </div>\r\n'
@@ -207,7 +213,7 @@ def page_ville(v):
 '      </div></aside>\r\n'
 '    </div>\r\n'
 '  </section>\r\n'
-'</div>\r\n') % dict(v, secteurs=echappe(secteurs), horaire=horaire,
+'</div>\r\n') % dict(v, secteurs=echappe(secteurs), horaire=horaire, de_city=echappe(de(v['city'])),
                      bouton=bouton, expo=expo)
 
 
@@ -311,6 +317,43 @@ ORGA = (
 '"@type":"WebSite","name":"Le Village des Recruteurs","url":"%s/",'
 '"inLanguage":"fr-FR"}</script>\r\n') % (SITE, SITE, SITE)
 
+def liste_villes_statique():
+    """Liste des 7 villes, en HTML servi.
+
+    Les cartes de la tournee sont produites par script. Un explorateur qui
+    n execute pas le JavaScript ne verrait donc aucun lien vers les fiches de
+    ville, et le maillage interne resterait nul malgre le decoupage. Cette
+    liste garantit un lien present dans le document servi.
+    """
+    li = []
+    for v in VILLES:
+        etat = (u"\u00c9dition cl\u00f4tur\u00e9e" if v.get("state") == "past"
+                else u"Inscriptions ouvertes")
+        li.append(
+            u'        <li><a href="/nos-villages/%s/">Village des Recruteurs '
+            u'%s</a>, le %s, %s, %s. %s.</li>\r\n'
+            % (ardoise(v["city"]), echappe(de(v["city"])), echappe(v["date"]),
+               echappe(v["venue"]), echappe(v["region"]), etat))
+    return (u'  <section style="padding-top:1rem">\r\n'
+            u'    <div class="wrap">\r\n'
+            u'      <div class="sec-head">\r\n'
+            u'        <span class="eyebrow">Toutes les \u00e9tapes</span>\r\n'
+            u'        <h2>Les sept Villages de la tourn\u00e9e 2026</h2>\r\n'
+            u'      </div>\r\n'
+            u'      <ul style="max-width:62ch;margin-inline:auto">\r\n'
+            + u''.join(li) +
+            u'      </ul>\r\n'
+            u'    </div>\r\n'
+            u'  </section>\r\n')
+
+
+# la page de la tournee recoit la liste servie, avant sa balise fermante
+CONTENUS["evenements"] = CONTENUS["evenements"].rstrip()
+assert CONTENUS["evenements"].endswith("</div>"), "fin de page inattendue"
+CONTENUS["evenements"] = (CONTENUS["evenements"][:-6]
+                          + liste_villes_statique() + "</div>\r\n")
+
+
 ecrits = []
 for pid, adresse, titre, desc in PAGES:
     ld = ORGA if adresse == '/' else ''
@@ -325,7 +368,7 @@ for pid, adresse, titre, desc in PAGES:
 for v in VILLES:
     slug = ardoise(v['city'])
     adresse = '/nos-villages/%s/' % slug
-    titre = 'Village des Recruteurs de %s' % v['city']
+    titre = 'Village des Recruteurs %s' % de(v['city'])
     desc = ('Salon de l’emploi gratuit à %s le %s, %s. Entrée libre sur '
             'inscription. Secteurs : %s.') % (v['city'], v['date'], v['venue'],
                                               ', '.join(v['sectors'][:4]))
