@@ -1,0 +1,4 @@
+# Cloudflare Pages analyse _redirects et _headers ligne par ligne :
+# ces deux fichiers doivent rester en fins de ligne Unix.
+_redirects text eol=lf
+_headers   text eol=lf
