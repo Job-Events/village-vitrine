@@ -1,13 +1,7 @@
 # En-tetes, converties depuis vercel.json.
-# Le bloc X-Robots-Tag est ACTIF : il protege la copie de comparaison.
-
-# --- COPIE DE COMPARAISON ---
-# Cloudflare ne sait pas conditionner un en-tete sur le nom d'hote, contrairement
-# a vercel.json. Cet en-tete protege donc toute la copie *.pages.dev de
-# l'indexation, et il DOIT etre retire au moment ou le domaine reel est attache.
-# Voir RUNBOOK-BASCULE.md, etape Cloudflare.
-/*
-  X-Robots-Tag: noindex, nofollow, noarchive
+# Plus de X-Robots-Tag : le site est destine a etre indexe.
+# La copie *.pages.dev reste protegee de la cannibalisation par les balises
+# canoniques, qui pointent toutes vers www.levillagedesrecruteurs.fr.
 
 /img/*
   Cache-Control: public, max-age=31536000, immutable
