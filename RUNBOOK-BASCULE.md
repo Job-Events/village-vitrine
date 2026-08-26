@@ -1,8 +1,12 @@
 # Bascule du site en production
 
-Etat prepare sur cette branche `mise-en-production`. Le `X-Robots-Tag: noindex`
-a ete retire de `vercel.json` : cette branche est donc **destinee a la
-production** et ne doit jamais servir de copie d'apercu.
+Etat prepare sur cette branche `mise-en-production`, validee pour mise en
+service.
+
+Le `X-Robots-Tag: noindex` n'est plus retire : il est **conditionne au nom
+d'hote** dans `vercel.json`. La copie `village-vitrine.vercel.app` le porte, le
+domaine reel ne le porte jamais. Il n'y a donc plus d'etape manuelle a ne pas
+oublier au moment de la bascule, et plus de risque de sortir le site de Google.
 
 ## Ce qui est deja fait
 
@@ -32,10 +36,14 @@ le format de l'autre, il n'y a donc rien a retirer.
 
 ### 2. Connecter le depot Git a l'hebergeur
 
-Action console, non scriptable ici. Point de vigilance : designer
-`mise-en-production` comme branche de production, ou fusionner cette branche
-dans `main` au prealable. Par defaut l'hebergeur prend `main`, qui contient
-encore l'ancienne monopage.
+Fait le 26 aout 2026 : `Job-Events/village-vitrine` est connecte au projet
+Vercel.
+
+Reste a designer `mise-en-production` comme **branche de production**, dans
+Settings, Git, Production Branch. Par defaut Vercel prend `main`, qui contient
+encore l'ancienne monopage : sans ce reglage, le prochain deploiement publierait
+la mauvaise version. Relancer ensuite un deploiement depuis l'onglet
+Deployments.
 
 ### 3. Declarer le domaine
 
@@ -67,7 +75,9 @@ Si le proxy Cloudflare est active sur `www`, regler le mode SSL sur
 curl -sI https://www.levillagedesrecruteurs.fr/ | grep -i "^HTTP\|x-robots"
 ```
 
-- Aucun `X-Robots-Tag` ne doit apparaitre.
+- Aucun `X-Robots-Tag` ne doit apparaitre sur le domaine reel. Il doit en
+  revanche rester present sur `village-vitrine.vercel.app`, ce qui se verifie
+  avec la meme commande sur cette adresse.
 - Les 14 anciennes adresses doivent repondre 301 puis aboutir a la bonne page.
 - Verifier l'envoi et la reception d'un courriel sur le domaine.
 - Soumettre `sitemap.xml`, 23 adresses, dans la Search Console.
