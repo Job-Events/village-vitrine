@@ -1,5 +1,5 @@
 # En-tetes, converties depuis vercel.json.
-# Le bloc X-Robots-Tag reste commente : il ne doit jamais partir en production.
+# Le bloc X-Robots-Tag est ACTIF : il protege la copie de comparaison.
 
 # --- COPIE DE COMPARAISON ---
 # Cloudflare ne sait pas conditionner un en-tete sur le nom d'hote, contrairement
