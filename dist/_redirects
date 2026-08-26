@@ -1,0 +1,37 @@
+# Redirections des anciennes adresses, converties depuis vercel.json.
+# Format Cloudflare Pages : <source> <destination> <code>
+# Les regles specifiques doivent preceder le joker /event/* : Cloudflare
+# applique la premiere correspondance trouvee.
+
+/villagedesrecruteurs                               /                        301
+/villagedesrecruteurs/                              /                        301
+/events                                             /nos-villages/           301
+/events/                                            /nos-villages/           301
+/event/le-village-des-recruteurs-de-toulouse-1      /nos-villages/toulouse/  301
+/event/le-village-des-recruteurs-de-toulouse-1/     /nos-villages/toulouse/  301
+/event/le-village-des-recruteurs-de-dijon-2         /nos-villages/dijon/     301
+/event/le-village-des-recruteurs-de-dijon-2/        /nos-villages/dijon/     301
+/event/le-village-des-recruteurs-d-orleans-3        /nos-villages/orleans/   301
+/event/le-village-des-recruteurs-d-orleans-3/       /nos-villages/orleans/   301
+/event/le-village-des-recruteurs-de-lyon-4          /nos-villages/lyon/      301
+/event/le-village-des-recruteurs-de-lyon-4/         /nos-villages/lyon/      301
+/contact-candidat                                   /candidats/              301
+/contact-candidat/                                  /candidats/              301
+/inscription-candidat                               /candidats/              301
+/inscription-candidat/                              /candidats/              301
+/demande-exposant                                   /exposer/                301
+/demande-exposant/                                  /exposer/                301
+/terms                                              /mentions-legales/       301
+/terms/                                             /mentions-legales/       301
+/jobs                                               /job-events/             301
+/jobs/                                              /job-events/             301
+/shop                                               /                        301
+/shop/                                              /                        301
+/appointment                                        /contact/                301
+/appointment/                                       /contact/                301
+/calendar                                           /nos-villages/           301
+/calendar/                                          /nos-villages/           301
+/website/info                                       /                        301
+/website/info/                                      /                        301
+/event/*                                            /nos-villages/           301
+/event/*/                                           /nos-villages/           301

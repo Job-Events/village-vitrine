@@ -12,6 +12,13 @@ Sortie : les 23 fichiers HTML, sitemap.xml, et app.js adapte a la navigation
 import io, os, re, sys, shutil, unicodedata
 
 SOURCE = '_source.html'   # document source, distinct des fichiers generes
+SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
+
+# Actifs recopies tels quels dans le repertoire publie.
+# Tout ce qui n est pas liste ici reste dans le depot et n est jamais servi :
+# _source.html, build.py, gestion.html, les runbooks et la configuration.
+ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
+          'robots.txt', '_redirects', '_headers']
 SITE = 'https://www.levillagedesrecruteurs.fr'
 
 # ---------------------------------------------------------------- table des adresses
@@ -354,13 +361,20 @@ CONTENUS["evenements"] = (CONTENUS["evenements"][:-6]
                           + liste_villes_statique() + "</div>\r\n")
 
 
+# le repertoire publie est reconstruit a chaque execution, pour qu aucun fichier
+# retire de la source ne survive dans une mise en ligne
+if os.path.isdir(SORTIE):
+    shutil.rmtree(SORTIE)
+os.makedirs(SORTIE)
+
 ecrits = []
 for pid, adresse, titre, desc in PAGES:
     ld = ORGA if adresse == '/' else ''
     page = compose(adresse, titre, desc, CONTENUS[pid], pid, ld)
     # les chemins d actifs doivent etre absolus, la page pouvant etre en sous-dossier
     page = re.sub(r'(src|href)="(img|fonts)/', r'\1="/\2/', page)
-    chemin = 'index.html' if adresse == '/' else adresse.strip('/') + '/index.html'
+    chemin = os.path.join(SORTIE, 'index.html' if adresse == '/'
+                          else adresse.strip('/') + '/index.html')
     os.makedirs(os.path.dirname(chemin) or '.', exist_ok=True)
     io.open(chemin, 'w', encoding='utf-8', newline='').write(page)
     ecrits.append((adresse, chemin, len(page)))
@@ -375,7 +389,7 @@ for v in VILLES:
     page = compose(adresse, titre, desc, page_ville(v), 'evenements',
                    jsonld_event(v))
     page = re.sub(r'(src|href)="(img|fonts)/', r'\1="/\2/', page)
-    chemin = adresse.strip('/') + '/index.html'
+    chemin = os.path.join(SORTIE, adresse.strip('/') + '/index.html')
     os.makedirs(os.path.dirname(chemin), exist_ok=True)
     io.open(chemin, 'w', encoding='utf-8', newline='').write(page)
     ecrits.append((adresse, chemin, len(page)))
@@ -389,7 +403,25 @@ for adresse, _, _ in ecrits:
                   '<changefreq>weekly</changefreq><priority>%s</priority></url>'
                   % (SITE, adresse, prio))
 lignes.append('</urlset>')
-io.open('sitemap.xml', 'w', encoding='utf-8', newline='').write('\r\n'.join(lignes) + '\r\n')
+io.open(os.path.join(SORTIE, 'sitemap.xml'), 'w', encoding='utf-8',
+        newline='').write('\r\n'.join(lignes) + '\r\n')
+
+# ---------------------------------------------------------------- actifs
+copies = []
+for actif in ACTIFS:
+    if not os.path.exists(actif):
+        print('  ATTENTION : actif absent, ignore ->', actif)
+        continue
+    cible = os.path.join(SORTIE, actif)
+    if os.path.isdir(actif):
+        shutil.copytree(actif, cible)
+        nb = sum(len(fs) for _, _, fs in os.walk(cible))
+        poids = sum(os.path.getsize(os.path.join(r, f))
+                    for r, _, fs in os.walk(cible) for f in fs)
+    else:
+        shutil.copy2(actif, cible)
+        nb, poids = 1, os.path.getsize(cible)
+    copies.append((actif, nb, poids))
 
 print()
 print('=== PAGES ECRITES ===')
@@ -400,3 +432,11 @@ print('  %d pages, %d octets au total, %d octets en moyenne'
       % (len(ecrits), sum(x[2] for x in ecrits),
          sum(x[2] for x in ecrits) // len(ecrits)))
 print('  sitemap.xml : %d adresses' % len(ecrits))
+print()
+print('=== ACTIFS COPIES ===')
+for actif, nb, poids in copies:
+    print('  %-16s %5d fichier(s) %10d octets' % (actif, nb, poids))
+print('  ---')
+print('  repertoire publie : %s/  %d octets'
+      % (SORTIE, sum(os.path.getsize(os.path.join(r, f))
+                     for r, _, fs in os.walk(SORTIE) for f in fs)))
