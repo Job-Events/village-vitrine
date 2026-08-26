@@ -9,9 +9,12 @@
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Ces deux actifs portent une empreinte de contenu dans leur URL, du type
+# /app.js?v=ee8a09d8. Leur adresse change donc a chaque modification, ce qui
+# autorise un cache long sans risque de servir une version perimee.
 /styles.css
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=31536000, immutable
 
 /app.js
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=31536000, immutable
 

@@ -19,6 +19,14 @@ SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
 # _source.html, build.py, gestion.html, les runbooks et la configuration.
 ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
           'robots.txt', '_redirects', '_headers']
+
+# Empreinte du contenu ajoutee a l URL des deux actifs versionnes.
+# Sans elle, un visiteur qui revient garde en cache un app.js perime : le
+# 26 aout, le renommage des images de galerie a casse 33 vignettes pour
+# quiconque avait l ancien script en cache, valable 24 heures.
+import hashlib
+def empreinte(chemin):
+    return hashlib.sha1(io.open(chemin, 'rb').read()).hexdigest()[:8]
 SITE = 'https://www.levillagedesrecruteurs.fr'
 
 # ---------------------------------------------------------------- table des adresses
@@ -131,6 +139,9 @@ def adresses_reelles(bloc):
     bloc = re.sub(r"""\s*onclick="go\('[a-z0-9\-]+'\);return false;\"""", '', bloc)
     bloc = re.sub(r"""\s*onclick="go\('[a-z0-9\-]+'\)\"""", '', bloc)
     return bloc
+
+EMPREINTE_CSS = empreinte('styles.css')
+EMPREINTE_JS = empreinte('app.js')
 
 CONTENUS = {}
 for pid, _, _, _ in PAGES:
@@ -287,7 +298,7 @@ def compose(adresse, titre, description, contenu, actif, extra_ld=''):
 '<link rel="canonical" href="%(canon)s">\r\n'
 '<meta name="theme-color" content="#006FB7">\r\n'
 '<link rel="preload" href="/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>\r\n'
-'<link rel="stylesheet" href="/styles.css">\r\n'
+'<link rel="stylesheet" href="/styles.css?v=%(empcss)s">\r\n'
 '%(favicon)s\r\n'
 '<meta property="og:type" content="website">\r\n'
 '<meta property="og:site_name" content="Le Village des Recruteurs">\r\n'
@@ -307,11 +318,12 @@ def compose(adresse, titre, description, contenu, actif, extra_ld=''):
 '%(skip)s\r\n\r\n%(header)s\r\n'
 '<main id="main" tabindex="-1">\r\n%(contenu)s</main>\r\n'
 '%(footer)s\r\n%(dialog)s\r\n'
-'<script src="/app.js"></script>\r\n</body>\r\n</html>\r\n'
+'<script src="/app.js?v=%(empjs)s"></script>\r\n</body>\r\n</html>\r\n'
 ) % dict(titre=echappe(titre_complet), desc=echappe(description), canon=canon,
          og=echappe(titre + ' · Le Village des Recruteurs'), site=SITE,
          favicon=FAVICON, ld=extra_ld, skip=SKIP, header=entete, footer=pied,
-         contenu=contenu, dialog=DIALOG)
+         contenu=contenu, dialog=DIALOG,
+         empcss=EMPREINTE_CSS, empjs=EMPREINTE_JS)
 
 
 # ---------------------------------------------------------------- ecriture
