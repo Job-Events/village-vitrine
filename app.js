@@ -382,7 +382,6 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   /* SOCIAL, 5 derniers posts du Village par plateforme (source : Odoo Social Marketing, comptes « Le Village des Recruteurs ») */
   var SOCIALCOLS={
     linkedin:[
-      {d:"09/07/2026",t:"Job Events & Le Village des Recruteurs recrutent ! Vous êtes passionné(e) par l’événementiel et la gestion de projet ? Vous aimez…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7480908524047347713"},
       {d:"17/06/2026",t:"Nexity Studéa, acteur historique depuis 1987 et aujourd’hui référent de la résidence pour étudiants et jeunes actifs en France, est présent…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7472914479027159041"},
       {d:"12/06/2026",t:"1 250 participants et 49 exposants se sont retrouvés hier autour d’un même objectif : faire les bonnes rencontres. Les candidats présents…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471170948713476097"},
       {d:"12/06/2026",t:"Depuis son tout premier magasin Penneys en Irlande, l’histoire de Primark est marquée par un succès incontestable. La conviction profonde…",u:"https://www.linkedin.com/feed/update/urn:li:ugcPost:7471168440792297472"},
@@ -653,7 +652,6 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
 
   /* ===== Intégration Odoo (événements + contact) + UTM ===== */
-  function odooUrl(path,content){var base='https://evenements.levillagedesrecruteurs.fr';var u=base+path;u+=(path.indexOf('?')>-1?'&':'?')+'utm_source=vitrine&utm_medium=site&utm_campaign=village';if(content)u+='&utm_content='+encodeURIComponent(content);return u;}
   window.odooUrl=odooUrl;
   /* ROUTER */
   /* Adresses reelles des 23 pages. Chaque page est un fichier servi a sa propre
