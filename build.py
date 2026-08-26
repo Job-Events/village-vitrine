@@ -394,6 +394,41 @@ for v in VILLES:
     io.open(chemin, 'w', encoding='utf-8', newline='').write(page)
     ecrits.append((adresse, chemin, len(page)))
 
+# ---------------------------------------------------------------- page 404
+# Sans ce fichier, Cloudflare Pages renvoie la page d accueil avec un code 200
+# pour toute adresse inconnue, ce que Google traite comme un doublon (soft 404).
+# Cette page n est ni referencee dans le plan de site ni indexable.
+CONTENU_404 = (
+    '<div class="phead tint-accueil">\r\n'
+    '  <div class="wrap">\r\n'
+    '    <span class="eyebrow">Erreur 404</span>\r\n'
+    '    <h1>Cette page n\u2019existe pas, ou plus</h1>\r\n'
+    '    <p>Le lien que vous avez suivi est peut-\u00eatre p\u00e9rim\u00e9, ou '
+    'l\u2019adresse comporte une faute de frappe. Voici les pages les plus '
+    'utiles pour repartir.</p>\r\n'
+    '  </div>\r\n'
+    '</div>\r\n'
+    '<section><div class="wrap">\r\n'
+    '  <div style="display:flex;flex-wrap:wrap;gap:.7rem">\r\n'
+    '    <a class="btn btn-primary" href="/nos-villages/">Les dates et les villes</a>\r\n'
+    '    <a class="btn btn-blue" href="/candidats/">Je cherche un emploi</a>\r\n'
+    '    <a class="btn btn-ghost" href="/exposer/">Je veux exposer</a>\r\n'
+    '    <a class="btn btn-ghost" href="/">Retour \u00e0 l\u2019accueil</a>\r\n'
+    '  </div>\r\n'
+    '</div></section>\r\n')
+
+page404 = compose('/404.html', 'Page introuvable',
+                  'La page demandee n existe pas. Retrouvez les dates de la '
+                  'tournee, les informations candidats et les conditions pour '
+                  'exposer.', CONTENU_404, 'accueil')
+# une page d erreur ne porte pas de balise canonique et ne doit pas etre indexee
+page404 = re.sub(r'<link rel="canonical"[^>]*>\r\n', '', page404, count=1)
+page404 = page404.replace('<meta name="theme-color"',
+                          '<meta name="robots" content="noindex">\r\n'
+                          '<meta name="theme-color"', 1)
+io.open(os.path.join(SORTIE, '404.html'), 'w', encoding='utf-8',
+        newline='').write(page404)
+
 # ---------------------------------------------------------------- plan de site
 lignes = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

@@ -1,9 +1,13 @@
 # En-tetes, converties depuis vercel.json.
 # Le bloc X-Robots-Tag reste commente : il ne doit jamais partir en production.
 
-# --- APERCU UNIQUEMENT : ne jamais activer en production ---
-# /*
-#   X-Robots-Tag: noindex, nofollow, noarchive
+# --- COPIE DE COMPARAISON ---
+# Cloudflare ne sait pas conditionner un en-tete sur le nom d'hote, contrairement
+# a vercel.json. Cet en-tete protege donc toute la copie *.pages.dev de
+# l'indexation, et il DOIT etre retire au moment ou le domaine reel est attache.
+# Voir RUNBOOK-BASCULE.md, etape Cloudflare.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive
 
 /img/*
   Cache-Control: public, max-age=31536000, immutable
