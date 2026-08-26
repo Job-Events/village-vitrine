@@ -59,6 +59,34 @@ Zone hebergee chez Cloudflare.
 - Aujourd'hui : `www` CNAME -> `job-events.github.io`, sans proxy.
 - Apres : `www` CNAME -> la cible fournie par l'hebergeur.
 
+Inventaire complet de la zone, releve le 26 aout 2026 par l'API Cloudflare :
+
+| Type | Nom | Valeur | Proxy |
+|---|---|---|---|
+| A | `levillagedesrecruteurs.fr` | `51.77.236.197` | oui |
+| CNAME | `*.levillagedesrecruteurs.fr` | `prod.matchingsquare.com` | oui |
+| CNAME | `www.levillagedesrecruteurs.fr` | `job-events.github.io` | non |
+| MX | `levillagedesrecruteurs.fr` | `levillagedesrecruteurs-fr.mail.protection.outlook.com` | non |
+| TXT | `levillagedesrecruteurs.fr` | `google-site-verification=...` | non |
+| TXT | `levillagedesrecruteurs.fr` | `v=spf1 include:spf.protection.outlook.com...` | non |
+| TXT | `levillagedesrecruteurs.fr` | `MS=ms72498659` | non |
+
+Seul l'enregistrement `CNAME www` doit changer. Les six autres restent en place.
+
+**Attention au joker.** Le `CNAME *` renvoie vers `prod.matchingsquare.com` : c'est
+lui qui fait fonctionner les sous-domaines de ville, `toulouse.`, `dijon.`,
+`orleans.` et `lyon.`, vers lesquels pointent les boutons d'inscription candidat.
+Y toucher casserait les inscriptions. L'enregistrement `www` etant explicite, il
+reste prioritaire sur le joker : les deux cohabitent sans conflit.
+
+**L'apex pointe encore vers le serveur Odoo**, `51.77.236.197`, la meme adresse
+que `jobevents.odoo.com`. Ce qui produit la redirection vers `www` n'est pas cet
+enregistrement mais une regle de redirection dynamique de la zone, expression
+`(http.host eq "levillagedesrecruteurs.fr")`, 301, active. Elle est independante
+de l'hebergeur et survit donc a la bascule. A noter tout de meme : si cette regle
+etait desactivee un jour, l'apex servirait le site Odoo. Menage a prevoir, hors
+du perimetre de la bascule.
+
 A ne pas toucher :
 
 - `MX` -> `levillagedesrecruteurs-fr.mail.protection.outlook.com`. La
