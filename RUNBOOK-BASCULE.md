@@ -39,11 +39,13 @@ le format de l'autre, il n'y a donc rien a retirer.
 Fait le 26 aout 2026 : `Job-Events/village-vitrine` est connecte au projet
 Vercel.
 
-Reste a designer `mise-en-production` comme **branche de production**, dans
-Settings, Git, Production Branch. Par defaut Vercel prend `main`, qui contient
-encore l'ancienne monopage : sans ce reglage, le prochain deploiement publierait
-la mauvaise version. Relancer ensuite un deploiement depuis l'onglet
-Deployments.
+Fait egalement : `mise-en-production` est designee comme branche de production,
+dans Settings, Environments, environnement Production, section Branch Tracking.
+Le reglage n'existe plus sous Settings, Git, contrairement a ce que decrivent
+d'anciennes documentations.
+
+Vercel ne documente aucune methode API ni CLI pour ce reglage : il se fait
+uniquement au tableau de bord.
 
 ### 3. Declarer le domaine
 
