@@ -228,6 +228,10 @@ le cache était alors réglé sur un an en « immutable », ce qui convient aux
 polices et aux fichiers versionnés, jamais à un fichier remplaçable à chemin
 constant.
 
+## Changer d’hébergeur oblige à corriger les mentions légales
+
+Obligation légale, et facile à oublier. Voir le chapitre 7.
+
 ## Le DNS et les automatisations Odoo sont les deux endroits dangereux
 
 Une erreur sur l’enregistrement `www` coupe le site. Une erreur sur le `MX`
@@ -650,6 +654,24 @@ prévoir, hors périmètre.
 
 **La messagerie** ne dépend pas de l’hébergement du site. Le `MX` et le SPF ont
 été vérifiés intacts après bascule, mais aucun envoi réel n’a été testé.
+
+## Si l’hébergeur change un jour
+
+Les mentions légales doivent être corrigées le jour même : l’article 6-III de
+la LCEN impose d’identifier l’hébergeur réel, avec sa raison sociale et son
+adresse. La section « 2. Hébergement » de la page `/mentions-legales/` se
+modifie dans `_source.html`.
+
+Le cas s’est produit le 26 août 2026 : le site est passé de GitHub Pages à
+Cloudflare Pages, et la page a continué d’annoncer GitHub pendant une journée,
+jusqu’à ce que Jesse le remarque.
+
+Trois autres points à revoir dans la même passe :
+
+- la section « Destinataires » du volet RGPD, si le nouvel hébergeur voit
+  passer le trafic, ce qui est le cas d’un réseau de diffusion en proxy ;
+- la mention du traitement de l’adresse IP des visiteurs, pour la même raison ;
+- la date de dernière mise à jour, en bas de page.
 
 ## Les domaines de vanité
 
