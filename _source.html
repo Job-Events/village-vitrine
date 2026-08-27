@@ -72,8 +72,8 @@
         <h1>Il faut tout un Village<br>pour <span class="hl">trouver le bon emploi</span></h1>
         <p class="lead">Le Village des Recruteurs, c’est un <b>salon de l’emploi gratuit</b> organisé comme un village : une journée, dans votre ville, où l’on réunit entreprises qui recrutent (CDI, CDD, intérim), formation, alternance, reconversion, création d’activité et services publics de l’emploi. Vous rencontrez tout le monde en direct, passez des entretiens sur place et repartez avec des pistes concrètes. Étudiant, demandeur d’emploi, en reconversion ou cadre : ce salon est fait pour vous. <b>7 villes en 2026, 8 en 2027.</b> Entrée libre et gratuite.</p>
         <div class="hero-cta">
-          <button class="btn btn-blue" onclick="go('evenements')">Trouver le salon près de chez moi</button>
-          <button class="btn btn-primary" onclick="go('recruteurs')">Je recrute / exposer</button>
+          <a class="btn btn-blue" href="#evenements" onclick="go('evenements')">Trouver le salon près de chez moi</a>
+          <a class="btn btn-primary" href="#recruteurs" onclick="go('recruteurs')">Je recrute / exposer</a>
         </div>
         <div class="hero-stats">
           <div class="s"><b>7 → 8</b><span>villes (2026 → 2027)</span></div>
@@ -285,7 +285,7 @@
             <div class="ms-powered" style="margin-bottom:1rem" id="ms-badge-home"></div>
             <h2 style="color:#fff;font-size:clamp(1.7rem,2.8vw,2.1rem)">Le salon se prépare et continue en ligne</h2>
             <p style="opacity:.9;margin:.8rem 0 1.4rem">Matching Square propulse le Village : l’IA transforme votre CV en profil digital, vous propose les bons recruteurs et vous aide à préparer vos rendez-vous, en ligne comme sur place.</p>
-            <button class="btn btn-nav" onclick="go('matchingsquare')">Découvrir Matching Square →</button>
+            <a class="btn btn-nav" href="#matchingsquare" onclick="go('matchingsquare')">Découvrir Matching Square →</a>
           </div>
           <div class="ms-feats">
             <div class="ms-feat"><span class="i"></span><div><b>Un profil digital créé par l’IA</b><p>Votre CV, ou votre offre côté entreprise, devient un profil structuré que vous ajustez pour vous ressembler.</p></div></div>
@@ -308,7 +308,7 @@
         <p>7 villes en 2026, 8 en 2027. Prochaines dates : Toulouse, Dijon, Orléans et Lyon. Trouvez la date de votre ville, découvrez les entreprises présentes et réservez votre place. C’est gratuit.</p>
       </div>
       <div style="text-align:center;margin-top:.6rem">
-        <button class="btn btn-nav" onclick="go('evenements')">Voir toutes les dates et villes →</button>
+        <a class="btn btn-nav" href="#evenements" onclick="go('evenements')">Voir toutes les dates et villes →</a>
       </div>
     </div>
   </section>
@@ -378,7 +378,7 @@
       <h1>Le Village vous aide à trouver le bon emploi</h1>
       <p>Pas juste un job de plus : celui qui correspond à vos compétences et à vos ambitions. Au Village, vous êtes au centre : on vous oriente, on vous connecte aux entreprises qui recrutent vraiment, on vous suit avant, pendant et 5 jours après. Job Events coordonne tous ces acteurs ; l’inscription passe par Matching Square, pour arriver préparé.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-blue" onclick="go('evenements')">Trouver ma ville et m’inscrire</button>
+        <a class="btn btn-blue" href="#evenements" onclick="go('evenements')">Trouver ma ville et m’inscrire</a>
       </div>
     </div>
   </div>
@@ -417,7 +417,7 @@
           <span class="eyebrow">Sur Matching Square</span>
           <h3 style="margin-top:.5rem">Réservez votre place</h3>
           <p>Créez votre profil sur Matching Square : profil, matching et agenda inclus. Vous découvrez une partie des offres en avance, et vous préparez votre journée.</p>
-          <button class="btn btn-nav" onclick="go('evenements')">Voir les Villages</button>
+          <a class="btn btn-nav" href="#evenements" onclick="go('evenements')">Voir les Villages</a>
           <button class="btn btn-cand-sec" onclick="openCandContact()">Poser une question</button>
           <div class="price-tag">✔ Sans engagement · ✔ Présentiel ou hybride</div>
         </div>
@@ -450,8 +450,8 @@
       <h1>Recrutez les bons profils, en face à face</h1>
       <p>Des candidats qui se déplacent pour vous, pré-qualifiés par Matching Square, et une organisation clé en main par Job Events. 15 à 40 candidats qualifiés par édition, de l’alternance au senior, un ROI mesurable dès le premier salon. Du concret, pas des promesses.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-nav" onclick="go('evenements')">Voir les Villages</button>
-        <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+        <a class="btn btn-nav" href="#evenements" onclick="go('evenements')">Voir les Villages</a>
+        <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
         <button class="btn btn-primary" onclick="openExpo('Recruteur / Entreprise')">Contactez-nous</button>
       </div>
     </div>
@@ -482,15 +482,15 @@
           <h3 style="margin-top:.5rem">Dossier exposant</h3>
           <p>Stand privatif à partir de 990 € HT, CVthèque incluse. Formats, tarifs et dates : on vous envoie tout.</p>
           <button class="btn btn-primary" onclick="openExpo('Recruteur / Entreprise')">Contactez-nous</button>
-          <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
-          <button class="btn btn-nav" onclick="go('evenements')">Détails des Villages</button>
+          <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
+          <a class="btn btn-nav" href="#evenements" onclick="go('evenements')">Détails des Villages</a>
           <div class="price-tag">Réponse sous 48 h ouvrées</div>
         </div>
         <div class="aside-card" style="margin-top:1.1rem;position:static">
           <span class="eyebrow jaune">Autre format Job Events</span>
           <div style="margin:.7rem 0"><img class="sdr-img" alt="La Semaine des Recruteurs"></div>
           <p style="margin-bottom:.8rem">Pas les ressources pour tenir un stand ? La Semaine des Recruteurs : un recruteur expert sélectionne les candidats pour vous, vous ne faites que les entretiens. Dès 690 € HT.</p>
-          <button class="btn btn-nav" style="width:100%;justify-content:center" onclick="go('semaine')">En savoir plus</button>
+          <a class="btn btn-nav" style="width:100%;justify-content:center" href="#semaine" onclick="go('semaine')">En savoir plus</a>
         </div>
       </aside>
     </div>
@@ -508,7 +508,7 @@
       <p>La Semaine des Recruteurs est un <b>service de recrutement délégué</b>, organisé dans le prolongement de chaque édition du Village. Vous nous confiez vos offres : un <b>recruteur expert, sélectionné par Job Events</b>, prend en charge la sélection des profils, les rencontres au salon et la planification des rendez-vous. Vous n’intervenez qu’au moment des entretiens, en présentiel ou en visio. Proposée en option du Village, ou de façon autonome.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="openExpo('La Semaine des Recruteurs')">Confier mon recrutement</button>
-        <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+        <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
       </div>
     </div>
   </div>
@@ -600,7 +600,7 @@
           </div>
           <div style="background:linear-gradient(135deg,#E9F8EE,#fff);border:1px solid #b7e6c6;border-radius:12px;padding:.7rem .85rem;margin-bottom:1rem;font-size:.86rem;color:#166534"><b>✓ Satisfait ou remboursé</b>, moins de 5 candidats par offre ? Vos honoraires sont intégralement remboursés (hors frais d’inscription).</div>
           <button class="btn btn-primary" onclick="openExpo('La Semaine des Recruteurs')">Confier mon recrutement</button>
-          <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+          <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
           <div class="price-tag">Réponse sous 48 h ouvrées</div>
         </div>
       </aside>
@@ -618,7 +618,7 @@
       <p>La compétence est le cœur du Village. Présentez vos cursus à des candidats en quête de reconversion, de qualification ou de spécialisation, et concevez même vos propres événements avec Matching Square.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="openExpo('Centre de formation')">Découvrir les conditions pour exposer</button>
-        <button class="btn btn-nav" onclick="go('matchingsquare')">Événements sur mesure</button>
+        <a class="btn btn-nav" href="#matchingsquare" onclick="go('matchingsquare')">Événements sur mesure</a>
       </div>
     </div>
   </div>
@@ -637,7 +637,7 @@
           <h3 style="margin-top:.5rem">Exposer vos formations</h3>
           <p>Parlons de vos cursus et du format idéal pour les mettre en avant.</p>
           <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="openExpo('Centre de formation')">Contactez-nous</button>
-          <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+          <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
           <div class="price-tag">Réponse sous 48 h ouvrées</div>
         </div>
       </aside>
@@ -673,7 +673,7 @@
           <h3 style="margin-top:.5rem">Promouvoir l’entrepreneuriat</h3>
           <p>Discutons de votre présence et des formats d’animation possibles.</p>
           <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="openExpo('Entrepreneuriat')">Contactez-nous</button>
-          <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+          <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
           <div class="price-tag">Réponse sous 48 h ouvrées</div>
         </div>
       </aside>
@@ -691,7 +691,7 @@
       <p>Métropoles, services publics, fédérations d’entreprises, journalistes, coaches, conférenciers, prestataires horeca : chaque partenaire enrichit l’expérience, et peut même co-construire un événement sur mesure avec Matching Square.</p>
       <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="openExpo('Partenaire / Institution')">Devenir partenaire</button>
-        <button class="btn btn-nav" onclick="go('matchingsquare')">Événement sur mesure</button>
+        <a class="btn btn-nav" href="#matchingsquare" onclick="go('matchingsquare')">Événement sur mesure</a>
       </div>
     </div>
   </div>
@@ -733,7 +733,7 @@
         <p>Parlons de la façon dont votre organisation peut contribuer, ou co-construire son propre événement.</p>
         <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
           <button class="btn btn-primary" onclick="openExpo('Partenaire / Institution')">Contactez-nous</button>
-          <button class="btn btn-nav" onclick="go('matchingsquare')">Découvrir Matching Square</button>
+          <a class="btn btn-nav" href="#matchingsquare" onclick="go('matchingsquare')">Découvrir Matching Square</a>
         </div>
       </div>
     </div>
@@ -997,7 +997,7 @@
           <h3 style="margin:.5rem 0 .3rem">Exposer ou co-construire un événement</h3>
           <p style="color:var(--muted)">Recevez les conditions et convenons d’un échange. Vous pouvez joindre votre estimation issue du simulateur.</p>
           <button class="btn btn-primary" onclick="openExpo('Recruteur / Entreprise')">Contactez-nous</button>
-          <button class="btn btn-sec" onclick="go('simulateur')">Simuler mon coût</button>
+          <a class="btn btn-sec" href="#simulateur" onclick="go('simulateur')">Simuler mon coût</a>
         </div>
       </div>
     </div>
@@ -1071,7 +1071,7 @@
           <span class="chip"><span class="d">◆</span> Programme de conférences</span>
           <span class="chip"><span class="d">◆</span> Mise en relation ciblée</span>
         </div>
-        <div style="margin-top:1.2rem"><button class="btn btn-nav" onclick="go('evenements')">Découvrir Le Village des Recruteurs →</button></div>
+        <div style="margin-top:1.2rem"><a class="btn btn-nav" href="#evenements" onclick="go('evenements')">Découvrir Le Village des Recruteurs →</a></div>
       </div>
       <div>
         <div class="je-photo"><img src="img/image-368.webp" alt="L’équipe Job Events au Village des Recruteurs"></div>
