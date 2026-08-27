@@ -98,9 +98,15 @@ découpé en 23 pages, allégé à 7 Ko pour la page d’accueil, et migré vers
 Cloudflare Pages le 26 août 2026, pour disposer des redirections permanentes
 des dix-sept anciennes adresses, que GitHub Pages ne permet pas.
 
-Une copie de comparaison a existé sur Vercel pendant l’arbitrage. Sa
-configuration a été retirée du dépôt le 26 août ; l’historique Git la conserve
-si elle devait resservir.
+Une copie de comparaison a existé sur Vercel pendant l’arbitrage, et une
+seconde sur Cloudflare en envoi direct. Les deux projets ont été supprimés le
+26 août 2026, ainsi que la configuration Vercel du dépôt ; l’historique Git la
+conserve si elle devait resservir.
+
+Il ne reste donc qu’un seul environnement, le projet Cloudflare Pages
+`village-des-recruteurs`, connecté au dépôt `Job-Events/village-vitrine` sur la
+branche `mise-en-production`. Toute autre adresse rencontrée dans d’anciens
+documents, en `.vercel.app` ou en `village-vitrine.pages.dev`, n’existe plus.
 
 `RUNBOOK-BASCULE.md` garde la trace détaillée de cette migration, dont
 l’inventaire complet de la zone DNS.
