@@ -2,3 +2,11 @@
 # ces deux fichiers doivent rester en fins de ligne Unix.
 _redirects text eol=lf
 _headers   text eol=lf
+
+# app.js et styles.css portent une empreinte de leur contenu dans l URL servie.
+# Sans cette regle, leur empreinte differe selon le systeme qui construit le
+# site, Windows produisant des CRLF et l image Cloudflare des LF. Le site restait
+# correct, mais deux constructions du meme commit donnaient deux empreintes,
+# ce qui rend toute comparaison illisible.
+app.js     text eol=lf
+styles.css text eol=lf
