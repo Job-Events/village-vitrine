@@ -100,3 +100,8 @@ Avant ce changement, `dist/` était versionné. Modifier `_source.html` puis
 pousser ne changeait donc rien en ligne : il fallait penser à lancer
 `build.py` et à commiter `dist/`. Le déploiement réussissait, et le site
 restait identique. Ce piège n’existe plus.
+
+## Voir aussi
+
+`REPRENDRE-LE-SITE.md` : les accès nécessaires, les pièges de ce site et ce qui
+reste à faire. À lire avant la première modification.
