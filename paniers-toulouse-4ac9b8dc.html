@@ -96,9 +96,9 @@
   .daybox{padding:.95rem 1rem}
   .daybox.mer{border-right:1px solid var(--line-2)}
   @media (max-width:640px){.daybox.mer{border-right:0;border-bottom:1px solid var(--line-2)}}
-  .daytoggle{display:flex;align-items:center;gap:.55rem;cursor:pointer;font-weight:600;font-size:1.02rem;user-select:none}
-  .dayname{font-size:1.15rem;font-weight:800}
-  .daytoggle input{width:1.15rem;height:1.15rem;flex:none}
+  .daytoggle{display:flex;align-items:center;gap:.7rem;cursor:pointer;font-weight:600;font-size:1.02rem;user-select:none;flex-wrap:wrap}
+  .dayname{font-size:1.5rem;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+  .daytoggle input{width:1.5rem;height:1.5rem;flex:none}
   .daybox.mer .daytoggle input{accent-color:var(--teal-d)}
   .daybox.jeu .daytoggle input{accent-color:var(--gold)}
   .daytoggle .pill{font-family:var(--ui);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.12rem .45rem;border-radius:999px;color:#fff}
@@ -134,6 +134,9 @@
   .submit-row{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start}
   .err{color:var(--rose-d);font-size:.9rem;font-weight:600;min-height:1.1rem}
 
+  .review{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .review h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;margin:0 0 .2rem;color:var(--ink)}
+  .review .rsub{color:var(--muted);font-size:.9rem;margin:0 0 .3rem}
   .confirm{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
   .confirm h3{font-family:var(--serif);margin:0 0 .4rem;font-size:1.25rem;color:var(--ink)}
   .confirm p{margin:.3rem 0;color:var(--muted);font-size:.95rem}
@@ -150,7 +153,7 @@
   <div class="hero-in">
     <div class="brandline">Le Village des Recruteurs</div>
     <h1>Commande de paniers repas<br><span class="h1-city">Toulouse 2026</span></h1>
-    <p class="hero-sub">Deux jours de salon, deux cuisines. Renseignez chaque personne, choisissez ses repas, et faites livrer les paniers directement sur votre stand.</p>
+    <p class="hero-sub">Cette année, l’équipe de Job&nbsp;Events a le plaisir de vous proposer une sélection de menus originaux, préparés par des foodtrucks toulousains à partir de produits régionaux de qualité. Composez les repas de vos équipes et des vôtres, passez commande en quelques clics : nous vous les livrons directement sur votre stand.</p>
     <div class="facts">
       <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>Mercredi 16 &amp; jeudi 17 septembre 2026</span>
       <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2C6 2 3.5 5 3.5 8.5 3.5 13 10 18 10 18s6.5-5 6.5-9.5C16.5 5 14 2 10 2Z"/><circle cx="10" cy="8.3" r="2.2"/></svg>Livré sur votre stand</span>
@@ -231,7 +234,17 @@
 
       <div class="submit-row">
         <div class="err" id="err"></div>
-        <button class="btn btn-primary" id="submit" type="button">Envoyer ma commande</button>
+        <button class="btn btn-primary" id="submit" type="button">Vérifier ma commande</button>
+      </div>
+
+      <div class="review" id="review">
+        <h3>Dernière vérification avant l’envoi</h3>
+        <p class="rsub">Relisez le récapitulatif ci-dessous. Une fois confirmée, la commande est transmise automatiquement à Job&nbsp;Events et vous en recevez une copie par email.</p>
+        <div class="recap" id="reviewRecap"></div>
+        <div class="mini-btns">
+          <button class="btn btn-sec" id="editOrder" type="button">← Modifier</button>
+          <button class="btn btn-primary" id="confirmSend" type="button">Confirmer et envoyer ma commande</button>
+        </div>
       </div>
 
       <div class="confirm" id="confirm">
@@ -420,7 +433,8 @@
       "&body="+encodeURIComponent(recapText(o));
   }
 
-  var lastLink="";
+  var lastLink="", lastPayload=null;
+  var reviewEl=document.getElementById("review");
   document.getElementById("submit").addEventListener("click",function(){
     var errEl=document.getElementById("err"); errEl.textContent="";
     var o=buildOrder();
@@ -435,15 +449,28 @@
     if(!o.auth) pb.push("cocher l’autorisation de facturation");
     if(pb.length){ errEl.textContent="À corriger : "+pb.join(" · ")+"."; errEl.scrollIntoView({behavior:"smooth",block:"center"}); return; }
 
+    // Étape de validation finale : on construit tout et on affiche le récapitulatif
     lastLink=mailtoLink(o);
-    document.getElementById("recap").textContent=recapText(o);
-    var payload={eventId:EVENT_ID,societe:o.soc,commanditaire:o.nom,email:o.email,tel:o.tel,autorisation:o.auth,lignes:[]};
-    o.persons.forEach(function(p){p.meals.forEach(function(m){if(m.complete)payload.lignes.push({prenom:p.prenom,jour:m.day==="mer"?"mercredi":"jeudi",plat:m.plat,dessert:m.dessert,allergenes:m.all});});});
-    var btn=document.getElementById("submit"); btn.disabled=true; btn.textContent="Envoi en cours…";
-    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+    var rec=recapText(o);
+    document.getElementById("recap").textContent=rec;
+    document.getElementById("reviewRecap").textContent=rec;
+    lastPayload={eventId:EVENT_ID,societe:o.soc,commanditaire:o.nom,email:o.email,tel:o.tel,autorisation:o.auth,lignes:[]};
+    o.persons.forEach(function(p){p.meals.forEach(function(m){if(m.complete)lastPayload.lignes.push({prenom:p.prenom,jour:m.day==="mer"?"mercredi":"jeudi",plat:m.plat,dessert:m.dessert,allergenes:m.all});});});
+    document.getElementById("confirm").style.display="none";
+    reviewEl.style.display="block";
+    reviewEl.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("editOrder").addEventListener("click",function(){
+    reviewEl.style.display="none";
+    document.getElementById("people").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("confirmSend").addEventListener("click",function(){
+    if(!lastPayload) return;
+    var btn=this; btn.disabled=true; btn.textContent="Envoi en cours…";
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastPayload)})
       .then(function(r){return r.json().catch(function(){return{ok:false};});})
-      .then(function(res){ btn.disabled=false; btn.textContent="Envoyer ma commande"; showConfirm(res&&res.ok); })
-      .catch(function(){ btn.disabled=false; btn.textContent="Envoyer ma commande"; showConfirm(false); });
+      .then(function(res){ btn.disabled=false; btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(res&&res.ok); })
+      .catch(function(){ btn.disabled=false; btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false); });
   });
   function showConfirm(success){
     var t=document.getElementById("confirmTitle"), msg=document.getElementById("confirmMsg"), fb=document.getElementById("fallbackBtns");
