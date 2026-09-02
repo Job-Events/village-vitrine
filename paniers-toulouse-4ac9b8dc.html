@@ -1,0 +1,448 @@
+<title>Paniers Repas · Toulouse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap">
+<style>
+  :root{
+    --paper:#FFF9F1; --paper-2:#FDEBD8; --card:#FFFFFF; --ink:#241A12; --muted:#7A6A5B;
+    --line:rgba(60,40,24,.14); --line-2:rgba(60,40,24,.08);
+    --rose:#E3007B; --rose-d:#B4005F; --rose-pastel:#FCE3F0;
+    --blue:#006FB7; --blue-d:#004E82; --blue-pastel:#E1F0FB;
+    --navy:#08324F; --teal:#0FAE9E; --teal-d:#0B8478; --gold:#E39A00; --gold-soft:#F8B322;
+    --ok:#2FA36B;
+    --shadow-sm:0 1px 2px rgba(60,40,24,.05),0 8px 22px -14px rgba(80,45,20,.28);
+    --shadow:0 2px 4px rgba(60,40,24,.06),0 22px 48px -24px rgba(80,45,20,.4);
+    --ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+      --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+      --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+      --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+      --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+      --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+    --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+    --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+    --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+    --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+    --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+  .draft{background:repeating-linear-gradient(45deg,#241A12,#241A12 12px,#2f2318 12px,#2f2318 24px);color:#FFF9F1;font-family:var(--ui);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;text-align:center;padding:.5rem .8rem}
+  .draft b{color:var(--gold-soft)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 clamp(1rem,4vw,1.75rem)}
+
+  header.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid var(--line)}
+  .hero-in{max-width:960px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.6rem,4vw,2.4rem)}
+  .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.02;letter-spacing:-.01em;margin:.5rem 0 .3rem;text-wrap:balance}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:56ch;margin:.2rem 0 1.1rem}
+  .facts{display:flex;flex-wrap:wrap;gap:.5rem}
+  .fact{display:inline-flex;align-items:center;gap:.45rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.86rem;font-weight:500;box-shadow:var(--shadow-sm)}
+  .fact svg{width:1rem;height:1rem;color:var(--rose)}
+
+  section{padding:clamp(2rem,5vw,3rem) 0}
+  .sec-head{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:1.3rem}
+  .sec-head .step{font-family:var(--ui);font-weight:800;font-size:.8rem;color:#fff;background:var(--rose);width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;flex:none}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,4vw,2rem);letter-spacing:-.01em;margin:0}
+  .sec-head p{margin:.1rem 0 0;color:var(--muted);font-size:.95rem;flex-basis:100%}
+
+  .days{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:720px){.days{grid-template-columns:1fr}}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  .day-head{padding:1rem 1.2rem;color:#fff}
+  .day.mer .day-head{background:linear-gradient(135deg,var(--teal),var(--teal-d))}
+  .day.jeu .day-head{background:linear-gradient(135deg,var(--gold-soft),var(--gold))}
+  .day-head .d{font-family:var(--ui);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700;opacity:.95}
+  .day-head .t{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin-top:.15rem}
+  .dishes{padding:.4rem 1.2rem 1.1rem}
+  .dish{padding:.9rem 0;border-bottom:1px solid var(--line-2)}
+  .dish:last-child{border-bottom:0}
+  .dish .n{font-family:var(--serif);font-weight:600;font-size:1.08rem}
+  .dish .desc{color:var(--muted);font-size:.9rem;margin:.15rem 0 .35rem}
+  .allerg{font-family:var(--ui);font-size:.72rem;color:var(--muted);display:inline-flex;align-items:center;gap:.35rem;background:var(--paper-2);border-radius:6px;padding:.15rem .5rem}
+  .allerg b{color:var(--ink);font-weight:600}
+  .desserts{margin-top:1rem;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  .desserts .day-head{background:linear-gradient(135deg,var(--rose),var(--rose-d))}
+  .dz-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;padding:.4rem 1.2rem 1.1rem}
+  @media (max-width:600px){.dz-grid{grid-template-columns:1fr}}
+  .price-note{background:var(--paper-2);border-radius:10px;padding:.55rem .85rem;font-size:.85rem;color:var(--ink);display:inline-flex;align-items:center;gap:.45rem;margin-top:1rem}
+
+  /* ORDER : people */
+  .order-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(1.1rem,3vw,1.7rem)}
+  .people{display:flex;flex-direction:column;gap:1rem}
+  .person{border:1px solid var(--line);border-radius:15px;background:var(--paper);overflow:hidden}
+  .person-head{display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .pnum{font-family:var(--ui);font-weight:800;font-size:.72rem;color:#fff;background:var(--navy);border-radius:6px;padding:.2rem .5rem;flex:none;letter-spacing:.04em}
+  .person-head input.prenom{flex:1;min-width:0;font-family:var(--ui);font-weight:600;font-size:1rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.5rem .65rem}
+  .rmp{background:none;border:none;color:var(--rose-d);font-family:var(--ui);font-weight:600;font-size:.85rem;cursor:pointer;padding:.25rem .3rem;white-space:nowrap}
+  .rmp:hover{text-decoration:underline}
+  .daywrap{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media (max-width:640px){.daywrap{grid-template-columns:1fr}}
+  .daybox{padding:.95rem 1rem}
+  .daybox.mer{border-right:1px solid var(--line-2)}
+  @media (max-width:640px){.daybox.mer{border-right:0;border-bottom:1px solid var(--line-2)}}
+  .daytoggle{display:flex;align-items:center;gap:.55rem;cursor:pointer;font-weight:600;font-size:.95rem;user-select:none}
+  .daytoggle input{width:1.15rem;height:1.15rem;flex:none}
+  .daybox.mer .daytoggle input{accent-color:var(--teal-d)}
+  .daybox.jeu .daytoggle input{accent-color:var(--gold)}
+  .daytoggle .pill{font-family:var(--ui);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.12rem .45rem;border-radius:999px;color:#fff}
+  .daybox.mer .daytoggle .pill{background:var(--teal-d)}
+  .daybox.jeu .daytoggle .pill{background:var(--gold)}
+  .choices{margin-top:.7rem;display:none;flex-direction:column;gap:.55rem}
+  .choices.on{display:flex}
+  .fld{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+  .fld label{font-family:var(--ui);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  select,input[type=text],input[type=email],input[type=tel]{font-family:var(--ui);font-size:.93rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.5rem .55rem;width:100%;min-width:0}
+  select:focus,input:focus{outline:3px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+  .person-foot{padding:.5rem 1rem .7rem;font-size:.84rem;color:var(--muted)}
+  .person-foot b{color:var(--ink)}
+
+  .btn{font-family:var(--ui);font-weight:700;cursor:pointer;border-radius:999px;border:none;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:.95rem}
+  .btn:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+  .btn-add{background:var(--blue-pastel);color:var(--blue-d);border:2px solid var(--blue);padding:.7rem 1.2rem;margin-top:1rem}
+  .btn-add:hover{background:var(--blue);color:#fff}
+  .btn-primary{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:#fff;padding:.95rem 2rem;font-size:1.05rem;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+  .totals{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;margin-top:1.3rem;padding-top:1.2rem;border-top:2px solid var(--line)}
+  .totals .big{font-family:var(--serif);font-weight:600;font-size:1.6rem;color:var(--ink)}
+  .totals .lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .tot-block{display:flex;flex-direction:column}
+
+  .coord-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:600px){.coord-grid{grid-template-columns:1fr}}
+  .req{color:var(--rose)}
+  .auth{margin-top:1.2rem;background:var(--rose-pastel);border:1.5px solid var(--rose);border-radius:13px;padding:1rem 1.1rem;display:flex;gap:.75rem;align-items:flex-start}
+  .auth input{margin-top:.25rem;width:1.15rem;height:1.15rem;flex:none;accent-color:var(--rose)}
+  .auth label{font-size:.92rem;color:var(--ink)}
+  .submit-row{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start}
+  .err{color:var(--rose-d);font-size:.9rem;font-weight:600;min-height:1.1rem}
+
+  .confirm{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .confirm h3{font-family:var(--serif);margin:0 0 .4rem;font-size:1.25rem;color:var(--ink)}
+  .confirm p{margin:.3rem 0;color:var(--muted);font-size:.95rem}
+  .recap{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.9rem;margin-top:.8rem;max-height:230px;overflow:auto}
+  .mini-btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.9rem}
+  .btn-sec{background:var(--rose-pastel);color:var(--rose-d);border:2px solid var(--rose);padding:.6rem 1.1rem;font-size:.9rem}
+  .btn-sec:hover{background:var(--rose);color:#fff}
+  footer{padding:2.4rem 0 3rem;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line)}
+</style>
+
+<div class="draft">Projet pour validation interne · <b>non publié</b> — page privée accessible uniquement par lien</div>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandline">Le Village des Recruteurs · Toulouse 2026</div>
+    <h1>Paniers repas pour votre équipe</h1>
+    <p class="hero-sub">Deux jours de salon, deux cuisines. Renseignez chaque personne, choisissez ses repas, et faites livrer les paniers directement sur votre stand.</p>
+    <div class="facts">
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>Mercredi 16 &amp; jeudi 17 septembre 2026</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2C6 2 3.5 5 3.5 8.5 3.5 13 10 18 10 18s6.5-5 6.5-9.5C16.5 5 14 2 10 2Z"/><circle cx="10" cy="8.3" r="2.2"/></svg>Livré sur votre stand</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg>20 € HT / panier (plat + dessert)</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- STEP 1 -->
+  <section>
+    <div class="sec-head">
+      <span class="step">1</span>
+      <h2>Découvrez les menus</h2>
+      <p>Un plat au choix par jour, un dessert au choix parmi six (identiques les deux jours). Les allergènes sont indiqués sous chaque plat.</p>
+    </div>
+    <div class="days">
+      <div class="day mer">
+        <div class="day-head"><div class="d">Mercredi 16 septembre</div><div class="t">Cuisine thaï</div></div>
+        <div class="dishes" id="dishes-mer"></div>
+      </div>
+      <div class="day jeu">
+        <div class="day-head"><div class="d">Jeudi 17 septembre</div><div class="t">Focaccia garnie</div></div>
+        <div class="dishes" id="dishes-jeu"></div>
+      </div>
+    </div>
+    <div class="desserts">
+      <div class="day-head"><div class="d">Les deux jours · au choix</div><div class="t">Desserts</div></div>
+      <div class="dz-grid" id="dishes-des"></div>
+    </div>
+    <div class="price-note"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg> Chaque panier = 1 plat + 1 dessert, à 20 € HT. Paniers livrés directement sur votre stand.</div>
+  </section>
+
+  <!-- STEP 2 : PEOPLE -->
+  <section>
+    <div class="sec-head">
+      <span class="step">2</span>
+      <h2>Passez commande pour votre équipe</h2>
+      <p>Ajoutez chaque personne. Pour chacune, cochez le ou les jours de présence, puis choisissez le plat et le dessert. Un panier = une personne, pour un jour. <strong>Une seule commande par société est recommandée, merci.</strong></p>
+    </div>
+
+    <div class="order-card">
+      <div class="people" id="people"></div>
+      <button class="btn btn-add" id="addPerson" type="button">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg>
+        Ajouter une personne
+      </button>
+
+      <div class="totals">
+        <div class="tot-block"><span class="lbl">Paniers commandés</span><span class="big" id="totCount">0</span></div>
+        <div class="tot-block"><span class="lbl">Total HT</span><span class="big" id="totHT">0 €</span></div>
+        <div class="tot-block" style="margin-left:auto;max-width:24ch"><span class="lbl">Rappel</span><span style="font-size:.85rem;color:var(--muted)">TVA en sus. Un devis / une facture vous sera adressé par Job Events.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section>
+    <div class="sec-head">
+      <span class="step">3</span>
+      <h2>Vos coordonnées</h2>
+      <p>Pour établir la facture et vous tenir informé de la livraison.</p>
+    </div>
+
+    <div class="order-card">
+      <div class="coord-grid">
+        <div class="fld"><label for="soc">Nom de la société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
+        <div class="fld"><label for="nom">Personne qui commande <span class="req">*</span></label><input type="text" id="nom" autocomplete="name" placeholder="Prénom et nom"></div>
+        <div class="fld"><label for="email">Email <span class="req">*</span></label><input type="email" id="email" autocomplete="email" placeholder="vous@entreprise.fr"></div>
+        <div class="fld"><label for="tel">Téléphone <span class="req">*</span></label><input type="tel" id="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+      </div>
+
+      <div class="auth">
+        <input type="checkbox" id="auth">
+        <label for="auth">J’autorise <b>Job Events</b> à facturer ma société pour les paniers repas commandés ci-dessus — au tarif de <b>20 € HT par panier</b> — pour la part qui n’aurait pas déjà fait l’objet d’une commande. <span class="req">*</span></label>
+      </div>
+
+      <div class="submit-row">
+        <div class="err" id="err"></div>
+        <button class="btn btn-primary" id="submit" type="button">Envoyer ma commande</button>
+      </div>
+
+      <div class="confirm" id="confirm">
+        <h3>Votre commande est prête à partir</h3>
+        <p>Votre logiciel de messagerie s’est ouvert avec la commande pré-remplie, adressée à <b>communication@job.events</b> et à vous-même en copie. <b>Vérifiez et cliquez sur « Envoyer »</b> pour finaliser.</p>
+        <p style="font-size:.85rem">Si rien ne s’est ouvert, copiez le récapitulatif ci-dessous et envoyez-le à communication@job.events.</p>
+        <div class="recap" id="recap"></div>
+        <div class="mini-btns">
+          <button class="btn btn-sec" id="reopen" type="button">Rouvrir l’email</button>
+          <button class="btn btn-sec" id="copy" type="button">Copier le récapitulatif</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Le Village des Recruteurs · Toulouse · 16–17 septembre 2026 — Une question ? communication@job.events<br>
+  Traiteur : menus &amp; cafés de spécialité Roulotte.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var PRIX=20, DEST="communication@job.events";
+  var MENUS={
+    mer:{label:"Mercredi 16 sept.", jourCourt:"Mercredi 16", theme:"Cuisine thaï", plats:[
+      {n:"Pad Thaï (poulet ou tofu) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)"},
+      {n:"Khao Pad Ananas", d:"Riz thaï sauté au wok au poulet, œuf, légumes, ananas frais.", a:"Poisson, gluten (traces), fruits à coque, huître"},
+      {n:"Curry jaune poulet (pimenté)", d:"Pâte de curry maison, lait de coco, légumes, poulet, coriandre fraîche. Servi avec du riz.", a:"Crevettes, poisson"}
+    ]},
+    jeu:{label:"Jeudi 17 sept.", jourCourt:"Jeudi 17", theme:"Focaccia garnie", plats:[
+      {n:"Le Pyrénéen (végétarien)", d:"Pain focaccia, légumes de saison, pickles d’oignons et sauce moutarde au miel.", a:"Gluten, moutarde"},
+      {n:"Le Tarnais", d:"Pain focaccia, jambon sec, tomme de Bethmale, salade, tomates, pickles et compotée d’oignons.", a:"Gluten, lait"}
+    ]}
+  };
+  var DESSERTS=[
+    {n:"Tiramisu café", d:"Mascarpone onctueux, biscuits imbibés de café de spécialité Roulotte, voile de cacao.", a:"Lait, œufs, gluten"},
+    {n:"Tiramisu matcha", d:"Mascarpone onctueux, biscuits fondants et matcha de cérémonie Roulotte.", a:"Lait, œufs, gluten"},
+    {n:"Affogato café", d:"Boule de glace vanille nappée minute d’un espresso chaud (café Roulotte).", a:"Lait, œufs"},
+    {n:"Riz au lait façon chaï", d:"Riz au lait ultra-crémeux, infusé aux épices du chaï maison Roulotte.", a:"Lait"},
+    {n:"Mousse chocolat noir & fleur de sel", d:"Mousse intensément chocolatée, légère et fondante, pointe de fleur de sel.", a:"Œufs, lait"},
+    {n:"Chia pudding coco, mangue & passion", d:"Chia pudding au lait de coco, mangue et coulis passion. Vegan, sans gluten.", a:"Aucun (vegan, sans gluten)"}
+  ];
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+  function renderDishes(container,list){
+    list.forEach(function(p){
+      var d=el("div","dish");
+      d.innerHTML="<div class='n'>"+esc(p.n)+"</div><div class='desc'>"+esc(p.d)+"</div><span class='allerg'><b>Allergènes</b> : "+esc(p.a)+"</span>";
+      container.appendChild(d);
+    });
+  }
+  renderDishes(document.getElementById("dishes-mer"),MENUS.mer.plats);
+  renderDishes(document.getElementById("dishes-jeu"),MENUS.jeu.plats);
+  renderDishes(document.getElementById("dishes-des"),DESSERTS);
+
+  var peopleEl=document.getElementById("people");
+  function platOptions(day){return "<option value='' disabled selected>Choisir le plat…</option>"+MENUS[day].plats.map(function(p,i){return "<option value='"+i+"'>"+esc(p.n)+"</option>";}).join("");}
+  function dessOptions(){return "<option value='' disabled selected>Choisir le dessert…</option>"+DESSERTS.map(function(p,i){return "<option value='"+i+"'>"+esc(p.n)+"</option>";}).join("");}
+
+  function dayBlock(day){
+    return "<div class='daybox "+day+"'>"+
+      "<label class='daytoggle'><input type='checkbox' class='on'> <span>"+MENUS[day].jourCourt+"</span> <span class='pill'>"+MENUS[day].theme+"</span></label>"+
+      "<div class='choices'>"+
+        "<div class='fld'><label>Plat</label><select class='plat'>"+platOptions(day)+"</select></div>"+
+        "<div class='fld'><label>Dessert</label><select class='dess'>"+dessOptions()+"</select></div>"+
+        "<div class='fld'><label>Allergènes / précisions</label><input type='text' class='all' placeholder='Optionnel — allergie, option tofu, sans piment…'></div>"+
+      "</div></div>";
+  }
+
+  var pnum=0;
+  function makePerson(){
+    pnum++;
+    var pv=pnum;
+    var person=el("div","person");
+    person.innerHTML=
+      "<div class='person-head'><span class='pnum'>Pers. "+pv+"</span>"+
+        "<input type='text' class='prenom' placeholder='Prénom (ou prénom + nom)'>"+
+        "<button class='rmp' type='button'>✕ Retirer</button></div>"+
+      "<div class='daywrap'>"+dayBlock("mer")+dayBlock("jeu")+"</div>"+
+      "<div class='person-foot'></div>";
+
+    person.querySelectorAll(".daybox").forEach(function(box){
+      var on=box.querySelector(".on"), choices=box.querySelector(".choices");
+      on.addEventListener("change",function(){ choices.classList.toggle("on",on.checked); recompute(); });
+      box.querySelectorAll("select,input").forEach(function(f){ f.addEventListener("change",recompute); f.addEventListener("input",recompute); });
+    });
+    person.querySelector(".prenom").addEventListener("input",recompute);
+    person.querySelector(".rmp").addEventListener("click",function(){ person.remove(); if(!peopleEl.children.length) makePerson(); recompute(); });
+
+    peopleEl.appendChild(person);
+    recompute();
+    return person;
+  }
+
+  function personData(person){
+    var prenom=person.querySelector(".prenom").value.trim();
+    var boxes=person.querySelectorAll(".daybox");
+    var meals=[];
+    ["mer","jeu"].forEach(function(day,idx){
+      var box=boxes[idx];
+      var on=box.querySelector(".on").checked;
+      if(!on) return;
+      var pi=box.querySelector(".plat").value;
+      var di=box.querySelector(".dess").value;
+      var all=box.querySelector(".all").value.trim();
+      meals.push({day:day, pi:pi, di:di, all:all,
+        complete: pi!=="" && di!=="",
+        plat: pi!=="" ? MENUS[day].plats[pi].n : null,
+        dessert: di!=="" ? DESSERTS[di].n : null});
+    });
+    return {prenom:prenom, meals:meals};
+  }
+
+  function recompute(){
+    var count=0;
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      var complete=0, incomplete=0;
+      d.meals.forEach(function(m){ if(m.complete) complete++; else incomplete++; });
+      count+=complete;
+      var foot=person.querySelector(".person-foot");
+      if(d.meals.length===0){ foot.textContent="Cochez au moins un jour de présence."; }
+      else { foot.innerHTML="<b>"+complete+"</b> panier"+(complete>1?"s":"")+" · "+(complete*PRIX)+" € HT"+(incomplete?" — <span style='color:var(--rose-d)'>"+incomplete+" jour à compléter</span>":""); }
+    });
+    document.getElementById("totCount").textContent=count;
+    document.getElementById("totHT").textContent=(count*PRIX)+" €";
+    return count;
+  }
+
+  document.getElementById("addPerson").addEventListener("click",makePerson);
+  makePerson();
+
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+  function buildOrder(){
+    var persons=[], count=0, incompleteDays=0, missingName=0;
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      if(d.meals.length===0) return;
+      if(!d.prenom) missingName++;
+      d.meals.forEach(function(m){ if(m.complete) count++; else incompleteDays++; });
+      persons.push(d);
+    });
+    return {
+      persons:persons, count:count, incompleteDays:incompleteDays, missingName:missingName,
+      soc:document.getElementById("soc").value.trim(),
+      nom:document.getElementById("nom").value.trim(),
+      email:document.getElementById("email").value.trim(),
+      tel:document.getElementById("tel").value.trim(),
+      auth:document.getElementById("auth").checked
+    };
+  }
+
+  function recapText(o){
+    var L=[];
+    L.push("COMMANDE PANIERS REPAS — Village des Recruteurs, Toulouse");
+    L.push("Événement : mercredi 16 & jeudi 17 septembre 2026");
+    L.push("");
+    L.push("Société : "+o.soc);
+    L.push("Commande passée par : "+o.nom);
+    L.push("Email : "+o.email+"   |   Tél : "+o.tel);
+    L.push("");
+    L.push("PANIERS ("+o.count+") :");
+    o.persons.forEach(function(p){
+      p.meals.forEach(function(m){
+        if(!m.complete) return;
+        var jour = m.day==="mer" ? "Mercredi 16" : "Jeudi 17";
+        L.push("• "+(p.prenom||"(sans prénom)")+" — "+jour+" : "+m.plat+" / "+m.dessert+(m.all?("  [allergènes/précisions : "+m.all+"]"):""));
+      });
+    });
+    L.push("");
+    L.push("TOTAL : "+o.count+" panier"+(o.count>1?"s":"")+" — "+(o.count*PRIX)+" € HT (TVA en sus)");
+    L.push("Statut facturation : À FACTURER");
+    L.push("Autorisation de facturation : OUI — la société autorise Job Events à facturer les paniers commandés (20 € HT/panier) non déjà commandés.");
+    return L.join("\n");
+  }
+
+  function mailtoLink(o){
+    return "mailto:"+encodeURIComponent(DEST)+
+      "?cc="+encodeURIComponent(o.email)+
+      "&subject="+encodeURIComponent("Commande paniers repas — VDR Toulouse — "+(o.soc||""))+
+      "&body="+encodeURIComponent(recapText(o));
+  }
+
+  var lastLink="";
+  document.getElementById("submit").addEventListener("click",function(){
+    var errEl=document.getElementById("err"); errEl.textContent="";
+    var o=buildOrder();
+    var pb=[];
+    if(o.count<1) pb.push("renseignez au moins une personne avec un jour, un plat et un dessert");
+    if(o.incompleteDays>0) pb.push(o.incompleteDays+" jour(s) coché(s) sans plat ou dessert");
+    if(o.missingName>0) pb.push("le prénom de chaque personne");
+    if(!o.soc) pb.push("le nom de la société");
+    if(!o.nom) pb.push("la personne qui commande");
+    if(!validEmail(o.email)) pb.push("un email valide");
+    if(!o.tel) pb.push("un téléphone");
+    if(!o.auth) pb.push("cocher l’autorisation de facturation");
+    if(pb.length){ errEl.textContent="À corriger : "+pb.join(" · ")+"."; errEl.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+
+    lastLink=mailtoLink(o);
+    document.getElementById("recap").textContent=recapText(o);
+    document.getElementById("confirm").style.display="block";
+    window.location.href=lastLink;
+    document.getElementById("confirm").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("reopen").addEventListener("click",function(){ if(lastLink) window.location.href=lastLink; });
+  document.getElementById("copy").addEventListener("click",function(){
+    var t=document.getElementById("recap").textContent;
+    if(navigator.clipboard){ navigator.clipboard.writeText(t); var b=this; b.textContent="Copié ✓"; setTimeout(function(){b.textContent="Copier le récapitulatif";},1600); }
+  });
+})();
+</script>
