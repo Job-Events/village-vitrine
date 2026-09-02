@@ -86,8 +86,7 @@ export async function onRequestPost({ request, env }){
         [ODOO_DB, uid, ODOO_API_KEY, 'mail.mail', 'create', [{
           subject: 'Commande paniers repas — VDR Toulouse — ' + societe,
           email_from: 'Le Village des Recruteurs <notifications@job.events>',
-          email_to: 'communication@job.events',
-          email_cc: email,
+          email_to: 'communication@job.events, ' + email,
           reply_to: email,
           body_html: body
         }]]);
