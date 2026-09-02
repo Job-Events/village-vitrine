@@ -1,0 +1,190 @@
+<title>Paniers repas · Espace équipe</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap">
+<style>
+  :root{
+    --paper:#FFF9F1; --paper-2:#FDEBD8; --card:#FFFFFF; --ink:#241A12; --muted:#7A6A5B;
+    --line:rgba(60,40,24,.14); --line-2:rgba(60,40,24,.08);
+    --rose:#E3007B; --rose-d:#B4005F; --rose-pastel:#FCE3F0;
+    --blue:#006FB7; --blue-d:#004E82; --blue-pastel:#E1F0FB;
+    --navy:#08324F; --teal:#0FAE9E; --teal-d:#0B8478; --gold:#E39A00; --gold-soft:#F8B322;
+    --ok:#2FA36B;
+    --shadow-sm:0 1px 2px rgba(60,40,24,.05),0 8px 22px -14px rgba(80,45,20,.28);
+    --shadow:0 2px 4px rgba(60,40,24,.06),0 22px 48px -24px rgba(80,45,20,.4);
+    --ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+      --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+      --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+      --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+      --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+      --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+    --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+    --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+    --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+    --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+    --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--rose-d)}
+  .bandeau{background:var(--navy);color:#fff;font-family:var(--ui);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-align:center;padding:.55rem .8rem}
+  .bandeau b{color:var(--gold-soft)}
+  .wrap{max-width:820px;margin:0 auto;padding:clamp(1.6rem,4vw,2.6rem) clamp(1rem,4vw,1.75rem) 3rem}
+  header.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid var(--line)}
+  .hero-in{max-width:820px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.4rem,4vw,2rem)}
+  .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.5vw,3rem);line-height:1.04;letter-spacing:-.01em;margin:.5rem 0 .4rem;text-wrap:balance}
+  .hero-sub{font-size:1.08rem;color:var(--muted);margin:.2rem 0 0;max-width:60ch}
+  .lead{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:14px;box-shadow:var(--shadow-sm);padding:1.1rem 1.3rem;margin:1.8rem 0 .5rem;font-size:1.02rem}
+  .lead b{color:var(--ink)}
+  section.step{margin:2.4rem 0}
+  .sec-head{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem}
+  .num{font-family:var(--ui);font-weight:800;font-size:1rem;color:#fff;background:var(--rose);width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;flex:none}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,3.6vw,1.8rem);letter-spacing:-.01em;margin:0}
+  h2 .sub{display:block;font-family:var(--ui);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
+  p{margin:.7rem 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);padding:1.15rem 1.35rem;margin:.9rem 0}
+  .card h3{font-family:var(--ui);font-size:.95rem;font-weight:700;margin:0 0 .5rem;text-transform:uppercase;letter-spacing:.04em;color:var(--rose-d)}
+  ul.clean{margin:.5rem 0;padding-left:1.15rem}
+  ul.clean li{margin:.4rem 0}
+  .path{font-family:var(--ui);font-weight:600;background:var(--paper-2);border:1px solid var(--line-2);border-radius:7px;padding:.12rem .5rem;font-size:.9rem;white-space:nowrap}
+  .chip{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--ui);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:.2rem .55rem;border-radius:999px;color:#fff}
+  .chip.teal{background:var(--teal-d)} .chip.gold{background:var(--gold)} .chip.blue{background:var(--blue)}
+  .btn{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--ui);font-weight:700;font-size:.95rem;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--rose),var(--rose-d));padding:.6rem 1.1rem;border-radius:999px;box-shadow:var(--shadow-sm)}
+  .btn.sec{background:none;color:var(--blue-d);border:2px solid var(--blue);box-shadow:none}
+  .links{background:var(--navy);border-radius:16px;padding:1.4rem 1.5rem;margin:2rem 0 0;color:#fff}
+  .links h2{color:#fff}
+  .links a{color:#fff;font-weight:600}
+  .linkrow{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.14)}
+  .linkrow:last-child{border-bottom:0}
+  .linkrow .lbl{font-family:var(--ui);font-weight:700;min-width:210px;color:var(--gold-soft)}
+  .linkrow .url{font-size:.9rem;word-break:break-all}
+  footer{max-width:820px;margin:0 auto;padding:1.5rem 1.75rem 3rem;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
+  .flow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:1rem 0;font-family:var(--ui);font-weight:600;font-size:.9rem}
+  .flow .b{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:.45rem .7rem;box-shadow:var(--shadow-sm)}
+  .flow .arr{color:var(--rose);font-weight:800}
+  .villes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.9rem;margin:1rem 0}
+  .ville{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);padding:1.1rem 1.2rem}
+  .ville .vn{font-family:var(--serif);font-weight:600;font-size:1.25rem;color:var(--ink)}
+  .ville .vd{font-size:.85rem;color:var(--muted)}
+  .ville a.open{margin-top:.2rem;align-self:flex-start;font-family:var(--ui);font-weight:700;font-size:.85rem;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--teal),var(--teal-d));padding:.45rem .9rem;border-radius:999px}
+  .ville.soon{border-style:dashed;opacity:.75}
+  .ville.soon .tag{font-family:var(--ui);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+</style>
+
+<div class="bandeau">Espace équipe · <b>Réservé à Job&nbsp;Events</b> · Document interne</div>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandline">Le Village des Recruteurs</div>
+    <h1>Paniers repas — guide de prise en main</h1>
+    <p class="hero-sub">Comment fonctionne la commande des paniers repas, de l'envoi du lien aux exposants jusqu'à la distribution sur les stands. À lire avant le premier événement.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="lead">
+    <b>Le principe en une phrase :</b> les exposants commandent leurs paniers sur une page dédiée du site, chaque commande s'enregistre automatiquement dans Odoo, et l'équipe en sort deux extractions — une pour le foodtruck, une pour la distribution sur place.
+  </div>
+
+  <div class="flow">
+    <span class="b">Exposant commande</span><span class="arr">→</span>
+    <span class="b">Enregistrement Odoo</span><span class="arr">→</span>
+    <span class="b">Email de confirmation</span><span class="arr">→</span>
+    <span class="b">Extractions équipe</span><span class="arr">→</span>
+    <span class="b">Livraison sur stand</span>
+  </div>
+
+  <section class="step">
+    <div class="sec-head"><span class="num" style="background:var(--teal-d)">◈</span><h2>Pages de commande par ville<span class="sub">Le lien à transmettre aux exposants</span></h2></div>
+    <p>Chaque événement a sa propre page de commande, aux mêmes couleurs et au même fonctionnement. C'est le lien à envoyer aux exposants de la ville concernée.</p>
+    <div class="villes">
+      <div class="ville">
+        <span class="vn">Toulouse 2026</span>
+        <span class="vd">16 &amp; 17 septembre 2026</span>
+        <a class="open" href="https://www.levillagedesrecruteurs.fr/paniers-toulouse-4ac9b8dc.html">Ouvrir la page →</a>
+      </div>
+      <div class="ville soon">
+        <span class="vn">Prochaines villes</span>
+        <span class="tag">À venir</span>
+        <span class="vd">Les nouvelles pages viendront s'ajouter ici au fil des événements.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="sec-head"><span class="num">1</span><h2>Diffusion aux exposants<span class="sub">Assuré par Mathilde</span></h2></div>
+    <p>Mathilde envoie aux exposants le lien de la page de commande de l'événement concerné. La page est <b>privée</b> : elle n'est pas référencée et n'est accessible que par ce lien.</p>
+    <div class="card">
+      <h3>À préciser dans le message</h3>
+      <ul class="clean">
+        <li><b>Une seule commande par société est recommandée</b> — elle regroupe toutes les personnes de l'équipe présente.</li>
+        <li>Les commandes restent modifiables <b>jusqu'à 2 jours avant l'événement</b>.</li>
+      </ul>
+      <a class="btn" href="https://www.levillagedesrecruteurs.fr/paniers-toulouse-4ac9b8dc.html">Ouvrir la page — Toulouse 2026</a>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="sec-head"><span class="num">2</span><h2>Ce que fait l'exposant<span class="sub">Sur la page de commande</span></h2></div>
+    <p>Pour chaque personne de son équipe, l'exposant indique le prénom, le ou les jours de présence, puis pour chaque jour un plat, un dessert et d'éventuels allergènes. Il renseigne enfin les coordonnées de la société et coche l'autorisation de facturation.</p>
+    <p>Avant l'envoi, un écran de <b>vérification finale</b> récapitule toute la commande. Une fois confirmée, elle part <b>automatiquement</b> — l'exposant n'a rien d'autre à faire, et reçoit une copie par email.</p>
+  </section>
+
+  <section class="step">
+    <div class="sec-head"><span class="num">3</span><h2>L'enregistrement automatique dans Odoo<span class="sub">Aucune saisie manuelle</span></h2></div>
+    <p>Chaque commande crée automatiquement, dans Odoo, une ligne par panier (une personne × un jour). Au même moment, un email de confirmation part vers <b>communication@job.events</b> et vers la personne qui a commandé — c'est votre signal qu'une commande vient d'arriver.</p>
+    <div class="card">
+      <h3>Où retrouver les commandes</h3>
+      <ul class="clean">
+        <li>Menu <span class="path">Événements → Paniers repas → Commandes paniers repas</span> : la liste complète, tous événements confondus.</li>
+        <li>Elles apparaissent aussi dans l'onglet <span class="path">Paniers repas</span> de la fiche de l'événement concerné.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="sec-head"><span class="num">4</span><h2>Le suivi de la facturation<span class="sub">À tenir à jour</span></h2></div>
+    <p>Chaque ligne porte un statut <span class="chip blue">À facturer</span> / <span class="chip teal">Facturé</span>. Il suffit de le passer à « Facturé » une fois la facture émise — directement dans la liste, sans ouvrir la fiche.</p>
+  </section>
+
+  <section class="step">
+    <div class="sec-head"><span class="num">5</span><h2>Les deux extractions<span class="sub">Avant chaque événement</span></h2></div>
+    <p>Deux vues prêtes à l'emploi, chacune regroupée dans le bon ordre. Dans chaque vue : cochez la case tout en haut pour tout sélectionner, puis <span class="path">Actions → Exporter → Excel</span>.</p>
+    <div class="card">
+      <h3><span class="chip gold">Foodtruck</span> &nbsp;Extraction fournisseur</h3>
+      <p style="margin:.3rem 0 .2rem">Regroupée par <b>Événement → Jour → Plat</b> : le foodtruck voit, pour chaque jour, combien de chaque plat produire. Pour les desserts, il suffit de regrouper par « Dessert » à la place du plat.</p>
+    </div>
+    <div class="card">
+      <h3><span class="chip teal">Sur place</span> &nbsp;Extraction distribution</h3>
+      <p style="margin:.3rem 0 .2rem">Regroupée par <b>Événement → Jour → Société → Prénom</b> : l'équipe de distribution remet le bon panier à la bonne personne, stand par stand.</p>
+    </div>
+  </section>
+
+  <div class="links">
+    <h2 style="margin:0 0 .3rem">Liens utiles</h2>
+    <p style="color:rgba(255,255,255,.75);margin:.1rem 0 .8rem;font-size:.92rem">Accès réservé aux comptes Job&nbsp;Events (connexion Odoo requise).</p>
+    <div class="linkrow"><span class="lbl">Page de commande — Toulouse</span><span class="url">https://www.levillagedesrecruteurs.fr/paniers-toulouse-4ac9b8dc.html</span></div>
+    <div class="linkrow"><span class="lbl">Odoo · Toutes les commandes</span><span class="url">https://jobevents.odoo.com/odoo/action-1176</span></div>
+    <div class="linkrow"><span class="lbl">Odoo · Extraction fournisseur</span><span class="url">https://jobevents.odoo.com/odoo/action-1177</span></div>
+    <div class="linkrow"><span class="lbl">Odoo · Extraction distribution</span><span class="url">https://jobevents.odoo.com/odoo/action-1178</span></div>
+  </div>
+
+</div>
+
+<footer>
+  Le Village des Recruteurs · Document interne équipe Job&nbsp;Events · Une question ? communication@job.events
+</footer>
