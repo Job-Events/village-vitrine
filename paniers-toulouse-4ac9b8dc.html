@@ -235,11 +235,10 @@
       </div>
 
       <div class="confirm" id="confirm">
-        <h3>Votre commande est prête à partir</h3>
-        <p>Votre logiciel de messagerie s’est ouvert avec la commande pré-remplie, adressée à <b>communication@job.events</b> et à vous-même en copie. <b>Vérifiez et cliquez sur « Envoyer »</b> pour finaliser.</p>
-        <p style="font-size:.85rem">Si rien ne s’est ouvert, copiez le récapitulatif ci-dessous et envoyez-le à communication@job.events.</p>
+        <h3 id="confirmTitle">Votre commande est enregistrée</h3>
+        <div id="confirmMsg"></div>
         <div class="recap" id="recap"></div>
-        <div class="mini-btns">
+        <div class="mini-btns" id="fallbackBtns" style="display:none">
           <button class="btn btn-sec" id="reopen" type="button">Rouvrir l’email</button>
           <button class="btn btn-sec" id="copy" type="button">Copier le récapitulatif</button>
         </div>
@@ -257,6 +256,7 @@
 (function(){
   "use strict";
   var PRIX=20, DEST="communication@job.events";
+  var EVENT_ID=1, ENDPOINT="/api/commande";
   var MENUS={
     mer:{label:"Mercredi 16 sept.", jourCourt:"Mercredi 16 sept.", theme:"Cuisine thaï", plats:[
       {n:"Pad Thaï (poulet ou tofu) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)"},
@@ -437,10 +437,29 @@
 
     lastLink=mailtoLink(o);
     document.getElementById("recap").textContent=recapText(o);
-    document.getElementById("confirm").style.display="block";
-    window.location.href=lastLink;
-    document.getElementById("confirm").scrollIntoView({behavior:"smooth",block:"start"});
+    var payload={eventId:EVENT_ID,societe:o.soc,commanditaire:o.nom,email:o.email,tel:o.tel,autorisation:o.auth,lignes:[]};
+    o.persons.forEach(function(p){p.meals.forEach(function(m){if(m.complete)payload.lignes.push({prenom:p.prenom,jour:m.day==="mer"?"mercredi":"jeudi",plat:m.plat,dessert:m.dessert,allergenes:m.all});});});
+    var btn=document.getElementById("submit"); btn.disabled=true; btn.textContent="Envoi en cours…";
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return{ok:false};});})
+      .then(function(res){ btn.disabled=false; btn.textContent="Envoyer ma commande"; showConfirm(res&&res.ok); })
+      .catch(function(){ btn.disabled=false; btn.textContent="Envoyer ma commande"; showConfirm(false); });
   });
+  function showConfirm(success){
+    var t=document.getElementById("confirmTitle"), msg=document.getElementById("confirmMsg"), fb=document.getElementById("fallbackBtns");
+    if(success){
+      t.textContent="Votre commande est enregistrée";
+      msg.innerHTML="Elle a bien été transmise à Job Events, et un email de confirmation vous a été envoyé en copie. Merci !";
+      fb.style.display="none";
+    } else {
+      t.textContent="Votre commande est prête à partir";
+      msg.innerHTML="L’envoi automatique n’a pas abouti : votre logiciel de messagerie va s’ouvrir avec la commande pré-remplie pour <b>communication@job.events</b>, vous en copie. <b>Vérifiez et cliquez sur « Envoyer »</b>. Sinon, copiez le récapitulatif ci-dessous.";
+      fb.style.display="flex";
+      window.location.href=lastLink;
+    }
+    document.getElementById("confirm").style.display="block";
+    document.getElementById("confirm").scrollIntoView({behavior:"smooth",block:"start"});
+  }
   document.getElementById("reopen").addEventListener("click",function(){ if(lastLink) window.location.href=lastLink; });
   document.getElementById("copy").addEventListener("click",function(){
     var t=document.getElementById("recap").textContent;
