@@ -49,6 +49,7 @@
   .hero-in{max-width:960px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.6rem,4vw,2.4rem)}
   .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.02;letter-spacing:-.01em;margin:.5rem 0 .3rem;text-wrap:balance}
+  .h1-city{color:var(--rose)}
   .hero-sub{font-size:1.1rem;color:var(--muted);max-width:56ch;margin:.2rem 0 1.1rem}
   .facts{display:flex;flex-wrap:wrap;gap:.5rem}
   .fact{display:inline-flex;align-items:center;gap:.45rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.86rem;font-weight:500;box-shadow:var(--shadow-sm)}
@@ -66,7 +67,7 @@
   .day-head{padding:1rem 1.2rem;color:#fff}
   .day.mer .day-head{background:linear-gradient(135deg,var(--teal),var(--teal-d))}
   .day.jeu .day-head{background:linear-gradient(135deg,var(--gold-soft),var(--gold))}
-  .day-head .d{font-family:var(--ui);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700;opacity:.95}
+  .day-head .d{font-family:var(--ui);text-transform:uppercase;letter-spacing:.05em;font-size:1.05rem;font-weight:800;opacity:1}
   .day-head .t{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin-top:.15rem}
   .dishes{padding:.4rem 1.2rem 1.1rem}
   .dish{padding:.9rem 0;border-bottom:1px solid var(--line-2)}
@@ -95,7 +96,8 @@
   .daybox{padding:.95rem 1rem}
   .daybox.mer{border-right:1px solid var(--line-2)}
   @media (max-width:640px){.daybox.mer{border-right:0;border-bottom:1px solid var(--line-2)}}
-  .daytoggle{display:flex;align-items:center;gap:.55rem;cursor:pointer;font-weight:600;font-size:.95rem;user-select:none}
+  .daytoggle{display:flex;align-items:center;gap:.55rem;cursor:pointer;font-weight:600;font-size:1.02rem;user-select:none}
+  .dayname{font-size:1.15rem;font-weight:800}
   .daytoggle input{width:1.15rem;height:1.15rem;flex:none}
   .daybox.mer .daytoggle input{accent-color:var(--teal-d)}
   .daybox.jeu .daytoggle input{accent-color:var(--gold)}
@@ -147,7 +149,7 @@
 <header class="hero">
   <div class="hero-in">
     <div class="brandline">Le Village des Recruteurs</div>
-    <h1>Commande de paniers repas, Toulouse 2026</h1>
+    <h1>Commande de paniers repas<br><span class="h1-city">Toulouse 2026</span></h1>
     <p class="hero-sub">Deux jours de salon, deux cuisines. Renseignez chaque personne, choisissez ses repas, et faites livrer les paniers directement sur votre stand.</p>
     <div class="facts">
       <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>Mercredi 16 &amp; jeudi 17 septembre 2026</span>
@@ -256,12 +258,12 @@
   "use strict";
   var PRIX=20, DEST="communication@job.events";
   var MENUS={
-    mer:{label:"Mercredi 16 sept.", jourCourt:"Mercredi 16", theme:"Cuisine thaï", plats:[
+    mer:{label:"Mercredi 16 sept.", jourCourt:"Mercredi 16 sept.", theme:"Cuisine thaï", plats:[
       {n:"Pad Thaï (poulet ou tofu) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)"},
       {n:"Khao Pad Ananas", d:"Riz thaï sauté au wok au poulet, œuf, légumes, ananas frais.", a:"Poisson, gluten (traces), fruits à coque, huître"},
       {n:"Curry jaune poulet (pimenté)", d:"Pâte de curry maison, lait de coco, légumes, poulet, coriandre fraîche. Servi avec du riz.", a:"Crevettes, poisson"}
     ]},
-    jeu:{label:"Jeudi 17 sept.", jourCourt:"Jeudi 17", theme:"Focaccia garnie", plats:[
+    jeu:{label:"Jeudi 17 sept.", jourCourt:"Jeudi 17 sept.", theme:"Focaccia garnie", plats:[
       {n:"Le Pyrénéen (végétarien)", d:"Pain focaccia, légumes de saison, pickles d’oignons et sauce moutarde au miel.", a:"Gluten, moutarde"},
       {n:"Le Tarnais", d:"Pain focaccia, jambon sec, tomme de Bethmale, salade, tomates, pickles et compotée d’oignons.", a:"Gluten, lait"}
     ]}
@@ -295,7 +297,7 @@
 
   function dayBlock(day){
     return "<div class='daybox "+day+"'>"+
-      "<label class='daytoggle'><input type='checkbox' class='on'> <span>"+MENUS[day].jourCourt+"</span> <span class='pill'>"+MENUS[day].theme+"</span></label>"+
+      "<label class='daytoggle'><input type='checkbox' class='on'> <span class='dayname'>"+MENUS[day].jourCourt+"</span> <span class='pill'>"+MENUS[day].theme+"</span></label>"+
       "<div class='choices'>"+
         "<div class='fld'><label>Plat</label><select class='plat'>"+platOptions(day)+"</select></div>"+
         "<div class='fld'><label>Dessert</label><select class='dess'>"+dessOptions()+"</select></div>"+
