@@ -65,23 +65,65 @@ export async function onRequestPost({ request, env }){
 
     // email de confirmation (non bloquant)
     try {
-      const li = rows.map(r =>
-        '<li>' + esc(r.x_prenom||'(sans prénom)') + ' — ' + (r.x_jour==='mercredi'?'Mercredi 16':'Jeudi 17') +
-        ' : ' + esc(r.x_plat) + ' / ' + esc(r.x_dessert) +
-        (r.x_allergenes ? ' <i>(' + esc(r.x_allergenes) + ')</i>' : '') + '</li>'
-      ).join('');
       const total = rows.length;
+      const th = 'padding:9px 12px;text-align:left;font:600 12px Arial,Helvetica,sans-serif;color:#FFFFFF;text-transform:uppercase;letter-spacing:.04em';
+      const td = 'padding:9px 12px;font:400 14px Arial,Helvetica,sans-serif;color:#241A12;border-bottom:1px solid #ECE6DE;vertical-align:top';
+      const rowsHtml = rows.map((r, i) => {
+        const bg = (i % 2) ? '#FBF7F0' : '#FFFFFF';
+        return '<tr style="background:' + bg + '">' +
+          '<td style="' + td + '"><b>' + esc(r.x_prenom || '—') + '</b></td>' +
+          '<td style="' + td + '">' + (r.x_jour === 'mercredi' ? 'Mercredi 16 sept.' : 'Jeudi 17 sept.') + '</td>' +
+          '<td style="' + td + '">' + esc(r.x_plat) + '</td>' +
+          '<td style="' + td + '">' + esc(r.x_dessert) + '</td>' +
+          '<td style="' + td + ';color:#7A6A5B">' + (r.x_allergenes ? esc(r.x_allergenes) : '—') + '</td>' +
+        '</tr>';
+      }).join('');
       const body =
-        '<div style="font-family:Arial,Helvetica,sans-serif;color:#241A12">' +
-        '<h2 style="color:#B4005F;margin:0 0 8px">Commande de paniers repas — Toulouse 2026</h2>' +
-        '<p><b>Société :</b> ' + esc(societe) + '<br>' +
-        '<b>Commande passée par :</b> ' + esc(commanditaire) + '<br>' +
-        '<b>Email :</b> ' + esc(email) + ' &nbsp;|&nbsp; <b>Tél :</b> ' + esc(tel) + '<br>' +
-        '<b>Référence :</b> ' + esc(ref) + '</p>' +
-        '<p><b>' + total + ' panier' + (total>1?'s':'') + ' — ' + (total*20) + ' € HT</b> (TVA en sus)</p>' +
-        '<ul>' + li + '</ul>' +
-        '<p style="color:#7A6A5B;font-size:13px">Autorisation de facturation confirmée. ' +
-        'Cette commande a été enregistrée automatiquement dans Odoo.</p></div>';
+        '<div style="background:#F4EEE5;padding:24px 0;font-family:Arial,Helvetica,sans-serif">' +
+        '<table role="presentation" cellpadding="0" cellspacing="0" width="640" align="center" style="width:640px;max-width:94%;margin:0 auto;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid #E7DFD4">' +
+        // en-tête
+        '<tr><td style="background:#08324F;padding:22px 28px">' +
+          '<div style="font:700 11px Arial,Helvetica,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#F8B322">Le Village des Recruteurs</div>' +
+          '<div style="font:700 21px Arial,Helvetica,sans-serif;color:#FFFFFF;margin-top:4px">Confirmation de commande — Paniers repas</div>' +
+          '<div style="font:400 14px Arial,Helvetica,sans-serif;color:#C7D3DC;margin-top:2px">Toulouse · 16 &amp; 17 septembre 2026</div>' +
+        '</td></tr>' +
+        // corps
+        '<tr><td style="padding:26px 28px 8px">' +
+          '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 14px">Bonjour,</p>' +
+          '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 18px">Nous accusons réception de votre commande de paniers repas pour le Village des Recruteurs de Toulouse. Vous en trouverez le détail ci-dessous. Les paniers seront livrés directement sur votre stand les jours concernés.</p>' +
+          // bloc coordonnées
+          '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#FBF7F0;border:1px solid #ECE6DE;border-radius:8px;margin:0 0 20px">' +
+            '<tr><td style="padding:14px 16px;font:400 14px/1.7 Arial,Helvetica,sans-serif;color:#241A12">' +
+              '<b>Société :</b> ' + esc(societe) + '<br>' +
+              '<b>Commande passée par :</b> ' + esc(commanditaire) + '<br>' +
+              '<b>Contact :</b> ' + esc(email) + ' &nbsp;·&nbsp; ' + esc(tel) + '<br>' +
+              '<b>Référence :</b> ' + esc(ref) +
+            '</td></tr>' +
+          '</table>' +
+          // tableau des paniers
+          '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;border:1px solid #ECE6DE;border-radius:8px;overflow:hidden">' +
+            '<tr style="background:#0FAE9E">' +
+              '<th style="' + th + '">Prénom</th>' +
+              '<th style="' + th + '">Jour</th>' +
+              '<th style="' + th + '">Plat</th>' +
+              '<th style="' + th + '">Dessert</th>' +
+              '<th style="' + th + '">Allergènes / précisions</th>' +
+            '</tr>' + rowsHtml +
+          '</table>' +
+          // total
+          '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:16px 0 4px"><tr>' +
+            '<td style="font:700 16px Arial,Helvetica,sans-serif;color:#08324F">Total : ' + total + ' panier' + (total>1?'s':'') + '</td>' +
+            '<td align="right" style="font:700 16px Arial,Helvetica,sans-serif;color:#B4005F">' + (total*20) + ' € HT</td>' +
+          '</tr></table>' +
+          '<p style="font:400 13px/1.55 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:6px 0 0">Montants hors taxes (TVA en sus). L\'autorisation de facturation a été confirmée lors de la commande ; une facture sera adressée à votre société pour la part non déjà réglée. Toute modification reste possible jusqu\'à deux jours avant l\'événement.</p>' +
+        '</td></tr>' +
+        // pied
+        '<tr><td style="padding:18px 28px 24px;border-top:1px solid #ECE6DE">' +
+          '<p style="font:400 14px/1.6 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 4px">Bien cordialement,</p>' +
+          '<p style="font:700 14px Arial,Helvetica,sans-serif;color:#08324F;margin:0">L\'équipe Job Events</p>' +
+          '<p style="font:400 13px/1.6 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:8px 0 0">Une question ? <a href="mailto:communication@job.events" style="color:#B4005F;text-decoration:none">communication@job.events</a> · <a href="https://www.levillagedesrecruteurs.fr" style="color:#B4005F;text-decoration:none">levillagedesrecruteurs.fr</a></p>' +
+        '</td></tr>' +
+        '</table></div>';
       const mailId = await rpc(ODOO_URL, 'object', 'execute_kw',
         [ODOO_DB, uid, ODOO_API_KEY, 'mail.mail', 'create', [{
           subject: 'Commande paniers repas — VDR Toulouse — ' + societe,
