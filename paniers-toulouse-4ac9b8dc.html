@@ -147,7 +147,7 @@
   footer{padding:2.4rem 0 3rem;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line)}
 </style>
 
-<div class="draft">Projet pour validation interne · <b>non publié</b> — page privée accessible uniquement par lien</div>
+<div class="draft">Projet pour validation interne · <b>non publié</b> · page privée accessible uniquement par lien</div>
 
 <header class="hero">
   <div class="hero-in">
@@ -207,7 +207,7 @@
         <div class="tot-block"><span class="lbl">Paniers commandés</span><span class="big" id="totCount">0</span></div>
         <div class="tot-block"><span class="lbl">Total HT</span><span class="big" id="totHT">0 €</span></div>
       </div>
-      <p style="margin-top:1.1rem;font-size:.88rem;color:var(--muted);line-height:1.55"><b style="color:var(--ink)">Rappel :</b> les montants sont hors taxes. Une facture sera envoyée à votre société si les paniers n’ont pas déjà été payés. Merci de votre commande. Pour tout renseignement, contactez <a href="mailto:communication@job.events" style="color:var(--rose-d);font-weight:600">communication@job.events</a>. Modifications possibles jusqu’à 2 jours avant l’événement.</p>
+      <p style="margin-top:1.1rem;font-size:.88rem;color:var(--muted);line-height:1.55"><b style="color:var(--ink)">Rappel :</b> les montants sont hors taxes. Une facture sera envoyée à votre société si les paniers n’ont pas déjà été payés. Merci de votre commande. Pour tout renseignement, contactez <a href="mailto:communication@job.events" style="color:var(--rose-d);font-weight:600">communication@job.events</a>. Modifications possibles jusqu’au 10 septembre.</p>
     </div>
   </section>
 
@@ -229,7 +229,7 @@
 
       <div class="auth">
         <input type="checkbox" id="auth">
-        <label for="auth">J’autorise <b>Job Events</b> à facturer ma société pour les paniers repas commandés ci-dessus — au tarif de <b>20 € HT par panier</b> — pour la part qui n’aurait pas déjà fait l’objet d’une commande. <span class="req">*</span></label>
+        <label for="auth">J’autorise <b>Job Events</b> à facturer ma société pour les paniers repas commandés ci-dessus, au tarif de <b>20 € HT par panier</b>, pour la part qui n’aurait pas déjà fait l’objet d’une commande. <span class="req">*</span></label>
       </div>
 
       <div class="submit-row">
@@ -261,7 +261,7 @@
 </main>
 
 <footer>
-  Le Village des Recruteurs · Toulouse · 16–17 septembre 2026 — Une question ? communication@job.events<br>
+  Le Village des Recruteurs · Toulouse · 16–17 septembre 2026 · Une question ? communication@job.events<br>
   Traiteur : menus &amp; cafés de spécialité Roulotte.<br><br>
   <a href="https://www.levillagedesrecruteurs.fr" style="color:var(--rose-d);font-weight:600;text-decoration:none">← Retour au site Le Village des Recruteurs</a>
 </footer>
@@ -315,7 +315,7 @@
       "<div class='choices'>"+
         "<div class='fld'><label>Plat</label><select class='plat'>"+platOptions(day)+"</select></div>"+
         "<div class='fld'><label>Dessert</label><select class='dess'>"+dessOptions()+"</select></div>"+
-        "<div class='fld'><label>Allergènes / précisions</label><input type='text' class='all' placeholder='Optionnel — allergie, option tofu, sans piment…'></div>"+
+        "<div class='fld'><label>Allergènes / précisions</label><input type='text' class='all' placeholder='Optionnel : allergie, option tofu, sans piment…'></div>"+
       "</div></div>";
   }
 
@@ -372,7 +372,7 @@
       count+=complete;
       var foot=person.querySelector(".person-foot");
       if(d.meals.length===0){ foot.textContent="Cochez au moins un jour de présence."; }
-      else { foot.innerHTML="<b>"+complete+"</b> panier"+(complete>1?"s":"")+" · "+(complete*PRIX)+" € HT"+(incomplete?" — <span style='color:var(--rose-d)'>"+incomplete+" jour à compléter</span>":""); }
+      else { foot.innerHTML="<b>"+complete+"</b> panier"+(complete>1?"s":"")+" · "+(complete*PRIX)+" € HT"+(incomplete?" · <span style='color:var(--rose-d)'>"+incomplete+" jour à compléter</span>":""); }
     });
     document.getElementById("totCount").textContent=count;
     document.getElementById("totHT").textContent=(count*PRIX)+" €";
@@ -405,7 +405,7 @@
 
   function recapText(o){
     var L=[];
-    L.push("COMMANDE PANIERS REPAS — Village des Recruteurs, Toulouse");
+    L.push("COMMANDE PANIERS REPAS · Village des Recruteurs, Toulouse");
     L.push("Événement : mercredi 16 & jeudi 17 septembre 2026");
     L.push("");
     L.push("Société : "+o.soc);
@@ -417,20 +417,20 @@
       p.meals.forEach(function(m){
         if(!m.complete) return;
         var jour = m.day==="mer" ? "Mercredi 16" : "Jeudi 17";
-        L.push("• "+(p.prenom||"(sans prénom)")+" — "+jour+" : "+m.plat+" / "+m.dessert+(m.all?("  [allergènes/précisions : "+m.all+"]"):""));
+        L.push("• "+(p.prenom||"(sans prénom)")+" · "+jour+" : "+m.plat+" / "+m.dessert+(m.all?("  [allergènes/précisions : "+m.all+"]"):""));
       });
     });
     L.push("");
-    L.push("TOTAL : "+o.count+" panier"+(o.count>1?"s":"")+" — "+(o.count*PRIX)+" € HT (TVA en sus)");
+    L.push("TOTAL : "+o.count+" panier"+(o.count>1?"s":"")+" · "+(o.count*PRIX)+" € HT (TVA en sus)");
     L.push("Statut facturation : À FACTURER");
-    L.push("Autorisation de facturation : OUI — la société autorise Job Events à facturer les paniers commandés (20 € HT/panier) non déjà commandés.");
+    L.push("Autorisation de facturation : OUI · la société autorise Job Events à facturer les paniers commandés (20 € HT/panier) non déjà commandés.");
     return L.join("\n");
   }
 
   function mailtoLink(o){
     return "mailto:"+encodeURIComponent(DEST)+
       "?cc="+encodeURIComponent(o.email)+
-      "&subject="+encodeURIComponent("Commande paniers repas — VDR Toulouse — "+(o.soc||""))+
+      "&subject="+encodeURIComponent("Commande paniers repas · VDR Toulouse · "+(o.soc||""))+
       "&body="+encodeURIComponent(recapText(o));
   }
 
