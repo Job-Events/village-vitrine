@@ -273,8 +273,7 @@
   var EVENT_ID=1, ENDPOINT="/api/commande";
   var MENUS={
     mer:{label:"Mercredi 16 sept.", jourCourt:"Mercredi 16 sept.", theme:"Cuisine thaï", plats:[
-      {n:"Pad Thaï (Poulet) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)"},
-      {n:"Pad Thaï (Tofu) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)"},
+      {n:"Pad Thaï (Poulet ou Tofu) + œuf", d:"Nouilles de riz sautées au wok, sauce au tamarin, cébettes, soja, cacahuètes.", a:"Crevettes, soja, poisson, arachides, gluten (traces)", sel:["Pad Thaï (Poulet) + œuf","Pad Thaï (Tofu) + œuf"]},
       {n:"Khao Pad Ananas", d:"Riz thaï sauté au wok au poulet, œuf, légumes, ananas frais.", a:"Poisson, gluten (traces), fruits à coque, huître"},
       {n:"Curry jaune poulet (pimenté)", d:"Pâte de curry maison, lait de coco, légumes, poulet, coriandre fraîche. Servi avec du riz.", a:"Crevettes, poisson"}
     ]},
@@ -307,7 +306,10 @@
   renderDishes(document.getElementById("dishes-des"),DESSERTS);
 
   var peopleEl=document.getElementById("people");
-  function platOptions(day){return "<option value='' disabled selected>Choisir le plat…</option>"+MENUS[day].plats.map(function(p,i){return "<option value='"+i+"'>"+esc(p.n)+"</option>";}).join("");}
+  // Liste des choix sélectionnables : un plat peut se décliner en variantes (ex. Poulet / Tofu)
+  // via sa propriété "sel". La découverte des menus reste, elle, sur la ligne combinée (p.n).
+  function platChoices(day){var out=[];MENUS[day].plats.forEach(function(p){if(p.sel&&p.sel.length){p.sel.forEach(function(nm){out.push(nm);});}else{out.push(p.n);}});return out;}
+  function platOptions(day){return "<option value='' disabled selected>Choisir le plat…</option>"+platChoices(day).map(function(nm,i){return "<option value='"+i+"'>"+esc(nm)+"</option>";}).join("");}
   function dessOptions(){return "<option value='' disabled selected>Choisir le dessert…</option>"+DESSERTS.map(function(p,i){return "<option value='"+i+"'>"+esc(p.n)+"</option>";}).join("");}
 
   function dayBlock(day){
@@ -358,7 +360,7 @@
       var all=box.querySelector(".all").value.trim();
       meals.push({day:day, pi:pi, di:di, all:all,
         complete: pi!=="" && di!=="",
-        plat: pi!=="" ? MENUS[day].plats[pi].n : null,
+        plat: pi!=="" ? platChoices(day)[pi] : null,
         dessert: di!=="" ? DESSERTS[di].n : null});
     });
     return {prenom:prenom, meals:meals};
