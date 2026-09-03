@@ -437,9 +437,10 @@
       "&body="+encodeURIComponent(recapText(o));
   }
 
-  var lastLink="", lastPayload=null;
+  var lastLink="", lastPayload=null, sending=false, sent=false;
   var reviewEl=document.getElementById("review");
   document.getElementById("submit").addEventListener("click",function(){
+    if(sending||sent) return;
     var errEl=document.getElementById("err"); errEl.textContent="";
     var o=buildOrder();
     var pb=[];
@@ -469,12 +470,27 @@
     document.getElementById("people").scrollIntoView({behavior:"smooth",block:"start"});
   });
   document.getElementById("confirmSend").addEventListener("click",function(){
+    if(sending||sent) return;              // verrou : empêche tout double envoi
     if(!lastPayload) return;
-    var btn=this; btn.disabled=true; btn.textContent="Envoi en cours…";
+    var btn=this, subBtn=document.getElementById("submit");
+    sending=true; btn.disabled=true; subBtn.disabled=true; btn.textContent="Envoi en cours…";
     fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastPayload)})
       .then(function(r){return r.json().catch(function(){return{ok:false};});})
-      .then(function(res){ btn.disabled=false; btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(res&&res.ok); })
-      .catch(function(){ btn.disabled=false; btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false); });
+      .then(function(res){
+        if(res&&res.ok){
+          // Commande enregistrée : le bouton reste désactivé pour de bon.
+          sent=true; sending=false; btn.textContent="Commande envoyée ✓";
+          reviewEl.style.display="none"; showConfirm(true);
+        } else {
+          // Échec : on réactive pour permettre une nouvelle tentative.
+          sending=false; btn.disabled=false; subBtn.disabled=false;
+          btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+        }
+      })
+      .catch(function(){
+        sending=false; btn.disabled=false; subBtn.disabled=false;
+        btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+      });
   });
   function showConfirm(success){
     var t=document.getElementById("confirmTitle"), msg=document.getElementById("confirmMsg"), fb=document.getElementById("fallbackBtns");
