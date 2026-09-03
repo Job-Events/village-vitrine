@@ -115,7 +115,7 @@ export async function onRequestPost({ request, env }){
             '<td style="font:700 16px Arial,Helvetica,sans-serif;color:#08324F">Total : ' + total + ' panier' + (total>1?'s':'') + '</td>' +
             '<td align="right" style="font:700 16px Arial,Helvetica,sans-serif;color:#B4005F">' + (total*20) + ' € HT</td>' +
           '</tr></table>' +
-          '<p style="font:400 13px/1.55 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:6px 0 0">Montants hors taxes (TVA en sus). L\'autorisation de facturation a été confirmée lors de la commande ; une facture sera adressée à votre société pour la part non déjà réglée. Toute modification reste possible jusqu\'à deux jours avant l\'événement.</p>' +
+          '<p style="font:400 13px/1.55 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:6px 0 0">Montants hors taxes. L\'autorisation de facturation a été confirmée lors de la commande ; une facture sera adressée à votre société pour la part non déjà réglée. Toute modification reste possible jusqu\'au 10 septembre.</p>' +
         '</td></tr>' +
         // pied
         '<tr><td style="padding:18px 28px 24px;border-top:1px solid #ECE6DE">' +
