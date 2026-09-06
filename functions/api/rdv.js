@@ -82,11 +82,11 @@ export async function onRequestPost({ request, env }){
        [[['x_event_id','=',eventId], ['x_jour','=',jour], ['x_creneau','=',creneau], ['x_statut','!=','refuse']]]]);
     if (slotBusy > 0) return json({ ok:false, error:'creneau_pris' }, 409);
 
-    // 2) l'entreprise a-t-elle déjà réservé ?
+    // 2) l'entreprise a-t-elle déjà réservé ? (unicité par société, comme demandé)
     const compBusy = await rpc(ODOO_URL, 'object', 'execute_kw',
       [ODOO_DB, uid, ODOO_API_KEY, 'x_rdv_interview', 'search_count',
        [[['x_event_id','=',eventId], ['x_statut','!=','refuse'],
-         '|', ['x_societe','=ilike',societe], ['x_ref_email','=ilike',refEmail]]]]);
+         ['x_societe','=ilike',societe]]]]);
     if (compBusy > 0) return json({ ok:false, error:'deja_reserve' }, 409);
 
     // 3) création
