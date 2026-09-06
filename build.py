@@ -21,7 +21,9 @@ ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
           'robots.txt', '_redirects', '_headers',
           'paniers-toulouse-4ac9b8dc.html', 'paniers-repas.html',
           'paniers-repas-guide.html',
-          'interviews-toulouse-7f3a1c2e.html']
+          'interviews-toulouse-7f3a1c2e.html',
+          'interviews-dijon-51a9cb5c.html', 'interviews-orleans-77e6c10a.html', 'interviews-lyon-ea825351.html',
+          'paniers-dijon-850add51.html', 'paniers-orleans-e1248c82.html', 'paniers-lyon-1e4aaaef.html']
 
 # Empreinte du contenu ajoutee a l URL des deux actifs versionnes.
 # Sans elle, un visiteur qui revient garde en cache un app.js perime : le
@@ -100,7 +102,7 @@ def echappe(s):
 
 def de(nom):
     """elision devant une voyelle : de Lyon, mais d Orleans"""
-    return (u"d\u2019" + nom) if nom[:1].lower() in u"aeiouyh\u00e9\u00e8\u00ea" \
+    return (u"d’" + nom) if nom[:1].lower() in u"aeiouyhéèê" \
            else (u"de " + nom)
 
 
@@ -349,7 +351,7 @@ def liste_villes_statique():
     """
     li = []
     for v in VILLES:
-        etat = (u"\u00c9dition cl\u00f4tur\u00e9e" if v.get("state") == "past"
+        etat = (u"Édition clôturée" if v.get("state") == "past"
                 else u"Inscriptions ouvertes")
         li.append(
             u'        <li><a href="/nos-villages/%s/">Village des Recruteurs '
@@ -359,8 +361,8 @@ def liste_villes_statique():
     return (u'  <section style="padding-top:1rem">\r\n'
             u'    <div class="wrap">\r\n'
             u'      <div class="sec-head">\r\n'
-            u'        <span class="eyebrow">Toutes les \u00e9tapes</span>\r\n'
-            u'        <h2>Les sept Villages de la tourn\u00e9e 2026</h2>\r\n'
+            u'        <span class="eyebrow">Toutes les étapes</span>\r\n'
+            u'        <h2>Les sept Villages de la tournée 2026</h2>\r\n'
             u'      </div>\r\n'
             u'      <ul style="max-width:62ch;margin-inline:auto">\r\n'
             + u''.join(li) +
@@ -417,9 +419,9 @@ CONTENU_404 = (
     '<div class="phead tint-accueil">\r\n'
     '  <div class="wrap">\r\n'
     '    <span class="eyebrow">Erreur 404</span>\r\n'
-    '    <h1>Cette page n\u2019existe pas, ou plus</h1>\r\n'
-    '    <p>Le lien que vous avez suivi est peut-\u00eatre p\u00e9rim\u00e9, ou '
-    'l\u2019adresse comporte une faute de frappe. Voici les pages les plus '
+    '    <h1>Cette page n’existe pas, ou plus</h1>\r\n'
+    '    <p>Le lien que vous avez suivi est peut-être périmé, ou '
+    'l’adresse comporte une faute de frappe. Voici les pages les plus '
     'utiles pour repartir.</p>\r\n'
     '  </div>\r\n'
     '</div>\r\n'
@@ -428,7 +430,7 @@ CONTENU_404 = (
     '    <a class="btn btn-primary" href="/nos-villages/">Les dates et les villes</a>\r\n'
     '    <a class="btn btn-blue" href="/candidats/">Je cherche un emploi</a>\r\n'
     '    <a class="btn btn-ghost" href="/exposer/">Je veux exposer</a>\r\n'
-    '    <a class="btn btn-ghost" href="/">Retour \u00e0 l\u2019accueil</a>\r\n'
+    '    <a class="btn btn-ghost" href="/">Retour à l’accueil</a>\r\n'
     '  </div>\r\n'
     '</div></section>\r\n')
 
