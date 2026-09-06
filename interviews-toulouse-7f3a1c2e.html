@@ -46,10 +46,13 @@
   /* form */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:560px){.grid2{grid-template-columns:1fr}}
-  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin:.4rem 0}
-  @media(max-width:560px){.cols2{grid-template-columns:1fr}}
-  .col{display:flex;flex-direction:column}
-  .samecheck{display:flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;color:var(--rose-d);background:var(--rose-pastel);border-radius:10px;padding:.5rem .7rem;margin:.1rem 0 .5rem;cursor:pointer}
+  .persons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.5rem 0}
+  @media(max-width:560px){.persons{grid-template-columns:1fr}}
+  .person{border:1px solid var(--line);border-radius:14px;padding:.5rem 1.05rem 1rem;background:var(--paper)}
+  .person-head{font-family:var(--ui);font-weight:700;font-size:.9rem;color:var(--ink);padding:.5rem 0 .55rem;margin-bottom:.1rem;border-bottom:2px solid var(--line-2);min-height:2.4rem;display:flex;align-items:center}
+  .person--ref .person-head{border-bottom-color:var(--blue)}
+  .person--img .person-head{border-bottom-color:var(--rose)}
+  .samecheck{display:flex;align-items:center;gap:.55rem;font-size:.92rem;font-weight:600;color:var(--rose-d);background:var(--rose-pastel);border-radius:10px;padding:.65rem .8rem;margin:.7rem 0 .2rem;cursor:pointer}
   .samecheck input{width:1.05rem;height:1.05rem;flex:none}
   input:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed}
   .fld{display:flex;flex-direction:column;gap:.3rem;margin:.5rem 0}
@@ -96,24 +99,28 @@
     <div class="card">
       <div class="fld"><label>Société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
 
-      <div class="cols2">
-        <div class="col">
-          <div class="grp-title">Personne qui réserve (référent)</div>
+      <label class="samecheck" for="sameAsRef"><input type="checkbox" id="sameAsRef"> La personne à l'image est le référent&nbsp;<span style="font-weight:500;color:var(--muted)">— recopier ses coordonnées</span></label>
+
+      <div class="persons">
+        <div class="person person--ref">
+          <div class="person-head">Coordonnées du référent</div>
           <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="refNom" placeholder="Prénom et nom"></div>
           <div class="fld"><label>Email <span class="req">*</span></label><input type="email" id="refEmail" placeholder="vous@entreprise.fr"></div>
           <div class="fld"><label>Téléphone <span class="req">*</span></label><input type="tel" id="refTel" placeholder="06 00 00 00 00"></div>
         </div>
-        <div class="col">
-          <div class="grp-title">Personne qui passe à l'image</div>
-          <label class="samecheck"><input type="checkbox" id="sameAsRef"> La personne à l'image est le référent</label>
+        <div class="person person--img">
+          <div class="person-head">Personne à l'image</div>
           <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="imgNom" placeholder="Prénom et nom"></div>
           <div class="fld"><label>Fonction <span class="req">*</span></label><input type="text" id="imgFonction" placeholder="Ex. Responsable RH"></div>
           <div class="fld"><label>Téléphone direct <span class="req">*</span></label><input type="tel" id="imgTel" placeholder="Joignable le jour J"></div>
         </div>
       </div>
 
-      <div class="fld"><label>Sujet / angle souhaité</label><input type="text" id="sujet" placeholder="Ce que vous aimeriez mettre en avant (optionnel)"></div>
-      <div class="fld"><label>Commentaires / besoins particuliers</label><textarea id="comm" placeholder="Remarques, contraintes, demandes spécifiques (optionnel)"></textarea></div>
+      <div class="person" style="margin:.9rem 0 0">
+        <div class="person-head" style="border-bottom-color:var(--gold-soft)">Sujet et commentaires&nbsp;<span style="font-weight:500;color:var(--muted)">— optionnel</span></div>
+        <div class="fld"><label>Sujet / angle souhaité</label><input type="text" id="sujet" placeholder="Ce que vous aimeriez mettre en avant"></div>
+        <div class="fld"><label>Commentaires / besoins particuliers</label><textarea id="comm" placeholder="Remarques, contraintes, demandes spécifiques"></textarea></div>
+      </div>
 
       <div class="submit-row">
         <div class="err" id="err"></div>
@@ -132,6 +139,7 @@
 
       <div class="confirm" id="confirm">
         <div class="box">
+          <img src="/img/logo-village.png" alt="Le Village des Recruteurs" style="height:40px;width:auto;margin:0 0 .9rem;display:block">
           <h3 id="confirmTitle">Votre créneau est réservé</h3>
           <p id="confirmMsg"></p>
         </div>
@@ -150,7 +158,7 @@
 (function(){
   var EVENT_ID=1, JOUR="16 septembre", ENDPOINT="/api/rdv";
   var CRENEAUX=['10:00','10:30','11:00','11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30'];
-  var selected=null, sending=false, sent=false;
+  var selected=null, sending=false, sent=false, takenNow=[];
   var slotsEl=document.getElementById('slots');
   var reviewEl=document.getElementById('review');
 
@@ -184,8 +192,8 @@
   function loadAvail(){
     fetch(ENDPOINT+'?event='+EVENT_ID+'&jour='+encodeURIComponent(JOUR)+'&t='+Date.now(),{cache:'no-store'})
       .then(function(r){return r.json();})
-      .then(function(res){ renderSlots(res && res.ok ? res.taken : []); })
-      .catch(function(){ renderSlots([]); });
+      .then(function(res){ takenNow = (res && res.ok && res.taken) ? res.taken.slice() : []; renderSlots(takenNow); })
+      .catch(function(){ takenNow=[]; renderSlots([]); });
   }
   loadAvail();
 
@@ -262,6 +270,8 @@
       .then(function(res){
         if(res && res.ok){
           sent=true; sending=false; btn.textContent='Réservation envoyée ✓';
+          if(takenNow.indexOf(d.creneau)===-1) takenNow.push(d.creneau);
+          renderSlots(takenNow);
           reviewEl.style.display='none'; showConfirm('ok', d);
         } else if(res && res.error==='creneau_pris'){
           sending=false; btn.disabled=false; subBtn.disabled=false; btn.textContent='Confirmer et envoyer';
