@@ -33,16 +33,23 @@
   h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.3rem,3.4vw,1.7rem);margin:0}
   .hint{color:var(--muted);font-size:.95rem;margin:.2rem 0 1rem}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.3rem 1.4rem}
-  /* slots */
-  .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:.6rem}
-  .slot{font-family:var(--ui);font-weight:700;font-size:1.05rem;padding:.7rem .4rem;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;text-align:center;transition:.12s}
-  .slot small{display:block;font-weight:500;font-size:.68rem;color:var(--muted);margin-top:.1rem}
-  .slot:hover:not(:disabled){border-color:var(--rose);box-shadow:var(--shadow-sm)}
-  .slot.sel{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:#fff;border-color:var(--rose-d)}
-  .slot:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed;border-style:dashed}
-  .lunch{grid-column:1/-1;text-align:center;color:var(--muted);font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:.3rem 0}
-  .debrief{grid-column:1/-1;margin-top:.4rem;background:var(--navy);color:#fff;border-radius:12px;padding:.6rem .9rem;font-size:.9rem;display:flex;align-items:center;gap:.5rem}
-  .debrief b{color:var(--gold-soft)}
+  /* agenda créneaux */
+  .agenda{display:flex;flex-direction:column;gap:1.5rem}
+  .ag-head{font-family:var(--ui);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--rose);margin:0 0 .7rem;display:flex;align-items:center;gap:.7rem}
+  .ag-head::after{content:"";flex:1;height:1.5px;background:var(--line-2)}
+  .ag-list{display:flex;flex-direction:column;gap:.45rem}
+  .ag-slot{display:flex;align-items:center;gap:.85rem;width:100%;text-align:left;font-family:var(--ui);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:.75rem .95rem;cursor:pointer;transition:.12s;color:var(--ink)}
+  .ag-slot .dot{width:.9rem;height:.9rem;border-radius:50%;border:2px solid var(--line);flex:none;transition:.12s}
+  .ag-slot .time{font-weight:700;font-size:1.12rem;min-width:3.7rem;font-variant-numeric:tabular-nums}
+  .ag-slot .state{margin-left:auto;font-size:.9rem;font-weight:600;color:var(--teal-d)}
+  .ag-slot:hover:not(:disabled){border-color:var(--rose);box-shadow:var(--shadow-sm)}
+  .ag-slot:hover:not(:disabled) .dot{border-color:var(--rose)}
+  .ag-slot.sel{border-color:var(--rose-d);background:linear-gradient(135deg,rgba(227,0,123,.09),rgba(180,0,95,.05))}
+  .ag-slot.sel .dot{border-color:var(--rose-d);background:var(--rose-d);box-shadow:inset 0 0 0 3px var(--card)}
+  .ag-slot.sel .time{color:var(--rose-d)}
+  .ag-slot.sel .state{color:var(--rose-d)}
+  .ag-slot:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed;border-style:dashed}
+  .ag-slot:disabled .state{color:var(--muted)}
   /* form */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:560px){.grid2{grid-template-columns:1fr}}
@@ -80,7 +87,7 @@
   <div class="hero-in">
     <div class="brandline">Le Village des Recruteurs</div>
     <h1>Réservez votre créneau d'interview<br><span class="h1-city">Toulouse 2026</span></h1>
-    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Toulouse. Choisissez ci-dessous votre créneau du <b>mercredi 16 septembre</b>. Chaque interview dure <b>25 minutes</b> (5 minutes de battement entre chaque). Une seule réservation par entreprise.</p>
+    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Toulouse. Celles-ci seront toutes organisées le <b>mercredi 16 septembre</b>. Prévoyez <b>25 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
   </div>
 </header>
 
@@ -88,9 +95,9 @@
 
   <section>
     <div class="sec-head"><span class="step">1</span><h2>Choisissez votre créneau</h2></div>
-    <p class="hint">Les créneaux grisés sont déjà réservés. Le créneau de 17h est réservé au debriefing du Village.</p>
+    <p class="hint">Les créneaux grisés sont déjà réservés.</p>
     <div class="card">
-      <div class="slots" id="slots"><p class="hint" style="grid-column:1/-1;margin:0">Chargement des disponibilités…</p></div>
+      <div id="slots"><p class="hint" style="margin:0">Chargement des disponibilités…</p></div>
     </div>
   </section>
 
@@ -157,7 +164,10 @@
 <script>
 (function(){
   var EVENT_ID=1, JOUR="16 septembre", ENDPOINT="/api/rdv";
-  var CRENEAUX=['10:00','10:30','11:00','11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30'];
+  var GROUPS=[
+    {label:'Matinée', slots:['10:00','10:30','11:00','11:30','12:00']},
+    {label:'Après-midi', slots:['13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00']}
+  ];
   var selected=null, sending=false, sent=false, takenNow=[];
   var slotsEl=document.getElementById('slots');
   var reviewEl=document.getElementById('review');
@@ -168,24 +178,28 @@
   function renderSlots(taken){
     taken = taken || [];
     slotsEl.innerHTML='';
-    CRENEAUX.forEach(function(c){
-      if(c==='13:30'){ var l=document.createElement('div'); l.className='lunch'; l.textContent='Pause déjeuner · 12h30 à 13h30'; slotsEl.appendChild(l); }
-      var b=document.createElement('button');
-      b.type='button'; b.className='slot'; b.dataset.c=c;
-      var isTaken = taken.indexOf(c)!==-1;
-      b.innerHTML = c + (isTaken ? '<small>Réservé</small>' : '<small>Disponible</small>');
-      if(isTaken){ b.disabled=true; }
-      else { b.addEventListener('click',function(){ selectSlot(c,b); }); }
-      if(selected===c && !isTaken){ b.classList.add('sel'); }
-      slotsEl.appendChild(b);
+    var ag=document.createElement('div'); ag.className='agenda';
+    GROUPS.forEach(function(g){
+      var grp=document.createElement('div');
+      var h=document.createElement('div'); h.className='ag-head'; h.textContent=g.label; grp.appendChild(h);
+      var list=document.createElement('div'); list.className='ag-list';
+      g.slots.forEach(function(c){
+        var isTaken = taken.indexOf(c)!==-1 || c==='17:00';
+        var b=document.createElement('button');
+        b.type='button'; b.className='ag-slot'; b.dataset.c=c;
+        b.innerHTML='<span class="dot"></span><span class="time">'+c+'</span><span class="state">'+(isTaken?'Réservé':'Disponible')+'</span>';
+        if(isTaken){ b.disabled=true; }
+        else { b.addEventListener('click',function(){ selectSlot(c,b); }); }
+        if(selected===c && !isTaken){ b.classList.add('sel'); }
+        list.appendChild(b);
+      });
+      grp.appendChild(list); ag.appendChild(grp);
     });
-    var d=document.createElement('div'); d.className='debrief';
-    d.innerHTML='<span>🎬</span><span><b>17:00</b> — Debriefing du VDR / Job Events</span>';
-    slotsEl.appendChild(d);
+    slotsEl.appendChild(ag);
   }
   function selectSlot(c,b){
     selected=c;
-    Array.prototype.forEach.call(slotsEl.querySelectorAll('.slot'),function(x){x.classList.remove('sel');});
+    Array.prototype.forEach.call(slotsEl.querySelectorAll('.ag-slot'),function(x){x.classList.remove('sel');});
     b.classList.add('sel');
     document.getElementById('err').textContent='';
   }
