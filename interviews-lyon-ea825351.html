@@ -1,0 +1,361 @@
+<title>Réservation interview · Lyon 2026</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+<style>
+  :root{
+    --paper:#FFF9F1; --paper-2:#FDEBD8; --card:#FFFFFF; --ink:#241A12; --muted:#7A6A5B;
+    --line:rgba(60,40,24,.14); --line-2:rgba(60,40,24,.08);
+    --rose:#E3007B; --rose-d:#B4005F; --rose-pastel:#FCE3F0;
+    --blue:#006FB7; --blue-d:#004E82; --blue-pastel:#E1F0FB;
+    --navy:#08324F; --teal:#0FAE9E; --teal-d:#0B8478; --gold:#E39A00; --gold-soft:#F8B322;
+    --ok:#2FA36B;
+    --shadow-sm:0 1px 2px rgba(60,40,24,.05),0 8px 22px -14px rgba(80,45,20,.28);
+    --shadow:0 2px 4px rgba(60,40,24,.06),0 22px 48px -24px rgba(80,45,20,.4);
+    --ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--rose-d)}
+  header.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid var(--line)}
+  .hero-in{max-width:820px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.4rem,4vw,2rem)}
+  .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.5vw,3rem);line-height:1.04;letter-spacing:-.01em;margin:.5rem 0 .1rem}
+  .h1-city{color:var(--rose)}
+  .hero-sub{font-size:1.05rem;color:var(--muted);margin:.7rem 0 0;max-width:64ch}
+  .wrap{max-width:820px;margin:0 auto;padding:clamp(1.4rem,4vw,2.2rem) clamp(1rem,4vw,1.75rem) 3rem}
+  section{margin:0 0 2rem}
+  .sec-head{display:flex;align-items:baseline;gap:.7rem;margin:0 0 .3rem}
+  .step{font-family:var(--ui);font-weight:800;font-size:.8rem;color:#fff;background:var(--rose);width:1.6rem;height:1.6rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.3rem,3.4vw,1.7rem);margin:0}
+  .hint{color:var(--muted);font-size:.95rem;margin:.2rem 0 1rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.3rem 1.4rem}
+  /* agenda créneaux */
+  .agenda{display:flex;flex-direction:column;gap:1.5rem}
+  .ag-head{font-family:var(--ui);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--rose);margin:0 0 .7rem;display:flex;align-items:center;gap:.7rem}
+  .ag-head::after{content:"";flex:1;height:1.5px;background:var(--line-2)}
+  .ag-list{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  @media(max-width:560px){.ag-list{grid-template-columns:1fr}}
+  .ag-slot{display:flex;align-items:center;gap:.85rem;width:100%;text-align:left;font-family:var(--ui);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:.75rem .95rem;cursor:pointer;transition:.12s;color:var(--ink)}
+  .ag-slot .dot{width:.9rem;height:.9rem;border-radius:50%;border:2px solid var(--line);flex:none;transition:.12s}
+  .ag-slot .time{font-weight:700;font-size:1.12rem;min-width:3.7rem;font-variant-numeric:tabular-nums}
+  .ag-slot .state{margin-left:auto;font-size:.9rem;font-weight:600;color:var(--teal-d)}
+  .ag-slot:hover:not(:disabled){border-color:var(--rose);box-shadow:var(--shadow-sm)}
+  .ag-slot:hover:not(:disabled) .dot{border-color:var(--rose)}
+  .ag-slot.sel{border-color:var(--rose-d);background:linear-gradient(135deg,rgba(227,0,123,.09),rgba(180,0,95,.05))}
+  .ag-slot.sel .dot{border-color:var(--rose-d);background:var(--rose-d);box-shadow:inset 0 0 0 3px var(--card)}
+  .ag-slot.sel .time{color:var(--rose-d)}
+  .ag-slot.sel .state{color:var(--rose-d)}
+  .ag-slot:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed;border-style:dashed}
+  .ag-slot:disabled .state{color:var(--muted)}
+  .days{display:flex;gap:.6rem;margin:0 0 1.1rem;flex-wrap:wrap}
+  .daybtn{flex:1 1 170px;font-family:var(--ui);font-weight:700;font-size:1rem;padding:.8rem 1rem;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.12s}
+  .daybtn:hover{border-color:var(--rose);box-shadow:var(--shadow-sm)}
+  .daybtn.sel{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:#fff;border-color:var(--rose-d)}
+  /* form */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  .persons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.5rem 0}
+  @media(max-width:560px){.persons{grid-template-columns:1fr}}
+  .person{border:1px solid var(--line);border-radius:14px;padding:.5rem 1.05rem 1rem;background:var(--paper)}
+  .person-head{font-family:var(--ui);font-weight:700;font-size:.9rem;color:var(--ink);padding:.5rem 0 .55rem;margin-bottom:.1rem;border-bottom:2px solid var(--line-2);min-height:2.4rem;display:flex;align-items:center}
+  .person--ref .person-head{border-bottom-color:var(--blue)}
+  .person--img .person-head{border-bottom-color:var(--rose)}
+  .samecheck{display:flex;align-items:center;gap:.55rem;font-size:.92rem;font-weight:600;color:var(--rose-d);background:var(--rose-pastel);border-radius:10px;padding:.65rem .8rem;margin:.7rem 0 .2rem;cursor:pointer}
+  .samecheck input{width:1.05rem;height:1.05rem;flex:none}
+  input:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed}
+  .fld{display:flex;flex-direction:column;gap:.3rem;margin:.5rem 0}
+  .fld label{font-weight:600;font-size:.9rem}
+  .fld .req{color:var(--rose-d)}
+  input[type=text],input[type=email],input[type=tel],textarea{font-family:var(--ui);font-size:.95rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:.6rem .7rem;width:100%}
+  input:focus,textarea:focus{outline:3px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+  textarea{min-height:70px;resize:vertical}
+  .grp-title{font-family:var(--ui);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.1rem 0 .1rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-family:var(--ui);font-weight:700;font-size:1rem;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--rose),var(--rose-d));padding:.8rem 1.5rem;border-radius:999px;border:0;cursor:pointer;box-shadow:var(--shadow-sm)}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn-sec{background:none;color:var(--rose-d);border:1.5px solid var(--rose-d);box-shadow:none}
+  .submit-row{margin-top:1.4rem;display:flex;flex-direction:column;gap:.7rem;align-items:flex-start}
+  .err{color:var(--rose-d);font-weight:600}
+  .review,.confirm{display:none}
+  .recap{white-space:pre-wrap;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;font-size:.95rem;margin:.6rem 0 1rem}
+  .mini-btns{display:flex;gap:.7rem;flex-wrap:wrap}
+  .confirm .box{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.4rem 1.5rem}
+  .confirm h3{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0 0 .3rem}
+  footer{max-width:820px;margin:0 auto;padding:1.6rem 1.75rem 3rem;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
+  footer a{color:var(--rose-d);font-weight:600;text-decoration:none}
+</style>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandline">Le Village des Recruteurs</div>
+    <h1>Réservez votre créneau d'interview<br><span class="h1-city">Lyon 2026</span></h1>
+    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Lyon. Celles-ci sont organisées sur les <b>deux jours</b> de l'événement, les mercredi 14 et jeudi 15 octobre : choisissez votre jour, puis votre créneau. Prévoyez <b>25 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-head"><span class="step">1</span><h2>Choisissez votre jour et votre créneau</h2></div>
+    <p class="hint">Les interviews ont lieu sur les deux jours de l'événement. Sélectionnez d'abord un jour ; les créneaux grisés sont déjà réservés.</p>
+    <div class="card">
+      <div class="days" id="days"></div>
+      <div id="slots"><p class="hint" style="margin:0">Sélectionnez un jour ci-dessus pour afficher les créneaux.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="step">2</span><h2>Vos informations</h2></div>
+    <div class="card">
+      <div class="fld"><label>Société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
+
+      <label class="samecheck" for="sameAsRef"><input type="checkbox" id="sameAsRef"> La personne à l'image est le référent&nbsp;<span style="font-weight:500;color:var(--muted)">— recopier ses coordonnées</span></label>
+
+      <div class="persons">
+        <div class="person person--ref">
+          <div class="person-head">Coordonnées du référent</div>
+          <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="refNom" placeholder="Prénom et nom"></div>
+          <div class="fld"><label>Email <span class="req">*</span></label><input type="email" id="refEmail" placeholder="vous@entreprise.fr"></div>
+          <div class="fld"><label>Téléphone <span class="req">*</span></label><input type="tel" id="refTel" placeholder="06 00 00 00 00"></div>
+        </div>
+        <div class="person person--img">
+          <div class="person-head">Personne à l'image</div>
+          <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="imgNom" placeholder="Prénom et nom"></div>
+          <div class="fld"><label>Fonction <span class="req">*</span></label><input type="text" id="imgFonction" placeholder="Ex. Responsable RH"></div>
+          <div class="fld"><label>Téléphone direct <span class="req">*</span></label><input type="tel" id="imgTel" placeholder="Joignable le jour J"></div>
+        </div>
+      </div>
+
+      <div class="person" style="margin:.9rem 0 0">
+        <div class="person-head" style="border-bottom-color:var(--gold-soft)">Sujet et commentaires&nbsp;<span style="font-weight:500;color:var(--muted)">— optionnel</span></div>
+        <div class="fld"><label>Sujet / angle souhaité</label><input type="text" id="sujet" placeholder="Ce que vous aimeriez mettre en avant"></div>
+        <div class="fld"><label>Commentaires / besoins particuliers</label><textarea id="comm" placeholder="Remarques, contraintes, demandes spécifiques"></textarea></div>
+      </div>
+
+      <div class="submit-row">
+        <div class="err" id="err"></div>
+        <button class="btn" id="submit" type="button">Vérifier ma réservation</button>
+      </div>
+
+      <div class="review" id="review">
+        <h3 style="font-family:var(--serif);font-weight:600;margin:1.2rem 0 .3rem">Dernière vérification</h3>
+        <p class="hint" style="margin:0 0 .4rem">Relisez votre réservation avant de l'envoyer.</p>
+        <div class="recap" id="reviewRecap"></div>
+        <div class="mini-btns">
+          <button class="btn btn-sec" id="editBtn" type="button">← Modifier</button>
+          <button class="btn" id="confirmSend" type="button">Confirmer et envoyer</button>
+        </div>
+      </div>
+
+      <div class="confirm" id="confirm">
+        <div class="box">
+          <img src="/img/logo-village.png" alt="Le Village des Recruteurs" style="height:40px;width:auto;margin:0 0 .9rem;display:block">
+          <h3 id="confirmTitle">Votre créneau est réservé</h3>
+          <p id="confirmMsg"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Le Village des Recruteurs · Lyon, 14 &amp; 15 octobre 2026<br>
+  Une question ? <a href="mailto:communication@job.events">communication@job.events</a> · <a href="https://www.levillagedesrecruteurs.fr">levillagedesrecruteurs.fr</a>
+</footer>
+
+<script>
+(function(){
+  var EVENT_ID=4, ENDPOINT="/api/rdv";
+  var JOURS=[
+    {label:"mercredi 14 octobre", value:"14 octobre"},
+    {label:"jeudi 15 octobre", value:"15 octobre"}
+  ];
+  var selectedDay=null;
+  var GROUPS=[
+    {label:'Matinée', slots:['10:00','10:30','11:00','11:30','12:00']},
+    {label:'Après-midi', slots:['13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00']}
+  ];
+  var selected=null, sending=false, sent=false, takenNow=[];
+  var slotsEl=document.getElementById('slots');
+  var reviewEl=document.getElementById('review');
+  var daysEl=document.getElementById('days');
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+  function renderSlots(taken){
+    taken = taken || [];
+    slotsEl.innerHTML='';
+    var ag=document.createElement('div'); ag.className='agenda';
+    GROUPS.forEach(function(g){
+      var grp=document.createElement('div');
+      var h=document.createElement('div'); h.className='ag-head'; h.textContent=g.label; grp.appendChild(h);
+      var list=document.createElement('div'); list.className='ag-list';
+      g.slots.forEach(function(c){
+        var isTaken = taken.indexOf(c)!==-1 || c==='17:00';
+        var b=document.createElement('button');
+        b.type='button'; b.className='ag-slot'; b.dataset.c=c;
+        b.innerHTML='<span class="dot"></span><span class="time">'+c+'</span><span class="state">'+(isTaken?'Réservé':'Disponible')+'</span>';
+        if(isTaken){ b.disabled=true; }
+        else { b.addEventListener('click',function(){ selectSlot(c,b); }); }
+        if(selected===c && !isTaken){ b.classList.add('sel'); }
+        list.appendChild(b);
+      });
+      grp.appendChild(list); ag.appendChild(grp);
+    });
+    slotsEl.appendChild(ag);
+  }
+  function selectSlot(c,b){
+    selected=c;
+    Array.prototype.forEach.call(slotsEl.querySelectorAll('.ag-slot'),function(x){x.classList.remove('sel');});
+    b.classList.add('sel');
+    document.getElementById('err').textContent='';
+  }
+  function loadAvail(){
+    if(!selectedDay) return;
+    fetch(ENDPOINT+'?event='+EVENT_ID+'&jour='+encodeURIComponent(selectedDay.value)+'&t='+Date.now(),{cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(res){ takenNow = (res && res.ok && res.taken) ? res.taken.slice() : []; renderSlots(takenNow); })
+      .catch(function(){ takenNow=[]; renderSlots([]); });
+  }
+  function renderDays(){
+    daysEl.innerHTML='';
+    JOURS.forEach(function(j){
+      var b=document.createElement('button');
+      b.type='button'; b.className='daybtn'+((selectedDay&&selectedDay.value===j.value)?' sel':'');
+      b.textContent=j.label.charAt(0).toUpperCase()+j.label.slice(1);
+      b.addEventListener('click',function(){ pickDay(j,b); });
+      daysEl.appendChild(b);
+    });
+  }
+  function pickDay(j,b){
+    selectedDay=j; selected=null;
+    Array.prototype.forEach.call(daysEl.querySelectorAll('.daybtn'),function(x){x.classList.remove('sel');});
+    b.classList.add('sel');
+    document.getElementById('err').textContent='';
+    slotsEl.innerHTML='<p class="hint" style="margin:0">Chargement des disponibilités…</p>';
+    loadAvail();
+  }
+  renderDays();
+
+  // « La personne à l'image est le référent » : copie et synchronise les champs.
+  var sameCb=document.getElementById('sameAsRef');
+  var imgNomEl=document.getElementById('imgNom'), imgTelEl=document.getElementById('imgTel');
+  var refNomEl=document.getElementById('refNom'), refTelEl=document.getElementById('refTel');
+  function syncSame(){
+    if(sameCb.checked){
+      imgNomEl.value=refNomEl.value; imgTelEl.value=refTelEl.value;
+      imgNomEl.disabled=true; imgTelEl.disabled=true;
+    } else {
+      imgNomEl.disabled=false; imgTelEl.disabled=false;
+    }
+  }
+  sameCb.addEventListener('change',syncSame);
+  refNomEl.addEventListener('input',function(){ if(sameCb.checked) imgNomEl.value=refNomEl.value; });
+  refTelEl.addEventListener('input',function(){ if(sameCb.checked) imgTelEl.value=refTelEl.value; });
+
+  function getData(){
+    return {
+      eventId:EVENT_ID, jour:selectedDay?selectedDay.value:'', creneau:selected,
+      societe:document.getElementById('soc').value.trim(),
+      refNom:document.getElementById('refNom').value.trim(),
+      refEmail:document.getElementById('refEmail').value.trim(),
+      refTel:document.getElementById('refTel').value.trim(),
+      imgNom:document.getElementById('imgNom').value.trim(),
+      imgFonction:document.getElementById('imgFonction').value.trim(),
+      imgTel:document.getElementById('imgTel').value.trim(),
+      sujet:document.getElementById('sujet').value.trim(),
+      commentaires:document.getElementById('comm').value.trim()
+    };
+  }
+  function problems(d){
+    var p=[];
+    if(!selectedDay) p.push('choisissez un jour');
+    if(!d.creneau) p.push('choisissez un créneau');
+    if(!d.societe) p.push('le nom de la société');
+    if(!d.refNom) p.push('le nom du référent');
+    if(!validEmail(d.refEmail)) p.push('un email valide');
+    if(!d.refTel) p.push('le téléphone du référent');
+    if(!d.imgNom) p.push('le nom de la personne à l\'image');
+    if(!d.imgFonction) p.push('sa fonction');
+    if(!d.imgTel) p.push('son téléphone direct');
+    return p;
+  }
+  function recap(d){
+    return 'CRÉNEAU : '+(selectedDay?selectedDay.label:'')+' à '+d.creneau+'\n'+
+      'Société : '+d.societe+'\n'+
+      'Référent : '+d.refNom+' · '+d.refEmail+' · '+d.refTel+'\n'+
+      'À l\'image : '+d.imgNom+' ('+d.imgFonction+') · '+d.imgTel+
+      (d.sujet?('\nSujet : '+d.sujet):'')+
+      (d.commentaires?('\nRemarques : '+d.commentaires):'');
+  }
+
+  document.getElementById('submit').addEventListener('click',function(){
+    if(sending||sent) return;
+    var err=document.getElementById('err'); err.textContent='';
+    var d=getData(); var p=problems(d);
+    if(p.length){ err.textContent='À compléter : '+p.join(' · ')+'.'; err.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    document.getElementById('reviewRecap').textContent=recap(d);
+    document.getElementById('confirm').style.display='none';
+    reviewEl.style.display='block';
+    reviewEl.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  document.getElementById('editBtn').addEventListener('click',function(){ reviewEl.style.display='none'; });
+
+  document.getElementById('confirmSend').addEventListener('click',function(){
+    if(sending||sent) return;
+    var d=getData(); if(problems(d).length) return;
+    var btn=this, subBtn=document.getElementById('submit');
+    sending=true; btn.disabled=true; subBtn.disabled=true; btn.textContent='Envoi en cours…';
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json().catch(function(){return{ok:false};});})
+      .then(function(res){
+        if(res && res.ok){
+          sent=true; sending=false; btn.textContent='Réservation envoyée ✓';
+          if(takenNow.indexOf(d.creneau)===-1) takenNow.push(d.creneau);
+          renderSlots(takenNow);
+          reviewEl.style.display='none'; showConfirm('ok', d);
+        } else if(res && res.error==='creneau_pris'){
+          sending=false; btn.disabled=false; subBtn.disabled=false; btn.textContent='Confirmer et envoyer';
+          reviewEl.style.display='none'; selected=null; loadAvail();
+          var err=document.getElementById('err');
+          err.textContent='Ce créneau vient d\'être réservé. Choisissez-en un autre ci-dessus.';
+          document.getElementById('slots').scrollIntoView({behavior:'smooth',block:'center'});
+        } else if(res && res.error==='deja_reserve'){
+          sending=false; btn.disabled=false; subBtn.disabled=false; btn.textContent='Confirmer et envoyer';
+          reviewEl.style.display='none'; showConfirm('deja', d);
+        } else {
+          sending=false; btn.disabled=false; subBtn.disabled=false; btn.textContent='Confirmer et envoyer';
+          reviewEl.style.display='none'; showConfirm('err', d);
+        }
+      })
+      .catch(function(){
+        sending=false; btn.disabled=false; subBtn.disabled=false; btn.textContent='Confirmer et envoyer';
+        reviewEl.style.display='none'; showConfirm('err', d);
+      });
+  });
+
+  function showConfirm(kind, d){
+    var t=document.getElementById('confirmTitle'), m=document.getElementById('confirmMsg'), box=document.querySelector('#confirm .box');
+    if(kind==='ok'){
+      box.style.borderLeftColor='var(--ok)';
+      t.textContent='Votre créneau est réservé';
+      m.innerHTML='Nous avons bien enregistré votre créneau du <b>'+(selectedDay?selectedDay.label:'')+' à '+esc(d.creneau)+'</b>. Il est en cours de validation par l\'équipe Job Events, et un email de confirmation vous a été envoyé. Merci !';
+    } else if(kind==='deja'){
+      box.style.borderLeftColor='var(--gold)';
+      t.textContent='Une réservation existe déjà';
+      m.innerHTML='Votre société a déjà réservé un créneau d\'interview. Pour le modifier, écrivez-nous à <a href="mailto:communication@job.events">communication@job.events</a>.';
+    } else {
+      box.style.borderLeftColor='var(--rose-d)';
+      t.textContent='L\'envoi n\'a pas abouti';
+      m.innerHTML='Un souci technique est survenu. Merci de réessayer dans un instant, ou de nous écrire à <a href="mailto:communication@job.events">communication@job.events</a> en précisant votre créneau souhaité.';
+    }
+    document.getElementById('confirm').style.display='block';
+    document.getElementById('confirm').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+})();
+</script>
