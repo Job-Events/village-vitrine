@@ -81,6 +81,10 @@ export async function onRequestPost({ request, env }){
       const body =
         '<div style="background:#F4EEE5;padding:24px 0;font-family:Arial,Helvetica,sans-serif">' +
         '<table role="presentation" cellpadding="0" cellspacing="0" width="640" align="center" style="width:640px;max-width:94%;margin:0 auto;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid #E7DFD4">' +
+        // bandeau logo
+        '<tr><td style="background:#FFFFFF;padding:16px 28px;text-align:center;border-bottom:1px solid #ECE6DE">' +
+          '<img src="https://www.levillagedesrecruteurs.fr/img/logo-village.png" alt="Le Village des Recruteurs" width="180" style="height:auto;width:180px;max-width:60%"/>' +
+        '</td></tr>' +
         // en-tête
         '<tr><td style="background:#08324F;padding:22px 28px">' +
           '<div style="font:700 11px Arial,Helvetica,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#F8B322">Le Village des Recruteurs</div>' +
