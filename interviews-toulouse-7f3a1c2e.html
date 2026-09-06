@@ -46,6 +46,12 @@
   /* form */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin:.4rem 0}
+  @media(max-width:560px){.cols2{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column}
+  .samecheck{display:flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;color:var(--rose-d);background:var(--rose-pastel);border-radius:10px;padding:.5rem .7rem;margin:.1rem 0 .5rem;cursor:pointer}
+  .samecheck input{width:1.05rem;height:1.05rem;flex:none}
+  input:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed}
   .fld{display:flex;flex-direction:column;gap:.3rem;margin:.5rem 0}
   .fld label{font-weight:600;font-size:.9rem}
   .fld .req{color:var(--rose-d)}
@@ -90,18 +96,20 @@
     <div class="card">
       <div class="fld"><label>Société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
 
-      <div class="grp-title">Personne qui réserve (référent)</div>
-      <div class="grid2">
-        <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="refNom" placeholder="Prénom et nom"></div>
-        <div class="fld"><label>Email <span class="req">*</span></label><input type="email" id="refEmail" placeholder="vous@entreprise.fr"></div>
-        <div class="fld"><label>Téléphone <span class="req">*</span></label><input type="tel" id="refTel" placeholder="06 00 00 00 00"></div>
-      </div>
-
-      <div class="grp-title">Personne qui passe à l'image</div>
-      <div class="grid2">
-        <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="imgNom" placeholder="Prénom et nom"></div>
-        <div class="fld"><label>Fonction <span class="req">*</span></label><input type="text" id="imgFonction" placeholder="Ex. Responsable RH"></div>
-        <div class="fld"><label>Téléphone direct <span class="req">*</span></label><input type="tel" id="imgTel" placeholder="Joignable le jour J"></div>
+      <div class="cols2">
+        <div class="col">
+          <div class="grp-title">Personne qui réserve (référent)</div>
+          <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="refNom" placeholder="Prénom et nom"></div>
+          <div class="fld"><label>Email <span class="req">*</span></label><input type="email" id="refEmail" placeholder="vous@entreprise.fr"></div>
+          <div class="fld"><label>Téléphone <span class="req">*</span></label><input type="tel" id="refTel" placeholder="06 00 00 00 00"></div>
+        </div>
+        <div class="col">
+          <div class="grp-title">Personne qui passe à l'image</div>
+          <label class="samecheck"><input type="checkbox" id="sameAsRef"> La personne à l'image est le référent</label>
+          <div class="fld"><label>Nom <span class="req">*</span></label><input type="text" id="imgNom" placeholder="Prénom et nom"></div>
+          <div class="fld"><label>Fonction <span class="req">*</span></label><input type="text" id="imgFonction" placeholder="Ex. Responsable RH"></div>
+          <div class="fld"><label>Téléphone direct <span class="req">*</span></label><input type="tel" id="imgTel" placeholder="Joignable le jour J"></div>
+        </div>
       </div>
 
       <div class="fld"><label>Sujet / angle souhaité</label><input type="text" id="sujet" placeholder="Ce que vous aimeriez mettre en avant (optionnel)"></div>
@@ -180,6 +188,22 @@
       .catch(function(){ renderSlots([]); });
   }
   loadAvail();
+
+  // « La personne à l'image est le référent » : copie et synchronise les champs.
+  var sameCb=document.getElementById('sameAsRef');
+  var imgNomEl=document.getElementById('imgNom'), imgTelEl=document.getElementById('imgTel');
+  var refNomEl=document.getElementById('refNom'), refTelEl=document.getElementById('refTel');
+  function syncSame(){
+    if(sameCb.checked){
+      imgNomEl.value=refNomEl.value; imgTelEl.value=refTelEl.value;
+      imgNomEl.disabled=true; imgTelEl.disabled=true;
+    } else {
+      imgNomEl.disabled=false; imgTelEl.disabled=false;
+    }
+  }
+  sameCb.addEventListener('change',syncSame);
+  refNomEl.addEventListener('input',function(){ if(sameCb.checked) imgNomEl.value=refNomEl.value; });
+  refTelEl.addEventListener('input',function(){ if(sameCb.checked) imgTelEl.value=refTelEl.value; });
 
   function getData(){
     return {
