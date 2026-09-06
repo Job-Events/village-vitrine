@@ -37,7 +37,8 @@
   .agenda{display:flex;flex-direction:column;gap:1.5rem}
   .ag-head{font-family:var(--ui);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--rose);margin:0 0 .7rem;display:flex;align-items:center;gap:.7rem}
   .ag-head::after{content:"";flex:1;height:1.5px;background:var(--line-2)}
-  .ag-list{display:flex;flex-direction:column;gap:.45rem}
+  .ag-list{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  @media(max-width:560px){.ag-list{grid-template-columns:1fr}}
   .ag-slot{display:flex;align-items:center;gap:.85rem;width:100%;text-align:left;font-family:var(--ui);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:.75rem .95rem;cursor:pointer;transition:.12s;color:var(--ink)}
   .ag-slot .dot{width:.9rem;height:.9rem;border-radius:50%;border:2px solid var(--line);flex:none;transition:.12s}
   .ag-slot .time{font-weight:700;font-size:1.12rem;min-width:3.7rem;font-variant-numeric:tabular-nums}
