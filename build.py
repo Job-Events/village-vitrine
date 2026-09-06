@@ -20,7 +20,8 @@ SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
 ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
           'robots.txt', '_redirects', '_headers',
           'paniers-toulouse-4ac9b8dc.html', 'paniers-repas.html',
-          'paniers-repas-guide.html']
+          'paniers-repas-guide.html',
+          'interviews-toulouse-7f3a1c2e.html']
 
 # Empreinte du contenu ajoutee a l URL des deux actifs versionnes.
 # Sans elle, un visiteur qui revient garde en cache un app.js perime : le
