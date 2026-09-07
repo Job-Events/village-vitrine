@@ -11,10 +11,39 @@ function json(obj, status){
   });
 }
 
-// Cloudflare Access injecte cet en-tête pour l'utilisateur authentifié et supprime
-// toute valeur envoyée par le client. Sans Access actif, l'en-tête est absent -> 403.
+// Récupère l'e-mail authentifié par Cloudflare Access. Sur les Pages Functions,
+// Access ne fournit PAS l'en-tête Cf-Access-Authenticated-User-Email : l'identité
+// arrive dans un jeton signé (en-tête Cf-Access-Jwt-Assertion ou cookie
+// CF_Authorization). On lit donc, dans l'ordre : l'en-tête direct (origines
+// self-hosted), puis la charge utile du JWT. La route étant protégée par Access,
+// aucune requête n'atteint cette fonction sans jeton validé par Cloudflare ; toute
+// valeur forgée par le client est écrasée en amont. Sans identité -> chaîne vide -> 403.
+function b64urlDecode(str){
+  str = String(str||'').replace(/-/g,'+').replace(/_/g,'/');
+  while (str.length % 4) str += '=';
+  try { return atob(str); } catch(e){ return ''; }
+}
+function cookieValue(request, name){
+  const c = request.headers.get('Cookie') || '';
+  const m = c.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]+)'));
+  return m ? m[1] : '';
+}
+function emailFromJwt(jwt){
+  const parts = String(jwt||'').split('.');
+  if (parts.length < 2) return '';
+  try {
+    const p = JSON.parse(b64urlDecode(parts[1]));
+    return String(p.email || p.identity || p.sub || '');
+  } catch(e){ return ''; }
+}
 function teamEmail(request){
-  return (request.headers.get('Cf-Access-Authenticated-User-Email') || '').trim().toLowerCase();
+  let email = (request.headers.get('Cf-Access-Authenticated-User-Email') || '').trim();
+  if (!email){
+    const jwt = request.headers.get('Cf-Access-Jwt-Assertion')
+             || cookieValue(request, 'CF_Authorization');
+    if (jwt) email = emailFromJwt(jwt).trim();
+  }
+  return email.toLowerCase();
 }
 
 async function rpc(url, service, method, args){
