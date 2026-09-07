@@ -19,6 +19,7 @@ SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
 # _source.html, build.py, gestion.html, les runbooks et la configuration.
 ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
           'robots.txt', '_redirects', '_headers',
+          'equipe.html',
           'paniers-toulouse-4ac9b8dc.html', 'paniers-repas.html',
           'paniers-repas-guide.html',
           'interviews-toulouse-7f3a1c2e.html',
@@ -413,7 +414,7 @@ for v in VILLES:
 
 # ---------------------------------------------------------------- page 404
 # Sans ce fichier, Cloudflare Pages renvoie la page d accueil avec un code 200
-# pour toute adresse inconnue, ce que Google traite comme un doublon (soft 404).
+# pour toute adresse inconnue, ce qui Google traite comme un doublon (soft 404).
 # Cette page n est ni referencee dans le plan de site ni indexable.
 CONTENU_404 = (
     '<div class="phead tint-accueil">\r\n'
