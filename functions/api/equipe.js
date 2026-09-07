@@ -60,8 +60,8 @@ const EVENT_IDS = [1,2,3,4];
 const SUIVI_FIELDS = ['x_name','x_role','x_pros','x_tables_hautes','x_tabourets','x_tv',
   'x_interviews_cmd','x_interviews_resa','x_interviews_reste',
   'x_paniers_cmd','x_paniers_resa','x_paniers_reste',
-  'x_gazette_format','x_webinaires','x_autres_options',
-  'x_participants','x_recruteurs','x_alerte','x_relance','x_order_ids','x_role_rank'];
+  'x_gazette_format','x_gazettes_cmd','x_gazettes_faites','x_gazettes_reste','x_webinaires','x_autres_options',
+  'x_participants','x_recruteurs','x_alerte','x_relance','x_order_ids','x_role_rank','x_company_id'];
 
 export async function onRequestGet({ request, env }){
   const { ODOO_URL, ODOO_DB, ODOO_LOGIN, ODOO_API_KEY } = env;
@@ -101,6 +101,24 @@ export async function onRequestGet({ request, env }){
       os.forEach(o => nameOf[o.id] = o.name);
     }
     rows.forEach(r => { r.orders = (r.x_order_ids||[]).map(id => nameOf[id] || String(id)); });
+
+    // Secteur / Code NAF de chaque entreprise (via x_company_id -> res.partner), sans stockage local.
+    const compIds = [...new Set(rows.map(r => r.x_company_id && r.x_company_id[0]).filter(Boolean))];
+    const secOf = {};
+    if (compIds.length) {
+      const parts = await rpc(ODOO_URL, 'object', 'execute_kw',
+        [ODOO_DB, uid, ODOO_API_KEY, 'res.partner', 'read',
+         [compIds], { fields:['x_studio_secteurs_vdr','x_studio_naf','x_studio_secteurs_vdr_2'] }]);
+      parts.forEach(p => { secOf[p.id] = {
+        secteur: p.x_studio_secteurs_vdr || '',
+        naf: p.x_studio_naf || '',
+        section_naf: p.x_studio_secteurs_vdr_2 || ''
+      }; });
+    }
+    rows.forEach(r => {
+      const s = (r.x_company_id && secOf[r.x_company_id[0]]) || {};
+      r.secteur = s.secteur || ''; r.naf = s.naf || ''; r.section_naf = s.section_naf || '';
+    });
 
     return json({ ok:true, user:email, event: ev[0] || null, rows });
   } catch(e){
