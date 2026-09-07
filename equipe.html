@@ -54,12 +54,21 @@
   .vtab[aria-selected="true"]{color:var(--rose-d);border-bottom-color:var(--rose)}
 
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden}
-  .scroll{overflow-x:auto}
-  table{border-collapse:collapse;width:100%;font-size:.82rem}
-  thead .band th{background:var(--navy);color:#fff;font-weight:700;text-align:center;padding:.4rem .5rem;border-right:2px solid var(--surface);white-space:nowrap}
+  .scroll{overflow:auto;max-height:calc(100vh - 120px)}
+  table{border-collapse:separate;border-spacing:0;width:100%;font-size:.82rem}
+  /* En-têtes figés au défilement : la barre de colonnes reste visible. */
+  thead .band th{background:var(--navy);color:#fff;font-weight:700;text-align:center;padding:.4rem .5rem;height:34px;border-right:2px solid var(--surface);white-space:nowrap;position:sticky;top:0;z-index:3}
   thead .band th.lead{background:var(--navy);text-align:left}
-  thead .cols th{background:var(--paper-blue);color:var(--navy);font-weight:600;text-align:center;padding:.35rem .55rem;font-size:.75rem;white-space:nowrap;position:sticky;top:0}
+  thead .cols th{background:var(--paper-blue);color:var(--navy);font-weight:600;text-align:center;padding:.35rem .55rem;font-size:.75rem;white-space:nowrap;position:sticky;top:0;z-index:2}
   thead .cols th.lead{text-align:left}
+  /* Tableau à en-tête sur deux lignes (suivi) : la 2e ligne se cale sous la 1re. */
+  table.grp thead .cols th{top:34px}
+  table.plain thead .cols th{position:static}
+  tbody td{border-bottom:1px solid var(--line)}
+  .grouphead{background:var(--navy);color:#fff;font-weight:700;padding:.5rem .8rem;font-size:.9rem;position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center}
+  .grouphead .cnt{font-weight:600;font-size:.78rem;opacity:.9}
+  .secblock{margin-bottom:1.2rem}
+  .naf{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.76rem}
   tbody td{padding:.4rem .6rem;border-bottom:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
   tbody td.soc{text-align:left;font-weight:600}
   tbody td.txt{text-align:left;color:var(--muted);font-size:.78rem;white-space:normal;min-width:12rem}
@@ -86,6 +95,9 @@
     <div style="font-size:2rem">🔒</div>
     <h2>Accès réservé à l'équipe</h2>
     <p style="color:var(--muted)">Cet espace est réservé aux membres <b>@job.events</b>. Connecte-toi avec ton compte Job Events pour y accéder.</p>
+    <p style="margin-top:1.3rem">
+      <a id="loginBtn" href="/equipe" style="display:inline-block;background:var(--rose);color:#fff;text-decoration:none;padding:.75rem 1.5rem;border-radius:12px;font-weight:700">Se connecter avec mon compte Job Events</a>
+    </p>
   </div>
 
   <div id="app" hidden>
@@ -110,7 +122,10 @@
 
     <div class="vtabs" role="tablist">
       <button class="vtab" data-v="suivi" role="tab" aria-selected="true">Suivi opérationnel</button>
-      <button class="vtab" data-v="inscrits" role="tab" aria-selected="false">Entreprises inscrites</button>
+      <button class="vtab" data-v="options" role="tab" aria-selected="false">Options à réserver</button>
+      <button class="vtab" data-v="partenaires" role="tab" aria-selected="false">Partenaires</button>
+      <button class="vtab" data-v="entreprises" role="tab" aria-selected="false">Entreprises</button>
+      <button class="vtab" data-v="secteurs" role="tab" aria-selected="false">Entreprises par secteur</button>
     </div>
 
     <div class="card"><div class="scroll">
@@ -184,11 +199,15 @@ function renderKpis(){
 function setView(v){ VIEW=v; [...document.querySelectorAll('.vtab')].forEach(b=>b.setAttribute('aria-selected', b.dataset.v===v?'true':'false')); render(); }
 document.querySelectorAll('.vtab').forEach(b=>b.onclick=()=>setView(b.dataset.v));
 
-function render(){ VIEW==='suivi' ? renderSuivi() : renderInscrits(); }
+function render(){
+  const map={suivi:renderSuivi, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs};
+  (map[VIEW]||renderSuivi)();
+}
+const isPartner = r => /Partenaire/i.test(r.x_role||'');
 
 function renderSuivi(){
   const R = DATA.rows||[];
-  let h = `<table><thead>
+  let h = `<table class="grp"><thead>
     <tr class="band">
       <th class="lead" rowspan="2">Société</th><th rowspan="2">Rôle</th>
       <th colspan="4">STAND</th><th colspan="3">INTERVIEWS</th><th colspan="3">PANIERS</th>
@@ -220,23 +239,83 @@ function renderSuivi(){
   $('#view').className=''; $('#view').innerHTML=h;
 }
 
-function renderInscrits(){
-  const R = (DATA.rows||[]).filter(r=>r.x_participants>0)
-    .sort((a,b)=> (a.x_role_rank-b.x_role_rank) || b.x_participants-a.x_participants);
-  let h = `<table><thead><tr class="cols">
-      <th class="lead">Société</th><th class="lead">Rôle</th><th>Participants</th><th>Recruteurs</th>
-      <th class="lead">Bons de commande</th></tr></thead><tbody>`;
+// Tableau générique d'entreprises (partagé par Partenaires et Entreprises)
+function companyTable(R, empty){
+  if(!R.length) return `<div class="state">${empty}</div>`;
+  let h=`<table><thead><tr class="cols">
+    <th class="lead">Société</th><th class="lead">Rôle</th><th class="lead">Secteur</th><th>Code NAF</th>
+    <th>Pros</th><th>Part.</th><th>Recr.</th><th>Int. à rés</th><th>Paniers à rés</th>
+    <th class="lead">Bons de commande</th></tr></thead><tbody>`;
   R.forEach(r=>{
-    h += `<tr>
+    h+=`<tr>
       <td class="soc">${esc(r.x_name)}</td>
       <td class="txt">${esc(r.x_role||'')}</td>
-      <td><span class="chip part">${r.x_participants}</span></td>
+      <td class="txt">${esc(r.secteur||'–')}</td>
+      <td class="naf">${esc(r.naf||'–')}</td>
+      <td class="${r.x_pros?'':'zero'}">${num(r.x_pros)}</td>
+      <td>${r.x_participants?`<span class="chip part">${r.x_participants}</span>`:'–'}</td>
       <td>${r.x_recruteurs?`<span class="chip recr">${r.x_recruteurs}</span>`:'–'}</td>
+      <td class="${r.x_interviews_reste?'':'zero'}">${num(r.x_interviews_reste)}</td>
+      <td class="${r.x_paniers_reste?'':'zero'}">${num(r.x_paniers_reste)}</td>
       <td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td>
     </tr>`;
   });
-  h+='</tbody></table>';
-  if(!R.length) h='<div class="state">Aucune entreprise inscrite pour le moment.</div>';
+  return h+'</tbody></table>';
+}
+
+function renderPartenaires(){
+  const R=(DATA.rows||[]).filter(isPartner)
+    .sort((a,b)=> (b.x_pros-a.x_pros) || String(a.x_name).localeCompare(b.x_name));
+  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucun partenaire pour cet événement.');
+}
+
+function renderEntreprises(){
+  const R=(DATA.rows||[]).filter(r=>!isPartner(r))
+    .sort((a,b)=> (b.x_participants-a.x_participants) || (b.x_pros-a.x_pros) || String(a.x_name).localeCompare(b.x_name));
+  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucune entreprise pour cet événement.');
+}
+
+// Options commandées mais pas encore réservées / réalisées
+function renderOptions(){
+  const rest=r=>(r.x_interviews_reste||0)+(r.x_paniers_reste||0)+(r.x_gazettes_reste||0);
+  const R=(DATA.rows||[]).filter(r=>rest(r)>0).sort((a,b)=>rest(b)-rest(a));
+  if(!R.length){ $('#view').className=''; $('#view').innerHTML='<div class="state">Toutes les options commandées sont réservées. 🎉</div>'; return; }
+  let h=`<table class="grp"><thead>
+    <tr class="band"><th class="lead" rowspan="2">Société</th><th rowspan="2">Rôle</th>
+      <th colspan="3">INTERVIEWS</th><th colspan="3">PANIERS</th><th colspan="3">GAZETTES</th></tr>
+    <tr class="cols"><th>Cmd</th><th>Rés</th><th>À rés</th><th>Cmd</th><th>Rés</th><th>À rés</th><th>Cmd</th><th>Faites</th><th>Reste</th></tr>
+    </thead><tbody>`;
+  const z=v=>`<td class="${(!v)?'zero':''}">${num(v)}</td>`;
+  const a=v=>`<td style="${v?'font-weight:700;color:var(--rose-d)':''}" class="${v?'':'zero'}">${num(v)}</td>`;
+  R.forEach(r=>{
+    h+=`<tr><td class="soc">${esc(r.x_name)}</td><td class="txt">${esc(r.x_role||'')}</td>
+      ${z(r.x_interviews_cmd)}${z(r.x_interviews_resa)}${a(r.x_interviews_reste)}
+      ${z(r.x_paniers_cmd)}${z(r.x_paniers_resa)}${a(r.x_paniers_reste)}
+      ${z(r.x_gazettes_cmd)}${z(r.x_gazettes_faites)}${a(r.x_gazettes_reste)}</tr>`;
+  });
+  $('#view').className=''; $('#view').innerHTML=h+'</tbody></table>';
+}
+
+// Entreprises regroupées par secteur (Secteurs VDR), Code NAF affiché par ligne
+function renderSecteurs(){
+  const R=DATA.rows||[];
+  const groups={};
+  R.forEach(r=>{ const k=(r.secteur||'').trim()||'— Secteur non renseigné'; (groups[k]=groups[k]||[]).push(r); });
+  const keys=Object.keys(groups).sort((a,b)=> groups[b].length-groups[a].length || a.localeCompare(b));
+  if(!keys.length){ $('#view').className=''; $('#view').innerHTML='<div class="state">Aucune donnée secteur.</div>'; return; }
+  let h='';
+  keys.forEach(k=>{
+    const list=groups[k].sort((a,b)=>String(a.x_name).localeCompare(b.x_name));
+    h+=`<div class="secblock"><div class="grouphead"><span>${esc(k)}</span><span class="cnt">${list.length} entreprise${list.length>1?'s':''}</span></div>
+      <table class="plain"><thead><tr class="cols">
+        <th class="lead">Société</th><th>Code NAF</th><th class="lead">Section NAF</th><th class="lead">Rôle</th><th>Part.</th>
+      </tr></thead><tbody>`;
+    list.forEach(r=>{ h+=`<tr>
+      <td class="soc">${esc(r.x_name)}</td><td class="naf">${esc(r.naf||'–')}</td>
+      <td class="txt">${esc(r.section_naf||'–')}</td><td class="txt">${esc(r.x_role||'')}</td>
+      <td>${num(r.x_participants)}</td></tr>`; });
+    h+='</tbody></table></div>';
+  });
   $('#view').className=''; $('#view').innerHTML=h;
 }
 
@@ -254,5 +333,6 @@ async function toggleRelance(id, el){
 
 boot();
 </script>
+<script>(function(){var b=document.getElementById('loginBtn');if(b){b.addEventListener('click',function(e){e.preventDefault();location.href='/equipe?login='+Date.now();});}})();</script>
 </body>
 </html>
