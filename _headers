@@ -1,3 +1,12 @@
+# La page equipe est protegee par Cloudflare Access : elle ne doit jamais
+# etre mise en cache, sinon une copie servie depuis le cache court-circuite
+# l authentification et affiche l ecran "acces reserve" sans proposer la connexion.
+/equipe
+  Cache-Control: no-store
+
+/equipe.html
+  Cache-Control: no-store
+
 # En-tetes, converties depuis vercel.json.
 # Plus de X-Robots-Tag : le site est destine a etre indexe.
 # La copie *.pages.dev reste protegee de la cannibalisation par les balises
