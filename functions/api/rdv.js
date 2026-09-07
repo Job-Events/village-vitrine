@@ -31,8 +31,11 @@ export async function onRequestGet({ request, env }){
   try {
     const uid = await rpc(ODOO_URL, 'common', 'authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
     if (!uid) return json({ ok:false, error:'Authentification Odoo refusée.' }, 502);
-    const domain = [['x_event_id','=',eventId], ['x_statut','!=','refuse']];
-    if (jour) domain.push(['x_jour','=',jour]);
+    // Créneaux pris : on inclut aussi les enregistrements SANS jour (ex. interview
+    // encodée manuellement dans Odoo), qui bloquent le créneau quel que soit le jour.
+    let domain = [['x_event_id','=',eventId], ['x_statut','!=','refuse']];
+    if (jour) domain = ['&','&', ['x_event_id','=',eventId], ['x_statut','!=','refuse'],
+                        '|', ['x_jour','=',jour], ['x_jour','in',[false,'']]];
     const recs = await rpc(ODOO_URL, 'object', 'execute_kw',
       [ODOO_DB, uid, ODOO_API_KEY, 'x_rdv_interview', 'search_read', [domain], { fields:['x_creneau'] }]);
     const taken = recs.map(r => r.x_creneau).filter(Boolean);
@@ -79,7 +82,8 @@ export async function onRequestPost({ request, env }){
     // 1) créneau encore libre ?
     const slotBusy = await rpc(ODOO_URL, 'object', 'execute_kw',
       [ODOO_DB, uid, ODOO_API_KEY, 'x_rdv_interview', 'search_count',
-       [[['x_event_id','=',eventId], ['x_jour','=',jour], ['x_creneau','=',creneau], ['x_statut','!=','refuse']]]]);
+       [['&','&','&', ['x_event_id','=',eventId], ['x_creneau','=',creneau], ['x_statut','!=','refuse'],
+         '|', ['x_jour','=',jour], ['x_jour','in',[false,'']]]]]);
     if (slotBusy > 0) return json({ ok:false, error:'creneau_pris' }, 409);
 
     // 2) l'entreprise a-t-elle déjà réservé ? (unicité par société, comme demandé)
@@ -105,7 +109,8 @@ export async function onRequestPost({ request, env }){
     //    créneau, le plus ancien id gagne ; on retire le nôtre s'il fait doublon.
     const sameSlot = await rpc(ODOO_URL, 'object', 'execute_kw',
       [ODOO_DB, uid, ODOO_API_KEY, 'x_rdv_interview', 'search',
-       [[['x_event_id','=',eventId], ['x_jour','=',jour], ['x_creneau','=',creneau], ['x_statut','!=','refuse']]],
+       [['&','&','&', ['x_event_id','=',eventId], ['x_creneau','=',creneau], ['x_statut','!=','refuse'],
+         '|', ['x_jour','=',jour], ['x_jour','in',[false,'']]]],
        { order:'id asc' }]);
     if (sameSlot.length > 1 && sameSlot[0] !== id) {
       await rpc(ODOO_URL, 'object', 'execute_kw',
