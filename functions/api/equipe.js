@@ -71,7 +71,10 @@ const SUIVI_FIELDS = ['x_name','x_role','x_pros','x_tables_hautes','x_tabourets'
 // fois toutes les MAJ_THROTTLE_MS, en se servant du champ x_maj (horodatage écrit
 // par le recalcul) comme horloge partagée — aucune donnée n'est stockée côté page.
 const RECALC_ACTION_ID = 1191;
-const MAJ_THROTTLE_MS = 5 * 60 * 1000; // 5 minutes
+// Fenêtre courte : un rafraîchissement de la page relance le recalcul quasi à chaque
+// fois. On garde 5 s uniquement pour dédoublonner les appels quasi simultanés d'un
+// même chargement (boot + 1re requête d'événement) et les ouvertures concurrentes.
+const MAJ_THROTTLE_MS = 5 * 1000; // 5 secondes
 
 async function refreshIfStale(env, uid){
   const { ODOO_URL, ODOO_DB, ODOO_API_KEY } = env;
