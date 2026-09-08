@@ -210,7 +210,9 @@ function render(){
 const isPartner = r => /Partenaire/i.test(r.x_role||'');
 
 function renderSuivi(){
-  const R = DATA.rows||[];
+  // Tri systématique par société (ordre alphabétique, insensible à la casse et aux accents).
+  const R = (DATA.rows||[]).slice().sort((a,b)=>
+    String(a.x_name||'').localeCompare(String(b.x_name||''), 'fr', {sensitivity:'base'}));
   let h = `<table class="grp"><thead>
     <tr class="band">
       <th class="lead" rowspan="2">Société</th><th rowspan="2">Rôle</th>
