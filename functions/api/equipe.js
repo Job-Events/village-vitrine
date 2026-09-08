@@ -120,6 +120,29 @@ export async function onRequestGet({ request, env }){
       r.secteur = s.secteur || ''; r.naf = s.naf || ''; r.section_naf = s.section_naf || '';
     });
 
+    // Interviews réservées : comptage LIVE des rendez-vous (x_rdv_interview). Le champ de
+    // suivi peut être périmé (recalcul non relancé depuis la dernière prise de rendez-vous).
+    const norm = s => String(s||'').toUpperCase().normalize('NFD').replace(/[^A-Z0-9]/g,'');
+    const rdvs = await rpc(ODOO_URL, 'object', 'execute_kw',
+      [ODOO_DB, uid, ODOO_API_KEY, 'x_rdv_interview', 'search_read',
+       [[['x_event_id','=',eventId], ['x_statut','!=','refuse']]], { fields:['x_societe'] }]);
+    const idx = rows.map(r => ({ r, n: norm(r.x_name) }));
+    rows.forEach(r => { r._intLive = 0; });
+    rdvs.forEach(b => {
+      const bn = norm(b.x_societe);
+      if (bn.length < 3) return;
+      const hit = idx.find(x => x.n === bn)
+               || idx.find(x => x.n.startsWith(bn) || bn.startsWith(x.n))
+               || idx.find(x => x.n.includes(bn) || bn.includes(x.n));
+      if (hit) hit.r._intLive += 1;
+    });
+    rows.forEach(r => {
+      const cmd = r.x_interviews_cmd || 0;
+      r.x_interviews_resa = r._intLive;
+      r.x_interviews_reste = Math.max(0, cmd - r._intLive);
+      delete r._intLive;
+    });
+
     return json({ ok:true, user:email, event: ev[0] || null, rows });
   } catch(e){
     return json({ ok:false, error:'Erreur Odoo : ' + e.message }, 502);
