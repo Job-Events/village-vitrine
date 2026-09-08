@@ -88,7 +88,7 @@
   <div class="hero-in">
     <div class="brandline">Le Village des Recruteurs</div>
     <h1>Réservez votre créneau d'interview<br><span class="h1-city">Toulouse 2026</span></h1>
-    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Toulouse. Celles-ci seront toutes organisées le <b>mercredi 16 septembre</b>. Prévoyez <b>25 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
+    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Toulouse. Celles-ci seront toutes organisées le <b>jeudi 17 septembre</b>. Prévoyez <b>25 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
   </div>
 </header>
 
@@ -164,7 +164,7 @@
 
 <script>
 (function(){
-  var EVENT_ID=1, JOUR="16 septembre", ENDPOINT="/api/rdv";
+  var EVENT_ID=1, JOUR="17 septembre", ENDPOINT="/api/rdv";
   var GROUPS=[
     {label:'Matinée', slots:['10:00','10:30','11:00','11:30','12:00']},
     {label:'Après-midi', slots:['13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00']}
@@ -255,7 +255,7 @@
     return p;
   }
   function recap(d){
-    return 'CRÉNEAU : mercredi 16 septembre à '+d.creneau+'\n'+
+    return 'CRÉNEAU : jeudi 17 septembre à '+d.creneau+'\n'+
       'Société : '+d.societe+'\n'+
       'Référent : '+d.refNom+' · '+d.refEmail+' · '+d.refTel+'\n'+
       'À l\'image : '+d.imgNom+' ('+d.imgFonction+') · '+d.imgTel+
@@ -313,7 +313,7 @@
     if(kind==='ok'){
       box.style.borderLeftColor='var(--ok)';
       t.textContent='Votre créneau est réservé';
-      m.innerHTML='Nous avons bien enregistré votre créneau du <b>16 septembre à '+esc(d.creneau)+'</b>. Il est en cours de validation par l\'équipe Job Events, et un email de confirmation vous a été envoyé. Merci !';
+      m.innerHTML='Nous avons bien enregistré votre créneau du <b>17 septembre à '+esc(d.creneau)+'</b>. Il est en cours de validation par l\'équipe Job Events, et un email de confirmation vous a été envoyé. Merci !';
     } else if(kind==='deja'){
       box.style.borderLeftColor='var(--gold)';
       t.textContent='Une réservation existe déjà';
