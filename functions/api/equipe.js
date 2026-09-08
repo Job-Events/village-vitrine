@@ -61,7 +61,35 @@ const SUIVI_FIELDS = ['x_name','x_role','x_pros','x_tables_hautes','x_tabourets'
   'x_interviews_cmd','x_interviews_resa','x_interviews_reste',
   'x_paniers_cmd','x_paniers_resa','x_paniers_reste',
   'x_gazette_format','x_gazettes_cmd','x_gazettes_faites','x_gazettes_reste','x_webinaires','x_autres_options',
-  'x_participants','x_recruteurs','x_alerte','x_relance','x_order_ids','x_role_rank','x_company_id'];
+  'x_participants','x_recruteurs','x_alerte','x_relance','x_order_ids','x_role_rank','x_company_id','x_maj'];
+
+// Recalcul Odoo (action serveur « Suivi opérationnel VDR : recalcul », id 1191).
+// Le suivi est une table recalculée depuis les commandes CONFIRMÉES (bons de
+// commande), les inscriptions et les réservations. À l'origine ce recalcul ne
+// tournait que la nuit : une commande confirmée en journée n'apparaissait pas
+// avant le lendemain. On le relance donc à l'ouverture de la page, au plus une
+// fois toutes les MAJ_THROTTLE_MS, en se servant du champ x_maj (horodatage écrit
+// par le recalcul) comme horloge partagée — aucune donnée n'est stockée côté page.
+const RECALC_ACTION_ID = 1191;
+const MAJ_THROTTLE_MS = 5 * 60 * 1000; // 5 minutes
+
+async function refreshIfStale(env, uid){
+  const { ODOO_URL, ODOO_DB, ODOO_API_KEY } = env;
+  try {
+    const last = await rpc(ODOO_URL, 'object', 'execute_kw',
+      [ODOO_DB, uid, ODOO_API_KEY, 'x_suivi_operationnel_vdr', 'search_read',
+       [[]], { fields:['x_maj'], order:'x_maj desc', limit:1 }]);
+    const lastStr = (last && last[0] && last[0].x_maj) || '';
+    const lastMs = lastStr ? Date.parse(lastStr.replace(' ', 'T') + 'Z') : 0;
+    if (!lastMs || (Date.now() - lastMs) > MAJ_THROTTLE_MS) {
+      await rpc(ODOO_URL, 'object', 'execute_kw',
+        [ODOO_DB, uid, ODOO_API_KEY, 'ir.actions.server', 'run', [[RECALC_ACTION_ID]]]);
+    }
+  } catch (e) {
+    // Le rafraîchissement ne doit JAMAIS empêcher l'affichage : on ignore l'erreur
+    // et la page montre les dernières valeurs recalculées (au pire, celles de la nuit).
+  }
+}
 
 export async function onRequestGet({ request, env }){
   const { ODOO_URL, ODOO_DB, ODOO_LOGIN, ODOO_API_KEY } = env;
@@ -77,6 +105,11 @@ export async function onRequestGet({ request, env }){
     const uid = await rpc(ODOO_URL, 'common', 'authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
     if (!uid) return json({ ok:false, error:'Authentification Odoo refusée.' }, 502);
 
+    // Rafraîchissement automatique à l'ouverture (throttlé). Se déclenche aussi bien
+    // sur la requête initiale (liste des événements) que sur une requête d'événement :
+    // le throttle x_maj garantit un seul recalcul réel par fenêtre de 5 min.
+    await refreshIfStale(env, uid);
+
     if (!eventId) {
       const evs = await rpc(ODOO_URL, 'object', 'execute_kw',
         [ODOO_DB, uid, ODOO_API_KEY, 'event.event', 'search_read',
@@ -88,9 +121,22 @@ export async function onRequestGet({ request, env }){
       [ODOO_DB, uid, ODOO_API_KEY, 'event.event', 'read',
        [[eventId]], { fields:['id','name','date_begin','date_end','address_id','seats_taken'] }]);
 
-    const rows = await rpc(ODOO_URL, 'object', 'execute_kw',
+    let rows = await rpc(ODOO_URL, 'object', 'execute_kw',
       [ODOO_DB, uid, ODOO_API_KEY, 'x_suivi_operationnel_vdr', 'search_read',
        [[['x_event_id','=',eventId]]], { fields:SUIVI_FIELDS, order:'x_role_rank asc, x_pros desc' }]);
+
+    // Dédoublonnage à l'affichage : une seule ligne par société. Des lignes
+    // orphelines peuvent subsister dans Odoo (même société saisie deux fois) ;
+    // le recalcul n'en maintient qu'une (x_maj récent), l'autre garde un x_maj
+    // ancien. On n'expose donc, par société, que la ligne au x_maj le plus récent.
+    const bestId = {};
+    for (const r of rows){
+      const cid = (r.x_company_id && r.x_company_id[0]) || ('row' + r.id);
+      const cur = bestId[cid];
+      if (!cur || String(r.x_maj || '') > String(cur.x_maj || '')) bestId[cid] = r;
+    }
+    const keepIds = new Set(Object.values(bestId).map(r => r.id));
+    rows = rows.filter(r => keepIds.has(r.id));
 
     // Résoudre les numéros de bons de commande (m2m -> noms) sans stocker quoi que ce soit.
     const orderIds = [...new Set(rows.reduce((a,r)=>a.concat(r.x_order_ids||[]), []))];
