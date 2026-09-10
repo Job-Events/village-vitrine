@@ -57,6 +57,10 @@ async function rpc(url, service, method, args){
 }
 
 const EVENT_IDS = [1,2,3,4];
+// Ville de chaque événement (miroir de l'EVENTMAP du recalcul Odoo) : sert à
+// restreindre la détection de l'option « 2 jours » aux produits de la bonne ville,
+// car un même bon de commande national peut couvrir plusieurs villes.
+const EVENT_CITY = { 1:'Toulouse', 2:'Dijon', 3:'Orléans', 4:'Lyon' };
 const SUIVI_FIELDS = ['x_name','x_role','x_pros','x_tables_hautes','x_tabourets','x_tv',
   'x_interviews_cmd','x_interviews_resa','x_interviews_reste',
   'x_paniers_cmd','x_paniers_resa','x_paniers_reste',
@@ -150,6 +154,31 @@ export async function onRequestGet({ request, env }){
       os.forEach(o => nameOf[o.id] = o.name);
     }
     rows.forEach(r => { r.orders = (r.x_order_ids||[]).map(id => nameOf[id] || String(id)); });
+
+    // Option « 2 jours » (durée du stand/pack) : marquage LIVE par bon de commande.
+    // Une société « a l'option 2 jours » si l'un de ses bons de commande confirmés
+    // contient une ligne dont la variante porte l'attribut Durée = « 2 jours »
+    // (packs et stands ; concerne uniquement les événements à 2 jours, Toulouse et Lyon).
+    const set2j = new Set();
+    const city2j = EVENT_CITY[eventId];
+    if (orderIds.length && city2j) {
+      try {
+        const ptav2j = await rpc(ODOO_URL, 'object', 'execute_kw',
+          [ODOO_DB, uid, ODOO_API_KEY, 'product.template.attribute.value', 'search',
+           [[['attribute_id.name','=','Durée'], ['name','=','2 jours']]]]);
+        if (ptav2j && ptav2j.length) {
+          // Ligne de commande de CET événement (bonne ville) ET variante « 2 jours ».
+          const lines2j = await rpc(ODOO_URL, 'object', 'execute_kw',
+            [ODOO_DB, uid, ODOO_API_KEY, 'sale.order.line', 'search_read',
+             [[['order_id','in',orderIds],
+               ['product_id.product_template_variant_value_ids','in',ptav2j],
+               ['product_id.product_template_variant_value_ids.name','=',city2j]]],
+             { fields:['order_id'] }]);
+          lines2j.forEach(l => { if (l.order_id) set2j.add(l.order_id[0]); });
+        }
+      } catch(e){ /* le marquage 2 jours ne doit jamais bloquer l'affichage */ }
+    }
+    rows.forEach(r => { r.deux_jours = (r.x_order_ids||[]).some(id => set2j.has(id)); });
 
     // Secteur / Code NAF de chaque entreprise (via x_company_id -> res.partner), sans stockage local.
     const compIds = [...new Set(rows.map(r => r.x_company_id && r.x_company_id[0]).filter(Boolean))];
