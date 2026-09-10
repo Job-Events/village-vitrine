@@ -5,6 +5,17 @@
 
 const JOURS = { mercredi: 'mercredi', jeudi: 'jeudi', mer: 'mercredi', jeu: 'jeudi' };
 
+// Métadonnées par événement : servent à personnaliser l'email de confirmation et
+// le tarif (le reste de l'enregistrement Odoo est générique). Ajouter un événement
+// ici suffit pour que sa page de commande de paniers repas envoie le bon récapitulatif.
+const EVENTS = {
+  1: { ville: 'Toulouse', dateline: '16 &amp; 17 septembre 2026', prix: 20, modif: '10 septembre',
+       jourLabel: { mercredi: 'Mercredi 16 sept.', jeudi: 'Jeudi 17 sept.' } },
+  2: { ville: 'Dijon', dateline: 'jeudi 24 septembre 2026', prix: 18, modif: '20 septembre',
+       jourLabel: { mercredi: 'Mercredi 24 sept.', jeudi: 'Jeudi 24 sept.' } }
+};
+const EVENT_FALLBACK = { ville: '', dateline: '', prix: 20, modif: '', jourLabel: { mercredi: 'Mercredi', jeudi: 'Jeudi' } };
+
 function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function json(obj, status){ return new Response(JSON.stringify(obj), { status: status || 200, headers: { 'Content-Type':'application/json' } }); }
 
@@ -27,6 +38,7 @@ export async function onRequestPost({ request, env }){
   try { data = await request.json(); } catch(e){ return json({ ok:false, error:'Requête invalide.' }, 400); }
 
   const eventId = parseInt(data.eventId, 10);
+  const EV = EVENTS[eventId] || EVENT_FALLBACK;
   const societe = (data.societe||'').trim();
   const commanditaire = (data.commanditaire||'').trim();
   const email = (data.email||'').trim();
@@ -72,7 +84,7 @@ export async function onRequestPost({ request, env }){
         const bg = (i % 2) ? '#FBF7F0' : '#FFFFFF';
         return '<tr style="background:' + bg + '">' +
           '<td style="' + td + '"><b>' + esc(r.x_prenom || '—') + '</b></td>' +
-          '<td style="' + td + '">' + (r.x_jour === 'mercredi' ? 'Mercredi 16 sept.' : 'Jeudi 17 sept.') + '</td>' +
+          '<td style="' + td + '">' + (EV.jourLabel[r.x_jour] || (r.x_jour === 'mercredi' ? 'Mercredi' : 'Jeudi')) + '</td>' +
           '<td style="' + td + '">' + esc(r.x_plat) + '</td>' +
           '<td style="' + td + '">' + esc(r.x_dessert) + '</td>' +
           '<td style="' + td + ';color:#7A6A5B">' + (r.x_allergenes ? esc(r.x_allergenes) : '—') + '</td>' +
@@ -89,12 +101,12 @@ export async function onRequestPost({ request, env }){
         '<tr><td style="background:#08324F;padding:22px 28px">' +
           '<div style="font:700 11px Arial,Helvetica,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#F8B322">Le Village des Recruteurs</div>' +
           '<div style="font:700 21px Arial,Helvetica,sans-serif;color:#FFFFFF;margin-top:4px">Confirmation de commande — Paniers repas</div>' +
-          '<div style="font:400 14px Arial,Helvetica,sans-serif;color:#C7D3DC;margin-top:2px">Toulouse · 16 &amp; 17 septembre 2026</div>' +
+          '<div style="font:400 14px Arial,Helvetica,sans-serif;color:#C7D3DC;margin-top:2px">' + EV.ville + ' · ' + EV.dateline + '</div>' +
         '</td></tr>' +
         // corps
         '<tr><td style="padding:26px 28px 8px">' +
           '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 14px">Bonjour,</p>' +
-          '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 18px">Nous accusons réception de votre commande de paniers repas pour le Village des Recruteurs de Toulouse. Vous en trouverez le détail ci-dessous. Les paniers seront livrés directement sur votre stand les jours concernés.</p>' +
+          '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 18px">Nous accusons réception de votre commande de paniers repas pour le Village des Recruteurs de ' + EV.ville + '. Vous en trouverez le détail ci-dessous. Les paniers seront livrés directement sur votre stand.</p>' +
           // bloc coordonnées
           '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#FBF7F0;border:1px solid #ECE6DE;border-radius:8px;margin:0 0 20px">' +
             '<tr><td style="padding:14px 16px;font:400 14px/1.7 Arial,Helvetica,sans-serif;color:#241A12">' +
@@ -117,9 +129,9 @@ export async function onRequestPost({ request, env }){
           // total
           '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:16px 0 4px"><tr>' +
             '<td style="font:700 16px Arial,Helvetica,sans-serif;color:#08324F">Total : ' + total + ' panier' + (total>1?'s':'') + '</td>' +
-            '<td align="right" style="font:700 16px Arial,Helvetica,sans-serif;color:#B4005F">' + (total*20) + ' € HT</td>' +
+            '<td align="right" style="font:700 16px Arial,Helvetica,sans-serif;color:#B4005F">' + (total*EV.prix) + ' € HT</td>' +
           '</tr></table>' +
-          '<p style="font:400 13px/1.55 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:6px 0 0">Montants hors taxes. L\'autorisation de facturation a été confirmée lors de la commande ; une facture sera adressée à votre société pour la part non déjà réglée. Toute modification reste possible jusqu\'au 10 septembre.</p>' +
+          '<p style="font:400 13px/1.55 Arial,Helvetica,sans-serif;color:#7A6A5B;margin:6px 0 0">Montants hors taxes. L\'autorisation de facturation a été confirmée lors de la commande ; une facture sera adressée à votre société pour la part non déjà réglée.' + (EV.modif ? ' Toute modification reste possible jusqu\'au ' + EV.modif + '.' : '') + '</p>' +
         '</td></tr>' +
         // pied
         '<tr><td style="padding:18px 28px 24px;border-top:1px solid #ECE6DE">' +
@@ -130,7 +142,7 @@ export async function onRequestPost({ request, env }){
         '</table></div>';
       const mailId = await rpc(ODOO_URL, 'object', 'execute_kw',
         [ODOO_DB, uid, ODOO_API_KEY, 'mail.mail', 'create', [{
-          subject: 'Commande paniers repas — VDR Toulouse — ' + societe,
+          subject: 'Commande paniers repas — VDR ' + EV.ville + ' — ' + societe,
           email_from: 'Le Village des Recruteurs <notifications@job.events>',
           email_to: 'communication@job.events, ' + email,
           reply_to: email,
