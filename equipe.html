@@ -71,6 +71,7 @@
   .naf{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.76rem}
   .todo{color:var(--rose-d);font-weight:700}
   .anom{color:var(--coral-txt);font-weight:700}
+  .ok{color:var(--green);font-weight:700}
   tbody td{padding:.4rem .6rem;border-bottom:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
   tfoot td{padding:.45rem .6rem;text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:800;border-top:2px solid var(--navy);background:var(--paper-blue);color:var(--navy)}
   tfoot td.lbl{text-align:left;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
@@ -126,6 +127,7 @@
 
     <div class="vtabs" role="tablist">
       <button class="vtab" data-v="suivi" role="tab" aria-selected="true">Suivi opérationnel</button>
+      <button class="vtab" data-v="correspondance" role="tab" aria-selected="false">Correspondance</button>
       <button class="vtab" data-v="options" role="tab" aria-selected="false">Options à réserver</button>
       <button class="vtab" data-v="partenaires" role="tab" aria-selected="false">Partenaires</button>
       <button class="vtab" data-v="entreprises" role="tab" aria-selected="false">Entreprises</button>
@@ -204,7 +206,7 @@ function setView(v){ VIEW=v; [...document.querySelectorAll('.vtab')].forEach(b=>
 document.querySelectorAll('.vtab').forEach(b=>b.onclick=()=>setView(b.dataset.v));
 
 function render(){
-  const map={suivi:renderSuivi, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs};
+  const map={suivi:renderSuivi, correspondance:renderCorrespondance, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs};
   (map[VIEW]||renderSuivi)();
 }
 const isPartner = r => /Partenaire/i.test(r.x_role||'');
@@ -222,11 +224,17 @@ const byEvent = (a,b) => (hasEv(b)-hasEv(a)) || soc(a).localeCompare(soc(b),'fr'
 function renderSuivi(){
   // Tri par nom de société dans l'événement (présents d'abord), ordre alphabétique.
   const R = (DATA.rows||[]).slice().sort(byEvent);
+  // Option « 2 jours » (stand/pack) : colonne affichée seulement sur les événements
+  // à 2 jours (Toulouse, Lyon), c.-à-d. dès qu'une société a pris l'option.
+  const is2j = r => !!r.deux_jours;
+  const show2j = R.some(is2j);
+  const th2j = show2j ? '<th rowspan="2" title="Option stand 2 jours">2 j</th>' : '';
+  const td2j = r => show2j ? (is2j(r) ? '<td class="ok">2 j</td>' : '<td class="zero">—</td>') : '';
   let h = `<table class="grp"><thead>
     <tr class="band">
       <th class="lead" rowspan="2">Société (bon de commande)</th><th class="lead" rowspan="2">Société (événement)</th>
       <th colspan="4">STAND</th><th colspan="3">INTERVIEWS</th><th colspan="3">PANIERS</th>
-      <th rowspan="2">Gazette</th><th colspan="2">PARTICIPANTS</th>
+      ${th2j}<th rowspan="2">Gazette</th><th colspan="2">PARTICIPANTS</th>
       <th class="lead" rowspan="2">Alerte / relance</th>
     </tr>
     <tr class="cols">
@@ -245,12 +253,53 @@ function renderSuivi(){
       ${z(r.x_pros)}${z(r.x_tables_hautes)}${z(r.x_tabourets)}${z(r.x_tv)}
       ${z(r.x_interviews_cmd)}${z(r.x_interviews_resa)}${z(r.x_interviews_reste)}
       ${z(r.x_paniers_cmd)}${z(r.x_paniers_resa)}${z(r.x_paniers_reste)}
-      <td>${r.x_gazette_format||'–'}</td>
+      ${td2j(r)}<td>${r.x_gazette_format||'–'}</td>
       ${z(r.x_participants)}${z(r.x_recruteurs)}
       <td class="txt">${alerte}${alerte&&relance?'<br>':''}${relance}</td>
     </tr>`;
   });
   h+='</tbody></table>';
+  $('#view').className=''; $('#view').innerHTML=h;
+}
+
+// Correspondance commandes ↔ participants : rapprochement des bons de commande et des inscrits.
+function renderCorrespondance(){
+  const R = DATA.rows||[];
+  const alpha = (a,b)=> soc(a).localeCompare(soc(b),'fr',{sensitivity:'base'});
+  // Sociétés avec bon de commande : non rattachées (sans participant) d'abord.
+  const cmd = R.filter(hasBC).sort((a,b)=> (hasEv(a)-hasEv(b)) || alpha(a,b));
+  const sansCmd = R.filter(r=>hasEv(r) && !hasBC(r)).sort(alpha);
+
+  // Bloc 1 : chaque société qui a commandé, en face le participant correspondant.
+  let t1;
+  if(!cmd.length){
+    t1 = `<div class="state" style="padding:1.1rem">Aucun bon de commande pour cet événement.</div>`;
+  } else {
+    let nOk=0, nKo=0;
+    const body = cmd.map(r=>{
+      const ok = hasEv(r);
+      if(ok){ nOk++; } else { nKo++; }
+      const face = ok
+        ? `<td class="soc">${esc(soc(r))}</td><td>${num(r.x_participants)}</td><td class="txt"><span class="ok">rattaché</span></td>`
+        : `<td class="soc"><span class="zero">—</span></td><td class="zero">—</td><td class="txt"><span class="anom">non rattaché</span></td>`;
+      return `<tr class="${ok?'':'danger'}"><td class="soc">${esc(soc(r))}</td>${face}<td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td></tr>`;
+    }).join('');
+    t1 = `<table class="plain"><thead><tr class="cols">
+        <th class="lead">Société (bon de commande)</th><th class="lead">Participant correspondant</th><th>Part.</th><th class="lead">État</th><th class="lead">Bons de commande</th>
+      </tr></thead><tbody>${body}</tbody>
+      <tfoot><tr><td class="lbl" colspan="3">Total ${cmd.length} commande${cmd.length>1?'s':''}</td>
+        <td class="txt"><span class="ok">${nOk} rattachée${nOk>1?'s':''}</span>${nKo?` · <span class="anom">${nKo} non rattachée${nKo>1?'s':''}</span>`:''}</td><td></td></tr></tfoot></table>`;
+  }
+
+  // Bloc 2 : participants présents sans bon de commande (à rattacher).
+  const t2 = sansCmd.length
+    ? `<table class="plain"><thead><tr class="cols"><th class="lead">Participant</th><th>Part.</th><th class="lead">État</th></tr></thead><tbody>`
+      + sansCmd.map(r=>`<tr class="danger"><td class="soc">${esc(soc(r))}</td><td>${num(r.x_participants)}</td><td class="txt"><span class="anom">aucune commande</span></td></tr>`).join('')
+      + `</tbody><tfoot><tr><td class="lbl">Total</td><td class="txt"><span class="anom">${sansCmd.length} sans commande</span></td><td></td></tr></tfoot></table>`
+    : `<div class="state" style="padding:1.1rem">Tous les participants ont un bon de commande.</div>`;
+
+  const wrap=(title,count,inner)=>`<div class="secblock"><div class="grouphead"><span>${title}</span><span class="cnt">${count} entreprise${count>1?'s':''}</span></div>${inner}</div>`;
+  const h = wrap('Commandes → participants', cmd.length, t1) + wrap('Participants sans commande', sansCmd.length, t2);
   $('#view').className=''; $('#view').innerHTML=h;
 }
 
@@ -279,13 +328,13 @@ function companyTable(R, empty){
 }
 
 function renderPartenaires(){
-  const R=(DATA.rows||[]).filter(isPartner).sort(byEvent);
-  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucun partenaire pour cet événement.');
+  const R=(DATA.rows||[]).filter(r=>isPartner(r)&&hasEv(r)).sort(byEvent);
+  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucun partenaire participant pour cet événement.');
 }
 
 function renderEntreprises(){
-  const R=(DATA.rows||[]).filter(r=>!isPartner(r)).sort(byEvent);
-  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucune entreprise pour cet événement.');
+  const R=(DATA.rows||[]).filter(r=>!isPartner(r)&&hasEv(r)).sort(byEvent);
+  $('#view').className=''; $('#view').innerHTML=companyTable(R,'Aucune entreprise participante pour cet événement.');
 }
 
 // Options : écart entre commandé et réservé/réalisé, dans les deux sens, une table par type.
@@ -368,7 +417,7 @@ function renderOptions(){
 
 // Entreprises regroupées par secteur (Secteurs VDR), Code NAF affiché par ligne
 function renderSecteurs(){
-  const R=DATA.rows||[];
+  const R=(DATA.rows||[]).filter(hasEv);
   const groups={};
   R.forEach(r=>{ const k=(r.secteur||'').trim()||'— Secteur non renseigné'; (groups[k]=groups[k]||[]).push(r); });
   const keys=Object.keys(groups).sort((a,b)=> groups[b].length-groups[a].length || a.localeCompare(b));
