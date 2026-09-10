@@ -1,52 +1,465 @@
-<title>Paniers repas · Dijon 2026</title>
-<meta name="robots" content="noindex, nofollow">
+<title>Commande de paniers repas · Dijon 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap">
 <style>
   :root{
     --paper:#FFF9F1; --paper-2:#FDEBD8; --card:#FFFFFF; --ink:#241A12; --muted:#7A6A5B;
-    --line:rgba(60,40,24,.14);
-    --rose:#E3007B; --rose-d:#B4005F;
+    --line:rgba(60,40,24,.14); --line-2:rgba(60,40,24,.08);
+    --rose:#E3007B; --rose-d:#B4005F; --rose-pastel:#FCE3F0;
+    --blue:#006FB7; --blue-d:#004E82; --blue-pastel:#E1F0FB;
+    --navy:#08324F; --teal:#0FAE9E; --teal-d:#0B8478; --gold:#E39A00; --gold-soft:#F8B322;
+    --ok:#2FA36B;
     --shadow-sm:0 1px 2px rgba(60,40,24,.05),0 8px 22px -14px rgba(80,45,20,.28);
+    --shadow:0 2px 4px rgba(60,40,24,.06),0 22px 48px -24px rgba(80,45,20,.4);
     --ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --serif:"Fraunces",Georgia,serif;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+      --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+      --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+      --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+      --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+      --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+    --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+    --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+    --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+    --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+    --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:var(--rose-d)}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+  .wrap{max-width:820px;margin:0 auto;padding:0 clamp(1rem,4vw,1.75rem)}
+
   header.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid var(--line)}
-  .hero-in{max-width:760px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.4rem,4vw,2rem)}
-  .brandline{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.5vw,3rem);line-height:1.04;letter-spacing:-.01em;margin:.5rem 0 .1rem}
+  .hero-in{max-width:820px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.6rem,4vw,2.4rem)}
+  .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.02;letter-spacing:-.01em;margin:.5rem 0 .3rem;text-wrap:balance}
   .h1-city{color:var(--rose)}
-  .hero-sub{font-size:1.05rem;color:var(--muted);margin:.7rem 0 0;max-width:60ch}
-  .wrap{max-width:760px;margin:0 auto;padding:clamp(1.4rem,4vw,2.2rem) clamp(1rem,4vw,1.75rem) 3rem}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.6rem 1.7rem}
-  .card h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.3rem,3.4vw,1.7rem);margin:0 0 .5rem}
-  .card p{margin:0 0 .9rem;color:var(--ink)}
-  .badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-d);background:#FCE3F0;border-radius:999px;padding:.3rem .7rem;margin:0 0 .9rem}
-  footer{max-width:760px;margin:0 auto;padding:1.6rem 1.75rem 3rem;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:none;margin:.2rem 0 1.1rem}
+  .facts{display:flex;flex-wrap:wrap;gap:.5rem}
+  .fact{display:inline-flex;align-items:center;gap:.45rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.86rem;font-weight:500;box-shadow:var(--shadow-sm)}
+  .fact svg{width:1rem;height:1rem;color:var(--rose);flex:none}
+
+  section{padding:clamp(2rem,5vw,3rem) 0}
+  .sec-head{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:1.3rem}
+  .sec-head .step{font-family:var(--ui);font-weight:800;font-size:.8rem;color:#fff;background:var(--rose);width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;flex:none}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,4vw,2rem);letter-spacing:-.01em;margin:0}
+  .sec-head p{margin:.1rem 0 0;color:var(--muted);font-size:.95rem;flex-basis:100%}
+
+  /* MENU */
+  .menu-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .menu-head{padding:1.1rem 1.4rem;color:#fff;background:linear-gradient(135deg,var(--teal),var(--teal-d))}
+  .menu-head .k{font-family:var(--ui);text-transform:uppercase;letter-spacing:.06em;font-size:.8rem;font-weight:800;opacity:.95}
+  .menu-head .t{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin-top:.15rem}
+  .menu-body{padding:1.3rem 1.4rem}
+  .courses{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 1.1rem}
+  .course{display:inline-flex;align-items:center;gap:.5rem;background:var(--paper-2);border-radius:999px;padding:.4rem .9rem;font-weight:600;font-size:.95rem}
+  .course .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--rose);flex:none}
+  .surprise{font-size:1rem;color:var(--ink);margin:0 0 1.2rem;line-height:1.6}
+  .surprise b{color:var(--ink)}
+  .types{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:0 0 1.1rem}
+  @media (max-width:560px){.types{grid-template-columns:1fr}}
+  .type{border:1.5px solid var(--line);border-radius:14px;padding:.9rem 1rem;background:var(--paper);display:flex;align-items:center;gap:.6rem}
+  .type .emo{font-size:1.4rem;line-height:1}
+  .type .nm{font-family:var(--serif);font-weight:600;font-size:1.12rem}
+  .incl{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;padding-top:1rem;border-top:1px solid var(--line-2);font-size:.9rem;color:var(--muted)}
+  .incl span{display:inline-flex;align-items:center;gap:.4rem}
+  .incl svg{width:1rem;height:1rem;color:var(--ok);flex:none}
+  .price-note{background:var(--paper-2);border-radius:10px;padding:.55rem .85rem;font-size:.88rem;color:var(--ink);display:inline-flex;align-items:center;gap:.45rem;margin-top:1.2rem}
+  .price-note svg{width:1rem;height:1rem;color:var(--rose);flex:none}
+
+  /* ORDER */
+  .order-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(1.1rem,3vw,1.7rem)}
+  .people{display:flex;flex-direction:column;gap:1rem}
+  .person{border:1px solid var(--line);border-radius:15px;background:var(--paper);overflow:hidden}
+  .person-head{display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .pnum{font-family:var(--ui);font-weight:800;font-size:.72rem;color:#fff;background:var(--navy);border-radius:6px;padding:.2rem .5rem;flex:none;letter-spacing:.04em}
+  .person-head input.prenom{flex:1;min-width:0;font-family:var(--ui);font-weight:600;font-size:1rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.5rem .65rem}
+  .rmp{background:none;border:none;color:var(--rose-d);font-family:var(--ui);font-weight:600;font-size:.85rem;cursor:pointer;padding:.25rem .3rem;white-space:nowrap}
+  .rmp:hover{text-decoration:underline}
+  .prow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;padding:1rem}
+  @media (max-width:560px){.prow{grid-template-columns:1fr}}
+  .fld{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+  .fld label{font-family:var(--ui);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  select,input[type=text],input[type=email],input[type=tel]{font-family:var(--ui);font-size:.93rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.55rem .6rem;width:100%;min-width:0}
+  select:focus,input:focus{outline:3px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+  .person-foot{padding:0 1rem .8rem;font-size:.84rem;color:var(--muted)}
+  .person-foot b{color:var(--ink)}
+
+  .btn{font-family:var(--ui);font-weight:700;cursor:pointer;border-radius:999px;border:none;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:.95rem}
+  .btn:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+  .btn-add{background:var(--blue-pastel);color:var(--blue-d);border:2px solid var(--blue);padding:.7rem 1.2rem;margin-top:1rem}
+  .btn-add:hover{background:var(--blue);color:#fff}
+  .btn-primary{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:#fff;padding:.95rem 2rem;font-size:1.05rem;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+  .totals{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;margin-top:1.3rem;padding-top:1.2rem;border-top:2px solid var(--line)}
+  .totals .big{font-family:var(--serif);font-weight:600;font-size:1.6rem;color:var(--ink)}
+  .totals .lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .tot-block{display:flex;flex-direction:column}
+  .tot-types{font-size:.88rem;color:var(--muted);flex-basis:100%;margin-top:.2rem}
+
+  .coord-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:600px){.coord-grid{grid-template-columns:1fr}}
+  .req{color:var(--rose)}
+  .auth{margin-top:1.2rem;background:var(--rose-pastel);border:1.5px solid var(--rose);border-radius:13px;padding:1rem 1.1rem;display:flex;gap:.75rem;align-items:flex-start}
+  .auth input{margin-top:.25rem;width:1.15rem;height:1.15rem;flex:none;accent-color:var(--rose)}
+  .auth label{font-size:.92rem;color:var(--ink)}
+  .submit-row{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start}
+  .err{color:var(--rose-d);font-size:.9rem;font-weight:600;min-height:1.1rem}
+
+  .review{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .review h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;margin:0 0 .2rem;color:var(--ink)}
+  .review .rsub{color:var(--muted);font-size:.9rem;margin:0 0 .3rem}
+  .confirm{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .confirm h3{font-family:var(--serif);margin:0 0 .4rem;font-size:1.25rem;color:var(--ink)}
+  .confirm p{margin:.3rem 0;color:var(--muted);font-size:.95rem}
+  .recap{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.9rem;margin-top:.8rem;max-height:230px;overflow:auto}
+  .mini-btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.9rem}
+  .btn-sec{background:var(--rose-pastel);color:var(--rose-d);border:2px solid var(--rose);padding:.6rem 1.1rem;font-size:.9rem}
+  .btn-sec:hover{background:var(--rose);color:#fff}
+  footer{padding:2.4rem 0 3rem;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line)}
   footer a{color:var(--rose-d);font-weight:600;text-decoration:none}
 </style>
 
-<header class="hero"><div class="hero-in">
-  <div class="brandline">Le Village des Recruteurs</div>
-  <h1>Paniers repas<br><span class="h1-city">Dijon 2026</span></h1>
-  <p class="hero-sub">Réservez les paniers repas de votre équipe pour le Village des Recruteurs de Dijon, le jeudi 24 septembre 2026.</p>
-</div></header>
-
-<div class="wrap">
-  <div class="card">
-    <span class="badge">Bientôt disponible</span>
-    <h2>Les menus arrivent bientôt</h2>
-    <p>La commande de paniers repas pour cette édition sera disponible ici même dès que les menus auront été publiés. Revenez sur cette page d’ici quelques jours.</p>
-    <p>Une question en attendant ? Écrivez-nous à <a href="mailto:communication@job.events">communication@job.events</a>.</p>
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandline">Le Village des Recruteurs</div>
+    <h1>Commande de paniers repas<br><span class="h1-city">Dijon 2026</span></h1>
+    <p class="hero-sub">Pour cette édition dijonnaise, le traiteur <strong>Kook’in</strong> vous propose son plateau repas « Retour du Marché » : une entrée, un plat et un dessert composés au fil du marché, à partir de produits frais et de saison. Commandez les paniers de votre équipe en quelques clics : nous vous les livrons directement sur votre stand.</p>
+    <div class="facts">
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>Jeudi 24 septembre 2026</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2C6 2 3.5 5 3.5 8.5 3.5 13 10 18 10 18s6.5-5 6.5-9.5C16.5 5 14 2 10 2Z"/><circle cx="10" cy="8.3" r="2.2"/></svg>Livré sur votre stand</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg>20 € HT / panier (entrée, plat, dessert)</span>
+    </div>
   </div>
-</div>
+</header>
+
+<main class="wrap">
+
+  <!-- STEP 1 : MENU -->
+  <section>
+    <div class="sec-head">
+      <span class="step">1</span>
+      <h2>Le menu</h2>
+      <p>Un seul menu, en trois déclinaisons au choix. Le détail des plats reste une surprise du chef : il se compose au retour du marché, selon les produits de saison.</p>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-head">
+        <div class="k">Plateau repas · Kook’in Traiteur</div>
+        <div class="t">Retour du Marché</div>
+      </div>
+      <div class="menu-body">
+        <div class="courses">
+          <span class="course"><span class="dot"></span>Entrée</span>
+          <span class="course"><span class="dot"></span>Plat</span>
+          <span class="course"><span class="dot"></span>Dessert</span>
+        </div>
+        <p class="surprise">Entrée, plat et dessert sont <b>composés au choix du chef</b> — une surprise gourmande préparée à partir de produits frais et de saison. Au moment de commander, choisissez simplement, pour chaque personne, l’une des trois déclinaisons :</p>
+        <div class="types">
+          <div class="type"><span class="emo">🥩</span><span class="nm">Viande</span></div>
+          <div class="type"><span class="emo">🐟</span><span class="nm">Poisson</span></div>
+          <div class="type"><span class="emo">🥗</span><span class="nm">Végétarien</span></div>
+        </div>
+        <div class="incl">
+          <span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5l3.5 3.5L16 5.5"/></svg>Kit couvert inclus</span>
+          <span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5l3.5 3.5L16 5.5"/></svg>Pain inclus</span>
+          <span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10.5l3.5 3.5L16 5.5"/></svg>Livraison sur stand offerte</span>
+        </div>
+        <div class="price-note"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg> Chaque panier = 1 menu complet (entrée + plat + dessert), à 20 € HT.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2 : PEOPLE -->
+  <section>
+    <div class="sec-head">
+      <span class="step">2</span>
+      <h2>Passez commande pour votre équipe</h2>
+      <p>Ajoutez chaque personne, indiquez son prénom et sa déclinaison. Un panier = une personne. <strong>Une seule commande par société est recommandée, merci.</strong></p>
+    </div>
+
+    <div class="order-card">
+      <div class="people" id="people"></div>
+      <button class="btn btn-add" id="addPerson" type="button">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg>
+        Ajouter une personne
+      </button>
+
+      <div class="totals">
+        <div class="tot-block"><span class="lbl">Paniers commandés</span><span class="big" id="totCount">0</span></div>
+        <div class="tot-block"><span class="lbl">Total HT</span><span class="big" id="totHT">0 €</span></div>
+        <div class="tot-types" id="totTypes"></div>
+      </div>
+      <p style="margin-top:1.1rem;font-size:.88rem;color:var(--muted);line-height:1.55"><b style="color:var(--ink)">Rappel :</b> les montants sont hors taxes. Une facture sera envoyée à votre société si les paniers n’ont pas déjà été payés. Merci de votre commande. Pour tout renseignement, contactez <a href="mailto:communication@job.events" style="color:var(--rose-d);font-weight:600">communication@job.events</a>. Modifications possibles jusqu’au 20 septembre.</p>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section>
+    <div class="sec-head">
+      <span class="step">3</span>
+      <h2>Vos coordonnées</h2>
+      <p>Pour établir la facture et vous tenir informé de la livraison.</p>
+    </div>
+
+    <div class="order-card">
+      <div class="coord-grid">
+        <div class="fld"><label for="soc">Nom de la société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
+        <div class="fld"><label for="nom">Personne qui commande <span class="req">*</span></label><input type="text" id="nom" autocomplete="name" placeholder="Prénom et nom"></div>
+        <div class="fld"><label for="email">Email <span class="req">*</span></label><input type="email" id="email" autocomplete="email" placeholder="vous@entreprise.fr"></div>
+        <div class="fld"><label for="tel">Téléphone <span class="req">*</span></label><input type="tel" id="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+      </div>
+
+      <div class="auth">
+        <input type="checkbox" id="auth">
+        <label for="auth">J’autorise <b>Job Events</b> à facturer ma société pour les paniers repas commandés ci-dessus, au tarif de <b>20 € HT par panier</b>, pour la part qui n’aurait pas déjà fait l’objet d’une commande. <span class="req">*</span></label>
+      </div>
+
+      <div class="submit-row">
+        <div class="err" id="err"></div>
+        <button class="btn btn-primary" id="submit" type="button">Vérifier ma commande</button>
+      </div>
+
+      <div class="review" id="review">
+        <h3>Dernière vérification avant l’envoi</h3>
+        <p class="rsub">Relisez le récapitulatif ci-dessous. Une fois confirmée, la commande est transmise automatiquement à Job&nbsp;Events et vous en recevez une copie par email.</p>
+        <div class="recap" id="reviewRecap"></div>
+        <div class="mini-btns">
+          <button class="btn btn-sec" id="editOrder" type="button">← Modifier</button>
+          <button class="btn btn-primary" id="confirmSend" type="button">Confirmer et envoyer ma commande</button>
+        </div>
+      </div>
+
+      <div class="confirm" id="confirm">
+        <h3 id="confirmTitle">Votre commande est enregistrée</h3>
+        <div id="confirmMsg"></div>
+        <div class="recap" id="recap"></div>
+        <div class="mini-btns" id="fallbackBtns" style="display:none">
+          <button class="btn btn-sec" id="reopen" type="button">Rouvrir l’email</button>
+          <button class="btn btn-sec" id="copy" type="button">Copier le récapitulatif</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  Le Village des Recruteurs · Dijon, 24 septembre 2026<br>
-  Une question ? <a href="mailto:communication@job.events">communication@job.events</a> · <a href="https://www.levillagedesrecruteurs.fr">levillagedesrecruteurs.fr</a>
+  Le Village des Recruteurs · Dijon · jeudi 24 septembre 2026 · Une question ? communication@job.events<br>
+  Traiteur : Kook’in — plateau repas « Retour du Marché ».<br><br>
+  <a href="https://www.levillagedesrecruteurs.fr">← Retour au site Le Village des Recruteurs</a>
 </footer>
+
+<script>
+(function(){
+  "use strict";
+  var PRIX=20, DEST="communication@job.events";
+  var EVENT_ID=2, ENDPOINT="/api/commande";
+  var JOUR="Jeudi 24 sept.", MENU="Retour du Marché";
+  // Menu unique « surprise du chef » : la seule variable est la déclinaison choisie par personne.
+  var TYPES=[
+    {v:"Viande",     emo:"🥩"},
+    {v:"Poisson",    emo:"🐟"},
+    {v:"Végétarien", emo:"🥗"}
+  ];
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+  function typeOptions(){
+    return "<option value='' disabled selected>Choisir la déclinaison…</option>"+
+      TYPES.map(function(t,i){return "<option value='"+i+"'>"+t.emo+"  "+esc(t.v)+"</option>";}).join("");
+  }
+
+  var peopleEl=document.getElementById("people");
+  var pnum=0;
+  function makePerson(){
+    pnum++;
+    var pv=pnum;
+    var person=el("div","person");
+    person.innerHTML=
+      "<div class='person-head'><span class='pnum'>Pers. "+pv+"</span>"+
+        "<input type='text' class='prenom' placeholder='Prénom (ou prénom + nom)'>"+
+        "<button class='rmp' type='button'>✕ Retirer</button></div>"+
+      "<div class='prow'>"+
+        "<div class='fld'><label>Déclinaison</label><select class='type'>"+typeOptions()+"</select></div>"+
+        "<div class='fld'><label>Allergènes / précisions</label><input type='text' class='all' placeholder='Optionnel : allergie, régime particulier…'></div>"+
+      "</div>"+
+      "<div class='person-foot'></div>";
+
+    person.querySelectorAll("select,input").forEach(function(f){ f.addEventListener("change",recompute); f.addEventListener("input",recompute); });
+    person.querySelector(".rmp").addEventListener("click",function(){ person.remove(); if(!peopleEl.children.length) makePerson(); recompute(); });
+
+    peopleEl.appendChild(person);
+    recompute();
+    return person;
+  }
+
+  function personData(person){
+    var prenom=person.querySelector(".prenom").value.trim();
+    var ti=person.querySelector(".type").value;
+    var all=person.querySelector(".all").value.trim();
+    return {prenom:prenom, ti:ti, all:all,
+      complete: ti!=="",
+      type: ti!=="" ? TYPES[ti].v : null};
+  }
+
+  function recompute(){
+    var count=0, byType={};
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      var foot=person.querySelector(".person-foot");
+      if(d.complete){
+        count++; byType[d.type]=(byType[d.type]||0)+1;
+        foot.innerHTML="<b>1</b> panier · "+PRIX+" € HT";
+      } else {
+        foot.innerHTML="<span style='color:var(--rose-d)'>Choisissez une déclinaison.</span>";
+      }
+    });
+    document.getElementById("totCount").textContent=count;
+    document.getElementById("totHT").textContent=(count*PRIX)+" €";
+    var parts=TYPES.map(function(t){return byType[t.v]?byType[t.v]+" "+t.v.toLowerCase():null;}).filter(Boolean);
+    document.getElementById("totTypes").textContent=parts.length?("Dont : "+parts.join(" · ")):"";
+    return count;
+  }
+
+  document.getElementById("addPerson").addEventListener("click",makePerson);
+  makePerson();
+
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+  function buildOrder(){
+    var persons=[], count=0, incomplete=0, missingName=0;
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      if(!d.complete){ incomplete++; return; }
+      if(!d.prenom) missingName++;
+      count++;
+      persons.push(d);
+    });
+    return {
+      persons:persons, count:count, incomplete:incomplete, missingName:missingName,
+      soc:document.getElementById("soc").value.trim(),
+      nom:document.getElementById("nom").value.trim(),
+      email:document.getElementById("email").value.trim(),
+      tel:document.getElementById("tel").value.trim(),
+      auth:document.getElementById("auth").checked
+    };
+  }
+
+  function recapText(o){
+    var L=[];
+    L.push("COMMANDE PANIERS REPAS · Village des Recruteurs, Dijon");
+    L.push("Événement : jeudi 24 septembre 2026");
+    L.push("Menu : Retour du Marché (entrée, plat, dessert — au choix du chef) · Traiteur Kook’in");
+    L.push("");
+    L.push("Société : "+o.soc);
+    L.push("Commande passée par : "+o.nom);
+    L.push("Email : "+o.email+"   |   Tél : "+o.tel);
+    L.push("");
+    L.push("PANIERS ("+o.count+") :");
+    o.persons.forEach(function(p){
+      L.push("• "+(p.prenom||"(sans prénom)")+" · "+MENU+" — "+p.type+(p.all?("  [allergènes/précisions : "+p.all+"]"):""));
+    });
+    L.push("");
+    L.push("TOTAL : "+o.count+" panier"+(o.count>1?"s":"")+" · "+(o.count*PRIX)+" € HT (TVA en sus)");
+    L.push("Statut facturation : À FACTURER");
+    L.push("Autorisation de facturation : OUI · la société autorise Job Events à facturer les paniers commandés (20 € HT/panier) non déjà commandés.");
+    return L.join("\n");
+  }
+
+  function mailtoLink(o){
+    return "mailto:"+encodeURIComponent(DEST)+
+      "?cc="+encodeURIComponent(o.email)+
+      "&subject="+encodeURIComponent("Commande paniers repas · VDR Dijon · "+(o.soc||""))+
+      "&body="+encodeURIComponent(recapText(o));
+  }
+
+  var lastLink="", lastPayload=null, sending=false, sent=false;
+  var reviewEl=document.getElementById("review");
+  document.getElementById("submit").addEventListener("click",function(){
+    if(sending||sent) return;
+    var errEl=document.getElementById("err"); errEl.textContent="";
+    var o=buildOrder();
+    var pb=[];
+    if(o.count<1) pb.push("renseignez au moins une personne avec une déclinaison");
+    if(o.incomplete>0) pb.push(o.incomplete+" personne(s) sans déclinaison choisie");
+    if(o.missingName>0) pb.push("le prénom de chaque personne");
+    if(!o.soc) pb.push("le nom de la société");
+    if(!o.nom) pb.push("la personne qui commande");
+    if(!validEmail(o.email)) pb.push("un email valide");
+    if(!o.tel) pb.push("un téléphone");
+    if(!o.auth) pb.push("cocher l’autorisation de facturation");
+    if(pb.length){ errEl.textContent="À corriger : "+pb.join(" · ")+"."; errEl.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+
+    lastLink=mailtoLink(o);
+    var rec=recapText(o);
+    document.getElementById("recap").textContent=rec;
+    document.getElementById("reviewRecap").textContent=rec;
+    lastPayload={eventId:EVENT_ID,societe:o.soc,commanditaire:o.nom,email:o.email,tel:o.tel,autorisation:o.auth,lignes:[]};
+    o.persons.forEach(function(p){lastPayload.lignes.push({prenom:p.prenom,jour:"jeudi",plat:MENU+" — "+p.type,dessert:"Au choix du chef",allergenes:p.all});});
+    document.getElementById("confirm").style.display="none";
+    reviewEl.style.display="block";
+    reviewEl.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("editOrder").addEventListener("click",function(){
+    reviewEl.style.display="none";
+    document.getElementById("people").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("confirmSend").addEventListener("click",function(){
+    if(sending||sent) return;
+    if(!lastPayload) return;
+    var btn=this, subBtn=document.getElementById("submit");
+    sending=true; btn.disabled=true; subBtn.disabled=true; btn.textContent="Envoi en cours…";
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastPayload)})
+      .then(function(r){return r.json().catch(function(){return{ok:false};});})
+      .then(function(res){
+        if(res&&res.ok){
+          sent=true; sending=false; btn.textContent="Commande envoyée ✓";
+          reviewEl.style.display="none"; showConfirm(true);
+        } else {
+          sending=false; btn.disabled=false; subBtn.disabled=false;
+          btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+        }
+      })
+      .catch(function(){
+        sending=false; btn.disabled=false; subBtn.disabled=false;
+        btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+      });
+  });
+  function showConfirm(success){
+    var t=document.getElementById("confirmTitle"), msg=document.getElementById("confirmMsg"), fb=document.getElementById("fallbackBtns");
+    if(success){
+      t.textContent="Votre commande est enregistrée";
+      msg.innerHTML="Elle a bien été transmise à Job Events, et un email de confirmation vous a été envoyé en copie. Merci !";
+      fb.style.display="none";
+    } else {
+      t.textContent="Votre commande est prête à partir";
+      msg.innerHTML="L’envoi automatique n’a pas abouti : votre logiciel de messagerie va s’ouvrir avec la commande pré-remplie pour <b>communication@job.events</b>, vous en copie. <b>Vérifiez et cliquez sur « Envoyer »</b>. Sinon, copiez le récapitulatif ci-dessous.";
+      fb.style.display="flex";
+      window.location.href=lastLink;
+    }
+    document.getElementById("confirm").style.display="block";
+    document.getElementById("confirm").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  document.getElementById("reopen").addEventListener("click",function(){ if(lastLink) window.location.href=lastLink; });
+  document.getElementById("copy").addEventListener("click",function(){
+    var t=document.getElementById("recap").textContent;
+    if(navigator.clipboard){ navigator.clipboard.writeText(t); var b=this; b.textContent="Copié ✓"; setTimeout(function(){b.textContent="Copier le récapitulatif";},1600); }
+  });
+})();
+</script>
