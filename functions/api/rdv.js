@@ -9,6 +9,20 @@ const CRENEAUX_RESERVABLES = ['10:00','10:30','11:00','11:30','12:00','13:30','1
 function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function json(obj, status){ return new Response(JSON.stringify(obj), { status: status || 200, headers: { 'Content-Type':'application/json' } }); }
 
+// « Le Village des Recruteurs de Dijon » → « Dijon » ; « … d'Orléans » → « Orléans »
+function villeFromName(name){
+  if (!name) return '';
+  var s = String(name).trim();
+  var marker = 'Recruteurs';
+  var i = s.indexOf(marker);
+  if (i === -1) return s;
+  var rest = s.slice(i + marker.length).trim();          // « de Dijon » / « d'Orléans »
+  var low = rest.toLowerCase();
+  if (low.slice(0,3) === 'de ') rest = rest.slice(3);
+  else if (low.slice(0,2) === "d'" || low.slice(0,2) === 'd’') rest = rest.slice(2);
+  return rest.trim();
+}
+
 async function rpc(url, service, method, args){
   const r = await fetch(url.replace(/\/+$/,'') + '/jsonrpc', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -66,6 +80,7 @@ export async function onRequestPost({ request, env }){
   const imgTel     = (data.imgTel||'').trim();
   const sujet      = (data.sujet||'').trim();
   const commentaires = (data.commentaires||'').trim();
+  const jourLabel  = (data.jourLabel||'').trim() || jour;  // « Jeudi 24 septembre » (affichage)
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(refEmail);
 
   if (!eventId || !jour || CRENEAUX_RESERVABLES.indexOf(creneau) === -1 || !societe ||
@@ -78,6 +93,14 @@ export async function onRequestPost({ request, env }){
   try {
     const uid = await rpc(ODOO_URL, 'common', 'authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
     if (!uid) return json({ ok:false, error:'Authentification Odoo refusée.' }, 502);
+
+    // Ville de l'événement (pour l'email) — dérivée du nom de l'événement dans Odoo.
+    let ville = '';
+    try {
+      const evr = await rpc(ODOO_URL, 'object', 'execute_kw',
+        [ODOO_DB, uid, ODOO_API_KEY, 'event.event', 'read', [[eventId], ['name']]]);
+      if (evr && evr[0]) ville = villeFromName(evr[0].name);
+    } catch(e){ /* ville optionnelle */ }
 
     // 1) créneau encore libre ?
     const slotBusy = await rpc(ODOO_URL, 'object', 'execute_kw',
@@ -120,7 +143,6 @@ export async function onRequestPost({ request, env }){
 
     // 5) email de confirmation (non bloquant)
     try {
-      const jourLabel = jour;
       const body =
         '<div style="background:#F4EEE5;padding:24px 0;font-family:Arial,Helvetica,sans-serif">' +
         '<table role="presentation" cellpadding="0" cellspacing="0" width="640" align="center" style="width:640px;max-width:94%;margin:0 auto;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid #E7DFD4">' +
@@ -130,7 +152,7 @@ export async function onRequestPost({ request, env }){
         '<tr><td style="background:#08324F;padding:22px 28px">' +
           '<div style="font:700 11px Arial,Helvetica,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#F8B322">Le Village des Recruteurs</div>' +
           '<div style="font:700 21px Arial,Helvetica,sans-serif;color:#FFFFFF;margin-top:4px">Votre créneau d\'interview est réservé</div>' +
-          '<div style="font:400 14px Arial,Helvetica,sans-serif;color:#C7D3DC;margin-top:2px">Toulouse · ' + esc(jourLabel) + '</div>' +
+          '<div style="font:400 14px Arial,Helvetica,sans-serif;color:#C7D3DC;margin-top:2px">' + (ville ? esc(ville) + ' · ' : '') + esc(jourLabel) + '</div>' +
         '</td></tr>' +
         '<tr><td style="padding:26px 28px 8px">' +
           '<p style="font:400 15px/1.55 Arial,Helvetica,sans-serif;color:#241A12;margin:0 0 14px">Bonjour,</p>' +
@@ -156,7 +178,7 @@ export async function onRequestPost({ request, env }){
         '</table></div>';
       const mailId = await rpc(ODOO_URL, 'object', 'execute_kw',
         [ODOO_DB, uid, ODOO_API_KEY, 'mail.mail', 'create', [{
-          subject: 'Réservation interview · VDR Toulouse · ' + societe,
+          subject: 'Réservation interview · VDR ' + (ville || '') + ' · ' + societe,
           email_from: 'Le Village des Recruteurs <notifications@job.events>',
           email_to: 'communication@job.events, ' + refEmail,
           reply_to: refEmail,
