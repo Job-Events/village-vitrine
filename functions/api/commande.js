@@ -12,7 +12,9 @@ const EVENTS = {
   1: { ville: 'Toulouse', dateline: '16 &amp; 17 septembre 2026', prix: 20, modif: '10 septembre',
        jourLabel: { mercredi: 'Mercredi 16 sept.', jeudi: 'Jeudi 17 sept.' } },
   2: { ville: 'Dijon', dateline: 'jeudi 24 septembre 2026', prix: 20, modif: '20 septembre',
-       jourLabel: { mercredi: 'Mercredi 24 sept.', jeudi: 'Jeudi 24 sept.' } }
+       jourLabel: { mercredi: 'Mercredi 24 sept.', jeudi: 'Jeudi 24 sept.' } },
+  3: { ville: 'Orléans', dateline: 'jeudi 8 octobre 2026', prix: 20, modif: '5 octobre',
+       jourLabel: { mercredi: 'Mercredi 8 oct.', jeudi: 'Jeudi 8 oct.' } }
 };
 const EVENT_FALLBACK = { ville: '', dateline: '', prix: 20, modif: '', jourLabel: { mercredi: 'Mercredi', jeudi: 'Jeudi' } };
 
