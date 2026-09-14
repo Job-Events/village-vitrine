@@ -4,7 +4,13 @@
 //        + garde-fou anti-collision, puis email de confirmation.
 // La clé API vit uniquement dans les variables du projet (ODOO_API_KEY, Secret).
 
-const CRENEAUX_RESERVABLES = ['10:00','10:30','11:00','11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30'];
+// Créneaux réservables par événement.
+// Toulouse (event 1) : créneaux de 30 min (inchangé).
+// Dijon (2), Orléans (3), Lyon (4) : créneaux de 20 min pour en placer davantage.
+const CRENEAUX_30 = ['10:00','10:30','11:00','11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30'];
+const CRENEAUX_20 = ['10:00','10:20','10:40','11:00','11:20','11:40','12:00',
+                     '13:30','13:50','14:10','14:30','14:50','15:10','15:30','15:50','16:10','16:30','16:50'];
+function creneauxFor(eventId){ return eventId === 1 ? CRENEAUX_30 : CRENEAUX_20; }
 
 function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function json(obj, status){ return new Response(JSON.stringify(obj), { status: status || 200, headers: { 'Content-Type':'application/json' } }); }
@@ -83,7 +89,7 @@ export async function onRequestPost({ request, env }){
   const jourLabel  = (data.jourLabel||'').trim() || jour;  // « Jeudi 24 septembre » (affichage)
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(refEmail);
 
-  if (!eventId || !jour || CRENEAUX_RESERVABLES.indexOf(creneau) === -1 || !societe ||
+  if (!eventId || !jour || creneauxFor(eventId).indexOf(creneau) === -1 || !societe ||
       !refNom || !emailOk || !refTel || !imgNom || !imgFonction || !imgTel)
     return json({ ok:false, error:'Champs manquants ou invalides.' }, 400);
 
