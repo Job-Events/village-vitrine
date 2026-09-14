@@ -86,6 +86,20 @@
   .relance{display:inline-flex;align-items:center;gap:.35rem;font-size:.76rem;color:var(--muted);cursor:pointer;user-select:none}
   .relance input{accent-color:var(--green)}
 
+  /* Liens vers les bons de commande (fiche Odoo) */
+  .bclink{color:var(--blue);font-weight:600;text-decoration:none;border-bottom:1px solid transparent}
+  .bclink:hover{color:var(--rose-d);border-bottom-color:currentColor}
+  /* Barre de filtres de l'onglet Suivi */
+  .filterbar{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin:0 0 .8rem}
+  .filterbar .flabel{font-size:.8rem;font-weight:700;color:var(--muted);margin-right:.1rem}
+  .fchip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .82rem "Jost",sans-serif;
+    padding:.34rem .8rem;border-radius:999px;cursor:pointer;line-height:1;transition:background .12s,border-color .12s,color .12s}
+  .fchip:hover{border-color:var(--rose)}
+  .fchip.on{background:var(--rose);border-color:var(--rose);color:#fff}
+  .fchip.clear{color:var(--coral-txt);font-weight:600}
+  .fchip.clear:hover{border-color:var(--coral);background:var(--cream)}
+  .filterbar .fcount{margin-left:auto;font-size:.78rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+
   .state{padding:2.5rem 1rem;text-align:center;color:var(--muted)}
   .denied{max-width:34rem;margin:4rem auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:2rem;text-align:center;box-shadow:var(--shadow)}
   .denied h2{font-weight:800;margin:.2rem 0 .5rem}
@@ -148,6 +162,16 @@ let EVENTS = [], CUR = null, DATA = null, VIEW = 'suivi';
 const num = v => (v===0||v==='0'||!v) ? '–' : v;
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dfmt = s => { if(!s) return ''; const d=new Date(s.replace(' ','T')); return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); };
+// Liens dynamiques vers les bons de commande (fiche Odoo). r.orders = [{id,name}]
+// (ancien format = liste de chaînes) — on gère les deux pour rester robuste.
+const ODOO_SO = 'https://jobevents.odoo.com/odoo/sales/';
+const bcLinks = r => {
+  const os = r.orders || [];
+  if(!os.length) return '–';
+  return os.map(o => (o && typeof o==='object')
+    ? `<a class="bclink" href="${ODOO_SO}${o.id}" target="_blank" rel="noopener">${esc(o.name)}</a>`
+    : esc(o)).join(', ');
+};
 
 async function api(qs){ const r = await fetch('/api/equipe'+(qs||''),{cache:'no-store'}); if(r.status===403){throw {denied:true};} return r.json(); }
 
@@ -174,6 +198,7 @@ async function boot(){
 async function selectEvent(id, btn){
   [...$('#evtabs').children].forEach(b=>b.setAttribute('aria-selected', b===btn?'true':'false'));
   CUR=id; $('#view').textContent='Chargement…';
+  SF = { tv:false, int:false, pan:false };   // filtres Suivi réinitialisés à chaque événement
   try{
     DATA = await api('?event='+id);
     renderMeta(); renderKpis(); render();
@@ -221,9 +246,29 @@ const nomEv  = r => hasEv(r) ? esc(soc(r)) : DASH;   // société dans l'événe
 // Classement : présents dans l'événement d'abord, puis ordre alphabétique (nom société).
 const byEvent = (a,b) => (hasEv(b)-hasEv(a)) || soc(a).localeCompare(soc(b),'fr',{sensitivity:'base'});
 
+// Filtres de l'onglet Suivi : n'afficher que les sociétés ayant une option donnée.
+// Plusieurs filtres actifs se combinent (ET). Réinitialisés à chaque événement.
+let SF = { tv:false, int:false, pan:false };
+function toggleSF(k){ SF[k] = !SF[k]; renderSuivi(); }
+function clearSF(){ SF = { tv:false, int:false, pan:false }; renderSuivi(); }
+const sfMatch = r =>
+  (!SF.tv  || (r.x_tv||0) > 0) &&
+  (!SF.int || (r.x_interviews_cmd||0) > 0) &&
+  (!SF.pan || (r.x_paniers_cmd||0) > 0);
+
 function renderSuivi(){
   // Tri par nom de société dans l'événement (présents d'abord), ordre alphabétique.
-  const R = (DATA.rows||[]).slice().sort(byEvent);
+  let R = (DATA.rows||[]).slice().sort(byEvent);
+  const anyF = SF.tv || SF.int || SF.pan;
+  const total = R.length;
+  if(anyF) R = R.filter(sfMatch);
+  const chip = (k,label) => `<button type="button" class="fchip${SF[k]?' on':''}" aria-pressed="${SF[k]?'true':'false'}" onclick="toggleSF('${k}')">${label}</button>`;
+  const filterbar = `<div class="filterbar">
+      <span class="flabel">Filtrer&nbsp;:</span>
+      ${chip('tv','Écran TV')}${chip('int','Interviews')}${chip('pan','Paniers')}
+      ${anyF ? `<button type="button" class="fchip clear" onclick="clearSF()">✕ Tout afficher</button>` : ''}
+      <span class="fcount">${R.length}${anyF?` / ${total}`:''} société${R.length>1?'s':''}</span>
+    </div>`;
   // Option « 2 jours » (stand/pack) : colonne affichée seulement sur les événements
   // à 2 jours (Toulouse, Lyon), c.-à-d. dès qu'une société a pris l'option.
   const is2j = r => !!r.deux_jours;
@@ -259,7 +304,11 @@ function renderSuivi(){
     </tr>`;
   });
   h+='</tbody></table>';
-  $('#view').className=''; $('#view').innerHTML=h;
+  if(anyF && !R.length){
+    h = `<table class="grp"><thead><tr class="cols"><th class="lead">Société (bon de commande)</th></tr></thead></table>`
+      + `<div class="state" style="padding:1.6rem">Aucune société ne correspond à ce filtre.</div>`;
+  }
+  $('#view').className=''; $('#view').innerHTML = filterbar + h;
 }
 
 // Correspondance commandes ↔ participants : rapprochement des bons de commande et des inscrits.
@@ -282,7 +331,7 @@ function renderCorrespondance(){
       const face = ok
         ? `<td class="soc">${esc(soc(r))}</td><td>${num(r.x_participants)}</td><td class="txt"><span class="ok">rattaché</span></td>`
         : `<td class="soc"><span class="zero">—</span></td><td class="zero">—</td><td class="txt"><span class="anom">non rattaché</span></td>`;
-      return `<tr class="${ok?'':'danger'}"><td class="soc">${esc(soc(r))}</td>${face}<td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td></tr>`;
+      return `<tr class="${ok?'':'danger'}"><td class="soc">${esc(soc(r))}</td>${face}<td class="txt">${bcLinks(r)}</td></tr>`;
     }).join('');
     t1 = `<table class="plain"><thead><tr class="cols">
         <th class="lead">Société (bon de commande)</th><th class="lead">Participant correspondant</th><th>Part.</th><th class="lead">État</th><th class="lead">Bons de commande</th>
@@ -321,7 +370,7 @@ function companyTable(R, empty){
       <td>${r.x_recruteurs?`<span class="chip recr">${r.x_recruteurs}</span>`:'–'}</td>
       <td class="${r.x_interviews_reste?'':'zero'}">${num(r.x_interviews_reste)}</td>
       <td class="${r.x_paniers_reste?'':'zero'}">${num(r.x_paniers_reste)}</td>
-      <td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td>
+      <td class="txt">${bcLinks(r)}</td>
     </tr>`;
   });
   return h+'</tbody></table>';
@@ -388,7 +437,7 @@ function renderOptions(){
   const totalTv = tvRows.reduce((s,r)=>s+(r.x_tv||0),0);
   const tvInner = tvRows.length
     ? `<table class="plain"><thead><tr class="cols"><th class="lead">Société (bon de commande)</th><th class="lead">Société (événement)</th><th>Écrans TV</th><th class="lead">Bons de commande</th></tr></thead><tbody>`
-      + tvRows.map(r=>`<tr><td class="soc">${nomBC(r)}</td><td class="soc">${nomEv(r)}</td><td>${num(r.x_tv)}</td><td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td></tr>`).join('')
+      + tvRows.map(r=>`<tr><td class="soc">${nomBC(r)}</td><td class="soc">${nomEv(r)}</td><td>${num(r.x_tv)}</td><td class="txt">${bcLinks(r)}</td></tr>`).join('')
       + `</tbody><tfoot><tr><td class="lbl" colspan="2">Total ${tvRows.length} entreprise${tvRows.length>1?'s':''}</td><td>${totalTv}</td><td class="txt">écran${totalTv>1?'s':''} à installer</td></tr></tfoot></table>`
     : `<div class="state" style="padding:1.1rem">Aucun écran TV commandé.</div>`;
 
@@ -396,7 +445,7 @@ function renderOptions(){
   const empRows = R.filter(r=>/emplacement/i.test(r.x_autres_options||'')).sort(byEvent);
   const empInner = empRows.length
     ? `<table class="plain"><thead><tr class="cols"><th class="lead">Société (bon de commande)</th><th class="lead">Société (événement)</th><th class="lead">État</th><th class="lead">Bons de commande</th></tr></thead><tbody>`
-      + empRows.map(r=>`<tr><td class="soc">${nomBC(r)}</td><td class="soc">${nomEv(r)}</td><td class="txt"><span class="todo">à placer</span></td><td class="txt">${(r.orders||[]).map(esc).join(', ')||'–'}</td></tr>`).join('')
+      + empRows.map(r=>`<tr><td class="soc">${nomBC(r)}</td><td class="soc">${nomEv(r)}</td><td class="txt"><span class="todo">à placer</span></td><td class="txt">${bcLinks(r)}</td></tr>`).join('')
       + `</tbody><tfoot><tr><td class="lbl" colspan="2">Total</td><td class="txt"><span class="todo">${empRows.length} à placer</span></td><td></td></tr></tfoot></table>`
     : `<div class="state" style="padding:1.1rem">Aucune option d'emplacement commandée.</div>`;
 
