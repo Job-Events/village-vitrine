@@ -153,7 +153,9 @@ export async function onRequestGet({ request, env }){
         [ODOO_DB, uid, ODOO_API_KEY, 'sale.order', 'read', [orderIds], { fields:['name'] }]);
       os.forEach(o => nameOf[o.id] = o.name);
     }
-    rows.forEach(r => { r.orders = (r.x_order_ids||[]).map(id => nameOf[id] || String(id)); });
+    // Chaque bon de commande porte son id (pour un lien direct vers la fiche Odoo)
+    // en plus de son numéro affiché (S00xxx).
+    rows.forEach(r => { r.orders = (r.x_order_ids||[]).map(id => ({ id, name: nameOf[id] || String(id) })); });
 
     // Option « 2 jours » (durée du stand/pack) : marquage LIVE par bon de commande.
     // Une société « a l'option 2 jours » si l'un de ses bons de commande confirmés
