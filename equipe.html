@@ -37,6 +37,10 @@
   .evtab{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .92rem "Jost",sans-serif;
     padding:.5rem 1rem;border-radius:999px;cursor:pointer}
   .evtab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .evtab-stat{margin-left:auto;border-color:var(--rose);color:var(--rose-d);background:var(--surface)}
+  .evtab-stat .dot{margin-right:.15rem}
+  .evtab-stat[aria-selected="true"]{background:var(--rose);color:#fff;border-color:var(--rose)}
+  @media(max-width:640px){.evtab-stat{margin-left:0}}
 
   /* meta + kpi */
   .meta{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:baseline;margin:1.1rem 0 .2rem}
@@ -174,7 +178,6 @@
       <button class="vtab" data-v="partenaires" role="tab" aria-selected="false">Partenaires</button>
       <button class="vtab" data-v="entreprises" role="tab" aria-selected="false">Entreprises</button>
       <button class="vtab" data-v="secteurs" role="tab" aria-selected="false">Entreprises par secteur</button>
-      <button class="vtab" data-v="frequentation" role="tab" aria-selected="false">Fréquentation</button>
     </div>
 
     <div class="card"><div class="scroll">
@@ -213,10 +216,16 @@ async function boot(){
     EVENTS.forEach((e,i)=>{
       const b=document.createElement('button'); b.className='evtab'; b.role='tab';
       b.textContent = e.name.replace('Le Village des Recruteurs ','').replace('de ','').replace("d'",'');
-      b.setAttribute('aria-selected', i===0?'true':'false');
+      b.setAttribute('aria-selected','false');
       b.onclick=()=>selectEvent(e.id, b);
       tb.appendChild(b);
     });
+    // Onglet transversal (au niveau des événements, pas dans un événement) : audience du site.
+    const sb=document.createElement('button'); sb.className='evtab evtab-stat'; sb.id='statTab'; sb.role='tab';
+    sb.innerHTML='<span class="dot">📊</span> Fréquentation du site';
+    sb.setAttribute('aria-selected','false');
+    sb.onclick=()=>showSiteStats(sb);
+    tb.appendChild(sb);
     $('#app').hidden=false;
     if(EVENTS.length) selectEvent(EVENTS[0].id, tb.firstChild);
   }catch(err){
@@ -224,14 +233,27 @@ async function boot(){
   }
 }
 
+function showEventChrome(on){
+  ['.meta','#kpis','.vtabs'].forEach(sel=>{ const el=$(sel); if(el) el.hidden = !on; });
+}
 async function selectEvent(id, btn){
   [...$('#evtabs').children].forEach(b=>b.setAttribute('aria-selected', b===btn?'true':'false'));
+  showEventChrome(true);
+  $('.foot').textContent = "Données lues en direct dans Odoo · aucune donnée n'est stockée sur cette page.";
   CUR=id; $('#view').textContent='Chargement…';
   SF = { tv:false, int:false, pan:false };   // filtres Suivi réinitialisés à chaque événement
   try{
     DATA = await api('?event='+id);
     renderMeta(); renderKpis(); render();
   }catch(err){ if(err&&err.denied){$('#app').hidden=true;$('#denied').hidden=false;} }
+}
+
+// Vue transversale « Fréquentation du site » — indépendante de l'événement sélectionné.
+function showSiteStats(btn){
+  [...$('#evtabs').children].forEach(b=>b.setAttribute('aria-selected', b===btn?'true':'false'));
+  showEventChrome(false);
+  $('.foot').textContent = "Fréquentation : données Cloudflare Web Analytics (sans cookie) · aucune donnée n'est stockée sur cette page.";
+  renderFrequentation();
 }
 
 function renderMeta(){
@@ -260,7 +282,7 @@ function setView(v){ VIEW=v; [...document.querySelectorAll('.vtab')].forEach(b=>
 document.querySelectorAll('.vtab').forEach(b=>b.onclick=()=>setView(b.dataset.v));
 
 function render(){
-  const map={suivi:renderSuivi, correspondance:renderCorrespondance, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs, frequentation:renderFrequentation};
+  const map={suivi:renderSuivi, correspondance:renderCorrespondance, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs};
   (map[VIEW]||renderSuivi)();
 }
 const isPartner = r => /Partenaire/i.test(r.x_role||'');
@@ -554,7 +576,7 @@ function renderFrequentation(){
     const pageRows = s.pages.slice(0,8).map(p=>({label:(p.path==='/'?'Accueil':p.path), visits:p.pageviews}));
 
     v.innerHTML = `
-    <div class="fq-note">Audience du <b>site vitrine</b> (www.levillagedesrecruteurs.fr) · 30 derniers jours · source Cloudflare Web Analytics (sans cookie, données anonymes). Ces chiffres sont propres au site&nbsp;: ils ne dépendent pas de l'événement sélectionné ci-dessus.</div>
+    <div class="fq-note">Audience du <b>site vitrine</b> (www.levillagedesrecruteurs.fr) · 30 derniers jours · source Cloudflare Web Analytics (sans cookie, données anonymes). Vue transversale, indépendante des événements.</div>
     <div class="fq-kpis">
       <div class="fq-kpi"><span class="v">${fInt(s.totals.visits)}</span><span class="l">Visites (30 j)</span></div>
       <div class="fq-kpi"><span class="v">${fInt(s.totals.pageviews)}</span><span class="l">Pages vues (30 j)</span></div>
@@ -586,7 +608,7 @@ function renderFrequentation(){
     </div>`;
   };
   if (STATS){ paint(); }
-  fetch('/api/stats',{cache:'no-store'})
+  fetch('/api/equipe?stats=1',{cache:'no-store'})
     .then(r=>r.json())
     .then(j=>{
       if(!j || !j.ok){
