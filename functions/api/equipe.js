@@ -137,6 +137,35 @@ function cfBuildQuery(accountTag, site, since, until){
     }
   }`;
 }
+// Historique mensuel de l'ancien site (Odoo Website) : pages vues (website.track)
+// et visiteurs uniques (website.visitor). Sert à raccorder la tendance moyen terme
+// avant la bascule sur le nouveau site (mesuré par Cloudflare).
+const FR_MONTHS = { 'janvier':1,'février':2,'fevrier':2,'mars':3,'avril':4,'mai':5,'juin':6,
+  'juillet':7,'août':8,'aout':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12,'decembre':12 };
+function frMonthKey(label){
+  const m = String(label||'').toLowerCase().trim().match(/^([a-zà-öø-ÿ]+)\s+(\d{4})$/);
+  if (!m) return null;
+  const mm = FR_MONTHS[m[1]];
+  if (!mm) return null;
+  return m[2] + '-' + String(mm).padStart(2,'0');
+}
+async function odooMonthly(env){
+  const { ODOO_URL, ODOO_DB, ODOO_LOGIN, ODOO_API_KEY } = env;
+  if (!ODOO_URL || !ODOO_DB || !ODOO_LOGIN || !ODOO_API_KEY) return null;
+  const uid = await rpc(ODOO_URL, 'common', 'authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
+  if (!uid) return null;
+  const pvRows = await rpc(ODOO_URL, 'object', 'execute_kw',
+    [ODOO_DB, uid, ODOO_API_KEY, 'website.track', 'read_group',
+     [[], ['id'], ['visit_datetime:month']], { lazy:false }]);
+  const visRows = await rpc(ODOO_URL, 'object', 'execute_kw',
+    [ODOO_DB, uid, ODOO_API_KEY, 'website.visitor', 'read_group',
+     [[], ['id'], ['create_date:month']], { lazy:false }]);
+  const pv = {}, vis = {};
+  pvRows.forEach(r => { const k = frMonthKey(r['visit_datetime:month']); if (k) pv[k] = r.__count; });
+  visRows.forEach(r => { const k = frMonthKey(r['create_date:month']); if (k) vis[k] = r.__count; });
+  return { pv, vis };
+}
+
 async function statsResponse(env, email){
   // Nom canonique attendu : CF_ANALYTICS_TOKEN. On tolère aussi le nom déjà présent
   // dans la configuration (CF_analitycs_token) pour éviter toute ressaisie du secret.
@@ -180,8 +209,36 @@ async function statsResponse(env, email){
     const pages = (acc.byPage || []).map(g => ({ path:g.dimensions.requestPath||'/',
       pageviews:estim(g.count, g.avg && g.avg.sampleInterval) })).filter(x=>x.pageviews>0).sort((a,b)=>b.pageviews-a.pageviews).slice(0,12);
 
+    // Tendance mensuelle « moyen terme » : historique de l'ancien site (Odoo Website,
+    // tous sites cumulés) pour les mois passés, puis mois en cours mesuré par Cloudflare,
+    // avec un repère à la bascule. La partie Odoo ne doit jamais bloquer l'affichage 30 j.
+    let monthly = null;
+    try {
+      const om = await odooMonthly(env);
+      if (om) {
+        const curKey = until.slice(0,7);                 // AAAA-MM du jour
+        let cfMonthPV = 0, cfMonthVisits = 0;            // mois en cours d'après Cloudflare
+        daily.forEach(d => { if (d.date.slice(0,7) === curKey){ cfMonthPV += d.pageviews; cfMonthVisits += d.visits; } });
+        const keys = [...new Set([...Object.keys(om.pv), ...Object.keys(om.vis), curKey])].sort();
+        const first = keys[0] || curKey;
+        const series = [];
+        let y = +first.slice(0,4), mo = +first.slice(5,7);
+        const endY = +curKey.slice(0,4), endM = +curKey.slice(5,7);
+        while (y < endY || (y === endY && mo <= endM)){
+          const k = y + '-' + String(mo).padStart(2,'0');
+          if (k === curKey){
+            series.push({ month:k, pageviews:cfMonthPV, visitors:cfMonthVisits, source:'cloudflare', partial:true });
+          } else {
+            series.push({ month:k, pageviews:(om.pv[k]||0), visitors:(om.vis[k]||0), source:'odoo', partial:false });
+          }
+          mo++; if (mo > 12){ mo = 1; y++; }
+        }
+        monthly = { series, switchMonth:curKey };
+      }
+    } catch(e){ /* tendance mensuelle indisponible : on renvoie quand même les 30 jours */ }
+
     return json({ ok:true, user:email, period:{ since, until },
-      totals:{ visits:totalVisits, pageviews:totalPV }, daily, devices, countries, pages });
+      totals:{ visits:totalVisits, pageviews:totalPV }, daily, devices, countries, pages, monthly });
   } catch (e){
     return json({ ok:false, error:'Erreur réseau Cloudflare : ' + e.message }, 502);
   }
