@@ -123,6 +123,18 @@
   .daychart .dcol:hover{background:var(--paper-blue)}
   .daychart .dfill{width:100%;background:var(--blue);border-radius:3px 3px 0 0;min-height:2px}
   .dayaxis{display:flex;justify-content:space-between;margin-top:.4rem;font-size:.72rem;color:var(--muted)}
+  /* histogramme mensuel (moyen terme) */
+  .mchart{display:flex;align-items:flex-end;gap:4px;height:150px;padding-top:.3rem}
+  .mcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;min-width:0}
+  .mcol .mfill{width:100%;max-width:34px;border-radius:4px 4px 0 0;min-height:2px;transition:opacity .1s}
+  .mcol.is-cf .mfill{opacity:.92;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 5px,transparent 5px 10px)}
+  .mcol .mlbl{margin-top:.35rem;font-size:.66rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .mcol.is-cf .mlbl{color:var(--rose-d);font-weight:700}
+  .mlegend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;font-size:.74rem;color:var(--muted)}
+  .mlegend b{font-weight:700;color:var(--text,#1a1a1a)}
+  .mlegend .lk{display:inline-flex;align-items:center;gap:.4rem}
+  .mlegend .sw{width:.85rem;height:.85rem;border-radius:3px;display:inline-block}
+  .mlegend .sw.cf{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 4px,transparent 4px 8px)}
   /* barres horizontales */
   .fbars{display:flex;flex-direction:column;gap:.55rem}
   .fbar{display:grid;grid-template-columns:7.5rem 1fr auto;align-items:center;gap:.6rem}
@@ -555,6 +567,43 @@ function fqBars(rows, key, colorVar, fmt){
     + `<span class="ftrack"><span class="ffill" style="width:${Math.max(2,Math.round(r[key]/max*100))}%;background:${colorVar}"></span></span>`
     + `<span class="fv">${fmt?fmt(r[key]):fInt(r[key])}</span></div>`).join('');
 }
+const MOIS_ABBR = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+function mLabel(k){ const y=k.slice(2,4), m=+k.slice(5,7); return MOIS_ABBR[m-1]+' '+y; }
+// Histogramme mensuel raccordé : barres Odoo (ancien site) puis mois en cours mesuré
+// par Cloudflare (nouveau site), hachuré et daté en rose. `key` = 'visitors'|'pageviews'.
+function monthlyChart(series, key, odooColor){
+  const max = Math.max(1, ...series.map(r=>r[key]||0));
+  return series.map(r=>{
+    const cf = r.source==='cloudflare';
+    const h = Math.max(2, Math.round((r[key]||0)/max*100));
+    const bg = cf ? 'var(--rose)' : odooColor;
+    const t = `${mLabel(r.month)} : ${fInt(r[key])}` + (cf?' (mois en cours, site actuel)':' (ancien site)') + (r.partial&&cf?' — partiel':'');
+    return `<div class="mcol${cf?' is-cf':''}" title="${esc(t)}">`
+      + `<span class="mfill" style="height:${h}%;background:${bg}"></span>`
+      + `<span class="mlbl">${mLabel(r.month)}</span></div>`;
+  }).join('');
+}
+function monthlyBlock(s){
+  const m = s && s.monthly;
+  if (!m || !m.series || m.series.length < 2) return '';
+  const ser = m.series;
+  const legend = `<div class="mlegend">`
+    + `<span class="lk"><span class="sw" style="background:var(--navy)"></span>Ancien site (Odoo) — mois clos</span>`
+    + `<span class="lk"><span class="sw cf" style="background:var(--rose)"></span>Site actuel (Cloudflare) — mois en cours</span>`
+    + `<span style="flex-basis:100%;margin-top:.15rem">Courbe raccordée : l'historique vient de l'ancien site (job.events + levillagedesrecruteurs.fr cumulés), le mois en cours est mesuré sur le nouveau site vitrine. Le trait rose marque la bascule.</span>`
+    + `</div>`;
+  return `
+    <div class="fq-card">
+      <h3>Tendance mensuelle — visiteurs uniques</h3>
+      <div class="mchart">${monthlyChart(ser,'visitors','var(--navy)')}</div>
+      ${legend}
+    </div>
+    <div class="fq-card">
+      <h3>Tendance mensuelle — pages vues</h3>
+      <div class="mchart">${monthlyChart(ser,'pageviews','var(--teal,#0B8478)')}</div>
+      <p class="fq-cap">Les mois clos proviennent de l'ancien site (Odoo, deux sites cumulés) ; le mois en cours est mesuré par Cloudflare sur le site vitrine.</p>
+    </div>`;
+}
 function renderFrequentation(){
   const v = $('#view'); v.className='';
   v.innerHTML = `<div class="state" style="padding:2.2rem">Chargement des statistiques de fréquentation…</div>`;
@@ -589,7 +638,7 @@ function renderFrequentation(){
       <div class="daychart">${cols}</div>
       <div class="dayaxis"><span>${dLabel(first.date)}</span><span>${dLabel(mid.date)}</span><span>${dLabel(last.date)}</span></div>
     </div>
-
+    ${monthlyBlock(s)}
     <div class="fq-grid">
       <div class="fq-card">
         <h3>Types d'appareils</h3>
