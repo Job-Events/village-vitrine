@@ -106,9 +106,12 @@ const CF_DEFAULT_SITE_TAG    = 'c354fe3c33834452aa87e99180199de9'; // www.levill
 const CF_GQL_URL = 'https://api.cloudflare.com/client/v4/graphql';
 
 function ymd(d){ return d.toISOString().slice(0,10); }
-function estim(count, sampleInterval){
-  const si = (sampleInterval && sampleInterval > 0) ? sampleInterval : 1;
-  return Math.round((count || 0) * si);
+// Les compteurs RUM de Cloudflare Web Analytics (count, sum{visits}) sont déjà les
+// valeurs « déséchantillonnées » affichées dans le tableau de bord. On ne réapplique
+// donc PAS sampleInterval (sinon on multiplie une seconde fois : écart d'environ ×10
+// constaté). Le paramètre est conservé pour compatibilité mais ignoré.
+function estim(count, _sampleInterval){
+  return Math.round(count || 0);
 }
 function cfSanitize(s){ return String(s).replace(/[^A-Za-z0-9:_\- ]/g, ''); }
 function cfBuildQuery(accountTag, site, since, until){
