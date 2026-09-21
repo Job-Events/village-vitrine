@@ -135,7 +135,9 @@ function cfBuildQuery(accountTag, site, since, until){
   }`;
 }
 async function statsResponse(env, email){
-  const token = env.CF_ANALYTICS_TOKEN;
+  // Nom canonique attendu : CF_ANALYTICS_TOKEN. On tolère aussi le nom déjà présent
+  // dans la configuration (CF_analitycs_token) pour éviter toute ressaisie du secret.
+  const token = env.CF_ANALYTICS_TOKEN || env.CF_analitycs_token;
   if (!token)
     return json({ ok:false, error:'Statistiques non configurées : jeton API Cloudflare manquant (CF_ANALYTICS_TOKEN).' }, 500);
   const accountTag = env.CF_ACCOUNT_TAG || CF_DEFAULT_ACCOUNT_TAG;
