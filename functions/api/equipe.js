@@ -98,11 +98,103 @@ async function refreshIfStale(env, uid){
   }
 }
 
+// ---------- Fréquentation du site (Cloudflare Web Analytics, données RUM) ----------
+// Secret requis : CF_ANALYTICS_TOKEN (jeton API Cloudflare, permission Account
+// Analytics : Read). Identifiants de compte / site pré-remplis (surchargables par env).
+const CF_DEFAULT_ACCOUNT_TAG = '435467f1af156bcb40aee2f7b327c3c8';
+const CF_DEFAULT_SITE_TAG    = 'c354fe3c33834452aa87e99180199de9'; // www.levillagedesrecruteurs.fr
+const CF_GQL_URL = 'https://api.cloudflare.com/client/v4/graphql';
+
+function ymd(d){ return d.toISOString().slice(0,10); }
+function estim(count, sampleInterval){
+  const si = (sampleInterval && sampleInterval > 0) ? sampleInterval : 1;
+  return Math.round((count || 0) * si);
+}
+function cfSanitize(s){ return String(s).replace(/[^A-Za-z0-9:_\- ]/g, ''); }
+function cfBuildQuery(accountTag, site, since, until){
+  const A = cfSanitize(accountTag), S = cfSanitize(site), F = cfSanitize(since), U = cfSanitize(until);
+  const filter = `{ AND: [ { siteTag: "${S}" }, { date_geq: "${F}" }, { date_leq: "${U}" } ] }`;
+  return `
+  query {
+    viewer {
+      accounts(filter: { accountTag: "${A}" }) {
+        byDay: rumPageloadEventsAdaptiveGroups(limit: 1000, filter: ${filter}, orderBy: [date_ASC]) {
+          count sum { visits } avg { sampleInterval } dimensions { date }
+        }
+        byDevice: rumPageloadEventsAdaptiveGroups(limit: 20, filter: ${filter}, orderBy: [count_DESC]) {
+          count sum { visits } avg { sampleInterval } dimensions { deviceType }
+        }
+        byCountry: rumPageloadEventsAdaptiveGroups(limit: 30, filter: ${filter}, orderBy: [count_DESC]) {
+          count sum { visits } avg { sampleInterval } dimensions { countryName }
+        }
+        byPage: rumPageloadEventsAdaptiveGroups(limit: 30, filter: ${filter}, orderBy: [count_DESC]) {
+          count avg { sampleInterval } dimensions { requestPath }
+        }
+      }
+    }
+  }`;
+}
+async function statsResponse(env, email){
+  const token = env.CF_ANALYTICS_TOKEN;
+  if (!token)
+    return json({ ok:false, error:'Statistiques non configurées : jeton API Cloudflare manquant (CF_ANALYTICS_TOKEN).' }, 500);
+  const accountTag = env.CF_ACCOUNT_TAG || CF_DEFAULT_ACCOUNT_TAG;
+  const site       = env.CF_SITE_TAG    || CF_DEFAULT_SITE_TAG;
+  const now = new Date();
+  const until = ymd(now);
+  const sinceD = new Date(now.getTime() - 29 * 86400000);
+  const since = ymd(sinceD);
+  try {
+    const resp = await fetch(CF_GQL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ query: cfBuildQuery(accountTag, site, since, until) })
+    });
+    const data = await resp.json();
+    if (data.errors && data.errors.length)
+      return json({ ok:false, error:'Erreur API Cloudflare : ' + (data.errors[0].message || 'inconnue') }, 502);
+    const acc = data.data && data.data.viewer && data.data.viewer.accounts && data.data.viewer.accounts[0];
+    if (!acc) return json({ ok:false, error:'Aucune donnée renvoyée par Cloudflare.' }, 502);
+
+    const dayMap = {};
+    (acc.byDay || []).forEach(g => {
+      const si = g.avg && g.avg.sampleInterval;
+      dayMap[g.dimensions.date] = { date:g.dimensions.date, visits:estim(g.sum && g.sum.visits, si), pageviews:estim(g.count, si) };
+    });
+    const daily = [];
+    for (let i = 0; i < 30; i++){
+      const d = ymd(new Date(sinceD.getTime() + i * 86400000));
+      daily.push(dayMap[d] || { date:d, visits:0, pageviews:0 });
+    }
+    const totalVisits = daily.reduce((s,x)=>s+x.visits, 0);
+    const totalPV     = daily.reduce((s,x)=>s+x.pageviews, 0);
+    const devices = (acc.byDevice || []).map(g => ({ name:g.dimensions.deviceType||'inconnu',
+      visits:estim(g.sum && g.sum.visits, g.avg && g.avg.sampleInterval) })).filter(x=>x.visits>0).sort((a,b)=>b.visits-a.visits);
+    const countries = (acc.byCountry || []).map(g => ({ name:g.dimensions.countryName||'inconnu',
+      visits:estim(g.sum && g.sum.visits, g.avg && g.avg.sampleInterval) })).filter(x=>x.visits>0).sort((a,b)=>b.visits-a.visits);
+    const pages = (acc.byPage || []).map(g => ({ path:g.dimensions.requestPath||'/',
+      pageviews:estim(g.count, g.avg && g.avg.sampleInterval) })).filter(x=>x.pageviews>0).sort((a,b)=>b.pageviews-a.pageviews).slice(0,12);
+
+    return json({ ok:true, user:email, period:{ since, until },
+      totals:{ visits:totalVisits, pageviews:totalPV }, daily, devices, countries, pages });
+  } catch (e){
+    return json({ ok:false, error:'Erreur réseau Cloudflare : ' + e.message }, 502);
+  }
+}
+
 export async function onRequestGet({ request, env }){
   const { ODOO_URL, ODOO_DB, ODOO_LOGIN, ODOO_API_KEY } = env;
   const email = teamEmail(request);
   if (!email.endsWith('@job.events'))
     return json({ ok:false, error:'acces_reserve' }, 403);
+
+  // Vue « Fréquentation du site » (audience Cloudflare Web Analytics). Servie ici,
+  // sous /api/equipe déjà protégé par Cloudflare Access, plutôt que par un endpoint
+  // séparé : l'identité de l'équipe est ainsi garantie sur le même chemin.
+  const uStats = new URL(request.url);
+  if (uStats.searchParams.has('stats'))
+    return statsResponse(env, email);
+
   if (!ODOO_URL || !ODOO_DB || !ODOO_LOGIN || !ODOO_API_KEY)
     return json({ ok:false, error:'Connecteur non configuré.' }, 500);
 
