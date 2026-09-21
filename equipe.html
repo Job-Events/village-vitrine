@@ -100,6 +100,34 @@
   .fchip.clear:hover{border-color:var(--coral);background:var(--cream)}
   .filterbar .fcount{margin-left:auto;font-size:.78rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
 
+  /* Onglet Fréquentation */
+  .fq-note{background:var(--paper-blue);border:1px solid var(--line);border-radius:12px;padding:.7rem .95rem;font-size:.83rem;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+  .fq-note b{color:var(--navy)}
+  .fq-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem}
+  @media(max-width:640px){.fq-kpis{grid-template-columns:repeat(2,1fr)}}
+  .fq-kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.85rem .95rem;box-shadow:var(--shadow-sm)}
+  .fq-kpi .v{display:block;font-weight:800;font-size:1.7rem;line-height:1;color:var(--rose-d);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .fq-kpi .l{display:block;margin-top:.35rem;font-size:.76rem;color:var(--muted)}
+  .fq-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.05rem 1.15rem;margin-bottom:1rem}
+  .fq-card h3{margin:0 0 .9rem;font-size:.98rem;font-weight:700}
+  .fq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:640px){.fq-grid{grid-template-columns:1fr}}
+  .fq-cap{margin:.7rem 0 0;font-size:.76rem;color:var(--muted)}
+  /* histogramme journalier */
+  .daychart{display:flex;align-items:flex-end;gap:2px;height:140px}
+  .daychart .dcol{flex:1;display:flex;align-items:flex-end;height:100%;min-width:0;border-radius:3px 3px 0 0;background:transparent;transition:background .1s}
+  .daychart .dcol:hover{background:var(--paper-blue)}
+  .daychart .dfill{width:100%;background:var(--blue);border-radius:3px 3px 0 0;min-height:2px}
+  .dayaxis{display:flex;justify-content:space-between;margin-top:.4rem;font-size:.72rem;color:var(--muted)}
+  /* barres horizontales */
+  .fbars{display:flex;flex-direction:column;gap:.55rem}
+  .fbar{display:grid;grid-template-columns:7.5rem 1fr auto;align-items:center;gap:.6rem}
+  .fbar .fk{font-size:.83rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fbar .ftrack{display:block;height:.7rem;background:var(--paper-blue);border-radius:999px;overflow:hidden}
+  .fbar .ffill{display:block;height:100%;border-radius:999px;min-width:.4rem}
+  .fbar .fv{font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);min-width:2.8rem;text-align:right}
+  @media(max-width:560px){.fbar{grid-template-columns:5.5rem 1fr auto}}
+
   .state{padding:2.5rem 1rem;text-align:center;color:var(--muted)}
   .denied{max-width:34rem;margin:4rem auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:2rem;text-align:center;box-shadow:var(--shadow)}
   .denied h2{font-weight:800;margin:.2rem 0 .5rem}
@@ -146,6 +174,7 @@
       <button class="vtab" data-v="partenaires" role="tab" aria-selected="false">Partenaires</button>
       <button class="vtab" data-v="entreprises" role="tab" aria-selected="false">Entreprises</button>
       <button class="vtab" data-v="secteurs" role="tab" aria-selected="false">Entreprises par secteur</button>
+      <button class="vtab" data-v="frequentation" role="tab" aria-selected="false">Fréquentation</button>
     </div>
 
     <div class="card"><div class="scroll">
@@ -231,7 +260,7 @@ function setView(v){ VIEW=v; [...document.querySelectorAll('.vtab')].forEach(b=>
 document.querySelectorAll('.vtab').forEach(b=>b.onclick=()=>setView(b.dataset.v));
 
 function render(){
-  const map={suivi:renderSuivi, correspondance:renderCorrespondance, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs};
+  const map={suivi:renderSuivi, correspondance:renderCorrespondance, options:renderOptions, partenaires:renderPartenaires, entreprises:renderEntreprises, secteurs:renderSecteurs, frequentation:renderFrequentation};
   (map[VIEW]||renderSuivi)();
 }
 const isPartner = r => /Partenaire/i.test(r.x_role||'');
@@ -485,6 +514,92 @@ function renderSecteurs(){
     h+='</tbody></table></div>';
   });
   $('#view').className=''; $('#view').innerHTML=h;
+}
+
+// ---- Onglet « Fréquentation » : audience du site vitrine (Cloudflare Web Analytics) ----
+let STATS = null;              // cache mémoire (rechargé au clic sur l'onglet)
+const PAYS_FR = { 'France':'France', 'United States':'États-Unis', 'Netherlands':'Pays-Bas',
+  'Belgium':'Belgique', 'Germany':'Allemagne', 'United Kingdom':'Royaume-Uni', 'Spain':'Espagne',
+  'Italy':'Italie', 'Switzerland':'Suisse', 'Luxembourg':'Luxembourg', 'Canada':'Canada',
+  'Morocco':'Maroc', 'Tunisia':'Tunisie', 'Algeria':'Algérie', 'Ireland':'Irlande',
+  'Portugal':'Portugal', 'Reunion':'La Réunion', 'Senegal':'Sénégal', 'Singapore':'Singapour',
+  'Finland':'Finlande', 'Poland':'Pologne', 'Sweden':'Suède', 'China':'Chine' };
+const APPAREIL_FR = { 'desktop':'Ordinateur', 'mobile':'Mobile', 'tablet':'Tablette', 'other':'Autre', '':'Inconnu' };
+const fInt = n => (n==null?'0':Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' '));
+const dLabel = iso => { const d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'}); };
+function fqBars(rows, key, colorVar, fmt){
+  const max = Math.max(1, ...rows.map(r=>r[key]));
+  return rows.map(r=>`<div class="fbar"><span class="fk" title="${esc(r.label)}">${esc(r.label)}</span>`
+    + `<span class="ftrack"><span class="ffill" style="width:${Math.max(2,Math.round(r[key]/max*100))}%;background:${colorVar}"></span></span>`
+    + `<span class="fv">${fmt?fmt(r[key]):fInt(r[key])}</span></div>`).join('');
+}
+function renderFrequentation(){
+  const v = $('#view'); v.className='';
+  v.innerHTML = `<div class="state" style="padding:2.2rem">Chargement des statistiques de fréquentation…</div>`;
+  const paint = () => {
+    const s = STATS;
+    const dmax = Math.max(1, ...s.daily.map(d=>d.visits));
+    const cols = s.daily.map(d=>{
+      const h = Math.max(2, Math.round(d.visits/dmax*100));
+      return `<span class="dcol" title="${dLabel(d.date)} : ${fInt(d.visits)} visite(s)"><span class="dfill" style="height:${h}%"></span></span>`;
+    }).join('');
+    const first=s.daily[0], last=s.daily[s.daily.length-1];
+    const mid=s.daily[Math.floor(s.daily.length/2)];
+    const devRows = s.devices.map(d=>({label:(APPAREIL_FR[d.name]||d.name), visits:d.visits}));
+    const totDev = Math.max(1, devRows.reduce((a,r)=>a+r.visits,0));
+    devRows.forEach(r=>r.pct=Math.round(r.visits/totDev*100));
+    const paysRows = s.countries.slice(0,7).map(c=>({label:(PAYS_FR[c.name]||c.name), visits:c.visits}));
+    const totPays = Math.max(1, s.countries.reduce((a,c)=>a+c.visits,0));
+    const franceShare = (s.countries[0] && /France/i.test(s.countries[0].name)) ? Math.round(s.countries[0].visits/totPays*100) : null;
+    const pageRows = s.pages.slice(0,8).map(p=>({label:(p.path==='/'?'Accueil':p.path), visits:p.pageviews}));
+
+    v.innerHTML = `
+    <div class="fq-note">Audience du <b>site vitrine</b> (www.levillagedesrecruteurs.fr) · 30 derniers jours · source Cloudflare Web Analytics (sans cookie, données anonymes). Ces chiffres sont propres au site&nbsp;: ils ne dépendent pas de l'événement sélectionné ci-dessus.</div>
+    <div class="fq-kpis">
+      <div class="fq-kpi"><span class="v">${fInt(s.totals.visits)}</span><span class="l">Visites (30 j)</span></div>
+      <div class="fq-kpi"><span class="v">${fInt(s.totals.pageviews)}</span><span class="l">Pages vues (30 j)</span></div>
+      <div class="fq-kpi"><span class="v">${(s.totals.visits? (s.totals.pageviews/s.totals.visits):0).toFixed(1).replace('.',',')}</span><span class="l">Pages par visite</span></div>
+      <div class="fq-kpi"><span class="v">${franceShare!=null?franceShare+' %':'–'}</span><span class="l">Visiteurs en France</span></div>
+    </div>
+
+    <div class="fq-card">
+      <h3>Visites par jour</h3>
+      <div class="daychart">${cols}</div>
+      <div class="dayaxis"><span>${dLabel(first.date)}</span><span>${dLabel(mid.date)}</span><span>${dLabel(last.date)}</span></div>
+    </div>
+
+    <div class="fq-grid">
+      <div class="fq-card">
+        <h3>Types d'appareils</h3>
+        <div class="fbars">${fqBars(devRows,'visits','var(--navy)', n=>fInt(n))}</div>
+      </div>
+      <div class="fq-card">
+        <h3>Provenance</h3>
+        <div class="fbars">${fqBars(paysRows,'visits','var(--teal,#0B8478)', n=>fInt(n))}</div>
+      </div>
+    </div>
+
+    <div class="fq-card">
+      <h3>Pages les plus vues</h3>
+      <div class="fbars">${fqBars(pageRows,'visits','var(--rose)', n=>fInt(n))}</div>
+      <p class="fq-cap">En nombre de pages vues sur 30 jours.</p>
+    </div>`;
+  };
+  if (STATS){ paint(); }
+  fetch('/api/stats',{cache:'no-store'})
+    .then(r=>r.json())
+    .then(j=>{
+      if(!j || !j.ok){
+        const msg = (j && j.error) ? esc(j.error) : 'Statistiques indisponibles.';
+        v.innerHTML = `<div class="state" style="padding:2rem;text-align:left;line-height:1.6">`
+          + `<b>Statistiques indisponibles.</b><br><span style="color:var(--muted)">${msg}</span>`
+          + (/CF_ANALYTICS_TOKEN|jeton/i.test(msg) ? `<br><br><span style="color:var(--muted)">Le jeton API Cloudflare n'est pas encore configuré côté serveur.</span>` : '')
+          + `</div>`;
+        return;
+      }
+      STATS = j; paint();
+    })
+    .catch(()=>{ if(!STATS) v.innerHTML = `<div class="state" style="padding:2rem">Erreur réseau lors du chargement des statistiques.</div>`; });
 }
 
 async function toggleRelance(id, el){
