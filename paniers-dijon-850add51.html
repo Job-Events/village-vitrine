@@ -151,7 +151,7 @@
 <div class="wrap" style="margin-top:1.2rem">
   <div id="clotureBar" style="background:var(--gold-soft);color:#3a2600;border-radius:12px;padding:.85rem 1.1rem;font:600 .95rem/1.4 var(--ui);display:flex;gap:.6rem;align-items:center">
     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" style="flex:none;width:20px;height:20px"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg>
-    <span id="clotureMsg">Commandes ouvertes jusqu’au <b>mardi 22 septembre, 18h</b>. Après cette date, les commandes seront clôturées afin de permettre à nos restaurateurs de préparer des repas frais et de qualité.</span>
+    <span id="clotureMsg">Réouverture exceptionnelle des commandes jusqu’à <b>ce mercredi 23 septembre, 10h20</b>. Passé ce délai, les commandes en ligne seront de nouveau closes.</span>
   </div>
 </div>
 
@@ -472,7 +472,7 @@
   });
 
   // ---- Clôture des commandes en ligne (Dijon : mardi 22 septembre 2026, 18h, heure de Paris) ----
-  var CLOTURE = Date.parse("2026-09-22T18:00:00+02:00");
+  var CLOTURE = Date.parse("2026-09-23T10:20:00+02:00");
   function estClos(){ return isFinite(CLOTURE) && Date.now() >= CLOTURE; }
   function fermerCommandes(){
     var bar=document.getElementById("clotureBar"), bmsg=document.getElementById("clotureMsg");
