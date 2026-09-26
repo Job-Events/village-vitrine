@@ -691,11 +691,11 @@
 /* ===== Aperçu de votre stand (simulateur) + page « Aperçu des stands » ===== */
 .sim-apercu{padding:1.1rem 1.2rem}
 .sim-apercu .sa-eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--blue-d);background:var(--paper-blue);padding:.2rem .55rem;border-radius:999px;margin-bottom:.75rem}
-.sim-apercu .sa-body{display:flex;gap:.9rem;align-items:stretch}
-.sim-apercu .sa-media{flex:0 0 42%;max-width:190px;border-radius:12px;overflow:hidden;background:#F3E4D4;cursor:zoom-in;line-height:0}
-.sim-apercu .sa-media img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3}
-.sim-apercu .sa-media.sa-soon{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;background:var(--paper-2);border:1px dashed var(--line);color:var(--muted);font-size:.8rem;font-weight:600;text-align:center;padding:.5rem;line-height:1.3;cursor:default}
-.sim-apercu .sa-txt{display:flex;flex-direction:column;justify-content:center;gap:.22rem}
+.sim-apercu .sa-body{display:flex;flex-direction:column;gap:.7rem;align-items:stretch}
+.sim-apercu .sa-media{width:100%;aspect-ratio:5/2;border-radius:12px;overflow:hidden;background:#F3E4D4;cursor:zoom-in;line-height:0}
+.sim-apercu .sa-media img{width:100%;height:100%;object-fit:cover;display:block}
+.sim-apercu .sa-media.sa-soon{display:flex;align-items:center;justify-content:center;background:var(--paper-2);border:1px dashed var(--line);color:var(--muted);font-size:.85rem;font-weight:600;text-align:center;padding:.5rem;line-height:1.3;cursor:default}
+.sim-apercu .sa-txt{display:flex;flex-direction:column;gap:.25rem}
 .sim-apercu .sa-txt b{font-size:.98rem;color:var(--navy);line-height:1.2}
 .sim-apercu .sa-txt small{color:var(--muted);font-size:.82rem}
 .sim-apercu .sa-link{margin-top:.4rem;font-weight:700;color:var(--rose-txt);font-size:.86rem;text-decoration:none}
