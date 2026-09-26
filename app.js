@@ -5,7 +5,21 @@ window.NEWLOGOS={"Intérim et emploi":[{"n":"APEC","s":"/img/logo-apec.webp"},{"
 window.WLOGOS={"ladapt":"/img/logo-ladapt.webp","triangle":"/img/logo-triangle.webp","adecco":"/img/logo-adecco.webp","afpa":"/img/logo-afpa-2.webp","aldi":"/img/logo-aldi.webp","auchan":"/img/logo-auchan.webp","axa":"/img/logo-axa-2.webp","baby":"/img/logo-baby.webp","banquepop":"/img/logo-banquepop.webp","bk":"/img/logo-bk.webp","caissdep":"/img/logo-caissdep.webp","casto":"/img/logo-casto.webp","cdiscount":"/img/logo-cdiscount.webp","cesi":"/img/logo-cesi-2.webp","club":"/img/logo-club.webp","credita":"/img/logo-credita.webp","cuis":"/img/logo-cuis.webp","eiffage":"/img/logo-eiffage.webp","engie":"/img/logo-engie-2.webp","formasup":"/img/logo-formasup.webp","framatome":"/img/logo-framatome.webp","galerie":"/img/logo-galerie.webp","geodis":"/img/logo-geodis-2.webp","grandfrais":"/img/logo-grandfrais.webp","greta":"/img/logo-greta-2.webp","human":"/img/logo-human.webp","idrac":"/img/logo-idrac-2.webp","itg":"/img/logo-itg.webp","kedge":"/img/logo-kedge.webp","keolis":"/img/logo-keolis.webp","laposte":"/img/logo-laposte.webp","lavorel":"/img/logo-lavorel.webp","lidl":"/img/logo-lidl-2.webp","macif":"/img/logo-macif-2.webp","maif":"/img/logo-maif.webp","manpo":"/img/logo-manpo.webp","metro":"/img/logo-metro.webp","miche":"/img/logo-miche.webp","ministere":"/img/logo-ministere.webp","monop":"/img/logo-monop.webp","norauto":"/img/logo-norauto.webp","primark":"/img/logo-primark-2.webp","proman":"/img/logo-proman.webp","randstad":"/img/logo-randstad.webp","schmid":"/img/logo-schmid.webp","sncf":"/img/logo-sncf.webp","societegene":"/img/logo-societegene.webp","stef":"/img/logo-stef-2.webp","stgob":"/img/logo-stgob.webp","synergie":"/img/logo-synergie-2.webp","veepee":"/img/logo-veepee.webp","xefi":"/img/logo-xefi.webp","xpo":"/img/logo-xpo.webp"};
 
 /* ===== bloc 3, issu de index.html ===== */
-window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp"];
+window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp","/img/galerie-370.webp","/img/galerie-371.webp","/img/galerie-372.webp"];
+
+/* Métadonnées des photos (ville · date), affichées dans la visionneuse au clic.
+   Sert aussi à identifier les clichés les plus récents, remontés en haut de la
+   galerie. Il suffit d’ajouter une entrée ici quand on connaît la provenance. */
+window.PHOTO_META={
+  "/img/galerie-365.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-366.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-367.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-368.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-369.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-370.webp":{ville:"Dijon",date:"24 sept. 2026"},
+  "/img/galerie-371.webp":{ville:"Toulouse",date:"16–17 sept. 2026"},
+  "/img/galerie-372.webp":{ville:"Toulouse",date:"16–17 sept. 2026"}
+};
 
 /* ===== stands : photos reelles classees par nombre de professionnels =====
    Pour ajouter une photo : l ajouter a window.PHOTOS ci-dessus (galerie),
@@ -75,11 +89,19 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var sdrp=document.getElementById('sdr-photo');
   if(sdrp)sdrp.innerHTML=photoTile(19,'Vous recevez les candidats, en présentiel ou en visio',false);
   /* Galerie « En images » + lightbox */
+  /* Ordre : les photos les plus récentes (celles dont on connaît la provenance
+     dans PHOTO_META) remontent en haut, avec un léger mélange pour éviter un tri
+     trop rigide. La visionneuse suit cet ordre et affiche ville · date au clic. */
+  var META=window.PHOTO_META||{};
+  function _shuffle(a){for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+  function _lightMix(a){for(var k=0;k<a.length-1;k++){if(Math.random()<0.2){var t=a[k];a[k]=a[k+1];a[k+1]=t;}}return a;}
+  var GALL=(function(){var recent=[],older=[];for(var k=0;k<PH.length;k++){(META[PH[k]]?recent:older).push(k);}_shuffle(recent);_lightMix(older);var arr=recent.concat(older);_lightMix(arr);return arr;})();
   var gg=document.getElementById('galerie-grid');
-  if(gg){var h='';for(var i=0;i<PH.length;i++){h+='<button class="gcell" onclick="lightbox('+i+')"><img loading="lazy" src="'+vignette(PH[i])+'" alt="Village des Recruteurs, photo '+(i+1)+'"></button>';}gg.innerHTML=h;}
-  var lbIdx=0;
-  function lightbox(i){lbIdx=(i+PH.length)%PH.length;var lb=document.getElementById('lb');document.getElementById('lb-img').src=PH[lbIdx];document.getElementById('lb-count').textContent=(lbIdx+1)+' / '+PH.length;if(lb.showModal&&!lb.open){lb.showModal();}else{lb.setAttribute('open','');}var x=lb.querySelector('.lb-x');if(x)x.focus();}
-  function lbNav(d,e){if(e)e.stopPropagation();lightbox(lbIdx+d);}
+  if(gg){var h='';for(var gi=0;gi<GALL.length;gi++){var pi=GALL[gi];h+='<button class="gcell" onclick="lightbox('+pi+')"><img loading="lazy" src="'+vignette(PH[pi])+'" alt="Village des Recruteurs'+(META[PH[pi]]?', '+META[PH[pi]].ville+' '+META[PH[pi]].date:', photo '+(gi+1))+'"></button>';}gg.innerHTML=h;}
+  var lbPos=0;
+  function lightbox(i){var p=GALL.indexOf(i);lbPos=(p<0?0:p);_showLb();}
+  function _showLb(){var i=GALL[lbPos];var lb=document.getElementById('lb');document.getElementById('lb-img').src=PH[i];document.getElementById('lb-count').textContent=(lbPos+1)+' / '+GALL.length;var cap=document.getElementById('lb-cap');if(cap){var m=META[PH[i]];if(m){cap.textContent=(m.ville||'')+((m.ville&&m.date)?' · ':'')+(m.date||'');cap.hidden=false;}else{cap.textContent='';cap.hidden=true;}}if(lb.showModal&&!lb.open){lb.showModal();}else{lb.setAttribute('open','');}var x=lb.querySelector('.lb-x');if(x)x.focus();}
+  function lbNav(d,e){if(e)e.stopPropagation();lbPos=(lbPos+d+GALL.length)%GALL.length;_showLb();}
   function lbClose(){var d=document.getElementById('lb');if(d.close&&d.open){d.close();}else{d.removeAttribute('open');}}
   window.lightbox=lightbox;window.lbNav=lbNav;window.lbClose=lbClose;
   document.addEventListener('keydown',function(e){if(!document.getElementById('lb').open)return;if(e.key==='Escape')lbClose();else if(e.key==='ArrowRight')lbNav(1);else if(e.key==='ArrowLeft')lbNav(-1);});

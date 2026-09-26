@@ -285,6 +285,8 @@
   .lb .lb-prev{left:1.3rem}.lb .lb-next{right:1.3rem}
   .lb .lb-x:hover,.lb .lb-a:hover{background:rgba(255,255,255,.3)}
   .lb .lb-count{position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);color:#fff;font-size:.85rem;font-weight:700;background:rgba(255,255,255,.12);padding:.3rem .8rem;border-radius:999px}
+  .lb .lb-cap{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);color:#fff;font-size:.92rem;font-weight:600;letter-spacing:.01em;background:rgba(8,50,79,.55);padding:.35rem .9rem;border-radius:999px;white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis}
+  .lb .lb-cap[hidden]{display:none}
 
   /* LOGO WALL */
   .uc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
