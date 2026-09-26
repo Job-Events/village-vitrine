@@ -5,7 +5,7 @@ window.NEWLOGOS={"Intérim et emploi":[{"n":"APEC","s":"/img/logo-apec.webp"},{"
 window.WLOGOS={"ladapt":"/img/logo-ladapt.webp","triangle":"/img/logo-triangle.webp","adecco":"/img/logo-adecco.webp","afpa":"/img/logo-afpa-2.webp","aldi":"/img/logo-aldi.webp","auchan":"/img/logo-auchan.webp","axa":"/img/logo-axa-2.webp","baby":"/img/logo-baby.webp","banquepop":"/img/logo-banquepop.webp","bk":"/img/logo-bk.webp","caissdep":"/img/logo-caissdep.webp","casto":"/img/logo-casto.webp","cdiscount":"/img/logo-cdiscount.webp","cesi":"/img/logo-cesi-2.webp","club":"/img/logo-club.webp","credita":"/img/logo-credita.webp","cuis":"/img/logo-cuis.webp","eiffage":"/img/logo-eiffage.webp","engie":"/img/logo-engie-2.webp","formasup":"/img/logo-formasup.webp","framatome":"/img/logo-framatome.webp","galerie":"/img/logo-galerie.webp","geodis":"/img/logo-geodis-2.webp","grandfrais":"/img/logo-grandfrais.webp","greta":"/img/logo-greta-2.webp","human":"/img/logo-human.webp","idrac":"/img/logo-idrac-2.webp","itg":"/img/logo-itg.webp","kedge":"/img/logo-kedge.webp","keolis":"/img/logo-keolis.webp","laposte":"/img/logo-laposte.webp","lavorel":"/img/logo-lavorel.webp","lidl":"/img/logo-lidl-2.webp","macif":"/img/logo-macif-2.webp","maif":"/img/logo-maif.webp","manpo":"/img/logo-manpo.webp","metro":"/img/logo-metro.webp","miche":"/img/logo-miche.webp","ministere":"/img/logo-ministere.webp","monop":"/img/logo-monop.webp","norauto":"/img/logo-norauto.webp","primark":"/img/logo-primark-2.webp","proman":"/img/logo-proman.webp","randstad":"/img/logo-randstad.webp","schmid":"/img/logo-schmid.webp","sncf":"/img/logo-sncf.webp","societegene":"/img/logo-societegene.webp","stef":"/img/logo-stef-2.webp","stgob":"/img/logo-stgob.webp","synergie":"/img/logo-synergie-2.webp","veepee":"/img/logo-veepee.webp","xefi":"/img/logo-xefi.webp","xpo":"/img/logo-xpo.webp"};
 
 /* ===== bloc 3, issu de index.html ===== */
-window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp","/img/galerie-370.webp","/img/galerie-371.webp","/img/galerie-372.webp"];
+window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp","/img/galerie-370.webp","/img/galerie-371.webp","/img/galerie-372.webp","/img/galerie-373.webp"];
 
 /* Métadonnées des photos (ville · date), affichées dans la visionneuse au clic.
    Sert aussi à identifier les clichés les plus récents, remontés en haut de la
@@ -18,7 +18,8 @@ window.PHOTO_META={
   "/img/galerie-369.webp":{ville:"Dijon",date:"24 sept. 2026"},
   "/img/galerie-370.webp":{ville:"Dijon",date:"24 sept. 2026"},
   "/img/galerie-371.webp":{ville:"Toulouse",date:"16–17 sept. 2026"},
-  "/img/galerie-372.webp":{ville:"Toulouse",date:"16–17 sept. 2026"}
+  "/img/galerie-372.webp":{ville:"Toulouse",date:"16–17 sept. 2026"},
+  "/img/galerie-373.webp":{ville:"Dijon",date:"24 sept. 2026"}
 };
 
 /* ===== stands : photos reelles classees par nombre de professionnels =====
@@ -27,10 +28,11 @@ window.PHOTO_META={
    l exposant. La page « Aperçu des stands » et la carte du simulateur se
    mettent a jour automatiquement. */
 window.STANDS=[
-  {src:"/img/galerie-365.webp",tables:2,expo:"Université Bourgogne Europe",ville:"Dijon"},
-  {src:"/img/galerie-367.webp",tables:2,expo:"VYV3 Bourgogne",ville:"Dijon"},
-  {src:"/img/galerie-366.webp",tables:1,expo:"CESI École d’ingénieurs",ville:"Dijon"},
-  {src:"/img/galerie-369.webp",tables:1,expo:"Côte-d’Or · Européenne de Condiments",ville:"Dijon"}
+  {src:"/img/galerie-373.webp",tables:6,expo:"SNCF Voyageurs Dijon",ville:"Dijon"},
+  {src:"/img/galerie-365.webp",tables:3,expo:"Université Bourgogne Europe",ville:"Dijon"},
+  {src:"/img/galerie-367.webp",tables:3,expo:"VYV3 Bourgogne",ville:"Dijon"},
+  {src:"/img/galerie-369.webp",tables:2,expo:"Européenne de Condiments",ville:"Dijon"},
+  {src:"/img/galerie-366.webp",tables:1,expo:"CESI École d’ingénieurs",ville:"Dijon"}
 ];
 
 /* ===== bloc 4, issu de index.html ===== */
@@ -647,10 +649,10 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     document.getElementById('sim-pack-desc').textContent=p.desc;
     computeSim();
   }
-  function cityList(){return (simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past'&&!v.tbd;}).map(function(v){return v.city;});}
+  function cityList(){return (simState.year==='2027'?villages2027:villages2026).filter(function(v){return !isPast(v)&&!v.tbd;}).map(function(v){return v.city;});}
   function renderCities(){
     var wrap=document.getElementById('sim-cities');if(!wrap)return;
-    var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return v.state!=='past'&&!v.tbd;});
+    var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return !isPast(v)&&!v.tbd;});
     wrap.innerHTML=arr.map(function(v){return '<label><input type="checkbox" class="sim-city" value="'+v.city+'"> <span class="ci-mois">'+v.mois+'</span> '+v.city+'</label>';}).join('');
     wrap.querySelectorAll('input').forEach(function(i){i.addEventListener('change',computeSim);});
     var ea=document.getElementById('d-early'), line=document.getElementById('line-early');
