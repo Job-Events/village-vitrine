@@ -9,7 +9,7 @@ Usage : python build.py
 Sortie : les 23 fichiers HTML, sitemap.xml, et app.js adapte a la navigation
          par adresse reelle.
 """
-import io, os, re, sys, shutil, unicodedata
+import io, os, re, sys, shutil, unicodedata, datetime
 
 SOURCE = '_source.html'   # document source, distinct des fichiers generes
 SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
@@ -75,6 +75,9 @@ PAGES = [
  ('simulateur', '/simulateur/', 'Simuler votre participation',
   'Composez votre stand et vos options : le coût de votre participation au '
   'Village des Recruteurs s’ajuste en direct, remises comprises.'),
+ ('stands', '/nos-stands/', 'À quoi ressemble un stand',
+  'Des photos de vrais stands du Village des Recruteurs, classées par nombre de '
+  'tables (une table par professionnel), d’une à quatre tables.'),
  ('faq', '/faq/', 'FAQ, vos questions sur le salon',
   'Inscription, horaires, CV, accessibilité : les réponses aux questions des '
   'candidats et des exposants du Village des Recruteurs.'),
@@ -105,6 +108,37 @@ def de(nom):
     """elision devant une voyelle : de Lyon, mais d Orleans"""
     return (u"d’" + nom) if nom[:1].lower() in u"aeiouyhéèê" \
            else (u"de " + nom)
+
+
+_MOIS_TOK = [('janv', 1), ('fevr', 2), ('mars', 3), ('avr', 4), ('mai', 5),
+             ('juin', 6), ('juil', 7), ('aout', 8), ('sept', 9), ('oct', 10),
+             ('nov', 11), ('dec', 12)]
+
+def date_fin(v):
+    """Derniere date d un evenement, lue depuis son libelle (« 16-17 sept. 2026 »
+    -> 17/09/2026). Renvoie None si le libelle n a pas de jour precis."""
+    s = v.get('date', '') or ''
+    an = re.search(r'20\d\d', s)
+    if not an:
+        return None
+    low = unicodedata.normalize('NFKD', s.lower()).encode('ascii', 'ignore').decode()
+    mois = next((mm for tok, mm in _MOIS_TOK if tok in low), None)
+    if not mois:
+        return None
+    jours = [int(x) for x in re.findall(r'\d{1,2}', re.sub(r'20\d\d', '', s))]
+    if not jours:
+        return None
+    try:
+        return datetime.date(int(an.group(0)), mois, max(jours))
+    except ValueError:
+        return None
+
+def is_past(v):
+    """Un evenement est clos si son etat le dit, ou si son dernier jour est passe."""
+    if v.get('state') == 'past':
+        return True
+    d = date_fin(v)
+    return d is not None and d < datetime.date.today()
 
 
 # ---------------------------------------------------------------- lecture de la source
@@ -182,7 +216,7 @@ print('villes lues :', len(VILLES), '->', ', '.join(v['city'] for v in VILLES))
 def page_ville(v):
     """contenu statique d une fiche de ville, redige et non genere par script"""
     slug = ardoise(v['city'])
-    passe = v.get('state') == 'past'
+    passe = is_past(v)
     inscr = v.get('ms', '')
     secteurs = ', '.join(v['sectors'])
     horaire = '9 h 30 à 17 h'
@@ -352,7 +386,7 @@ def liste_villes_statique():
     """
     li = []
     for v in VILLES:
-        etat = (u"Édition clôturée" if v.get("state") == "past"
+        etat = (u"Édition clôturée" if is_past(v)
                 else u"Inscriptions ouvertes")
         li.append(
             u'        <li><a href="/nos-villages/%s/">Village des Recruteurs '

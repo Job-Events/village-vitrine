@@ -5,7 +5,19 @@ window.NEWLOGOS={"Intérim et emploi":[{"n":"APEC","s":"/img/logo-apec.webp"},{"
 window.WLOGOS={"ladapt":"/img/logo-ladapt.webp","triangle":"/img/logo-triangle.webp","adecco":"/img/logo-adecco.webp","afpa":"/img/logo-afpa-2.webp","aldi":"/img/logo-aldi.webp","auchan":"/img/logo-auchan.webp","axa":"/img/logo-axa-2.webp","baby":"/img/logo-baby.webp","banquepop":"/img/logo-banquepop.webp","bk":"/img/logo-bk.webp","caissdep":"/img/logo-caissdep.webp","casto":"/img/logo-casto.webp","cdiscount":"/img/logo-cdiscount.webp","cesi":"/img/logo-cesi-2.webp","club":"/img/logo-club.webp","credita":"/img/logo-credita.webp","cuis":"/img/logo-cuis.webp","eiffage":"/img/logo-eiffage.webp","engie":"/img/logo-engie-2.webp","formasup":"/img/logo-formasup.webp","framatome":"/img/logo-framatome.webp","galerie":"/img/logo-galerie.webp","geodis":"/img/logo-geodis-2.webp","grandfrais":"/img/logo-grandfrais.webp","greta":"/img/logo-greta-2.webp","human":"/img/logo-human.webp","idrac":"/img/logo-idrac-2.webp","itg":"/img/logo-itg.webp","kedge":"/img/logo-kedge.webp","keolis":"/img/logo-keolis.webp","laposte":"/img/logo-laposte.webp","lavorel":"/img/logo-lavorel.webp","lidl":"/img/logo-lidl-2.webp","macif":"/img/logo-macif-2.webp","maif":"/img/logo-maif.webp","manpo":"/img/logo-manpo.webp","metro":"/img/logo-metro.webp","miche":"/img/logo-miche.webp","ministere":"/img/logo-ministere.webp","monop":"/img/logo-monop.webp","norauto":"/img/logo-norauto.webp","primark":"/img/logo-primark-2.webp","proman":"/img/logo-proman.webp","randstad":"/img/logo-randstad.webp","schmid":"/img/logo-schmid.webp","sncf":"/img/logo-sncf.webp","societegene":"/img/logo-societegene.webp","stef":"/img/logo-stef-2.webp","stgob":"/img/logo-stgob.webp","synergie":"/img/logo-synergie-2.webp","veepee":"/img/logo-veepee.webp","xefi":"/img/logo-xefi.webp","xpo":"/img/logo-xpo.webp"};
 
 /* ===== bloc 3, issu de index.html ===== */
-window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp"];
+window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp"];
+
+/* ===== stands : photos reelles classees par nombre de professionnels =====
+   Pour ajouter une photo : l ajouter a window.PHOTOS ci-dessus (galerie),
+   puis ajouter une entree ici avec son chemin, le nombre de personnes et
+   l exposant. La page « Aperçu des stands » et la carte du simulateur se
+   mettent a jour automatiquement. */
+window.STANDS=[
+  {src:"/img/galerie-365.webp",tables:2,expo:"Université Bourgogne Europe",ville:"Dijon"},
+  {src:"/img/galerie-367.webp",tables:2,expo:"VYV3 Bourgogne",ville:"Dijon"},
+  {src:"/img/galerie-366.webp",tables:1,expo:"CESI École d’ingénieurs",ville:"Dijon"},
+  {src:"/img/galerie-369.webp",tables:1,expo:"Côte-d’Or · Européenne de Condiments",ville:"Dijon"}
+];
 
 /* ===== bloc 4, issu de index.html ===== */
 var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobevents.webp", "msq": "/img/logo-msq.png", "sdr": "/img/logo-sdr.webp"};
@@ -71,6 +83,61 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   function lbClose(){var d=document.getElementById('lb');if(d.close&&d.open){d.close();}else{d.removeAttribute('open');}}
   window.lightbox=lightbox;window.lbNav=lbNav;window.lbClose=lbClose;
   document.addEventListener('keydown',function(e){if(!document.getElementById('lb').open)return;if(e.key==='Escape')lbClose();else if(e.key==='ArrowRight')lbNav(1);else if(e.key==='ArrowLeft')lbNav(-1);});
+
+  /* ---- APERÇU DES STANDS : photos réelles classées par nombre de professionnels ---- */
+  var STANDS=window.STANDS||[];
+  function standsFor(n){return STANDS.filter(function(s){return s.tables===n;});}
+  /* photo représentative pour un nombre de tables donné : correspondance exacte,
+     sinon le plus proche en dessous, sinon le plus proche au-dessus. */
+  function standPhotoFor(n){
+    if(!STANDS.length)return null;
+    var ex=standsFor(n); if(ex.length)return ex[0];
+    var below=STANDS.filter(function(s){return s.tables<n;}).sort(function(a,b){return b.tables-a.tables;});
+    if(below.length)return below[0];
+    return STANDS.slice().sort(function(a,b){return a.tables-b.tables;})[0];
+  }
+  function standFig(s){
+    var i=PH.indexOf(s.src);
+    var cap=s.expo?('<figcaption>'+s.expo+(s.ville?' · <span>'+s.ville+'</span>':'')+'</figcaption>'):'';
+    var clk=i>=0?' onclick="lightbox('+i+')"':'';
+    return '<figure class="stand-fig"'+clk+' tabindex="0" role="button" aria-label="Agrandir la photo du stand '+(s.expo||'')+'">'
+      +'<img loading="lazy" src="'+s.src+'" alt="Stand '+(s.expo||'Village des Recruteurs')+', '+s.tables+' table'+(s.tables>1?'s':'')+'">'+cap+'</figure>';
+  }
+  /* Page « Aperçu des stands » : une section par nombre de tables (1, 2, 3, 4, …),
+     extensible — il suffit d’ajouter une entrée à window.STANDS. */
+  function renderStands(){
+    var host=document.getElementById('stands-grid'); if(!host)return;
+    var maxN=4; STANDS.forEach(function(s){if(s.tables>maxN)maxN=s.tables;});
+    var html='';
+    for(var n=1;n<=maxN;n++){
+      var m2=4+(n-1)*3, photos=standsFor(n);
+      html+='<section class="stand-block">'
+        +'<div class="stand-head"><h2>À '+n+' table'+(n>1?'s':'')+'</h2>'
+        +'<span class="stand-meta">Stand de '+m2+' m²'+(photos.length?' · '+photos.length+' photo'+(photos.length>1?'s':''):'')+'</span></div>';
+      if(photos.length){ html+='<div class="stand-figs">'+photos.map(standFig).join('')+'</div>'; }
+      else { html+='<div class="stand-empty">Photos à venir. Vous avez un cliché de stand à '+n+' table'+(n>1?'s':'')+' ? Écrivez-nous à <b>communication@job.events</b>.</div>'; }
+      html+='</section>';
+    }
+    host.innerHTML=html;
+  }
+  renderStands();
+  /* Carte « Aperçu de votre stand » dans le simulateur (mise à jour par computeSim).
+     Une table = un professionnel : le nombre de tables suit la taille du stand. */
+  function updateStandPreview(n){
+    var box=document.getElementById('sim-apercu'); if(!box)return;
+    if(!n||n<1||!STANDS.length){box.hidden=true;box.innerHTML='';return;}
+    var s=standPhotoFor(n), i=s?PH.indexOf(s.src):-1, m2=4+(n-1)*3;
+    var clk=i>=0?' onclick="lightbox('+i+')"':'';
+    box.hidden=false;
+    box.innerHTML='<span class="sa-eyebrow">Aperçu de votre stand</span>'
+      +'<div class="sa-body">'
+      +'<div class="sa-media"'+clk+' role="button" tabindex="0" aria-label="Agrandir la photo">'
+      +(s?'<img loading="lazy" src="'+s.src+'" alt="Exemple de stand à '+n+' table'+(n>1?'s':'')+'">':'')+'</div>'
+      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+'</b>'
+      +(s&&s.expo?'<small>Exemple : '+s.expo+(s.ville?' · '+s.ville:'')+'</small>':'')
+      +'<a class="sa-link" href="/nos-stands/">Voir d’autres stands, de 1 à 4 tables →</a></div>'
+      +'</div>';
+  }
 
   /* PARTNER LOGOS */
   function logoSVG(name,color,shape){
@@ -194,13 +261,29 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      {city:'Dijon',mois:'Octobre',date:'Octobre 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
      {city:'Lyon',mois:'Octobre',date:'Octobre 2027',cA:'#1C6DA8',cB:'#08324F',coprod:''}
    ];
+  /* ---- État d’un événement calculé depuis sa date (page « Nos Villages » dynamique) ----
+     La date de fin est déduite du libellé (« 16–17 sept. 2026 » -> 17/09/2026,
+     « 24 sept. 2026 » -> 24/09/2026). Un événement dont le dernier jour est passé
+     bascule automatiquement en « clôturé », sans redéploiement. Un statut explicite
+     (v.statut, piloté depuis Odoo) reste prioritaire et permet de forcer l’état. */
+  function eventEnd(v){
+    var s=(v&&v.date)||''; var ym=s.match(/20\d\d/); if(!ym)return null; var year=+ym[0];
+    var low=s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    var MON=[['janv',0],['fevr',1],['mars',2],['avr',3],['mai',4],['juin',5],['juil',6],['aout',7],['sept',8],['oct',9],['nov',10],['dec',11]];
+    var mon=-1; for(var i=0;i<MON.length;i++){if(low.indexOf(MON[i][0])>=0){mon=MON[i][1];break;}}
+    if(mon<0)return null;
+    var nums=(s.replace(/20\d\d/,'').match(/\d{1,2}/g)||[]).map(Number); if(!nums.length)return null;
+    return new Date(year,mon,Math.max.apply(null,nums),23,59,59,999).getTime();
+  }
+  function isPastByDate(v){var e=eventEnd(v);return e!=null&&Date.now()>e;}
+  function isPast(v){return (v&&v.state==='past')||isPastByDate(v);}
   function evtTopStyle(v){
     return v.photo
       ? 'background-image:linear-gradient(160deg,rgba(8,50,79,.28),rgba(8,50,79,.66)),url('+v.photo+');background-size:cover;background-position:center'
       : 'background:linear-gradient(135deg,'+v.cA+','+v.cB+')';
   }
   function evtCard2026(v,idx){
-    if(v.state==='past'){
+    if(isPast(v)){
       return '<div class="evt is-past">'
         +'<a class="top" href="'+urlVille(v.city)+'" style="'+evtTopStyle(v)+'"><span class="status done">'+v.mois+' · Édition passée</span><span class="city">'+v.city+'</span></a>'
         +'<div class="body"><div class="meta"><b>'+v.venue+'</b></div><div class="meta"><b>'+v.date+'</b></div><div class="meta">'+v.count+'</div>'
@@ -228,7 +311,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   (function(){
     var a=document.getElementById('all-events-2026');if(a)a.innerHTML=villages2026.map(evtCard2026).join('');
     var b=document.getElementById('all-events-2027');if(b)b.innerHTML=villages2027.map(evtCard2027).join('');
-    var h=document.getElementById('home-events');if(h){var openv=villages2026.map(function(v,i){return {v:v,i:i};}).filter(function(o){return o.v.state!=='past';}).slice(0,3);h.innerHTML=openv.map(function(o){return evtCard2026(o.v,o.i);}).join('');}
+    var h=document.getElementById('home-events');if(h){var openv=villages2026.map(function(v,i){return {v:v,i:i};}).filter(function(o){return !isPast(o.v);}).slice(0,3);h.innerHTML=openv.map(function(o){return evtCard2026(o.v,o.i);}).join('');}
   })();
   var NV_XY={"Nantes": [134.4, 224.1], "Reims": [340.2, 114.6], "Bordeaux": [170.2, 351.8], "Toulouse": [244.7, 418.4], "Dijon": [377.4, 218.7], "Orléans": [261.6, 187.6], "Lyon": [370.1, 302.4], "Nancy": [419.5, 145.2], "Paris": [278.2, 136.6], "Lille": [304.4, 41], "Aix-en-Provence": [392.2, 422.1], "Strasbourg": [477.4, 151.1], "Rennes": [129.6, 176.3]};
   var NV_PHOTOS={"nantes": "/img/logo-nantes.webp", "reims": "/img/logo-reims.webp", "bordeaux": "/img/logo-bordeaux.webp", "toulouse": "/img/logo-toulouse.webp", "dijon": "/img/logo-dijon.webp", "orleans": "/img/logo-orleans.webp", "lyon": "/img/logo-lyon.webp"};
@@ -239,7 +322,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      EVT_LINKS_URL : mettre l’URL JSON de la page technique Odoo pour piloter les liens sans redéploiement. */
   var EVT_LINKS_URL='';
   var NV_ODOO_FALLBACK='https://jobevents.odoo.com';
-  function nvStatut(v){return v.statut||(v.state==='past'?'cloture':(v.ms?'ouvert':'avenir'));}
+  function nvStatut(v){return v.statut||((v.state==='past'||isPastByDate(v))?'cloture':(v.ms?'ouvert':'avenir'));}
   function applyLinks(cfg){try{[['2026',villages2026],['2027',villages2027]].forEach(function(p){var m=cfg[p[0]]||{};p[1].forEach(function(v){var c=m[v.city];if(!c)return;if(c.statut)v.statut=c.statut;if('ms' in c)v.ms=c.ms;if('odoo' in c)v.odoo=c.odoo;if('candList' in c)v.candList=c.candList;});});}catch(e){}}
   NV_PHOTOS['parc-des-princes']='/img/lieu-parc-des-princes.webp';
   NV_PHOTOS['casino-pasino']='/img/lieu-casino-pasino.webp';
@@ -301,10 +384,11 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var host=document.getElementById('nv-ov');if(!host)return;
     var list=(y==='2027'?villages2027:villages2026);
     var n=list.length, lastPast=-1;
-    list.forEach(function(e,i){if((e.state||'')==='past')lastPast=i;});
+    list.forEach(function(e,i){if(nvStatut(e)==='cloture')lastPast=i;});
     var prog=lastPast>=0?((lastPast+0.5)/n*97):0;
     var stops=list.map(function(e){
-      var st=e.tbd?'soon':((e.state==='past')?'past':(e.state==='open'?'open':'soon'));
+      var stt=nvStatut(e);
+      var st=e.tbd?'soon':(stt==='cloture'?'past':(stt==='ouvert'?'open':'soon'));
       var sym=st==='past'?'✓':(st==='open'?'●':'○');
       var cnt=e.count?('<span class="nvf-cnt">'+String(e.count).replace(/\s*candidats?/i,'')+'</span>'):'';
       var dt=(e.date||'').replace(/\s*20\d\d/,'');
@@ -605,6 +689,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+', remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
     var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
+    updateStandPreview(_ppl);
     var rows='';
     rows+='<div class="sim-row"><span>Stand &amp; participation'+(_m2>0?' <small style="opacity:.7;font-weight:500">stand de '+_m2+' m² · '+_ppl+' pro'+(_ppl>1?'s':'')+'</small>':'')+'</span><span>'+euro(packs)+'</span></div>';
     rows+='<div class="sim-row"><span>Options</span><span>'+euro(opts)+'</span></div>';
@@ -662,6 +747,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     formation:'/centres-de-formation/',entrepreneuriat:'/entrepreneuriat/',
     partenaires:'/partenaires/',matchingsquare:'/matching-square/',
     galerie:'/galerie/',blog:'/actualite/',simulateur:'/simulateur/',
+    stands:'/nos-stands/',
     faq:'/faq/',contact:'/contact/',mentions:'/mentions-legales/',
     jobevents:'/job-events/'};
   function urlVille(nom){
