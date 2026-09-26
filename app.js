@@ -131,7 +131,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      extensible — il suffit d’ajouter une entrée à window.STANDS. */
   function renderStands(){
     var host=document.getElementById('stands-grid'); if(!host)return;
-    var maxN=4; STANDS.forEach(function(s){if(s.tables>maxN)maxN=s.tables;});
+    var maxN=8; STANDS.forEach(function(s){if(s.tables>maxN)maxN=s.tables;});
     var html='';
     for(var n=1;n<=maxN;n++){
       var m2=4+(n-1)*3, photos=standsFor(n);
@@ -139,7 +139,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
         +'<div class="stand-head"><h2>À '+n+' table'+(n>1?'s':'')+'</h2>'
         +'<span class="stand-meta">Stand de '+m2+' m²'+(photos.length?' · '+photos.length+' photo'+(photos.length>1?'s':''):'')+'</span></div>';
       if(photos.length){ html+='<div class="stand-figs">'+photos.map(standFig).join('')+'</div>'; }
-      else { html+='<div class="stand-empty">Photos à venir. Vous avez un cliché de stand à '+n+' table'+(n>1?'s':'')+' ? Écrivez-nous à <b>communication@job.events</b>.</div>'; }
+      else { html+='<div class="stand-empty">Photo disponible bientôt.</div>'; }
       html+='</section>';
     }
     host.innerHTML=html;
@@ -149,17 +149,19 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      Une table = un professionnel : le nombre de tables suit la taille du stand. */
   function updateStandPreview(n){
     var box=document.getElementById('sim-apercu'); if(!box)return;
-    if(!n||n<1||!STANDS.length){box.hidden=true;box.innerHTML='';return;}
-    var s=standPhotoFor(n), i=s?PH.indexOf(s.src):-1, m2=4+(n-1)*3;
-    var clk=i>=0?' onclick="lightbox('+i+')"':'';
+    if(!n||n<1){box.hidden=true;box.innerHTML='';return;}
+    var s=standsFor(n)[0], i=s?PH.indexOf(s.src):-1, m2=4+(n-1)*3;
     box.hidden=false;
+    var media=s
+      ? '<div class="sa-media"'+(i>=0?' onclick="lightbox('+i+')"':'')+' role="button" tabindex="0" aria-label="Agrandir la photo"><img loading="lazy" src="'+s.src+'" alt="Exemple de stand à '+n+' table'+(n>1?'s':'')+'"></div>'
+      : '<div class="sa-media sa-soon"><span>Photo disponible bientôt</span></div>';
+    var sub=s
+      ? (s.expo?'<small>Exemple : '+s.expo+(s.ville?' · '+s.ville:'')+'</small>':'')
+      : '<small>Photo disponible bientôt</small>';
     box.innerHTML='<span class="sa-eyebrow">Aperçu de votre stand</span>'
-      +'<div class="sa-body">'
-      +'<div class="sa-media"'+clk+' role="button" tabindex="0" aria-label="Agrandir la photo">'
-      +(s?'<img loading="lazy" src="'+s.src+'" alt="Exemple de stand à '+n+' table'+(n>1?'s':'')+'">':'')+'</div>'
-      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+'</b>'
-      +(s&&s.expo?'<small>Exemple : '+s.expo+(s.ville?' · '+s.ville:'')+'</small>':'')
-      +'<a class="sa-link" href="/nos-stands/">Voir d’autres stands, de 1 à 4 tables →</a></div>'
+      +'<div class="sa-body">'+media
+      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+'</b>'+sub
+      +'<a class="sa-link" href="/nos-stands/">Voir tous les stands, de 1 à 8 tables →</a></div>'
       +'</div>';
   }
 
@@ -588,7 +590,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var SIM={
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
-      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:3},
+      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:7},
       {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
