@@ -1,52 +1,582 @@
-<title>Paniers repas · Lyon 2026</title>
-<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<title>Commande de paniers repas · Lyon 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap">
 <style>
   :root{
     --paper:#FFF9F1; --paper-2:#FDEBD8; --card:#FFFFFF; --ink:#241A12; --muted:#7A6A5B;
-    --line:rgba(60,40,24,.14);
-    --rose:#E3007B; --rose-d:#B4005F;
+    --line:rgba(60,40,24,.14); --line-2:rgba(60,40,24,.08);
+    --rose:#E3007B; --rose-d:#B4005F; --rose-pastel:#FCE3F0;
+    --blue:#006FB7; --blue-d:#004E82; --blue-pastel:#E1F0FB;
+    --navy:#08324F; --teal:#0FAE9E; --teal-d:#0B8478; --gold:#E39A00; --gold-soft:#F8B322;
+    --ok:#2FA36B;
     --shadow-sm:0 1px 2px rgba(60,40,24,.05),0 8px 22px -14px rgba(80,45,20,.28);
+    --shadow:0 2px 4px rgba(60,40,24,.06),0 22px 48px -24px rgba(80,45,20,.4);
     --ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
-    --serif:"Fraunces",Georgia,serif;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+      --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+      --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+      --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+      --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+      --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14100c; --paper-2:#1e1811; --card:#1d1811; --ink:#f2eae0; --muted:#b3a494;
+    --line:rgba(255,240,220,.14); --line-2:rgba(255,240,220,.07);
+    --rose:#ff5bb0; --rose-d:#ff8bc8; --rose-pastel:#3a141f;
+    --blue:#4aa8ee; --blue-d:#8fcbf6; --blue-pastel:#122a3a;
+    --navy:#bcd6e8; --teal:#33c7b4; --teal-d:#6fe0d0; --gold:#f8b322; --gold-soft:#f8b322;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4),0 8px 22px -14px rgba(0,0,0,.6);
+    --shadow:0 2px 4px rgba(0,0,0,.4),0 22px 48px -24px rgba(0,0,0,.7);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:var(--rose-d)}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+  .draft{background:repeating-linear-gradient(45deg,#241A12,#241A12 12px,#2f2318 12px,#2f2318 24px);color:#FFF9F1;font-family:var(--ui);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;text-align:center;padding:.5rem .8rem}
+  .draft b{color:var(--gold-soft)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 clamp(1rem,4vw,1.75rem)}
+
   header.hero{background:linear-gradient(180deg,var(--paper-2),var(--paper));border-bottom:1px solid var(--line)}
-  .hero-in{max-width:760px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.4rem,4vw,2rem)}
-  .brandline{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.5vw,3rem);line-height:1.04;letter-spacing:-.01em;margin:.5rem 0 .1rem}
+  .hero-in{max-width:960px;margin:0 auto;padding:clamp(1.8rem,5vw,3rem) clamp(1rem,4vw,1.75rem) clamp(1.6rem,4vw,2.4rem)}
+  .brandline{font-family:var(--ui);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:700;color:var(--rose)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.02;letter-spacing:-.01em;margin:.5rem 0 .3rem;text-wrap:balance}
   .h1-city{color:var(--rose)}
-  .hero-sub{font-size:1.05rem;color:var(--muted);margin:.7rem 0 0;max-width:60ch}
-  .wrap{max-width:760px;margin:0 auto;padding:clamp(1.4rem,4vw,2.2rem) clamp(1rem,4vw,1.75rem) 3rem}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.6rem 1.7rem}
-  .card h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.3rem,3.4vw,1.7rem);margin:0 0 .5rem}
-  .card p{margin:0 0 .9rem;color:var(--ink)}
-  .badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--rose-d);background:#FCE3F0;border-radius:999px;padding:.3rem .7rem;margin:0 0 .9rem}
-  footer{max-width:760px;margin:0 auto;padding:1.6rem 1.75rem 3rem;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
-  footer a{color:var(--rose-d);font-weight:600;text-decoration:none}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:none;margin:.2rem 0 1.1rem}
+  .facts{display:flex;flex-wrap:wrap;gap:.5rem}
+  .fact{display:inline-flex;align-items:center;gap:.45rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.86rem;font-weight:500;box-shadow:var(--shadow-sm)}
+  .fact svg{width:1rem;height:1rem;color:var(--rose)}
+
+  section{padding:clamp(2rem,5vw,3rem) 0}
+  .sec-head{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:1.3rem}
+  .sec-head .step{font-family:var(--ui);font-weight:800;font-size:.8rem;color:#fff;background:var(--rose);width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;flex:none}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,4vw,2rem);letter-spacing:-.01em;margin:0}
+  .sec-head p{margin:.1rem 0 0;color:var(--muted);font-size:.95rem;flex-basis:100%}
+
+  .traiteur{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:1.2rem 1.4rem;margin-bottom:1.2rem}
+  .traiteur .tt{font-family:var(--ui);text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;font-weight:700;color:var(--teal-d)}
+  .traiteur h3{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:.15rem 0 .5rem}
+  .traiteur p{margin:0;color:var(--muted);line-height:1.55}
+  .traiteur a{color:var(--rose-d);font-weight:600;text-decoration:none}
+  .traiteur a:hover{text-decoration:underline}
+
+  .day{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:1rem}
+  .day-head{padding:1rem 1.2rem;color:#fff}
+  .day.bowls .day-head{background:linear-gradient(135deg,var(--teal),var(--teal-d))}
+  .day.comp .day-head{background:linear-gradient(135deg,var(--rose),var(--rose-d))}
+  .day-head .d{font-family:var(--ui);text-transform:uppercase;letter-spacing:.05em;font-size:1.05rem;font-weight:800}
+  .day-head .t{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin-top:.15rem}
+  .dishes{padding:.4rem 1.2rem 1.1rem}
+  .dish{padding:.9rem 0;border-bottom:1px solid var(--line-2)}
+  .dish:last-child{border-bottom:0}
+  .dish .n{font-family:var(--serif);font-weight:600;font-size:1.08rem}
+  .tag{font-family:var(--ui);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--teal-d);background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:.08rem .5rem;margin-left:.5rem;white-space:nowrap;vertical-align:middle}
+  .tag.gf{color:var(--gold)}
+  .dish .desc{color:var(--muted);font-size:.9rem;margin:.15rem 0 0;line-height:1.45}
+  .dz-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;padding:.4rem 1.2rem 1.1rem}
+  @media (max-width:600px){.dz-grid{grid-template-columns:1fr}}
+  .dz-lbl{font-family:var(--ui);text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;font-weight:800;color:var(--rose-d);padding:.9rem 0 .1rem;border-bottom:1px solid var(--line-2)}
+  .price-note{background:var(--paper-2);border-radius:10px;padding:.6rem .9rem;font-size:.88rem;color:var(--ink);display:flex;align-items:center;gap:.5rem;margin-top:1rem}
+  .allerg-note{font-size:.82rem;color:var(--muted);margin:.7rem 0 0}
+
+  /* ORDER : people */
+  .order-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(1.1rem,3vw,1.7rem)}
+  .people{display:flex;flex-direction:column;gap:1rem}
+  .person{border:1px solid var(--line);border-radius:15px;background:var(--paper);overflow:hidden}
+  .person-head{display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .pnum{font-family:var(--ui);font-weight:800;font-size:.72rem;color:#fff;background:var(--navy);border-radius:6px;padding:.2rem .5rem;flex:none;letter-spacing:.04em}
+  .person-head input.prenom{flex:1;min-width:0;font-family:var(--ui);font-weight:600;font-size:1rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.5rem .65rem}
+  .rmp{background:none;border:none;color:var(--rose-d);font-family:var(--ui);font-weight:600;font-size:.85rem;cursor:pointer;padding:.25rem .3rem;white-space:nowrap}
+  .rmp:hover{text-decoration:underline}
+  .daywrap{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media (max-width:640px){.daywrap{grid-template-columns:1fr}}
+  .daybox{padding:.95rem 1rem}
+  .daybox.mer{border-right:1px solid var(--line-2)}
+  @media (max-width:640px){.daybox.mer{border-right:0;border-bottom:1px solid var(--line-2)}}
+  .daytoggle{display:flex;align-items:center;gap:.7rem;cursor:pointer;font-weight:600;font-size:1.02rem;user-select:none;flex-wrap:wrap}
+  .dayname{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+  .daytoggle input{width:1.5rem;height:1.5rem;flex:none}
+  .daybox.mer .daytoggle input{accent-color:var(--teal-d)}
+  .daybox.jeu .daytoggle input{accent-color:var(--gold)}
+  .daytoggle .pill{font-family:var(--ui);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.12rem .45rem;border-radius:999px;color:#fff}
+  .daybox.mer .daytoggle .pill{background:var(--teal-d)}
+  .daybox.jeu .daytoggle .pill{background:var(--gold)}
+  .choices{margin-top:.7rem;display:none;flex-direction:column;gap:.55rem}
+  .choices.on{display:flex}
+  .fld{display:flex;flex-direction:column;gap:.25rem;min-width:0}
+  .fld label{font-family:var(--ui);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  select,input[type=text],input[type=email],input[type=tel]{font-family:var(--ui);font-size:.93rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:.5rem .55rem;width:100%;min-width:0}
+  select:focus,input:focus{outline:3px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+  .person-foot{padding:.5rem 1rem .7rem;font-size:.84rem;color:var(--muted)}
+  .person-foot b{color:var(--ink)}
+
+  .btn{font-family:var(--ui);font-weight:700;cursor:pointer;border-radius:999px;border:none;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:.95rem}
+  .btn:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+  .btn-add{background:var(--blue-pastel);color:var(--blue-d);border:2px solid var(--blue);padding:.7rem 1.2rem;margin-top:1rem}
+  .btn-add:hover{background:var(--blue);color:#fff}
+  .btn-primary{background:linear-gradient(135deg,var(--rose),var(--rose-d));color:#fff;padding:.95rem 2rem;font-size:1.05rem;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+  .totals{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;margin-top:1.3rem;padding-top:1.2rem;border-top:2px solid var(--line)}
+  .totals .big{font-family:var(--serif);font-weight:600;font-size:1.6rem;color:var(--ink)}
+  .totals .lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .tot-block{display:flex;flex-direction:column}
+
+  .coord-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:600px){.coord-grid{grid-template-columns:1fr}}
+  .req{color:var(--rose)}
+  .auth{margin-top:1.2rem;background:var(--rose-pastel);border:1.5px solid var(--rose);border-radius:13px;padding:1rem 1.1rem;display:flex;gap:.75rem;align-items:flex-start}
+  .auth input{margin-top:.25rem;width:1.15rem;height:1.15rem;flex:none;accent-color:var(--rose)}
+  .auth label{font-size:.92rem;color:var(--ink)}
+  .submit-row{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start}
+  .err{color:var(--rose-d);font-size:.9rem;font-weight:600;min-height:1.1rem}
+
+  .review{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .review h3{font-family:var(--serif);font-size:1.35rem;font-weight:600;margin:0 0 .2rem;color:var(--ink)}
+  .review .rsub{color:var(--muted);font-size:.9rem;margin:0 0 .3rem}
+  .confirm{display:none;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:14px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-top:1.4rem}
+  .confirm h3{font-family:var(--serif);margin:0 0 .4rem;font-size:1.25rem;color:var(--ink)}
+  .confirm p{margin:.3rem 0;color:var(--muted);font-size:.95rem}
+  .recap{white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.9rem;margin-top:.8rem;max-height:230px;overflow:auto}
+  .mini-btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.9rem}
+  .btn-sec{background:var(--rose-pastel);color:var(--rose-d);border:2px solid var(--rose);padding:.6rem 1.1rem;font-size:.9rem}
+  .btn-sec:hover{background:var(--rose);color:#fff}
+  footer{padding:2.4rem 0 3rem;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line)}
 </style>
 
-<header class="hero"><div class="hero-in">
-  <div class="brandline">Le Village des Recruteurs</div>
-  <h1>Paniers repas<br><span class="h1-city">Lyon 2026</span></h1>
-  <p class="hero-sub">Réservez les paniers repas de votre équipe pour le Village des Recruteurs de Lyon, les 14 &amp; 15 octobre 2026.</p>
-</div></header>
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandline">Le Village des Recruteurs</div>
+    <h1>Commande de paniers repas<br><span class="h1-city">Lyon 2026</span></h1>
+    <p class="hero-sub">Pour l’édition lyonnaise, Job&nbsp;Events s’associe à <strong>Chez Loqua</strong>, cantine lyonnaise locale &amp; maison, pour régaler vos équipes. Chaque panier associe un <strong>bowl généreux</strong> à une entrée ou un dessert au choix. Composez les repas des vôtres et passez commande en quelques clics : nous vous les livrons directement sur votre stand.</p>
+    <div class="facts">
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v3M13 2v3"/></svg>Mercredi 14 &amp; jeudi 15 octobre 2026</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2C6 2 3.5 5 3.5 8.5 3.5 13 10 18 10 18s6.5-5 6.5-9.5C16.5 5 14 2 10 2Z"/><circle cx="10" cy="8.3" r="2.2"/></svg>Livré sur votre stand</span>
+      <span class="fact"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg>20 € HT / panier (1 bowl + entrée ou dessert)</span>
+    </div>
+  </div>
+</header>
 
-<div class="wrap">
-  <div class="card">
-    <span class="badge">Bientôt disponible</span>
-    <h2>Les menus arrivent bientôt</h2>
-    <p>La commande de paniers repas pour cette édition sera disponible ici même dès que les menus auront été publiés. Revenez sur cette page d’ici quelques jours.</p>
-    <p>Une question en attendant ? Écrivez-nous à <a href="mailto:communication@job.events">communication@job.events</a>.</p>
+<div class="wrap" style="margin-top:1.2rem">
+  <div id="clotureBar" style="background:var(--gold-soft);color:#3a2600;border-radius:12px;padding:.85rem 1.1rem;font:600 .95rem/1.4 var(--ui);display:flex;gap:.6rem;align-items:center">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" style="flex:none;width:20px;height:20px"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg>
+    <span id="clotureMsg">Commandes ouvertes jusqu’au <b>vendredi 9 octobre à 18h</b>. Après cette date, les commandes seront clôturées afin de permettre à Chez Loqua de préparer des repas frais et de qualité.</span>
   </div>
 </div>
 
+<main class="wrap">
+
+  <!-- STEP 1 -->
+  <section>
+    <div class="sec-head">
+      <span class="step">1</span>
+      <h2>Découvrez la carte</h2>
+      <p>La même carte les deux jours. Chaque panier = un bowl + une entrée ou un dessert au choix.</p>
+    </div>
+
+    <div class="traiteur">
+      <div class="tt">Le traiteur · Chez Loqua</div>
+      <h3>Cuisine locale &amp; maison</h3>
+      <p>Chez Loqua, les produits sont frais et sourcés auprès de producteurs locaux. En bowl bien rempli ou en croq’ ultra cheesy, la maison fait redécouvrir le caractère des produits locaux avec un twist maison qui fait toute la différence. Aussi pratiques sur place qu’à emporter et à déguster chauds ou froids, leurs produits revisitent les classiques ou osent carrément l’exotisme. <a href="https://loqua.fr/" target="_blank" rel="noopener">loqua.fr →</a></p>
+    </div>
+
+    <div class="day bowls">
+      <div class="day-head"><div class="d">Le plat · au choix</div><div class="t">Les bowls</div></div>
+      <div class="dishes" id="dishes-bowls"></div>
+    </div>
+
+    <div class="day comp">
+      <div class="day-head"><div class="d">En complément · au choix</div><div class="t">Une entrée ou un dessert</div></div>
+      <div class="dz-grid">
+        <div>
+          <div class="dz-lbl">Entrées</div>
+          <div id="dishes-ent"></div>
+        </div>
+        <div>
+          <div class="dz-lbl">Desserts</div>
+          <div id="dishes-des"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-note"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 1.6"/></svg> Chaque panier = 1 bowl + 1 entrée ou dessert, à 20 € HT. Paniers livrés directement sur votre stand.</div>
+    <p class="allerg-note">Une allergie ou une intolérance ? Indiquez-la au moment de la commande : nous la transmettons à Chez Loqua. Pour le détail des allergènes, écrivez-nous à <a href="mailto:communication@job.events" style="color:var(--rose-d);font-weight:600">communication@job.events</a>.</p>
+  </section>
+
+  <!-- STEP 2 : PEOPLE -->
+  <section>
+    <div class="sec-head">
+      <span class="step">2</span>
+      <h2>Passez commande pour votre équipe</h2>
+      <p>Ajoutez chaque personne. Pour chacune, cochez le ou les jours de présence, puis choisissez le bowl et l’entrée ou le dessert. Un panier = une personne, pour un jour. <strong>Une seule commande par société est recommandée, merci.</strong></p>
+    </div>
+
+    <div class="order-card">
+      <div class="people" id="people"></div>
+      <button class="btn btn-add" id="addPerson" type="button">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg>
+        Ajouter une personne
+      </button>
+
+      <div class="totals">
+        <div class="tot-block"><span class="lbl">Paniers commandés</span><span class="big" id="totCount">0</span></div>
+        <div class="tot-block"><span class="lbl">Total HT</span><span class="big" id="totHT">0 €</span></div>
+      </div>
+      <p style="margin-top:1.1rem;font-size:.88rem;color:var(--muted);line-height:1.55"><b style="color:var(--ink)">Rappel :</b> les montants sont hors taxes. Une facture sera envoyée à votre société si les paniers n’ont pas déjà été payés. Merci de votre commande. Pour tout renseignement, contactez <a href="mailto:communication@job.events" style="color:var(--rose-d);font-weight:600">communication@job.events</a>. Commandes possibles jusqu’au <b>vendredi 9 octobre à 18h</b>.</p>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section>
+    <div class="sec-head">
+      <span class="step">3</span>
+      <h2>Vos coordonnées</h2>
+      <p>Pour établir la facture et vous tenir informé de la livraison.</p>
+    </div>
+
+    <div class="order-card">
+      <div class="coord-grid">
+        <div class="fld"><label for="soc">Nom de la société <span class="req">*</span></label><input type="text" id="soc" autocomplete="organization" placeholder="Votre entreprise"></div>
+        <div class="fld"><label for="nom">Personne qui commande <span class="req">*</span></label><input type="text" id="nom" autocomplete="name" placeholder="Prénom et nom"></div>
+        <div class="fld"><label for="email">Email <span class="req">*</span></label><input type="email" id="email" autocomplete="email" placeholder="vous@entreprise.fr"></div>
+        <div class="fld"><label for="tel">Téléphone <span class="req">*</span></label><input type="tel" id="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+      </div>
+
+      <div class="auth">
+        <input type="checkbox" id="auth">
+        <label for="auth">J’autorise <b>Job Events</b> à facturer ma société pour les paniers repas commandés ci-dessus, au tarif de <b>20 € HT par panier</b>, pour la part qui n’aurait pas déjà fait l’objet d’une commande. <span class="req">*</span></label>
+      </div>
+
+      <div class="submit-row">
+        <div class="err" id="err"></div>
+        <button class="btn btn-primary" id="submit" type="button">Vérifier ma commande</button>
+      </div>
+
+      <div class="review" id="review">
+        <h3>Dernière vérification avant l’envoi</h3>
+        <p class="rsub">Relisez le récapitulatif ci-dessous. Une fois confirmée, la commande est transmise automatiquement à Job&nbsp;Events et vous en recevez une copie par email.</p>
+        <div class="recap" id="reviewRecap"></div>
+        <div class="mini-btns">
+          <button class="btn btn-sec" id="editOrder" type="button">← Modifier</button>
+          <button class="btn btn-primary" id="confirmSend" type="button">Confirmer et envoyer ma commande</button>
+        </div>
+      </div>
+
+      <div class="confirm" id="confirm">
+        <h3 id="confirmTitle">Votre commande est enregistrée</h3>
+        <div id="confirmMsg"></div>
+        <div class="recap" id="recap"></div>
+        <div class="mini-btns" id="fallbackBtns" style="display:none">
+          <button class="btn btn-sec" id="reopen" type="button">Rouvrir l’email</button>
+          <button class="btn btn-sec" id="copy" type="button">Copier le récapitulatif</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
 <footer>
-  Le Village des Recruteurs · Lyon, 14 &amp; 15 octobre 2026<br>
-  Une question ? <a href="mailto:communication@job.events">communication@job.events</a> · <a href="https://www.levillagedesrecruteurs.fr">levillagedesrecruteurs.fr</a>
+  Le Village des Recruteurs · Lyon · 14–15 octobre 2026 · Une question ? communication@job.events<br>
+  Traiteur : Chez Loqua — cuisine locale &amp; maison · <a href="https://loqua.fr/" style="color:var(--rose-d);font-weight:600;text-decoration:none" target="_blank" rel="noopener">loqua.fr</a><br><br>
+  <a href="https://www.levillagedesrecruteurs.fr" style="color:var(--rose-d);font-weight:600;text-decoration:none">← Retour au site Le Village des Recruteurs</a>
 </footer>
+
+<script>
+(function(){
+  "use strict";
+  var PRIX=20, DEST="communication@job.events";
+  var EVENT_ID=4, ENDPOINT="/api/commande";
+
+  var DAYS={ mer:{court:"Mercredi 14 oct.", long:"Mercredi 14"}, jeu:{court:"Jeudi 15 oct.", long:"Jeudi 15"} };
+
+  var BOWLS=[
+    {n:"Le Pumpkin Spice", tag:"Végétarien", d:"Pousses d’épinards, boulgour, potimarron rôti, chèvre fondant, cranberries, graines de courge, sauce pumpkin spice."},
+    {n:"Le Papy", d:"Pousses d’épinards, boulgour, lard grillé, bleu d’Auvergne AOP, pommes, noix concassées, sauce au miel."},
+    {n:"Le Super Bowl", tag:"Végétarien", d:"Pousses d’épinards, boulgour, carottes râpées, fêta AOP, pois chiches grillés au paprika, cébettes, grenade, houmous de betterave, vinaigrette au citron."},
+    {n:"Le P’tit Canut", d:"Pousses d’épinards, lentilles vertes, saucisson grillé pistaché, pickles d’oignons rouges, croûtons, noisettes concassées, sauce moutarde à l’ancienne."},
+    {n:"Le Grand Saut", tag:"Sans gluten", tagClass:"gf", d:"Pousses d’épinards, riz vinaigré, truite vapeur, brocolis vapeur, œufs de truite, cébettes, baies roses, sauce hollandaise."}
+  ];
+  var ENTREES=[
+    {n:"P’tite salade", d:"Pousses d’épinards, carottes râpées, chou rouge, oignons frits, vinaigrette."},
+    {n:"Soupe de légumes", d:"Courgettes rôties, à déguster chaude ou froide."}
+  ];
+  var DESSERTS=[
+    {n:"Cookie fondant", d:"Pâte à tartiner &amp; noisettes."},
+    {n:"Bowl sucré", d:"Granola maison &amp; yaourt."},
+    {n:"Gourmandise", d:"Fondant au chocolat."},
+    {n:"Cake", d:"Carrot cake."}
+  ];
+  // Complément : une entrée OU un dessert (index commun pour le <select> et le récapitulatif).
+  var COMPS=ENTREES.map(function(x){return {t:"Entrée",n:x.n};}).concat(DESSERTS.map(function(x){return {t:"Dessert",n:x.n};}));
+  function compLabel(i){ var c=COMPS[i]; return c ? (c.n+" ("+c.t.toLowerCase()+")") : null; }
+
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+  function renderBowls(container){
+    BOWLS.forEach(function(p){
+      var d=el("div","dish");
+      var tag=p.tag ? " <span class='tag"+(p.tagClass?(" "+p.tagClass):"")+"'>"+esc(p.tag)+"</span>" : "";
+      d.innerHTML="<div class='n'>"+esc(p.n)+tag+"</div><div class='desc'>"+esc(p.d)+"</div>";
+      container.appendChild(d);
+    });
+  }
+  function renderSmall(container,list){
+    list.forEach(function(p){
+      var d=el("div","dish");
+      d.innerHTML="<div class='n'>"+esc(p.n)+"</div><div class='desc'>"+p.d+"</div>";
+      container.appendChild(d);
+    });
+  }
+  renderBowls(document.getElementById("dishes-bowls"));
+  renderSmall(document.getElementById("dishes-ent"),ENTREES);
+  renderSmall(document.getElementById("dishes-des"),DESSERTS);
+
+  var peopleEl=document.getElementById("people");
+
+  function bowlOptions(){return "<option value='' disabled selected>Choisir le bowl…</option>"+BOWLS.map(function(b,i){return "<option value='"+i+"'>"+esc(b.n)+(b.tag?" — "+esc(b.tag):"")+"</option>";}).join("");}
+  function compOptions(){
+    var e="<optgroup label='Entrées'>", dd="<optgroup label='Desserts'>";
+    COMPS.forEach(function(c,i){ var o="<option value='"+i+"'>"+esc(c.n)+"</option>"; if(c.t==="Entrée") e+=o; else dd+=o; });
+    return "<option value='' disabled selected>Choisir entrée ou dessert…</option>"+e+"</optgroup>"+dd+"</optgroup>";
+  }
+
+  function dayBlock(day){
+    return "<div class='daybox "+day+"'>"+
+      "<label class='daytoggle'><input type='checkbox' class='on'> <span class='dayname'>"+DAYS[day].court+"</span> <span class='pill'>Chez Loqua</span></label>"+
+      "<div class='choices'>"+
+        "<div class='fld'><label>Bowl</label><select class='plat'>"+bowlOptions()+"</select></div>"+
+        "<div class='fld'><label>Entrée ou dessert</label><select class='dess'>"+compOptions()+"</select></div>"+
+        "<div class='fld'><label>Allergènes / précisions</label><input type='text' class='all' placeholder='Optionnel : allergie, soupe froide…'></div>"+
+      "</div></div>";
+  }
+
+  var pnum=0;
+  function makePerson(){
+    pnum++;
+    var pv=pnum;
+    var person=el("div","person");
+    person.innerHTML=
+      "<div class='person-head'><span class='pnum'>Pers. "+pv+"</span>"+
+        "<input type='text' class='prenom' placeholder='Prénom (ou prénom + nom)'>"+
+        "<button class='rmp' type='button'>✕ Retirer</button></div>"+
+      "<div class='daywrap'>"+dayBlock("mer")+dayBlock("jeu")+"</div>"+
+      "<div class='person-foot'></div>";
+
+    person.querySelectorAll(".daybox").forEach(function(box){
+      var on=box.querySelector(".on"), choices=box.querySelector(".choices");
+      on.addEventListener("change",function(){ choices.classList.toggle("on",on.checked); recompute(); });
+      box.querySelectorAll("select,input").forEach(function(f){ f.addEventListener("change",recompute); f.addEventListener("input",recompute); });
+    });
+    person.querySelector(".prenom").addEventListener("input",recompute);
+    person.querySelector(".rmp").addEventListener("click",function(){ person.remove(); if(!peopleEl.children.length) makePerson(); recompute(); });
+
+    peopleEl.appendChild(person);
+    recompute();
+    return person;
+  }
+
+  function personData(person){
+    var prenom=person.querySelector(".prenom").value.trim();
+    var boxes=person.querySelectorAll(".daybox");
+    var meals=[];
+    ["mer","jeu"].forEach(function(day,idx){
+      var box=boxes[idx];
+      var on=box.querySelector(".on").checked;
+      if(!on) return;
+      var pi=box.querySelector(".plat").value;
+      var di=box.querySelector(".dess").value;
+      var all=box.querySelector(".all").value.trim();
+      meals.push({day:day, pi:pi, di:di, all:all,
+        complete: pi!=="" && di!=="",
+        plat: pi!=="" ? BOWLS[pi].n : null,
+        dessert: di!=="" ? compLabel(di) : null});
+    });
+    return {prenom:prenom, meals:meals};
+  }
+
+  function recompute(){
+    var count=0;
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      var complete=0, incomplete=0;
+      d.meals.forEach(function(m){ if(m.complete) complete++; else incomplete++; });
+      count+=complete;
+      var foot=person.querySelector(".person-foot");
+      if(d.meals.length===0){ foot.textContent="Cochez au moins un jour de présence."; }
+      else { foot.innerHTML="<b>"+complete+"</b> panier"+(complete>1?"s":"")+" · "+(complete*PRIX)+" € HT"+(incomplete?" · <span style='color:var(--rose-d)'>"+incomplete+" jour à compléter</span>":""); }
+    });
+    document.getElementById("totCount").textContent=count;
+    document.getElementById("totHT").textContent=(count*PRIX)+" €";
+    return count;
+  }
+
+  document.getElementById("addPerson").addEventListener("click",makePerson);
+  makePerson();
+
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+  function buildOrder(){
+    var persons=[], count=0, incompleteDays=0, missingName=0;
+    Array.prototype.forEach.call(peopleEl.children,function(person){
+      var d=personData(person);
+      if(d.meals.length===0) return;
+      if(!d.prenom) missingName++;
+      d.meals.forEach(function(m){ if(m.complete) count++; else incompleteDays++; });
+      persons.push(d);
+    });
+    return {
+      persons:persons, count:count, incompleteDays:incompleteDays, missingName:missingName,
+      soc:document.getElementById("soc").value.trim(),
+      nom:document.getElementById("nom").value.trim(),
+      email:document.getElementById("email").value.trim(),
+      tel:document.getElementById("tel").value.trim(),
+      auth:document.getElementById("auth").checked
+    };
+  }
+
+  function recapText(o){
+    var L=[];
+    L.push("COMMANDE PANIERS REPAS · Village des Recruteurs, Lyon");
+    L.push("Événement : mercredi 14 & jeudi 15 octobre 2026");
+    L.push("Traiteur : Chez Loqua");
+    L.push("");
+    L.push("Société : "+o.soc);
+    L.push("Commande passée par : "+o.nom);
+    L.push("Email : "+o.email+"   |   Tél : "+o.tel);
+    L.push("");
+    L.push("PANIERS ("+o.count+") :");
+    o.persons.forEach(function(p){
+      p.meals.forEach(function(m){
+        if(!m.complete) return;
+        var jour = m.day==="mer" ? "Mercredi 14" : "Jeudi 15";
+        L.push("• "+(p.prenom||"(sans prénom)")+" · "+jour+" : "+m.plat+" / "+m.dessert+(m.all?("  [allergènes/précisions : "+m.all+"]"):""));
+      });
+    });
+    L.push("");
+    L.push("TOTAL : "+o.count+" panier"+(o.count>1?"s":"")+" · "+(o.count*PRIX)+" € HT (TVA en sus)");
+    L.push("Statut facturation : À FACTURER");
+    L.push("Autorisation de facturation : OUI · la société autorise Job Events à facturer les paniers commandés (20 € HT/panier) non déjà commandés.");
+    return L.join("\n");
+  }
+
+  function mailtoLink(o){
+    return "mailto:"+encodeURIComponent(DEST)+
+      "?cc="+encodeURIComponent(o.email)+
+      "&subject="+encodeURIComponent("Commande paniers repas · VDR Lyon · "+(o.soc||""))+
+      "&body="+encodeURIComponent(recapText(o));
+  }
+
+  var lastLink="", lastPayload=null, sending=false, sent=false;
+  var reviewEl=document.getElementById("review");
+  document.getElementById("submit").addEventListener("click",function(){
+    if(sending||sent) return;
+    if(estClos()){ fermerCommandes(); return; }
+    var errEl=document.getElementById("err"); errEl.textContent="";
+    var o=buildOrder();
+    var pb=[];
+    if(o.count<1) pb.push("renseignez au moins une personne avec un jour, un bowl et une entrée ou un dessert");
+    if(o.incompleteDays>0) pb.push(o.incompleteDays+" jour(s) coché(s) sans bowl ou complément");
+    if(o.missingName>0) pb.push("le prénom de chaque personne");
+    if(!o.soc) pb.push("le nom de la société");
+    if(!o.nom) pb.push("la personne qui commande");
+    if(!validEmail(o.email)) pb.push("un email valide");
+    if(!o.tel) pb.push("un téléphone");
+    if(!o.auth) pb.push("cocher l’autorisation de facturation");
+    if(pb.length){ errEl.textContent="À corriger : "+pb.join(" · ")+"."; errEl.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+
+    lastLink=mailtoLink(o);
+    var rec=recapText(o);
+    document.getElementById("recap").textContent=rec;
+    document.getElementById("reviewRecap").textContent=rec;
+    lastPayload={eventId:EVENT_ID,societe:o.soc,commanditaire:o.nom,email:o.email,tel:o.tel,autorisation:o.auth,lignes:[]};
+    o.persons.forEach(function(p){p.meals.forEach(function(m){if(m.complete)lastPayload.lignes.push({prenom:p.prenom,jour:m.day==="mer"?"mercredi":"jeudi",plat:m.plat,dessert:m.dessert,allergenes:m.all});});});
+    document.getElementById("confirm").style.display="none";
+    reviewEl.style.display="block";
+    reviewEl.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("editOrder").addEventListener("click",function(){
+    reviewEl.style.display="none";
+    document.getElementById("people").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  document.getElementById("confirmSend").addEventListener("click",function(){
+    if(sending||sent) return;
+    if(estClos()){ fermerCommandes(); return; }
+    if(!lastPayload) return;
+    var btn=this, subBtn=document.getElementById("submit");
+    sending=true; btn.disabled=true; subBtn.disabled=true; btn.textContent="Envoi en cours…";
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastPayload)})
+      .then(function(r){return r.json().catch(function(){return{ok:false};});})
+      .then(function(res){
+        if(res&&res.ok){
+          sent=true; sending=false; btn.textContent="Commande envoyée ✓";
+          reviewEl.style.display="none"; showConfirm(true);
+        } else {
+          sending=false; btn.disabled=false; subBtn.disabled=false;
+          btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+        }
+      })
+      .catch(function(){
+        sending=false; btn.disabled=false; subBtn.disabled=false;
+        btn.textContent="Confirmer et envoyer ma commande"; reviewEl.style.display="none"; showConfirm(false);
+      });
+  });
+  function showConfirm(success){
+    var t=document.getElementById("confirmTitle"), msg=document.getElementById("confirmMsg"), fb=document.getElementById("fallbackBtns");
+    if(success){
+      t.textContent="Votre commande est enregistrée";
+      msg.innerHTML="Elle a bien été transmise à Job Events, et un email de confirmation vous a été envoyé en copie. Merci !";
+      fb.style.display="none";
+    } else {
+      t.textContent="Votre commande est prête à partir";
+      msg.innerHTML="L’envoi automatique n’a pas abouti : votre logiciel de messagerie va s’ouvrir avec la commande pré-remplie pour <b>communication@job.events</b>, vous en copie. <b>Vérifiez et cliquez sur « Envoyer »</b>. Sinon, copiez le récapitulatif ci-dessous.";
+      fb.style.display="flex";
+      window.location.href=lastLink;
+    }
+    document.getElementById("confirm").style.display="block";
+    document.getElementById("confirm").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  document.getElementById("reopen").addEventListener("click",function(){ if(lastLink) window.location.href=lastLink; });
+  document.getElementById("copy").addEventListener("click",function(){
+    var t=document.getElementById("recap").textContent;
+    if(navigator.clipboard){ navigator.clipboard.writeText(t); var b=this; b.textContent="Copié ✓"; setTimeout(function(){b.textContent="Copier le récapitulatif";},1600); }
+  });
+
+  // ---- Clôture des commandes en ligne (Lyon : vendredi 9 octobre 2026, 18h, heure de Paris) ----
+  var CLOTURE = Date.parse("2026-10-09T18:00:00+02:00");
+  function estClos(){ return isFinite(CLOTURE) && Date.now() >= CLOTURE; }
+  function fermerCommandes(){
+    var bar=document.getElementById("clotureBar"), bmsg=document.getElementById("clotureMsg");
+    if(bar){ bar.style.background="var(--rose-pastel)"; bar.style.color="var(--rose-d)"; }
+    if(bmsg){ bmsg.innerHTML="<b>Les commandes en ligne sont closes.</b> Les formules de restauration restent disponibles sur place le jour de l’événement."; }
+    var cards=document.querySelectorAll(".order-card");
+    var wrap=document.querySelector("main.wrap"), firstSection=null;
+    Array.prototype.forEach.call(cards,function(c){ var s=(c.closest?c.closest("section"):null)||c; s.style.display="none"; if(!firstSection) firstSection=s; });
+    if(wrap && !document.getElementById("closedBox")){
+      var box=document.createElement("section");
+      box.id="closedBox";
+      box.innerHTML="<div class='order-card' style='border-left:5px solid var(--rose)'>"+
+        "<h3 style='font-family:var(--serif);font-size:1.4rem;margin:0 0 .4rem;color:var(--ink)'>Commandes en ligne closes</h3>"+
+        "<p style='margin:.2rem 0;color:var(--muted);line-height:1.6'>La commande de paniers repas en ligne est terminée pour cet événement. "+
+        "<b style='color:var(--ink)'>Les formules de restauration restent disponibles sur place</b> le jour de l’événement. "+
+        "Pour toute question, écrivez-nous à <a href='mailto:communication@job.events' style='color:var(--rose-d);font-weight:600'>communication@job.events</a>.</p></div>";
+      wrap.insertBefore(box, firstSection);
+    }
+    ["addPerson","submit","confirmSend","editOrder"].forEach(function(id){ var b=document.getElementById(id); if(b) b.disabled=true; });
+  }
+  if(estClos()){
+    fermerCommandes();
+  } else if(isFinite(CLOTURE)){
+    setTimeout(fermerCommandes, Math.max(0, CLOTURE - Date.now()));
+  }
+})();
+</script>
