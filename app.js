@@ -277,15 +277,19 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     {city:'Orléans',mois:'Octobre',venue:'Centre de Conférences',date:'8 oct. 2026',count:'≈ 2 000 candidats',cA:'#006FB7',cB:'#08324F',region:'Centre-Val de Loire',status:'',state:'open',ms:'https://orleans.levillagedesrecruteurs.fr/f2105e95-3f13-40ee-b90a-199fb1570be2/login',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-orleans-3/register',photo:'https://jobevents.odoo.com/web/image/15152-3ff6ef6d/facade-Ph.-Montigny.webp',sectors:['Logistique','Cosmétique','Commerce','Services']},
     {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-4/register',photo:'https://jobevents.odoo.com/web/image/15150-redirect/COUV-ARTICLES-1920x1080-2023-03-15T133744.914.jpg',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
   ];
+  /* Tournée 2027 : 6 Villages en deux tournées (printemps / automne). Les liens
+     "odoo" pointent vers les événements à venir mais restent masqués tant que
+     odooLive!==true (événements pas encore publiés dans Odoo). Pour activer une
+     ville : passer son odooLive à true (ou le piloter via EVT_LINKS_URL). */
   var villages2027=[
-     {city:'Nantes',mois:'Février',date:'Février 2027',venue:'Exponantes',cA:'#E3007B',cB:'#B4005F',coprod:''},
-     {city:'Reims',mois:'Mars',date:'Mars 2027',cA:'#006FB7',cB:'#004E82',coprod:''},
-     {city:'Lille',mois:'Avril',date:'Avril 2027',cA:'#0FAE9E',cB:'#0A7D72',coprod:''},
-     {city:'Aix-en-Provence',mois:'Mai',date:'Mai 2027',venue:'Casino Pasino',cA:'#F8B322',cB:'#D98E00',coprod:''},
-     {city:'Toulouse',mois:'Septembre',date:'Septembre 2027',venue:'Salle Mermoz',cA:'#FF5A5F',cB:'#c62a3f',coprod:''},
-     {city:'Bordeaux',mois:'Septembre',date:'Septembre 2027',cA:'#2FA36B',cB:'#1c6e45',coprod:''},
-     {city:'Dijon',mois:'Octobre',date:'Octobre 2027',cA:'#F8B322',cB:'#D98E00',coprod:''},
-     {city:'Lyon',mois:'Octobre',date:'Octobre 2027',cA:'#1C6DA8',cB:'#08324F',coprod:''}
+     /* — Tournée du printemps — */
+     {city:'Nantes',mois:'Février',date:'Jeudi 11 février 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',nopic:true,odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
+     {city:'Lille',mois:'Avril',date:'Début avril 2027 (provisoire)',venue:'Lieu à confirmer',region:'Hauts-de-France',cA:'#0FAE9E',cB:'#0A7D72',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lille-2027-6/register',odooLive:false},
+     {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai ou mardi 8 juin 2027',venue:'Casino Grand, 21 av. de l’Europe',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:false},
+     /* — Tournée de l’automne — */
+     {city:'Toulouse',mois:'Septembre',date:'Jeudi 16 septembre 2027',venue:'Salle Mermoz',region:'Occitanie',cA:'#FF5A5F',cB:'#c62a3f',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-2027-8/register',odooLive:false},
+     {city:'Dijon',mois:'Septembre',date:'Jeudi 30 septembre 2027 (provisoire)',venue:'Lieu à confirmer',region:'Bourgogne-Franche-Comté',cA:'#F8B322',cB:'#D98E00',coprod:'',pic:'/img/logo-dijon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2027-9/register',odooLive:false},
+     {city:'Lyon',mois:'Octobre',date:'Mercredi 13 & jeudi 14 octobre 2027',venue:'Lieu à confirmer',region:'Auvergne-Rhône-Alpes',cA:'#1C6DA8',cB:'#08324F',coprod:'',pic:'/img/logo-lyon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-2027-10/register',odooLive:false}
    ];
   /* ---- État d’un événement calculé depuis sa date (page « Nos Villages » dynamique) ----
      La date de fin est déduite du libellé (« 16–17 sept. 2026 » -> 17/09/2026,
@@ -368,7 +372,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
    'lille':'<g><rect x="48" y="40" width="24" height="74"/><rect x="52" y="26" width="16" height="16"/><polygon points="60,8 71,26 49,26"/><circle cx="60" cy="58" r="5" fill="#fff"/><rect x="52.5" y="80" width="6" height="14" rx="3" fill="#fff"/><rect x="61.5" y="80" width="6" height="14" rx="3" fill="#fff"/><rect x="55" y="30" width="10" height="6" rx="2" fill="#fff"/></g>',
    'aix-en-provence':'<g><path d="M28 114 l6 -14 h52 l6 14 z"/><ellipse cx="60" cy="100" rx="30" ry="6"/><rect x="55" y="66" width="10" height="34"/><ellipse cx="60" cy="66" rx="20" ry="5"/><rect x="56.5" y="40" width="7" height="26"/><circle cx="52" cy="40" r="5"/><circle cx="68" cy="40" r="5"/><circle cx="60" cy="34" r="5"/></g>'
   };
-  function nvPhoto(v){var ck=VENUE_PHOTO[nvSlug(v.venue||'')];if(ck&&NV_PHOTOS[ck])return '<img loading="lazy" src="'+NV_PHOTOS[ck]+'" alt="'+((v.venue||'')+', '+v.city)+'">';var mon=MONUMENTS[nvSlug(v.city)];if(mon)return '<div class="nv-mon"><svg viewBox="0 0 120 120" aria-hidden="true">'+mon+'</svg></div>';var lbl=v.venue?v.venue:'Lieu à venir';return '<div class="nv-ph"><span></span><b>'+lbl+'</b></div>';}
+  function nvPhoto(v){if(v.pic)return '<img loading="lazy" src="'+v.pic+'" alt="'+v.city+'">';if(!v.nopic){var ck=VENUE_PHOTO[nvSlug(v.venue||'')];if(ck&&NV_PHOTOS[ck])return '<img loading="lazy" src="'+NV_PHOTOS[ck]+'" alt="'+((v.venue||'')+', '+v.city)+'">';}var mon=MONUMENTS[nvSlug(v.city)];if(mon)return '<div class="nv-mon"><svg viewBox="0 0 120 120" aria-hidden="true">'+mon+'</svg></div>';var lbl=v.venue?v.venue:'Lieu à venir';return '<div class="nv-ph"><span></span><b>'+lbl+'</b></div>';}
   function nvBadge(v){var s=nvStatut(v);if(s==='cloture')return '<span class="nv-hi closed">\u00c9v\u00e9nement cl\u00f4tur\u00e9</span>';if(s==='ouvert')return '<span class="nv-hi live">\u25CF Inscriptions ouvertes</span>';return '<span class="nv-hi soon">\u00c0 venir \u2728</span>';}
   function nvBtns(v){
     var st=nvStatut(v);
@@ -424,7 +428,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
         +'<span class="nvf-mois">'+(e.mois||'').toUpperCase()+'</span>'
         +cnt+'</button>';
     }).join('');
-    var ynote=(y==='2027')?' · dates et lieux à confirmer fin septembre 2026':'';
+    var ynote=(y==='2027')?' · deux tournées, printemps & automne':'';
     host.innerHTML='<div class="nvf-head"><div class="nvf-title">La tournée en un coup d’œil<small>'+n+' rendez-vous · Tournée '+y+ynote+'</small></div>'
       +'<div class="nvf-stats"><span><b>85+</b> éditions depuis 2015</span><span><b>150 000+</b> candidats accompagnés</span><span><b>400+</b> entreprises / an</span></div></div>'
       +'<div class="nvf-rail"><div class="nvf-prog" style="width:'+prog+'%"></div>'+stops+'</div>';
@@ -434,8 +438,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var list=y==='2027'?villages2027:villages2026;
     var cards=document.getElementById('nv-cards');if(cards)cards.innerHTML=list.map(nvCard).join('');nvFrise(y);
     var pins=document.getElementById('nv-pins');if(pins)pins.innerHTML=nvPins(list);
-    var t=document.getElementById('nv-mtitle');if(t)t.textContent=(y==='2027'?'8 Villages \u00b7 Tourn\u00e9e 2027':'7 Villages \u00b7 Tourn\u00e9e 2026');
-    var note=document.getElementById('nv-note');if(note)note.textContent=(y==='2027'?'Programmation pr\u00e9visionnelle 2027 \u2014 dates, lieux et co-productions confirm\u00e9s au fil de l’eau.':'Tourn\u00e9e 2026 \u2014 inscription candidats via Matching Square, d\u00e9tails exposant sur Odoo.');
+    var t=document.getElementById('nv-mtitle');if(t)t.textContent=list.length+' Villages \u00b7 Tourn\u00e9e '+y;
+    var note=document.getElementById('nv-note');if(note)note.textContent=(y==='2027'?'Programmation pr\u00e9visionnelle 2027, en deux tourn\u00e9es (printemps et automne) \u2014 dates et lieux confirm\u00e9s au fil de l’eau. Une date suppl\u00e9mentaire en novembre 2027 pourra s’ajouter.':'Tourn\u00e9e 2026 \u2014 inscription candidats via Matching Square, d\u00e9tails exposant sur Odoo.');
     nvWire();
   }
   function setYear(y){document.querySelectorAll('.nv-yr').forEach(function(b){b.classList.toggle('on',b.dataset.year===y);});renderNV(y);}
@@ -703,7 +707,9 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var volAmt=afterPack*evtPct, eaAmt=afterPack*eaPct;
     var coutParSalon=afterPack-volAmt-eaAmt;
     /* Frais d’inscription : une seule fois au total, avec les mêmes remises appliquées */
-    var discFactor=(1-simState.packDisc)*(1-evtPct-eaPct);
+    /* Frais d’inscription : comptés une seule fois et HORS remise pack (les remises
+       volume / early booking s’y appliquent, pas la remise d’un pack « Best Of »). */
+    var discFactor=(1-evtPct-eaPct);
     var fraisNet=frais*discFactor;
     /* Deuxième jour : +300 € par ville éligible sélectionnée (tarif fixe, hors remises) */
     var selCities=[].map.call(document.querySelectorAll('#sim-cities .sim-city:checked'),function(c){return c.value;});
@@ -796,7 +802,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
   /* Lien "Exposer" contextuel : si le village a un événement Odoo -> page de l’événement ;
      sinon -> formulaire de demande exposant (Recruteur / Entreprise). */
-  function expoTarget(v){return (v&&v.odoo)?v.odoo:demandeUrl({type:'Recruteur / Entreprise'});}
+  function expoTarget(v){return (v&&v.odoo&&v.odooLive!==false)?v.odoo:demandeUrl({type:'Recruteur / Entreprise'});}
   window.expoTarget=expoTarget;
   /* Résumé texte de la configuration du simulateur (produits + villes + remises + total) */
   function simSelection(){
