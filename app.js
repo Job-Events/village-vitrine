@@ -594,7 +594,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var SIM={
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
-      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:7},
+      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:7,def:1},
       {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
@@ -617,6 +617,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
     bestof:[
+      {id:'duo',n:'Stand 2 professionnels',disc:0,items:['p_present',['p_add',1]],
+       desc:'La configuration la plus demandée : stand de 7 m² pour 2 professionnels (990 € + 300 €, soit 1 290 € par salon). Prix standard, sans remise pack ; les remises volume et early booking 2027 s’appliquent ensuite normalement.'},
       {id:'interim',n:'Pack Intérim',disc:0.25,items:['p_present','o_digital','o_itw','o_ats'],
        desc:'Recommandé pour les agences d’emploi & intérim. Visibilité présentielle (interview jour J) et digitale (pack digital, envoi des CV dans votre ATS). Remise 25%.'},
       {id:'formation',n:'Pack Formation',disc:0.25,items:['p_present','o_digital','o_web','o_itw','o_demi'],
@@ -633,7 +635,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   function lineHTML(it){
     var price='<span class="price">'+it.price+' €</span>';
     if(it.type==='qty'){
-      return '<div class="sim-line"><input class="qty" type="number" min="0" max="'+(it.max||9)+'" value="0" id="qty-'+it.id+'" data-id="'+it.id+'"><label for="qty-'+it.id+'"><span>'+it.n+(it.d?'<small>'+it.d+'</small>':'')+'</span></label>'+price+'</div>';
+      return '<div class="sim-line"><input class="qty" type="number" min="0" max="'+(it.max||9)+'" value="'+(it.def||0)+'" id="qty-'+it.id+'" data-id="'+it.id+'"><label for="qty-'+it.id+'"><span>'+it.n+(it.d?'<small>'+it.d+'</small>':'')+'</span></label>'+price+'</div>';
     }
     return '<div class="sim-line"><label><input type="checkbox" data-id="'+it.id+'"'+(it.def?' checked':'')+'> <span>'+it.n+(it.d?'<small>'+it.d+'</small>':'')+'</span></label>'+price+'</div>';
   }
@@ -671,7 +673,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
   (function initSim(){
     var pc=document.getElementById('sim-packs-choice');if(!pc)return;
-    pc.innerHTML=SIM.bestof.map(function(p,i){return '<button data-pack="'+i+'">'+p.n+' -'+(p.disc*100)+'%</button>';}).join('')
+    pc.innerHTML=SIM.bestof.map(function(p,i){return '<button data-pack="'+i+'">'+p.n+(p.disc>0?' -'+(p.disc*100)+'%':'')+'</button>';}).join('')
       +'<button data-pack="-1">Sur-mesure</button>';
     document.getElementById('sim-packs').innerHTML=SIM.packs.map(lineHTML).join('');
     document.getElementById('sim-options').innerHTML=optionsHTML();
@@ -745,7 +747,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     updateSelAllBtn();
   }
   function resetSim(){
-    SIM.packs.concat(SIM.options).forEach(function(it){setFieldVal(it.id, it.def?true:(it.type==='qty'?0:false));});
+    SIM.packs.concat(SIM.options).forEach(function(it){setFieldVal(it.id, it.type==='qty'?(it.def||0):(it.def?true:false));});
     document.querySelectorAll('#sim-cities .sim-city').forEach(function(c){c.checked=false;});
     var ea=document.getElementById('d-early'); if(ea)ea.checked=false;
     simState.packDisc=0; simState.packName='';
