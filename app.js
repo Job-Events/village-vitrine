@@ -283,7 +283,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      ville : passer son odooLive à true (ou le piloter via EVT_LINKS_URL). */
   var villages2027=[
      /* — Tournée du printemps — */
-     {city:'Nantes',mois:'Février',date:'Jeudi 11 février 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',nopic:true,odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
+     {city:'Nantes',mois:'Février',date:'Jeudi 11 février 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
      {city:'Lille',mois:'Avril',date:'Début avril 2027 (provisoire)',venue:'Lieu à confirmer',region:'Hauts-de-France',cA:'#0FAE9E',cB:'#0A7D72',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lille-2027-6/register',odooLive:false},
      {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai ou mardi 8 juin 2027',venue:'Casino Grand, 21 av. de l’Europe',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:false},
      /* — Tournée de l’automne — */
