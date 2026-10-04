@@ -374,6 +374,16 @@
   .seg{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
   .seg button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:.42rem .7rem;font-weight:700;font-size:.84rem;cursor:pointer;font-family:inherit;color:var(--ink)}
   .seg button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .packs-flip{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem}
+  .pack-flip{appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;margin:0;cursor:pointer;font-family:inherit;perspective:800px;min-height:92px}
+  .pack-flip .pf-inner{position:relative;display:block;width:100%;min-height:92px;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+  .pack-flip:hover .pf-inner,.pack-flip:focus-visible .pf-inner{transform:rotateY(180deg)}
+  .pack-flip .pf-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:.7rem .75rem;border-radius:14px;border:2px solid var(--line);background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;line-height:1.25}
+  .pack-flip .pf-front{font-weight:800;font-size:1.02rem;color:var(--navy)}
+  .pack-flip .pf-back{transform:rotateY(180deg);font-size:.82rem;font-weight:600;color:var(--navy);background:var(--paper-blue);border-color:var(--blue-d)}
+  .pack-flip.active .pf-front{background:var(--navy);color:#fff;border-color:var(--navy)}
+  @media(max-width:560px){.packs-flip{grid-template-columns:1fr 1fr}}
+  @media(max-width:380px){.packs-flip{grid-template-columns:1fr}}
   .sim-subhead{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:.9rem 0 .1rem;padding-top:.7rem;border-top:1px dashed var(--line)}
   .sim-subhead:first-child{border-top:none;padding-top:0;margin-top:0}
   .sim-selall{border:2px solid var(--blue);background:#fff;color:var(--blue);border-radius:9px;padding:.34rem .7rem;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit}
@@ -700,6 +710,9 @@
 .sim-apercu .sa-txt small{color:var(--muted);font-size:.82rem}
 .sim-apercu .sa-link{margin-top:.4rem;font-weight:700;color:var(--rose-txt);font-size:.86rem;text-decoration:none}
 .sim-apercu .sa-link:hover{text-decoration:underline}
+  .sim-apercu .sa-badge{display:inline-block;margin-left:.5rem;font-size:.64rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:.16rem .5rem;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  .sim-apercu .sa-badge.pop{background:#F8B322;color:#2A1A05}
+  .sim-apercu .sa-badge.vis{background:var(--ok,#2FA36B);color:#fff}
 @media(max-width:440px){.sim-apercu .sa-body{flex-direction:column}.sim-apercu .sa-media{max-width:none;flex-basis:auto;aspect-ratio:16/9}}
 
 #stands-grid .stand-block{margin-bottom:2.3rem}

@@ -152,6 +152,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     if(!n||n<1){box.hidden=true;box.innerHTML='';return;}
     var s=standsFor(n)[0], i=s?PH.indexOf(s.src):-1, m2=4+(n-1)*3;
     box.hidden=false;
+    var _saBadge = n===2?'<span class="sa-badge pop">Le plus populaire</span>':(n===3?'<span class="sa-badge vis">Excellente visibilité</span>':'');
     var media=s
       ? '<div class="sa-media"'+(i>=0?' onclick="lightbox('+i+')"':'')+' role="button" tabindex="0" aria-label="Agrandir la photo"><img loading="lazy" src="'+s.src+'" alt="Exemple de stand à '+n+' table'+(n>1?'s':'')+'"></div>'
       : '<div class="sa-media sa-soon"><span>Photo disponible bientôt</span></div>';
@@ -160,7 +161,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       : '<small>Photo disponible bientôt</small>';
     box.innerHTML='<span class="sa-eyebrow">Aperçu de votre stand</span>'
       +'<div class="sa-body">'+media
-      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+'</b>'+sub
+      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+_saBadge+'</b>'+sub
       +'<a class="sa-link" href="/nos-stands/">Voir tous les stands, de 1 à 8 tables →</a></div>'
       +'</div>';
   }
@@ -617,20 +618,27 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
     bestof:[
-      {id:'duo',n:'Stand 2 professionnels',disc:0,items:['p_present',['p_add',1]],
+      {id:'duo',n:'Stand 2 professionnels',disc:0,config:'Stand 7 m² · 2 professionnels',items:['p_present',['p_add',1]],
        desc:'La configuration la plus demandée : stand de 7 m² pour 2 professionnels (990 € + 300 €, soit 1 290 € par salon). Prix standard, sans remise pack ; les remises volume et early booking 2027 s’appliquent ensuite normalement.'},
-      {id:'interim',n:'Pack Intérim',disc:0.25,items:['p_present','o_digital','o_itw','o_ats'],
+      {id:'interim',n:'Pack Intérim',disc:0.25,config:'Stand 1 pro · Pack digital · Interview jour J · Envoi des CV (ATS)',items:['p_present','o_digital','o_itw','o_ats'],
        desc:'Recommandé pour les agences d’emploi & intérim. Visibilité présentielle (interview jour J) et digitale (pack digital, envoi des CV dans votre ATS). Remise 25%.'},
-      {id:'formation',n:'Pack Formation',disc:0.25,items:['p_present','o_digital','o_web','o_itw','o_demi'],
+      {id:'formation',n:'Pack Formation',disc:0.25,config:'Stand 1 pro · Pack digital · Webinaire · Interview jour J · 1/2 page magazine',items:['p_present','o_digital','o_web','o_itw','o_demi'],
        desc:'Pour les organismes de formation. Visibilité présentielle (interview, 1/2 page magazine) et digitale (pack digital, webinaire). Remise 25%.'},
-      {id:'multi',n:'Pack Multimarques',disc:0.25,items:['p_present',['p_add',2],'o_digital','o_web','o_itw','o_demi','o_ats'],
+      {id:'multi',n:'Pack Multimarques',disc:0.25,config:'Stand + 2 pros · Pack digital · Webinaire · Interview jour J · 1/2 page · Envoi ATS',items:['p_present',['p_add',2],'o_digital','o_web','o_itw','o_demi','o_ats'],
        desc:'Pour plusieurs entreprises d’un même groupe : stand + 2 professionnels supplémentaires + pack digital et une visibilité complète. Remise 25%.'}
     ]
   };
   var CATS=[['dig','Pack digital & visibilité en ligne'],['com',"Communication, magazine de l’événement"],['salon','Sur le salon'],['prolong','Vous ne pouvez pas être présent ?']];
   /* Villes proposant un second jour, par tournée */
   var J2_ELIGIBLE={'2026':['Toulouse','Lyon'],'2027':['Lyon']};
-  var simState={packDisc:0,packName:'',year:'2026'};
+  var PARTNER_OFFERS=[
+    {id:'pa_candidats',n:'Espace candidats partenaire',odoo:'VDR 2027 - Espace candidats partenaire'},
+    {id:'pa_conference',n:'Espace conférence partenaire',odoo:'VDR 2027 - Espace conférence partenaire'},
+    {id:'pa_soiree',n:'Partenariat soirée inaugurale',odoo:'VDR 2027 - Partenariat soirée inaugurale'},
+    {id:'pa_visibilite',n:'Partenariat visibilité & Communication',odoo:'VDR 2027 - Partenariat visibilité & Communication'}
+  ];
+  var PARTNER_CITIES=['Nantes','Lille','Aix-en-Provence','Toulouse','Dijon','Lyon'];
+  var simState={packDisc:0,packName:'',year:'2027'};
   function euro(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0')+' €';}
   function lineHTML(it){
     var price='<span class="price">'+it.price+' €</span>';
@@ -671,14 +679,37 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       line.style.opacity=is27?'1':'.5';
     }
   }
+  function packFlipHTML(idx,title,config){
+    return '<button class="pack-flip" data-pack="'+idx+'" aria-label="'+title+'"><span class="pf-inner">'
+      +'<span class="pf-face pf-front">'+title+'</span>'
+      +'<span class="pf-face pf-back">'+(config||'')+'</span>'
+      +'</span></button>';
+  }
+  function partnerLineHTML(it){
+    return '<div class="sim-line"><label><input type="checkbox" data-pid="'+it.id+'"> <span>'+it.n+'</span></label><span class="price pa-price" style="font-weight:600;color:var(--rose-txt,#C3006A)">Contactez-nous</span></div>';
+  }
+  function updatePartnerCities(){
+    var any=document.querySelectorAll('#sim-partner input[data-pid]:checked').length>0;
+    var wrap=document.getElementById('sim-partner-cities-wrap'); if(wrap)wrap.hidden=!any;
+  }
+  function renderPartner(){
+    var box=document.getElementById('sim-partner'); if(!box)return;
+    box.innerHTML=PARTNER_OFFERS.map(partnerLineHTML).join('');
+    var cw=document.getElementById('sim-partner-cities');
+    if(cw)cw.innerHTML=PARTNER_CITIES.map(function(c){return '<label><input type="checkbox" class="pa-city" value="'+c+'"> '+c+'</label>';}).join('');
+    box.querySelectorAll('input[data-pid]').forEach(function(i){i.addEventListener('change',function(){updatePartnerCities();computeSim();});});
+    if(cw)cw.querySelectorAll('input').forEach(function(i){i.addEventListener('change',computeSim);});
+    updatePartnerCities();
+  }
   (function initSim(){
     var pc=document.getElementById('sim-packs-choice');if(!pc)return;
-    pc.innerHTML=SIM.bestof.map(function(p,i){return '<button data-pack="'+i+'">'+p.n+(p.disc>0?' -'+(p.disc*100)+'%':'')+'</button>';}).join('')
-      +'<button data-pack="-1">Sur-mesure</button>';
+    pc.innerHTML=SIM.bestof.map(function(p,i){return packFlipHTML(i,p.n,p.config||'');}).join('')
+      +packFlipHTML(-1,'Sur-mesure','Composez librement votre stand et vos options');
     document.getElementById('sim-packs').innerHTML=SIM.packs.map(lineHTML).join('');
     document.getElementById('sim-options').innerHTML=optionsHTML();
+    renderPartner();
     var yr=document.getElementById('sim-year');
-    yr.innerHTML=['2026','2027'].map(function(y){return '<button data-year="'+y+'" class="'+(y==='2026'?'active':'')+'">Tournée '+y+'</button>';}).join('');
+    yr.innerHTML=['2026','2027'].map(function(y){return '<button data-year="'+y+'" class="'+(y==='2027'?'active':'')+'">Tournée '+y+'</button>';}).join('');
     yr.querySelectorAll('button').forEach(function(b){b.onclick=function(){simState.year=b.dataset.year;yr.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCities();computeSim();};});
     renderCities();
     pc.querySelectorAll('button').forEach(function(b){b.onclick=function(){applyPack(+b.dataset.pack);};});
@@ -738,9 +769,17 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       if(nJ2>0)rows+='<div class="sim-row"><span>Deuxième jour <small style="opacity:.7;font-weight:500">'+nJ2+' ville'+(nJ2>1?'s':'')+' éligible'+(nJ2>1?'s':'')+' × 300 €</small></span><span>'+euro(j2Cost)+'</span></div>';
       else rows+='<div class="sim-row" style="opacity:.7"><span>Deuxième jour <small>aucune ville éligible sélectionnée</small></span><span>'+euro(0)+'</span></div>';
     }
+    var _pSel=[].slice.call(document.querySelectorAll('#sim-partner input[data-pid]:checked'));
+    var partnerNote='';
+    if(_pSel.length){
+      var _pNames=_pSel.map(function(cb){var id=cb.getAttribute('data-pid');var o=null;PARTNER_OFFERS.forEach(function(x){if(x.id===id)o=x;});return o?o.n:'';}).filter(Boolean);
+      var _pc=[].slice.call(document.querySelectorAll('#sim-partner-cities .pa-city:checked')).map(function(c){return c.value;});
+      partnerNote='<div class="sim-partner-recap" style="margin-top:.6rem;padding:.6rem .7rem;border-radius:10px;background:rgba(195,0,106,.12);border:1px solid rgba(195,0,106,.3);font-size:.9rem;color:#fff"><b>Offres partenaires (sur devis)</b><br>'+_pNames.join(', ')+'<br><span style="opacity:.82">'+(_pc.length?('Villes : '+_pc.join(', ')):'Villes à préciser')+'</span><br><span style="opacity:.82">Non incluses dans le total, transmises avec votre demande.</span></div>';
+    }
     var recap='<h3>Votre estimation</h3>'+rows
       +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
       +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
+      +partnerNote
       +'<button class="btn btn-primary" onclick="demandeSimulateur()">Demander une offre ferme (avec ma simulation)</button>'
       +'<button class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4);width:100%;justify-content:center;margin-top:.5rem" onclick="resetSim()">↺ Réinitialiser</button>';
     document.getElementById('sim-recap').innerHTML=recap;
@@ -749,6 +788,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   function resetSim(){
     SIM.packs.concat(SIM.options).forEach(function(it){setFieldVal(it.id, it.type==='qty'?(it.def||0):(it.def?true:false));});
     document.querySelectorAll('#sim-cities .sim-city').forEach(function(c){c.checked=false;});
+    document.querySelectorAll('#sim-partner input, #sim-partner-cities input').forEach(function(c){c.checked=false;});
+    var _pcw=document.getElementById('sim-partner-cities-wrap'); if(_pcw)_pcw.hidden=true;
     var ea=document.getElementById('d-early'); if(ea)ea.checked=false;
     simState.packDisc=0; simState.packName='';
     document.querySelectorAll('#sim-packs-choice button').forEach(function(b){b.classList.remove('active');});
@@ -825,6 +866,14 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     if(disc.length)txt+='\nRemises : '+disc.join(', ');
     txt+='\n\nEstimation : '+euro(simState.lastHT||0)+' HT ('+euro((simState.lastHT||0)*1.2)+' TTC, TVA 20%)';
     txt+='\n(Estimation indicative issue du simulateur en ligne, à confirmer.)';
+    var _pSel2=[].slice.call(document.querySelectorAll('#sim-partner input[data-pid]:checked'));
+    if(_pSel2.length){
+      var _pc2=[].slice.call(document.querySelectorAll('#sim-partner-cities .pa-city:checked')).map(function(c){return c.value;});
+      txt+='\n\n=== Offres partenaires (sur devis — demande de contact) ===';
+      _pSel2.forEach(function(cb){var id=cb.getAttribute('data-pid');PARTNER_OFFERS.forEach(function(x){if(x.id===id)txt+='\n• '+x.odoo;});});
+      txt+='\nVillages concernés : '+(_pc2.length?_pc2.join(', '):'à préciser');
+      txt+='\nMerci de nous recontacter à demandes@job.events pour ces offres partenaires.';
+    }
     return txt;
   }
   function openExpo(type){window.location.href=demandeUrl({type:type||'Recruteur / Entreprise'});}
