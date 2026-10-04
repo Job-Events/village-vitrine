@@ -703,8 +703,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
   (function initSim(){
     var pc=document.getElementById('sim-packs-choice');if(!pc)return;
-    pc.innerHTML=SIM.bestof.map(function(p,i){return packFlipHTML(i,p.n,p.config||'');}).join('')
-      +packFlipHTML(-1,'Sur-mesure','Composez librement votre stand et vos options');
+    pc.innerHTML=SIM.bestof.map(function(p,i){return packFlipHTML(i,p.n,p.config||'');}).join('');
     document.getElementById('sim-packs').innerHTML=SIM.packs.map(lineHTML).join('');
     document.getElementById('sim-options').innerHTML=optionsHTML();
     renderPartner();
@@ -712,7 +711,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     yr.innerHTML=['2026','2027'].map(function(y){return '<button data-year="'+y+'" class="'+(y==='2027'?'active':'')+'">Tournée '+y+'</button>';}).join('');
     yr.querySelectorAll('button').forEach(function(b){b.onclick=function(){simState.year=b.dataset.year;yr.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCities();computeSim();};});
     renderCities();
-    pc.querySelectorAll('button').forEach(function(b){b.onclick=function(){applyPack(+b.dataset.pack);};});
+    pc.querySelectorAll('button').forEach(function(b){b.onclick=function(){if(b.classList.contains('active'))applyPack(-1);else applyPack(+b.dataset.pack);};});
     document.querySelectorAll('#page-simulateur input').forEach(function(inp){inp.addEventListener('input',computeSim);inp.addEventListener('change',computeSim);});
     computeSim();
   })();
