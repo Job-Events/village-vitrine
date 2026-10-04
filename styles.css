@@ -713,6 +713,9 @@
   .sim-apercu .sa-badge{display:inline-block;margin-left:.5rem;font-size:.64rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:.16rem .5rem;border-radius:999px;vertical-align:middle;white-space:nowrap}
   .sim-apercu .sa-badge.pop{background:#F8B322;color:#2A1A05}
   .sim-apercu .sa-badge.vis{background:var(--ok,#2FA36B);color:#fff}
+  .sim-apercu{position:relative}
+  .sim-apercu .sa-badgewrap{position:absolute;top:-11px;right:14px;z-index:3}
+  .sim-apercu .sa-badgewrap .sa-badge{margin-left:0;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 @media(max-width:440px){.sim-apercu .sa-body{flex-direction:column}.sim-apercu .sa-media{max-width:none;flex-basis:auto;aspect-ratio:16/9}}
 
 #stands-grid .stand-block{margin-bottom:2.3rem}

@@ -159,9 +159,9 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var sub=s
       ? (s.expo?'<small>Exemple : '+s.expo+(s.ville?' · '+s.ville:'')+'</small>':'')
       : '<small>Photo disponible bientôt</small>';
-    box.innerHTML='<span class="sa-eyebrow">Aperçu de votre stand</span>'
+    box.innerHTML=(_saBadge?'<div class="sa-badgewrap">'+_saBadge+'</div>':'')+'<span class="sa-eyebrow">Aperçu de votre stand</span>'
       +'<div class="sa-body">'+media
-      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+_saBadge+'</b>'+sub
+      +'<div class="sa-txt"><b>Stand de '+m2+' m² · '+n+' table'+(n>1?'s':'')+'</b>'+sub
       +'<a class="sa-link" href="/nos-stands/">Voir tous les stands, de 1 à 8 tables →</a></div>'
       +'</div>';
   }
@@ -618,14 +618,14 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
     bestof:[
-      {id:'duo',n:'Stand 2 professionnels',disc:0,config:'Stand 7 m² · 2 professionnels',items:['p_present',['p_add',1]],
-       desc:'La configuration la plus demandée : stand de 7 m² pour 2 professionnels (990 € + 300 €, soit 1 290 € par salon). Prix standard, sans remise pack ; les remises volume et early booking 2027 s’appliquent ensuite normalement.'},
-      {id:'interim',n:'Pack Intérim',disc:0.25,config:'Stand 1 pro · Pack digital · Interview jour J · Envoi des CV (ATS)',items:['p_present','o_digital','o_itw','o_ats'],
-       desc:'Recommandé pour les agences d’emploi & intérim. Visibilité présentielle (interview jour J) et digitale (pack digital, envoi des CV dans votre ATS). Remise 25%.'},
-      {id:'formation',n:'Pack Formation',disc:0.25,config:'Stand 1 pro · Pack digital · Webinaire · Interview jour J · 1/2 page magazine',items:['p_present','o_digital','o_web','o_itw','o_demi'],
-       desc:'Pour les organismes de formation. Visibilité présentielle (interview, 1/2 page magazine) et digitale (pack digital, webinaire). Remise 25%.'},
-      {id:'multi',n:'Pack Multimarques',disc:0.25,config:'Stand + 2 pros · Pack digital · Webinaire · Interview jour J · 1/2 page · Envoi ATS',items:['p_present',['p_add',2],'o_digital','o_web','o_itw','o_demi','o_ats'],
-       desc:'Pour plusieurs entreprises d’un même groupe : stand + 2 professionnels supplémentaires + pack digital et une visibilité complète. Remise 25%.'}
+      {id:'duo',n:'Stand 2 professionnels',disc:0,config:'2 professionnels · Pack digital · Frais d’inscription',items:['p_present',['p_add',1],'o_digital'],
+       desc:'La configuration la plus demandée : 2 professionnels (stand 7 m²), pack digital et frais d’inscription. Prix standard ; les remises volume et early booking 2027 s’appliquent ensuite normalement.'},
+      {id:'interim',n:'Pack Intérim',disc:0.25,config:'2 pros (stand +1) · Pack digital · Interview jour J · CV dans votre ATS · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_itw','o_ats'],
+       desc:'Pour les agences d’emploi & intérim : 2 professionnels, pack digital, interview jour J et envoi des CV dans votre ATS. Remise 25%.'},
+      {id:'formation',n:'Pack Formation',disc:0.25,config:'2 pros (stand +1) · Pack digital · Webinaire · Interview jour J · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_web','o_itw'],
+       desc:'Pour les organismes de formation : 2 professionnels, pack digital, webinaire et interview jour J. Remise 25%.'},
+      {id:'multi',n:'Pack Multimarques',disc:0.25,config:'3 pros (stand +2) · Pack digital · 3× 1/4 page magazine (inclus) · 3× interview jour J · Webinaire · Frais d’inscription',items:['p_present',['p_add',2],'o_digital','o_web','o_itw'],
+       desc:'Pour plusieurs marques d’un même groupe : 3 professionnels, pack digital, 3 quarts de page magazine (inclus au stand), 3 interviews jour J et webinaire. Remise 25%.'}
     ]
   };
   var CATS=[['dig','Pack digital & visibilité en ligne'],['com',"Communication, magazine de l’événement"],['salon','Sur le salon'],['prolong','Vous ne pouvez pas être présent ?']];
