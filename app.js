@@ -614,6 +614,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       {id:'o_itw',n:'Interview vidéo le jour J',price:250,type:'check',cat:'salon'},
       {id:'o_atelier',n:'Atelier',d:"Espace privatisé jusqu’à 15 candidats, 30 min · annonce dans le programme · inscriptions en ligne",price:250,type:'check',cat:'salon'},
       {id:'o_conf',n:'Conférence',d:"Jusqu’à 50 candidats · annonce dans le programme · inscriptions en ligne",price:400,type:'check',cat:'salon'},
+      {id:'o_panier',n:'Paniers repas',d:'Entrée, plat, dessert · viande, poisson ou végétarien · menus variables selon le Village · par personne',price:20,type:'qty',max:30,cat:'salon'},
       {id:'o_semaine',n:'La Semaine des Recruteurs',d:'Recrutement délégué : un recruteur expert sélectionne les candidats pour vous (rencontres J+7, présentiel ou visio)',price:690,type:'check',cat:'prolong'}
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
@@ -724,7 +725,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     SIM.packs.forEach(function(it){if(it.id==='p_j2'||it.id==='p_add')return;packs+=it.price*val(it.id);});
     packs+=addSupplement(val('p_add'));
     (function(){var _k=val('p_add'),_b=_k>0?_k:1,_avg=Math.round(addSupplement(_b)/_b);var _e=document.querySelector('#sim-packs [data-id="p_add"]');if(_e){var _l=_e.closest('.sim-line');if(_l){var _p=_l.querySelector('.price');if(_p)_p.textContent='≈ '+_avg+' €/pro';}}})();
-    SIM.options.forEach(function(it){opts+=it.price*val(it.id);});
+    SIM.options.forEach(function(it){if(it.id==='o_panier')return;opts+=it.price*val(it.id);});
+    var panierQty=val('o_panier'), panierPerSalon=20*panierQty;
     var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
     /* Coût par salon = stand + options ; les frais d’inscription sont comptés une seule fois */
     var subtotal=packs+opts;
@@ -753,7 +755,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var j2Elig=(J2_ELIGIBLE[simState.year]||[]);
     var nJ2=val('p_j2')?selCities.filter(function(c){return j2Elig.indexOf(c)>-1;}).length:0;
     var j2Cost=nJ2*300;
-    var ht=coutParSalon*N + fraisNet + j2Cost;
+    var panierCost=panierPerSalon*N;
+    var ht=coutParSalon*N + fraisNet + j2Cost + panierCost;
     simState.lastHT=ht;simState.lastN=N;
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+', remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
@@ -773,6 +776,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       if(nJ2>0)rows+='<div class="sim-row"><span>Deuxième jour <small style="opacity:.7;font-weight:500">'+nJ2+' ville'+(nJ2>1?'s':'')+' éligible'+(nJ2>1?'s':'')+' × 300 €</small></span><span>'+euro(j2Cost)+'</span></div>';
       else rows+='<div class="sim-row" style="opacity:.7"><span>Deuxième jour <small>aucune ville éligible sélectionnée</small></span><span>'+euro(0)+'</span></div>';
     }
+    if(panierQty>0)rows+='<div class="sim-row"><span>Paniers repas <small style="opacity:.7;font-weight:500">'+panierQty+' /salon \u00d7 '+N+' salon'+(N>1?'s':'')+' \u00b7 hors remise</small></span><span>'+euro(panierCost)+'</span></div>';
     var _pSel=[].slice.call(document.querySelectorAll('#sim-partner input[data-pid]:checked'));
     var partnerNote='';
     if(_pSel.length){
@@ -858,7 +862,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     if(_m2>0)lines.push('• Stand de '+_m2+' m², '+_ppl+' professionnel'+(_ppl>1?'s':''));
     SIM.packs.forEach(function(it){if(it.id==='p_j2')return;var q=val(it.id);if(q>0){var _amt=(it.id==='p_add')?addSupplement(q):it.price*q;lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(_amt));}});
     if(val('p_present'))lines.push("• Frais d’inscription (une seule fois, pour l’ensemble des salons), "+euro(FRAIS_INSCRIPTION));
-    SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
+    SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+(it.id==='o_panier'?(' /salon (hors remise)'):'')+', '+euro(it.price*q));});
     var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
     if(val('p_j2')){var _elig=(J2_ELIGIBLE[simState.year]||[]);var _j2c=cities.filter(function(c){return _elig.indexOf(c)>-1;});if(_j2c.length)lines.push('• Deuxième jour × '+_j2c.length+' ('+_j2c.join(', ')+'), '+euro(_j2c.length*300));}
     var disc=[];
