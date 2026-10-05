@@ -595,7 +595,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var SIM={
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
-      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:300,type:'qty',max:7,def:1},
+      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'500 € puis dégressif',type:'qty',max:7,def:1},
       {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
@@ -638,10 +638,13 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     {id:'pa_visibilite',n:'Partenariat visibilité & Communication',odoo:'VDR 2027 - Partenariat visibilité & Communication'}
   ];
   var PARTNER_CITIES=['Nantes','Lille','Aix-en-Provence','Toulouse','Dijon','Lyon'];
+  /* Professionnel supplémentaire : tarif dégressif par rang de pro sur le stand (HT, par Village) */
+  var ADD_RANK={2:500,3:450,4:400,5:350,6:300,7:250,8:250};
+  function addSupplement(k){var t=0;for(var r=2;r<=(k||0)+1;r++){t+=(ADD_RANK[r]!=null?ADD_RANK[r]:250);}return t;}
   var simState={packDisc:0,packName:'',year:'2027'};
   function euro(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0')+' €';}
   function lineHTML(it){
-    var price='<span class="price">'+it.price+' €</span>';
+    var price='<span class="price">'+(it.priceLabel||(it.price+' €'))+'</span>';
     if(it.type==='qty'){
       return '<div class="sim-line"><input class="qty" type="number" min="0" max="'+(it.max||9)+'" value="'+(it.def||0)+'" id="qty-'+it.id+'" data-id="'+it.id+'"><label for="qty-'+it.id+'"><span>'+it.n+(it.d?'<small>'+it.d+'</small>':'')+'</span></label>'+price+'</div>';
     }
@@ -718,7 +721,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   function val(id){var e=document.querySelector('#page-simulateur [data-id="'+id+'"]');if(!e)return 0;return e.type==='checkbox'?(e.checked?1:0):(parseInt(e.value)||0);}
   function computeSim(){
     var packs=0, opts=0;
-    SIM.packs.forEach(function(it){if(it.id==='p_j2')return;packs+=it.price*val(it.id);});
+    SIM.packs.forEach(function(it){if(it.id==='p_j2'||it.id==='p_add')return;packs+=it.price*val(it.id);});
+    packs+=addSupplement(val('p_add'));
     SIM.options.forEach(function(it){opts+=it.price*val(it.id);});
     var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
     /* Coût par salon = stand + options ; les frais d’inscription sont comptés une seule fois */
@@ -851,7 +855,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var lines=[];
     var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     if(_m2>0)lines.push('• Stand de '+_m2+' m², '+_ppl+' professionnel'+(_ppl>1?'s':''));
-    SIM.packs.forEach(function(it){if(it.id==='p_j2')return;var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
+    SIM.packs.forEach(function(it){if(it.id==='p_j2')return;var q=val(it.id);if(q>0){var _amt=(it.id==='p_add')?addSupplement(q):it.price*q;lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(_amt));}});
     if(val('p_present'))lines.push("• Frais d’inscription (une seule fois, pour l’ensemble des salons), "+euro(FRAIS_INSCRIPTION));
     SIM.options.forEach(function(it){var q=val(it.id);if(q>0)lines.push('• '+it.n+(it.type==='qty'?(' × '+q):'')+', '+euro(it.price*q));});
     var cities=[].slice.call(document.querySelectorAll('#sim-cities .sim-city:checked')).map(function(c){return c.value;});
