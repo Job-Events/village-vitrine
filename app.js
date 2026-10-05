@@ -595,7 +595,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var SIM={
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
-      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'500 € puis dégressif',type:'qty',max:7,def:1},
+      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'≈ 500 €/pro',type:'qty',max:7,def:1},
       {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
@@ -723,6 +723,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var packs=0, opts=0;
     SIM.packs.forEach(function(it){if(it.id==='p_j2'||it.id==='p_add')return;packs+=it.price*val(it.id);});
     packs+=addSupplement(val('p_add'));
+    (function(){var _k=val('p_add'),_b=_k>0?_k:1,_avg=Math.round(addSupplement(_b)/_b);var _e=document.querySelector('#sim-packs [data-id="p_add"]');if(_e){var _l=_e.closest('.sim-line');if(_l){var _p=_l.querySelector('.price');if(_p)_p.textContent='≈ '+_avg+' €/pro';}}})();
     SIM.options.forEach(function(it){opts+=it.price*val(it.id);});
     var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
     /* Coût par salon = stand + options ; les frais d’inscription sont comptés une seule fois */
