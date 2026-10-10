@@ -6,6 +6,9 @@ window.WLOGOS={"ladapt":"/img/logo-ladapt.webp","triangle":"/img/logo-triangle.w
 
 /* ===== bloc 3, issu de index.html ===== */
 window.PHOTOS=["/img/galerie-304.webp","/img/galerie-305.webp","/img/galerie-306.webp","/img/galerie-307.webp","/img/galerie-308.webp","/img/galerie-309.webp","/img/galerie-310.webp","/img/galerie-311.webp","/img/galerie-312.webp","/img/galerie-313.webp","/img/galerie-314.webp","/img/galerie-315.webp","/img/galerie-316.webp","/img/galerie-317.webp","/img/galerie-318.webp","/img/galerie-319.webp","/img/galerie-320.webp","/img/galerie-321.webp","/img/galerie-322.webp","/img/galerie-323.webp","/img/galerie-324.webp","/img/galerie-325.webp","/img/galerie-326.webp","/img/galerie-327.webp","/img/galerie-328.webp","/img/galerie-329.webp","/img/galerie-330.webp","/img/galerie-331.webp","/img/galerie-332.webp","/img/galerie-333.webp","/img/galerie-334.webp","/img/galerie-335.webp","/img/galerie-336.webp","/img/galerie-337.webp","/img/galerie-338.webp","/img/galerie-339.webp","/img/galerie-340.webp","/img/galerie-341.webp","/img/galerie-342.webp","/img/galerie-343.webp","/img/galerie-344.webp","/img/galerie-345.webp","/img/galerie-346.webp","/img/galerie-347.webp","/img/galerie-348.webp","/img/galerie-349.webp","/img/galerie-350.webp","/img/galerie-351.webp","/img/galerie-352.webp","/img/galerie-353.webp","/img/galerie-354.webp","/img/galerie-355.webp","/img/galerie-356.webp","/img/galerie-357.webp","/img/galerie-358.webp","/img/galerie-359.webp","/img/galerie-360.webp","/img/galerie-361.webp","/img/galerie-362.webp","/img/galerie-363.webp","/img/galerie-364.webp","/img/galerie-365.webp","/img/galerie-366.webp","/img/galerie-367.webp","/img/galerie-368.webp","/img/galerie-369.webp","/img/galerie-370.webp","/img/galerie-371.webp","/img/galerie-372.webp","/img/galerie-373.webp","/img/galerie-374.webp","/img/galerie-375.webp"];
+/* Photos les plus récentes : affichées en tête de la galerie, dans cet ordre.
+   Ajouter ici le chemin d’une nouvelle photo pour la faire remonter en premier. */
+window.PHOTOS_RECENT=["/img/galerie-374.webp","/img/galerie-375.webp"];
 
 /* Métadonnées des photos (ville · date), affichées dans la visionneuse au clic.
    Sert aussi à identifier les clichés les plus récents, remontés en haut de la
@@ -98,7 +101,14 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var META=window.PHOTO_META||{};
   function _shuffle(a){for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
   function _lightMix(a){for(var k=0;k<a.length-1;k++){if(Math.random()<0.2){var t=a[k];a[k]=a[k+1];a[k+1]=t;}}return a;}
-  var GALL=(function(){var recent=[],older=[];for(var k=0;k<PH.length;k++){(META[PH[k]]?recent:older).push(k);}_shuffle(recent);_lightMix(older);var arr=recent.concat(older);_lightMix(arr);return arr;})();
+  var NEWEST=window.PHOTOS_RECENT||[];
+  var GALL=(function(){
+    var lead=NEWEST.map(function(src){return PH.indexOf(src);}).filter(function(i){return i>=0;});
+    var recent=[],older=[];
+    for(var k=0;k<PH.length;k++){if(lead.indexOf(k)>-1)continue;(META[PH[k]]?recent:older).push(k);}
+    _shuffle(recent);_lightMix(older);var arr=recent.concat(older);_lightMix(arr);
+    return lead.concat(arr);
+  })();
   var gg=document.getElementById('galerie-grid');
   if(gg){var h='';for(var gi=0;gi<GALL.length;gi++){var pi=GALL[gi];h+='<button class="gcell" onclick="lightbox('+pi+')"><img loading="lazy" src="'+vignette(PH[pi])+'" alt="Village des Recruteurs'+(META[PH[pi]]?', '+META[PH[pi]].ville+' '+META[PH[pi]].date:', photo '+(gi+1))+'"></button>';}gg.innerHTML=h;}
   var lbPos=0;
