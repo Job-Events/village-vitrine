@@ -92,18 +92,18 @@
   <div class="hero-in">
     <div class="brandline">Le Village des Recruteurs</div>
     <h1>Réservez votre créneau d'interview<br><span class="h1-city">Lyon 2026</span></h1>
-    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Lyon. Celles-ci sont organisées sur les <b>deux jours</b> de l'événement, les mercredi 14 et jeudi 15 octobre : choisissez votre jour, puis votre créneau. Prévoyez <b>20 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
+    <p class="hero-sub">Vous avez commandé une interview vidéo lors du Village des Recruteurs de Lyon. Celles-ci sont organisées le <b>jeudi 15 octobre</b> : choisissez votre créneau. Prévoyez <b>20 minutes</b> pour votre interview. Merci de vous présenter à l'heure au stand de nos journalistes. Une seule réservation par entreprise.</p>
   </div>
 </header>
 
 <div class="wrap">
 
   <section>
-    <div class="sec-head"><span class="step">1</span><h2>Choisissez votre jour et votre créneau</h2></div>
-    <p class="hint">Les interviews ont lieu sur les deux jours de l'événement. Sélectionnez d'abord un jour ; les créneaux grisés sont déjà réservés.</p>
+    <div class="sec-head"><span class="step">1</span><h2>Choisissez votre créneau</h2></div>
+    <p class="hint">Les interviews ont lieu le jeudi 15 octobre. Les créneaux grisés sont déjà réservés.</p>
     <div class="card">
       <div class="days" id="days"></div>
-      <div id="slots"><p class="hint" style="margin:0">Sélectionnez un jour ci-dessus pour afficher les créneaux.</p></div>
+      <div id="slots"><p class="hint" style="margin:0">Chargement des disponibilités…</p></div>
     </div>
   </section>
 
@@ -171,7 +171,6 @@
 (function(){
   var EVENT_ID=4, ENDPOINT="/api/rdv";
   var JOURS=[
-    {label:"mercredi 14 octobre", value:"14 octobre"},
     {label:"jeudi 15 octobre", value:"15 octobre"}
   ];
   var selectedDay=null;
@@ -241,6 +240,13 @@
     loadAvail();
   }
   renderDays();
+  // Un seul jour d'interviews ouvert : on le sélectionne d'office et on masque le sélecteur de jour.
+  if(JOURS.length===1){
+    if(daysEl) daysEl.style.display='none';
+    selectedDay=JOURS[0];
+    slotsEl.innerHTML='<p class="hint" style="margin:0">Chargement des disponibilités…</p>';
+    loadAvail();
+  }
 
   // « La personne à l'image est le référent » : copie et synchronise les champs.
   var sameCb=document.getElementById('sameAsRef');
