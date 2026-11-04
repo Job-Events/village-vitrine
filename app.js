@@ -295,13 +295,12 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
      ville : passer son odooLive à true (ou le piloter via EVT_LINKS_URL). */
   var villages2027=[
      /* — Tournée du printemps — */
-     {city:'Nantes',mois:'Février',date:'Jeudi 11 février 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
-     {city:'Lille',mois:'Avril',date:'Début avril 2027 (provisoire)',venue:'Lieu à confirmer',region:'Hauts-de-France',cA:'#0FAE9E',cB:'#0A7D72',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lille-2027-6/register',odooLive:false},
-     {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai ou mardi 8 juin 2027',venue:'Casino Grand, 21 av. de l’Europe',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:false},
+     {city:'Nantes',mois:'Mars',date:'Jeudi 18 mars 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
+     {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai 2027',venue:'Casino Pasino',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:false},
      /* — Tournée de l’automne — */
      {city:'Toulouse',mois:'Septembre',date:'Jeudi 16 septembre 2027',venue:'Salle Mermoz',region:'Occitanie',cA:'#FF5A5F',cB:'#c62a3f',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-2027-8/register',odooLive:false},
-     {city:'Dijon',mois:'Septembre',date:'Jeudi 30 septembre 2027 (provisoire)',venue:'Lieu à confirmer',region:'Bourgogne-Franche-Comté',cA:'#F8B322',cB:'#D98E00',coprod:'',pic:'/img/logo-dijon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2027-9/register',odooLive:false},
-     {city:'Lyon',mois:'Octobre',date:'Mercredi 13 & jeudi 14 octobre 2027',venue:'Lieu à confirmer',region:'Auvergne-Rhône-Alpes',cA:'#1C6DA8',cB:'#08324F',coprod:'',pic:'/img/logo-lyon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-2027-10/register',odooLive:false}
+     {city:'Dijon',mois:'Septembre',date:'Mardi 28 septembre 2027',venue:'Stade Gaston Gérard',region:'Bourgogne-Franche-Comté',cA:'#F8B322',cB:'#D98E00',coprod:'',pic:'/img/logo-dijon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2027-9/register',odooLive:false},
+     {city:'Lyon',mois:'Octobre',date:'Mercredi 13 & jeudi 14 octobre 2027',venue:'Palais de la Bourse',region:'Auvergne-Rhône-Alpes',cA:'#1C6DA8',cB:'#08324F',coprod:'',pic:'/img/logo-lyon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-2027-10/register',odooLive:false}
    ];
   /* ---- État d’un événement calculé depuis sa date (page « Nos Villages » dynamique) ----
      La date de fin est déduite du libellé (« 16–17 sept. 2026 » -> 17/09/2026,
@@ -347,7 +346,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       : '<div class="coprod-band vdr">Une édition Le Village des Recruteurs</div>';
     return '<div class="evt">'
       +'<div class="top" style="background:linear-gradient(135deg,'+v.cA+','+v.cB+')"><span class="status soon">'+v.mois+' · Pré-inscription</span><span class="city">'+v.city+'</span></div>'
-      +'<div class="body">'+band+'<div class="meta"><b>'+v.date+'</b></div><div class="meta"><b>Lieu à confirmer</b></div><div class="meta">Save the date</div>'
+      +'<div class="body">'+band+'<div class="meta"><b>'+v.date+'</b></div><div class="meta"><b>'+(v.venue||'Lieu à confirmer')+'</b></div><div class="meta">Save the date</div>'
       +'<div class="acts"><a class="btn btn-primary" href="#" onclick="openCandForm(\''+v.city+'\');return false;">Tenez-moi informé·e</a><a class="btn btn-ghost" href="'+expoTarget(v)+'">Réserver un stand</a></div></div></div>';
   }
   (function(){
@@ -607,7 +606,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
       {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'≈ 500 €/pro',type:'qty',max:7,def:1},
-      {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Toulouse & Lyon en 2026, Lyon en 2027',price:300,type:'check'},
+      {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Lyon',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
     options:[
@@ -723,7 +722,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     document.getElementById('sim-options').innerHTML=optionsHTML();
     renderPartner();
     var yr=document.getElementById('sim-year');
-    yr.innerHTML=['2026','2027'].map(function(y){return '<button data-year="'+y+'" class="'+(y==='2027'?'active':'')+'">Tournée '+y+'</button>';}).join('');
+    yr.innerHTML=['2027'].map(function(y){return '<button data-year="'+y+'" class="'+(y==='2027'?'active':'')+'">Tournée '+y+'</button>';}).join('');
     yr.querySelectorAll('button').forEach(function(b){b.onclick=function(){simState.year=b.dataset.year;yr.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCities();computeSim();};});
     renderCities();
     pc.querySelectorAll('button').forEach(function(b){b.onclick=function(){if(b.classList.contains('active'))applyPack(-1);else applyPack(+b.dataset.pack);};});
