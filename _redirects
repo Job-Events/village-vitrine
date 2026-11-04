@@ -33,5 +33,7 @@
 /calendar/                                          /nos-villages/           301
 /website/info                                       /                        301
 /website/info/                                      /                        301
+/simulateur                                         /exposer/                301
+/simulateur/                                        /exposer/                301
 /event/*                                            /nos-villages/           301
 /event/*/                                           /nos-villages/           301

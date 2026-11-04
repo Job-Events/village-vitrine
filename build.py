@@ -72,9 +72,10 @@ PAGES = [
  ('blog', '/actualite/', 'Actualité',
   'Les dernières publications du Village des Recruteurs sur LinkedIn, Facebook '
   'et Instagram, réunies au même endroit.'),
- ('simulateur', '/simulateur/', 'Simuler votre participation',
-  'Composez votre stand et vos options : le coût de votre participation au '
-  'Village des Recruteurs s’ajuste en direct, remises comprises.'),
+ # --- Simulateur DÉSACTIVÉ (archivé) : réactiver en décommentant ce bloc + les boutons dans _source.html + les lignes /simulateur/ de _redirects ---
+ # ('simulateur', '/simulateur/', 'Simuler votre participation',
+ #  'Composez votre stand et vos options : le coût de votre participation au '
+ #  'Village des Recruteurs s’ajuste en direct, remises comprises.'),
  ('stands', '/nos-stands/', 'À quoi ressemble un stand',
   'Des photos de vrais stands du Village des Recruteurs, classées par nombre de '
   'tables (une table par professionnel), d’une à quatre tables.'),
