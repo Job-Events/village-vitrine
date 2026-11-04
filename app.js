@@ -817,7 +817,11 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   function toggleAllCities(){
     var boxes=[].slice.call(document.querySelectorAll('#sim-cities .sim-city'));
     var allOn=boxes.length>0 && boxes.every(function(b){return b.checked;});
-    boxes.forEach(function(b){b.checked=!allOn;});
+    var turnOn=!allOn;
+    boxes.forEach(function(b){b.checked=turnOn;});
+    /* Prendre toute la tournée coche aussi le second jour (Lyon éligible) ; tout désélectionner le retire. */
+    var j2=document.querySelector('#sim-packs [data-id="p_j2"]');
+    if(j2)j2.checked=turnOn;
     computeSim();
   }
   window.toggleAllCities=toggleAllCities;
