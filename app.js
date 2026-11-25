@@ -455,7 +455,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
   function setYear(y){document.querySelectorAll('.nv-yr').forEach(function(b){b.classList.toggle('on',b.dataset.year===y);});renderNV(y);}
   window.setYear=setYear;
-  (function(){if(!document.getElementById('nv-cards'))return;renderNV('2026');if(EVT_LINKS_URL){fetch(EVT_LINKS_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){applyLinks(cfg.links||cfg);var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2026');}).catch(function(){});}})();
+  (function(){if(!document.getElementById('nv-cards'))return;renderNV('2027');if(EVT_LINKS_URL){fetch(EVT_LINKS_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){applyLinks(cfg.links||cfg);var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2027');}).catch(function(){});}})();
 
   /* VILLAGE DETAIL */
   function openVillage(i){
@@ -561,7 +561,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     if(!SITE_CONFIG_URL)return;
     fetch(SITE_CONFIG_URL,{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){
       if(!cfg)return;
-      if(cfg.links){applyLinks(cfg.links);if(document.getElementById('nv-cards')){var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2026');}}
+      if(cfg.links){applyLinks(cfg.links);if(document.getElementById('nv-cards')){var b=document.querySelector('.nv-yr.on');renderNV(b?b.dataset.year:'2027');}}
       if(cfg.social){renderSocial(cfg.social);}
     }).catch(function(){});
   })();
@@ -605,7 +605,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   var SIM={
     packs:[
       {id:'p_present',n:'Stand équipé pour 1 professionnel',d:'4 m² · article magazine, page Recruteur sur la plateforme, diffusion des offres, module de communication candidats, annonce réseaux sociaux',price:990,type:'check',def:true},
-      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'≈ 500 €/pro',type:'qty',max:7,def:1},
+      {id:'p_add',n:'Professionnel supplémentaire',d:'+1 pro et +3 m² (mange-debout + 2 tabourets)',price:500,priceLabel:'500 €/pro',type:'qty',max:7,def:1},
       {id:'p_j2',n:'Deuxième jour',d:'+300 € par ville éligible sélectionnée · Lyon',price:300,type:'check'},
       {id:'p_tpe',n:'Pack TPE',d:'Réduction, société de moins de 3 ans',price:-250,type:'check'}
     ],
@@ -648,10 +648,10 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     {id:'pa_soiree',n:'Partenariat soirée inaugurale',odoo:'VDR 2027 - Partenariat soirée inaugurale'},
     {id:'pa_visibilite',n:'Partenariat visibilité & Communication',odoo:'VDR 2027 - Partenariat visibilité & Communication'}
   ];
-  var PARTNER_CITIES=['Nantes','Lille','Aix-en-Provence','Toulouse','Dijon','Lyon'];
+  var PARTNER_CITIES=['Nantes','Aix-en-Provence','Toulouse','Dijon','Lyon'];
   /* Professionnel supplémentaire : tarif dégressif par rang de pro sur le stand (HT, par Village) */
-  var ADD_RANK={2:500,3:450,4:400,5:350,6:300,7:250,8:250};
-  function addSupplement(k){var t=0;for(var r=2;r<=(k||0)+1;r++){t+=(ADD_RANK[r]!=null?ADD_RANK[r]:250);}return t;}
+  var ADD_RANK={2:500,3:500,4:500,5:500,6:500,7:500,8:500};
+  function addSupplement(k){var t=0;for(var r=2;r<=(k||0)+1;r++){t+=(ADD_RANK[r]!=null?ADD_RANK[r]:500);}return t;}
   var simState={packDisc:0,packName:'',year:'2027'};
   function euro(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0')+' €';}
   function lineHTML(it){
@@ -730,63 +730,67 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     computeSim();
   })();
   function val(id){var e=document.querySelector('#page-simulateur [data-id="'+id+'"]');if(!e)return 0;return e.type==='checkbox'?(e.checked?1:0):(parseInt(e.value)||0);}
+  /* Remises 2027, alignées sur les listes de prix Odoo :
+     standard   1 salon 0 %, 2 salons 10 %, 3 ou 4 salons 15 %, tournée complète 20 %
+     early book 1 salon 10 %, 2 salons 15 %, 3 ou 4 salons 20 %, tournée complète 30 %
+     Elles s’appliquent au stand, aux options, au deuxième jour et aux frais d’inscription ;
+     jamais aux paniers repas. La remise d’un pack conseillé s’applique avant. */
+  function volumePct(n,total,early){
+    if(n<=0)return 0;
+    var full=total>0&&n>=total;
+    if(early)return full?0.30:(n>=3?0.20:(n===2?0.15:0.10));
+    return full?0.20:(n>=3?0.15:(n===2?0.10:0));
+  }
   function computeSim(){
-    var packs=0, opts=0;
-    SIM.packs.forEach(function(it){if(it.id==='p_j2'||it.id==='p_add')return;packs+=it.price*val(it.id);});
-    packs+=addSupplement(val('p_add'));
-    (function(){var _k=val('p_add'),_b=_k>0?_k:1,_avg=Math.round(addSupplement(_b)/_b);var _e=document.querySelector('#sim-packs [data-id="p_add"]');if(_e){var _l=_e.closest('.sim-line');if(_l){var _p=_l.querySelector('.price');if(_p)_p.textContent='≈ '+_avg+' €/pro';}}})();
-    SIM.options.forEach(function(it){if(it.id==='o_panier')return;opts+=it.price*val(it.id);});
-    var panierQty=val('o_panier'), panierPerSalon=20*panierQty;
-    var frais = val('p_present') ? FRAIS_INSCRIPTION : 0;
-    /* Coût par salon = stand + options ; les frais d’inscription sont comptés une seule fois */
-    var subtotal=packs+opts;
-    var packDiscAmt=subtotal*simState.packDisc;
-    var afterPack=subtotal-packDiscAmt;
-    /* villes -> nombre de salons + remise volume */
-    var totalCities=cityList().length;
     var nCities=document.querySelectorAll('#sim-cities .sim-city:checked').length;
     var N=Math.max(1,nCities);
-    var evtPct=0;
-    if(nCities>=1){
-      if(totalCities>0 && nCities>=totalCities)evtPct=0.20;
-      else if(nCities>=3)evtPct=0.15;
-      else if(nCities===2)evtPct=0.10;
-    }
-    var eaPct=(simState.year==='2027' && document.getElementById('d-early').checked)?0.10:0;
-    var volAmt=afterPack*evtPct, eaAmt=afterPack*eaPct;
-    var coutParSalon=afterPack-volAmt-eaAmt;
-    /* Frais d’inscription : une seule fois au total, avec les mêmes remises appliquées */
-    /* Frais d’inscription : comptés une seule fois et HORS remise pack (les remises
-       volume / early booking s’y appliquent, pas la remise d’un pack « Best Of »). */
-    var discFactor=(1-evtPct-eaPct);
-    var fraisNet=frais*discFactor;
-    /* Deuxième jour : +300 € par ville éligible sélectionnée (tarif fixe, hors remises) */
+    var totalCities=cityList().length;
+    var early=(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked);
+    /* ---- 1. Prix catalogue ---- */
+    var standUnit=val('p_present')?990:0;
+    var addN=val('p_add'), addUnit=addSupplement(addN);
+    (function(){var _e=document.querySelector('#sim-packs [data-id="p_add"]');if(_e){var _l=_e.closest('.sim-line');if(_l){var _p=_l.querySelector('.price');if(_p)_p.textContent='500 €/pro';}}})();
+    var tpeUnit=val('p_tpe')?-250:0;
+    var optsUnit=0; SIM.options.forEach(function(it){if(it.id==='o_panier')return;optsUnit+=it.price*val(it.id);});
     var selCities=[].map.call(document.querySelectorAll('#sim-cities .sim-city:checked'),function(c){return c.value;});
     var j2Elig=(J2_ELIGIBLE[simState.year]||[]);
     var nJ2=val('p_j2')?selCities.filter(function(c){return j2Elig.indexOf(c)>-1;}).length:0;
     var j2Cost=nJ2*300;
-    var panierCost=panierPerSalon*N;
-    var ht=coutParSalon*N + fraisNet + j2Cost + panierCost;
-    simState.lastHT=ht;simState.lastN=N;
+    var frais=val('p_present')?FRAIS_INSCRIPTION:0;
+    var panierQty=val('o_panier'), panierCost=20*panierQty*N;
+    var standCost=standUnit*N, addCost=addUnit*N, tpeCost=tpeUnit*N, optsCost=optsUnit*N;
+    var remisable=standCost+addCost+tpeCost+optsCost+j2Cost+frais;
+    var catalogue=remisable+panierCost;
+    /* ---- 2. Réductions ---- */
+    var packAmt=(standCost+addCost+tpeCost+optsCost+j2Cost)*simState.packDisc;
+    var pct=volumePct(nCities,totalCities,early);
+    var volAmt=(remisable-packAmt)*pct;
+    var propose=catalogue-packAmt-volAmt;
+    simState.lastHT=propose;simState.lastN=N;
+    var full=totalCities>0&&nCities>=totalCities;
+    var volLabel=full?'Forfait tournée complète':(nCities>=2?('Remise '+nCities+' salons'):'Remise');
+    if(early)volLabel+=' + early booking';
     var note=document.getElementById('sim-cities-note');
-    if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+', remise volume '+(evtPct?('-'+Math.round(evtPct*100)+'%'):'0%'));
-    var _ppl=(val('p_present')?1:0)+val('p_add'); var _m2=_ppl>0?(4+(_ppl-1)*3):0;
+    if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+(full?' (tournée complète)':'')+', remise '+Math.round(pct*100)+' %');
+    var _ppl=(val('p_present')?1:0)+addN; var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     updateStandPreview(_ppl);
-    var rows='';
-    rows+='<div class="sim-row"><span>Stand &amp; participation'+(_m2>0?' <small style="opacity:.7;font-weight:500">stand de '+_m2+' m² · '+_ppl+' pro'+(_ppl>1?'s':'')+'</small>':'')+'</span><span>'+euro(packs)+'</span></div>';
-    rows+='<div class="sim-row"><span>Options</span><span>'+euro(opts)+'</span></div>';
-    if(packDiscAmt>0)rows+='<div class="sim-row disc"><span>Remise '+(simState.packName||'pack')+' (-'+Math.round(simState.packDisc*100)+'%)</span><span>-'+euro(packDiscAmt)+'</span></div>';
-    if(volAmt>0)rows+='<div class="sim-row disc"><span>Remise volume ('+nCities+' salons, -'+Math.round(evtPct*100)+'%)</span><span>-'+euro(volAmt)+'</span></div>';
-    if(eaAmt>0)rows+='<div class="sim-row disc"><span>Remise early booking (-10 %)</span><span>-'+euro(eaAmt)+'</span></div>';
-    rows+='<div class="sim-row" style="font-weight:900;font-size:1.12rem;margin-top:.5rem;padding:.55rem .7rem;border-radius:10px;background:rgba(248,179,34,.16);border:1px solid rgba(248,179,34,.5)"><span>Coût par salon</span><span style="color:#F8B322">'+euro(coutParSalon)+'</span></div>';
-    rows+='<div class="sim-row"><span>Nombre de salons</span><span>× '+N+'</span></div>';
-    rows+='<div class="sim-row"><span>Sous-total salons</span><span>'+euro(coutParSalon*N)+'</span></div>';
-    if(fraisNet>0)rows+='<div class="sim-row"><span>Frais d’inscription</span><span>'+euro(fraisNet)+'</span></div>';
-    if(val('p_j2')){
-      if(nJ2>0)rows+='<div class="sim-row"><span>Deuxième jour <small style="opacity:.7;font-weight:500">'+nJ2+' ville'+(nJ2>1?'s':'')+' éligible'+(nJ2>1?'s':'')+' × 300 €</small></span><span>'+euro(j2Cost)+'</span></div>';
-      else rows+='<div class="sim-row" style="opacity:.7"><span>Deuxième jour <small>aucune ville éligible sélectionnée</small></span><span>'+euro(0)+'</span></div>';
+    var sx=' <small style="opacity:.7;font-weight:500">';
+    var xN=N>1?(' \u00d7 '+N+' salons'):'';
+    var rows='<div class="sim-subhead" style="margin-top:.2rem">Prix catalogue</div>';
+    if(standCost)rows+='<div class="sim-row"><span>Stand équipé'+sx+(_m2?_m2+' m² · ':'')+'990 €'+xN+'</small></span><span>'+euro(standCost)+'</span></div>';
+    if(addCost)rows+='<div class="sim-row"><span>Professionnels supplémentaires'+sx+addN+' \u00d7 500 €'+xN+'</small></span><span>'+euro(addCost)+'</span></div>';
+    if(val('p_j2'))rows+='<div class="sim-row"'+(nJ2?'':' style="opacity:.7"')+'><span>Deuxième jour'+sx+(nJ2?(nJ2+' \u00d7 300 €'):'aucune ville éligible sélectionnée')+'</small></span><span>'+euro(j2Cost)+'</span></div>';
+    if(optsCost)rows+='<div class="sim-row"><span>Options'+sx+euro(optsUnit)+xN+'</small></span><span>'+euro(optsCost)+'</span></div>';
+    if(tpeCost)rows+='<div class="sim-row"><span>Pack TPE'+sx+'−250 €'+xN+'</small></span><span>'+euro(tpeCost)+'</span></div>';
+    if(panierCost)rows+='<div class="sim-row"><span>Paniers repas'+sx+panierQty+' \u00d7 20 €'+xN+' · hors remise</small></span><span>'+euro(panierCost)+'</span></div>';
+    if(frais)rows+='<div class="sim-row"><span>Frais d’inscription'+sx+'une seule fois</small></span><span>'+euro(frais)+'</span></div>';
+    rows+='<div class="sim-row" style="font-weight:800;border-top:1px solid rgba(255,255,255,.25);margin-top:.35rem;padding-top:.45rem"><span>Sous-total</span><span>'+euro(catalogue)+'</span></div>';
+    if(packAmt>0||volAmt>0){
+      rows+='<div class="sim-subhead">Réductions</div>';
+      if(packAmt>0)rows+='<div class="sim-row disc"><span>'+(simState.packName||'Pack')+' (−'+Math.round(simState.packDisc*100)+' %)</span><span>−'+euro(packAmt)+'</span></div>';
+      if(volAmt>0)rows+='<div class="sim-row disc"><span>'+volLabel+' (−'+Math.round(pct*100)+' %)</span><span>−'+euro(volAmt)+'</span></div>';
+      rows+='<div class="sim-row disc" style="font-weight:800"><span>Total des réductions</span><span>−'+euro(packAmt+volAmt)+'</span></div>';
     }
-    if(panierQty>0)rows+='<div class="sim-row"><span>Paniers repas <small style="opacity:.7;font-weight:500">'+panierQty+' /salon \u00d7 '+N+' salon'+(N>1?'s':'')+' \u00b7 hors remise</small></span><span>'+euro(panierCost)+'</span></div>';
     var _pSel=[].slice.call(document.querySelectorAll('#sim-partner input[data-pid]:checked'));
     var partnerNote='';
     if(_pSel.length){
@@ -795,8 +799,8 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       partnerNote='<div class="sim-partner-recap" style="margin-top:.6rem;padding:.6rem .7rem;border-radius:10px;background:rgba(195,0,106,.12);border:1px solid rgba(195,0,106,.3);font-size:.9rem;color:#fff"><b>Offres partenaires (sur devis)</b><br>'+_pNames.join(', ')+'<br><span style="opacity:.82">'+(_pc.length?('Villes : '+_pc.join(', ')):'Villes à préciser')+'</span><br><span style="opacity:.82">Non incluses dans le total, transmises avec votre demande.</span></div>';
     }
     var recap='<h3>Votre estimation</h3>'+rows
-      +'<div class="sim-total"><span>Total HT</span><b>'+euro(ht)+'</b></div>'
-      +'<div class="ttc">soit '+euro(ht*1.2)+' TTC (TVA 20%)</div>'
+      +'<div class="sim-total"><span>Prix proposé HT</span><b>'+euro(propose)+'</b></div>'
+      +'<div class="ttc">soit '+euro(propose*1.2)+' TTC (TVA 20%)'+(N>1?(' · '+euro(propose/N)+' HT par salon en moyenne'):'')+'</div>'
       +partnerNote
       +'<button class="btn btn-primary" onclick="demandeSimulateur()">Demander une offre ferme (avec ma simulation)</button>'
       +'<button class="btn btn-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4);width:100%;justify-content:center;margin-top:.5rem" onclick="resetSim()">↺ Réinitialiser</button>';
@@ -834,7 +838,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
   }
 
   /* ===== Intégration Odoo (événements + contact) + UTM ===== */
-  window.odooUrl=odooUrl;
+  if(typeof odooUrl!=='undefined')window.odooUrl=odooUrl;
   /* ROUTER */
   /* Adresses reelles des 23 pages. Chaque page est un fichier servi a sa propre
      URL : go() n a plus a masquer ni afficher de conteneur, il redirige. La
