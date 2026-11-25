@@ -629,13 +629,13 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     ],
     /* Packs conseillés : configurations recommandées pour améliorer la visibilité */
     bestof:[
-      {id:'duo',n:'Stand 2 professionnels',disc:0,config:'2 professionnels · Pack digital · Frais d’inscription',items:['p_present',['p_add',1],'o_digital'],
+      {id:'duo',n:'Stand 2 professionnels',disc:0,config:'2 professionnels · Pack digital · 2ᵉ jour à Lyon · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','p_j2'],
        desc:'La configuration la plus demandée : 2 professionnels (stand 7 m²), pack digital et frais d’inscription. Prix standard ; les remises volume et early booking 2027 s’appliquent ensuite normalement.'},
-      {id:'interim',n:'Pack Intérim',disc:0.25,config:'2 pros (stand +1) · Pack digital · Interview jour J · CV dans votre ATS · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_itw','o_ats'],
+      {id:'interim',n:'Pack Intérim',disc:0.25,config:'2 pros (stand +1) · Pack digital · Interview jour J · CV dans votre ATS · 2ᵉ jour à Lyon · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_itw','o_ats','p_j2'],
        desc:'Pour les agences d’emploi & intérim : 2 professionnels, pack digital, interview jour J et envoi des CV dans votre ATS. Remise 25%.'},
-      {id:'formation',n:'Pack Formation',disc:0.25,config:'2 pros (stand +1) · Pack digital · Webinaire · Interview jour J · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_web','o_itw'],
+      {id:'formation',n:'Pack Formation',disc:0.25,config:'2 pros (stand +1) · Pack digital · Webinaire · Interview jour J · 2ᵉ jour à Lyon · Frais d’inscription',items:['p_present',['p_add',1],'o_digital','o_web','o_itw','p_j2'],
        desc:'Pour les organismes de formation : 2 professionnels, pack digital, webinaire et interview jour J. Remise 25%.'},
-      {id:'multi',n:'Pack Multimarques',disc:0.25,config:'3 pros (stand +2) · Pack digital · 3× 1/4 page magazine (inclus) · 3× interview jour J · Webinaire · Frais d’inscription',items:['p_present',['p_add',2],'o_digital','o_web','o_itw'],
+      {id:'multi',n:'Pack Multimarques',disc:0.25,config:'3 pros (stand +2) · Pack digital · 3× 1/4 page magazine (inclus) · 3× interview jour J · Webinaire · 2ᵉ jour à Lyon · Frais d’inscription',items:['p_present',['p_add',2],'o_digital','o_web','o_itw','p_j2'],
        desc:'Pour plusieurs marques d’un même groupe : 3 professionnels, pack digital, 3 quarts de page magazine (inclus au stand), 3 interviews jour J et webinaire. Remise 25%.'}
     ]
   };
@@ -684,7 +684,10 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     var wrap=document.getElementById('sim-cities');if(!wrap)return;
     var arr=(simState.year==='2027'?villages2027:villages2026).filter(function(v){return !isPast(v)&&!v.tbd;});
     wrap.innerHTML=arr.map(function(v){return '<label><input type="checkbox" class="sim-city" value="'+v.city+'"> <span class="ci-mois">'+v.mois+'</span> '+v.city+'</label>';}).join('');
-    wrap.querySelectorAll('input').forEach(function(i){i.addEventListener('change',computeSim);});
+    wrap.querySelectorAll('input').forEach(function(i){i.addEventListener('change',function(){
+      /* Cocher une ville à deux jours (Lyon) coche le deuxième jour */
+      if(i.checked&&(J2_ELIGIBLE[simState.year]||[]).indexOf(i.value)>-1){var j2=document.querySelector('#sim-packs [data-id="p_j2"]');if(j2)j2.checked=true;}
+      computeSim();});});
     var ea=document.getElementById('d-early'), line=document.getElementById('line-early');
     if(ea && line){
       var is27=simState.year==='2027';
