@@ -767,32 +767,35 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     /* ---- 2. Réductions ---- */
     var packAmt=(standCost+addCost+tpeCost+optsCost+j2Cost)*simState.packDisc;
     var pct=volumePct(nCities,totalCities,early);
-    var volAmt=(remisable-packAmt)*pct;
-    var propose=catalogue-packAmt-volAmt;
+    var pctStd=volumePct(nCities,totalCities,false), pctEarly=pct-pctStd;
+    var base=remisable-packAmt;
+    var volAmt=base*pctStd, earlyAmt=base*pctEarly;
+    var propose=catalogue-packAmt-volAmt-earlyAmt;
     simState.lastHT=propose;simState.lastN=N;
     var full=totalCities>0&&nCities>=totalCities;
-    var volLabel=full?'Forfait tournée complète':(nCities>=2?('Remise '+nCities+' salons'):'Remise');
-    if(early)volLabel+=' + early booking';
+    var volLabel=full?'Remise forfait tournée complète':('Remise '+nCities+' salons');
     var note=document.getElementById('sim-cities-note');
     if(note)note.textContent = nCities===0 ? 'Aucun Village sélectionné, estimation pour 1 salon.' : (nCities+' salon'+(nCities>1?'s':'')+(full?' (tournée complète)':'')+', remise '+Math.round(pct*100)+' %');
     var _ppl=(val('p_present')?1:0)+addN; var _m2=_ppl>0?(4+(_ppl-1)*3):0;
     updateStandPreview(_ppl);
     var sx=' <small style="opacity:.7;font-weight:500">';
-    var xN=N>1?(' \u00d7 '+N+' salons'):'';
+    var xN=' \u00d7 '+N+' salon'+(N>1?'s':'');
     var rows='<div class="sim-subhead" style="margin-top:.2rem">Prix catalogue</div>';
     if(standCost)rows+='<div class="sim-row"><span>Stand équipé'+sx+(_m2?_m2+' m² · ':'')+'990 €'+xN+'</small></span><span>'+euro(standCost)+'</span></div>';
     if(addCost)rows+='<div class="sim-row"><span>Professionnels supplémentaires'+sx+addN+' \u00d7 500 €'+xN+'</small></span><span>'+euro(addCost)+'</span></div>';
     if(val('p_j2'))rows+='<div class="sim-row"'+(nJ2?'':' style="opacity:.7"')+'><span>Deuxième jour'+sx+(nJ2?(nJ2+' \u00d7 300 €'):'aucune ville éligible sélectionnée')+'</small></span><span>'+euro(j2Cost)+'</span></div>';
-    if(optsCost)rows+='<div class="sim-row"><span>Options'+sx+euro(optsUnit)+xN+'</small></span><span>'+euro(optsCost)+'</span></div>';
+    SIM.options.forEach(function(it){if(it.id==='o_panier')return;var q=val(it.id);if(!q)return;
+      rows+='<div class="sim-row"><span>'+it.n+sx+euro(it.price)+' \u00d7 '+N+' salon'+(N>1?'s':'')+'</small></span><span>'+euro(it.price*q*N)+'</span></div>';});
     if(tpeCost)rows+='<div class="sim-row"><span>Pack TPE'+sx+'−250 €'+xN+'</small></span><span>'+euro(tpeCost)+'</span></div>';
     if(panierCost)rows+='<div class="sim-row"><span>Paniers repas'+sx+panierQty+' \u00d7 20 €'+xN+' · hors remise</small></span><span>'+euro(panierCost)+'</span></div>';
     if(frais)rows+='<div class="sim-row"><span>Frais d’inscription'+sx+'une seule fois</small></span><span>'+euro(frais)+'</span></div>';
     rows+='<div class="sim-row" style="font-weight:800;border-top:1px solid rgba(255,255,255,.25);margin-top:.35rem;padding-top:.45rem"><span>Sous-total</span><span>'+euro(catalogue)+'</span></div>';
-    if(packAmt>0||volAmt>0){
+    if(packAmt>0||volAmt>0||earlyAmt>0){
       rows+='<div class="sim-subhead">Réductions</div>';
       if(packAmt>0)rows+='<div class="sim-row disc"><span>'+(simState.packName||'Pack')+' (−'+Math.round(simState.packDisc*100)+' %)</span><span>−'+euro(packAmt)+'</span></div>';
-      if(volAmt>0)rows+='<div class="sim-row disc"><span>'+volLabel+' (−'+Math.round(pct*100)+' %)</span><span>−'+euro(volAmt)+'</span></div>';
-      rows+='<div class="sim-row disc" style="font-weight:800"><span>Total des réductions</span><span>−'+euro(packAmt+volAmt)+'</span></div>';
+      if(volAmt>0)rows+='<div class="sim-row disc"><span>'+volLabel+' (−'+Math.round(pctStd*100)+' %)</span><span>−'+euro(volAmt)+'</span></div>';
+      if(earlyAmt>0)rows+='<div class="sim-row disc"><span>Early booking (−'+Math.round(pctEarly*100)+' %)'+sx+'commande avant le 31/12/2026</small></span><span>−'+euro(earlyAmt)+'</span></div>';
+      rows+='<div class="sim-row disc" style="font-weight:800"><span>Total des réductions</span><span>−'+euro(packAmt+volAmt+earlyAmt)+'</span></div>';
     }
     var _pSel=[].slice.call(document.querySelectorAll('#sim-partner input[data-pid]:checked'));
     var partnerNote='';
