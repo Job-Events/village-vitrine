@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Lancer une campagne e-mail · Manuel Odoo · Espace équipe</title>
+<style>
+:root{--rose:#E3007B;--rose-d:#B4005F;--blue:#006FB7;--navy:#08324F;--jaune:#F8B322;--green:#2FA36B;
+--ink:#241A12;--muted:#786859;--paper:#FFF9F1;--surface:#fff;--line:rgba(60,40,24,.14);--r:18px;
+--shadow-sm:0 8px 22px -14px rgba(80,45,20,.26)}
+*{box-sizing:border-box}
+@font-face{font-family:"Jost";src:url(/fonts/jost-latin.woff2) format("woff2");font-weight:300 900;font-display:swap}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.02rem/1.62 "Jost","Century Gothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--rose-d)}
+.wrap{max-width:76rem;margin:0 auto;padding:1.3rem clamp(.9rem,3vw,2rem) 4rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;background:var(--surface);border:1px solid var(--line);
+border-radius:var(--r);padding:1rem 1.2rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;
+background:linear-gradient(90deg,var(--rose) 0 20%,var(--jaune) 20% 40%,var(--green) 40% 60%,var(--blue) 60% 80%,#0FAE9E 80% 100%)}
+.brand{font-weight:800;font-size:1.15rem;margin-top:2px}
+.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3006A}
+.top .nav{margin-left:auto;font-size:.88rem;display:flex;gap:1rem;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:17rem minmax(0,1fr);gap:1.6rem;margin-top:1.4rem;align-items:start}
+.toc{position:sticky;top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem .9rem;font-size:.9rem}
+.toc b.sep{height:1px;background:var(--line);margin:.9rem .4rem}.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li a{display:flex;gap:.5rem;padding:.38rem .45rem;border-radius:10px;text-decoration:none;color:var(--ink);line-height:1.3}
+.toc li a span{color:var(--rose-d);font-weight:700;min-width:1.4rem}
+.toc li a:hover{background:#FDEBD8}
+.toc li a[aria-current]{background:var(--navy);color:#fff}.toc li a[aria-current] span{color:#FBE7B8}
+.toc .sub{margin:.1rem 0 .5rem 2.3rem;font-size:.82rem}
+.toc .sub a{display:block;padding:.15rem 0;color:var(--muted);text-decoration:none}
+.toc .sub a:hover{color:var(--rose-d)}
+main{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.1rem,3vw,2.4rem);min-width:0}
+.eyebrow{display:inline-block;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-d)}
+h1{font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:.2rem 0 1rem;color:var(--navy)}
+h2{font-size:1.3rem;color:var(--navy);margin:2.2rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line);scroll-margin-top:1rem}
+h3{font-size:1.08rem;color:var(--navy);margin:1.6rem 0 .4rem}
+p,li{max-width:48rem}
+img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block;margin:.8rem 0}
+figure{margin:1.2rem 0}figcaption{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.tbl{overflow-x:auto;margin:1rem 0 1.3rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .7rem;border-bottom:1px solid var(--line)}
+thead th{background:#136FB8;color:#fff;font-weight:700}
+tbody tr:nth-child(even){background:#F5F8FC}
+.callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
+.callout.rose{border-left-color:#E3145C;background:#FDEBF1}
+.callout p{margin:.2rem 0}.callout p+p{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(0,0,0,.08)}
+blockquote{margin:0}blockquote.lettre{border-left:3px solid var(--line);background:#FBF8F4;border-radius:0 12px 12px 0;padding:.6rem 1.1rem;margin:.8rem 0 1.4rem;max-width:48rem}pre{background:#F5F8FC;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;overflow-x:auto;font-size:.82rem;line-height:1.45;max-width:48rem}code{font-size:.88em}.callout ul{margin:.4rem 0 0}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
+.pager a small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
+.pager a:hover{border-color:var(--rose)}
+.chap-list{list-style:none;padding:0;margin:1.2rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.chap-list a{display:block;height:100%;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;background:#fff}
+.chap-list a:hover{border-color:var(--rose);box-shadow:var(--shadow-sm)}
+.chap-list span{display:block;font-weight:800;color:var(--rose-d);font-size:1.3rem}
+.meta{font-size:.9rem;color:var(--muted)}
+.menu-btn{display:none}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.toc{position:static}.toc .sub{display:none}}
+@media print{.top,.toc,.pager{display:none}.grid{display:block}main{border:0;padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="brand"><small>Espace équipe · Job Events</small>Manuel Odoo — processus commercial 2027</div><div class="nav"><a href="/equipe/manuel/">Sommaire</a><a href="/equipe">← Espace équipe</a></div></div>
+<div class="grid">
+<nav class="toc"><b>Sommaire</b><ol><li><a href="/equipe/manuel/chapitre-01"><span>01</span>Vue d&#x27;ensemble : la boucle
+complète</a></li><li><a href="/equipe/manuel/chapitre-02"><span>02</span>Préalable : des contacts
+propres</a></li><li><a href="/equipe/manuel/chapitre-03"><span>03</span>Le devis</a></li><li><a href="/equipe/manuel/chapitre-04"><span>04</span>La facturation</a></li><li><a href="/equipe/manuel/chapitre-05"><span>05</span>L&#x27;inscription aux événements</a></li><li><a href="/equipe/manuel/chapitre-06"><span>06</span>Les partenaires</a></li><li><a href="/equipe/manuel/chapitre-07"><span>07</span>Le
+suivi opérationnel : paniers repas, interviews, matériel</a></li><li><a href="/equipe/manuel/chapitre-08"><span>08</span>Matching Square</a></li><li><a href="/equipe/manuel/chapitre-09"><span>09</span>Communications
+automatisées et satisfaction</a></li><li><a href="/equipe/manuel/chapitre-10"><span>10</span>Check-lists et
+améliorations proposées</a></li></ol><b class="sep"></b><b>Fiches pratiques</b><ol><li><a href="/equipe/manuel/fiche-a-campagnes-email" aria-current="page"><span>A</span>Lancer une campagne e-mail</a><div class="sub"><a href="#les-étapes">Les étapes</a><a href="#étape-1-préparer-ce-quil-faut-avoir-en-main">Étape 1 — Préparer
+: ce qu’il faut avoir en main</a><a href="#étape-2-choisir-le-message">Étape 2 — Choisir le message</a><a href="#les-3-messages">Les 3 messages</a><a href="#bonnes-pratiques-les-conseils-des-grandes-agences">Bonnes
+pratiques : les conseils des grandes agences</a><a href="#étape-3-demander-la-fiche-de-demande">Étape 3 — Demander : la
+fiche de demande</a><a href="#étapes-4-et-5-vérifier-envoyer-suivre">Étapes 4 et 5 — Vérifier,
+envoyer, suivre</a><a href="#annexe-pour-lia-le-script-creer_campagne.py">Annexe pour l’IA —
+le script creer_campagne.py</a></div></li><li><a href="/equipe/manuel/fiche-b-communications"><span>B</span>Communications : tous les échanges avec un client</a></li><li><a href="/equipe/manuel/fiche-c-facturation-electronique"><span>C</span>Facturation électronique : nos coordonnées pour les fournisseurs</a></li></ol></nav>
+<main>
+<span class="eyebrow">Fiche pratique A</span><h1>Lancer une campagne e-mail</h1><p>Les étapes, les trois messages de la séquence Village, les bonnes
+pratiques des agences, et ce qu’il faut demander. Chaque e-mail envoyé
+apparaît ensuite dans l’application Communications, sur la fiche du
+destinataire (fiche pratique B).</p>
+<h2 id="les-étapes">Les étapes</h2>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Qui</th>
+<th>Ce qu’il faut faire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Préparer</td>
+<td>Commercial</td>
+<td>Objectif, cible, ville, lien, signature</td>
+</tr>
+<tr>
+<td>2. Choisir le message</td>
+<td>Commercial</td>
+<td>Un des 3 modèles de la séquence, ou une newsletter</td>
+</tr>
+<tr>
+<td>3. Demander</td>
+<td>Commercial</td>
+<td>Remplir la fiche de demande et la confier à l’IA</td>
+</tr>
+<tr>
+<td>4. Préparer dans Odoo</td>
+<td>IA</td>
+<td>Brouillon prêt et e-mail de test dans votre boîte</td>
+</tr>
+<tr>
+<td>5. Vérifier, envoyer, suivre</td>
+<td>Commercial</td>
+<td>Relire, Envoyer ou Planifier, puis rappeler les plus intéressés</td>
+</tr>
+</tbody>
+</table></div>
+<p>Le moment d’envoi vous appartient. Vous connaissez vos contacts et
+votre calendrier : choisissez le jour, l’heure et l’écart entre les
+messages. Le guide vous donne les repères, pas un planning.</p>
+<div class="callout"><strong>Do It Once, Do It Right. L’IA prépare, un humain
+envoie.</strong> Aucune campagne ne part sans qu’un commercial ait relu
+l’e-mail de test et cliqué lui-même sur <em>Envoyer</em>.</div>
+<div class="callout rose"><strong>Attention.</strong> Pour apparaître dans Communications, la
+campagne doit viser des <em>Contacts</em> ou des <em>Pistes</em>. Une
+campagne envoyée à une liste de diffusion n’est pas rattachée aux
+fiches.</div>
+<h2 id="étape-1-préparer-ce-quil-faut-avoir-en-main">Étape 1 — Préparer
+: ce qu’il faut avoir en main</h2>
+<p>Rassemblez ces éléments avant de demander la campagne. Ils sont
+repris tels quels dans l’e-mail : vérifiez-les.</p>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Ce qu’il faut fournir</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objectif</td>
+<td>Une seule action attendue du lecteur</td>
+<td>Obtenir un rendez-vous de 10 minutes</td>
+</tr>
+<tr>
+<td>Cible</td>
+<td>Contacts ou Pistes, et lesquels : étiquette, ville, secteur, statut
+(prospect, ancien exposant…)</td>
+<td>Recruteurs de la région nantaise jamais exposants</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Modèle 1, 2 ou 3, ou newsletter (étape 2)</td>
+<td>Modèle 1 : premier contact</td>
+</tr>
+<tr>
+<td>Ville et dates</td>
+<td>Les variables du modèle : ville, dates, lieu, nombre de candidats,
+lien</td>
+<td>Nantes · le jeudi 18 mars 2027 · Exponantes · lien de la page de
+l’événement</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>Prénom, nom, fonction, téléphone : les réponses arrivent chez
+vous</td>
+<td>Prénom Nom, relations entreprises</td>
+</tr>
+<tr>
+<td>Moment d’envoi</td>
+<td>À votre choix</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E-mail de test</td>
+<td>Votre adresse, pour relire avant l’envoi</td>
+<td>prenom@job.events</td>
+</tr>
+</tbody>
+</table></div>
+<p>Vérifiez les chiffres (dates, lieu, nombre de candidats, tarifs) et
+ouvrez le lien avant de transmettre la demande. Un nombre de candidats
+n’est cité que s’il est vérifié (fréquentation constatée d’une édition
+précédente) ; sinon, on ne le cite pas.</p>
+<h2 id="étape-2-choisir-le-message">Étape 2 — Choisir le message</h2>
+<p>Deux formats existent. Pour prospecter, préférez la lettre : un
+e-mail sobre, signé par vous, se lit comme un message personnel et
+arrive plus souvent en boîte de réception.</p>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Format</th>
+<th>Pour quoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lettre (séquence Village)</strong></td>
+<td>Texte simple, signé par le commercial, réponse attendue par retour
+d’e-mail. Pour la prospection d’exposants.</td>
+</tr>
+<tr>
+<td><strong>Newsletter (charte e-mailing VDR)</strong></td>
+<td>En-tête bleu, bandeau de faits, bouton rose. Pour informer une base
+large : inscrits, candidats, annonces.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="la-séquence-village-en-3-messages">La séquence Village en 3
+messages</h3>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>1 · Premier contact</th>
+<th>2 · Relance</th>
+<th>3 · Dernier message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angle</td>
+<td>Le sourcing dans les deux mondes : la vraie rencontre + la
+plateforme</td>
+<td>Les coulisses : ce qui attend concrètement un exposant</td>
+<td>Le dernier appel avant la clôture</td>
+</tr>
+<tr>
+<td>Ressort</td>
+<td>Une conviction partagée : rien ne remplace une rencontre</td>
+<td>Le concret : stand clé en main, flux de candidats, plateforme</td>
+<td>L’échéance réelle, et une sortie élégante</td>
+</tr>
+<tr>
+<td>Appel à l’action</td>
+<td>Répondre avec ses coordonnées</td>
+<td>Répondre avec ses coordonnées</td>
+<td>Dix minutes d’échange</td>
+</tr>
+</tbody>
+</table></div>
+<p>Envoyez le message 2 seulement aux contacts qui n’ont pas répondu au
+1, et le 3 à ceux qui n’ont répondu à aucun. L’écart entre les messages
+est à votre appréciation : assez long pour ne pas lasser, assez court
+pour rester en mémoire.</p>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Variable</th>
+<th>À remplacer par</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{ville}</td>
+<td>Ville de l’édition</td>
+</tr>
+<tr>
+<td>{dates}</td>
+<td>« le jeudi 18 mars » ou « les 12 et 13 octobre »</td>
+</tr>
+<tr>
+<td>{lieu}</td>
+<td>Lieu du Village</td>
+</tr>
+<tr>
+<td>{candidats}</td>
+<td>Nombre de candidats, seulement s’il est vérifié</td>
+</tr>
+<tr>
+<td>{lien}</td>
+<td>Page de l’événement sur le site : https://jobevents.odoo.com/event/…
+(bouton « Partager » de l’événement)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="les-3-messages">Les 3 messages</h2>
+<h3 id="message-1-le-sourcing-dans-les-deux-mondes-premier-contact">Message
+1 · Le sourcing, dans les deux mondes (premier contact)</h3>
+<p><em>Objet : Recruter à {ville} : rencontrez des candidats de qualité,
+en vrai et en ligne</em></p>
+<blockquote class="lettre">
+<p>Bonjour,</p>
+<p>Votre entreprise recrute en ce moment dans la région de {ville}. À
+l’heure où l’IA transforme le recrutement — des CV aux entretiens vidéo
+— une chose n’a pas changé : rien ne remplace une vraie rencontre pour
+reconnaître un bon candidat.</p>
+<p>C’est le principe du Village des Recruteurs, l’événement de sourcing
+organisé par Job Events {dates} à {ville} ({lieu}) : nous combinons le
+meilleur des deux mondes. Le présentiel — {candidats} candidats de votre
+bassin d’emploi attendus, que vous rencontrez en face à face sur une
+journée. Et le digital — notre plateforme vous met en relation avec les
+candidats dès 5 jours avant l’événement et prolonge vos échanges 5 jours
+après.</p>
+<p>Découvrez l’événement : {lien}</p>
+<p>Intéressé(e) ? Répondez simplement à cet e-mail avec vos coordonnées,
+et nous revenons vers vous sous 24 h : Nom : … — Société : … — E-mail :
+… — Téléphone : …</p>
+<p>Bien cordialement, {signature du commercial}</p>
+</blockquote>
+<h3 id="message-2-dans-les-coulisses-du-village-relance">Message 2 ·
+Dans les coulisses du Village (relance)</h3>
+<p><em>Objet : Ce qui vous attend au Village des Recruteurs de
+{ville}</em></p>
+<blockquote class="lettre">
+<p>Bonjour,</p>
+<p>Je reviens vers vous au sujet du Village des Recruteurs de {ville},
+{dates} au {lieu} — avec cette fois un aperçu concret de ce qui attend
+un exposant.</p>
+<p>Un stand clé en main au cœur du Village, sans logistique à gérer. Un
+flux continu de candidats — {candidats} attendus — mobilisés pour vous
+par notre campagne locale (médias, réseaux, partenaires emploi). La
+plateforme du Village, où vos offres sont visibles et où les candidats
+échangent avec vous avant, pendant et après le salon : votre journée de
+rencontres devient deux semaines de sourcing, en présentiel comme en
+ligne. Et l’ambiance « bien + qu’un forum emploi ! » qui fait notre
+signature — conviviale, directe, efficace.</p>
+<p>Le détail de l’événement : {lien}</p>
+<p>Intéressé(e) ? Répondez à cet e-mail avec vos coordonnées, et nous
+revenons vers vous sous 24 h : Nom : … — Société : … — E-mail : … —
+Téléphone : …</p>
+<p>Bien cordialement, {signature du commercial}</p>
+</blockquote>
+<h3 id="message-3-dernier-message-clôture">Message 3 · Dernier message
+(clôture)</h3>
+<p><em>Objet : {ville}, {dates} : dernier appel avant la
+clôture</em></p>
+<blockquote class="lettre">
+<p>Bonjour,</p>
+<p>C’est le dernier message que je vous envoie à ce sujet — les
+emplacements du Village des Recruteurs de {ville} ({dates}, {lieu}) se
+réservent maintenant, et je ne voulais pas que votre entreprise passe à
+côté : {candidats} candidats de votre région, une journée de rencontres
+réelles, et notre plateforme pour prolonger les échanges en ligne.</p>
+<p>Si le sujet mérite ne serait-ce qu’un échange de dix minutes, il
+suffit de me répondre avec vos coordonnées — et sinon, je vous souhaite
+sincèrement de bons recrutements : Nom : … — Société : … — E-mail : … —
+Téléphone : …</p>
+<p>Merci de votre attention, {signature du commercial}</p>
+</blockquote>
+<p>Sans chiffre vérifié, retirer simplement {candidats} de la phrase («
+les candidats de votre bassin d’emploi »).</p>
+<h3 id="le-format-newsletter">Le format newsletter</h3>
+<p>Il suit la charte e-mailing VDR : carte blanche de 600 px, en-tête
+bleu avec bandeau or, bandeau de faits, encadré rose pour le message
+clé, un seul bouton rose, pied avec désinscription. Couleurs : bleu
+principal et bleu foncé ; rose pour le bouton principal ; teal pour une
+action secondaire ; or pour le bandeau et les accents.</p>
+<h2 id="bonnes-pratiques-les-conseils-des-grandes-agences">Bonnes
+pratiques : les conseils des grandes agences</h2>
+<p>Ces principes sont ceux qu’appliquent les agences de marketing direct
+et de communication B2B. Ils valent pour la lettre comme pour la
+newsletter.</p>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Principe</th>
+<th>En pratique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Une campagne, un objectif</td>
+<td>Un seul message clé et une seule action demandée. Tout ce qui ne
+sert pas l’objectif sort de l’e-mail.</td>
+</tr>
+<tr>
+<td>Parler du destinataire</td>
+<td>Partir de son enjeu (recruter dans sa région, trouver des profils)
+avant de parler de l’événement. « Vous » plus souvent que « nous ».</td>
+</tr>
+<tr>
+<td>Segmenter avant d’écrire</td>
+<td>Un message pour les prospects, un autre pour les anciens exposants,
+un autre par secteur. Mieux vaut trois petites campagnes justes qu’une
+grosse générique.</td>
+</tr>
+<tr>
+<td>Soigner l’objet et la phrase d’aperçu</td>
+<td>Court, concret, lisible sur mobile : le lieu, la date ou le bénéfice
+en premier. Pas de majuscules, pas de « !!! », pas de promesse
+vague.</td>
+</tr>
+<tr>
+<td>L’essentiel en haut</td>
+<td>Le lecteur décide en quelques secondes, souvent sur son téléphone.
+Les deux premières lignes doivent suffire à comprendre l’intérêt.</td>
+</tr>
+<tr>
+<td>Des preuves, pas des adjectifs</td>
+<td>Chiffres vérifiés (candidats, entreprises présentes), noms
+d’exposants connus, une phrase de client satisfait. Plus crédible que «
+exceptionnel ».</td>
+</tr>
+<tr>
+<td>Une urgence vraie</td>
+<td>Une date de clôture, un nombre de stands limité : seulement si c’est
+exact. Une fausse urgence se repère et abîme la marque.</td>
+</tr>
+<tr>
+<td>Un expéditeur humain</td>
+<td>Un prénom et un nom, avec la marque. On répond à une personne, on
+supprime une marque.</td>
+</tr>
+<tr>
+<td>Tester avant de généraliser</td>
+<td>Comparer deux objets sur une partie de la cible (test A/B d’Odoo),
+puis envoyer le meilleur au reste.</td>
+</tr>
+<tr>
+<td>Relancer au téléphone</td>
+<td>Un clic ou une ouverture répétée est un signal : appeler dans les 48
+h transforme bien plus qu’un nouvel e-mail.</td>
+</tr>
+<tr>
+<td>Respecter la base</td>
+<td>Lien de désinscription visible, contacts B2B pertinents uniquement
+(RGPD), adresses en erreur corrigées. Une base propre arrive en boîte de
+réception.</td>
+</tr>
+<tr>
+<td>Mesurer ce qui compte</td>
+<td>Les réponses et rendez-vous obtenus, plus que les ouvertures
+(faussées par certaines messageries). Notez ce qui a marché pour la
+prochaine campagne.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="étape-3-demander-la-fiche-de-demande">Étape 3 — Demander : la
+fiche de demande</h2>
+<p>Copiez cette fiche dans un message à l’IA (Claude) et remplissez
+chaque ligne. Une ligne vide = une question en retour.</p>
+<pre><code>DEMANDE DE CAMPAGNE E-MAIL — Job Events
+Nom interne    : VDR (ville) - message (1/2/3)
+Responsable    : (votre prénom)
+Format         : Lettre, modèle 1 / 2 / 3   ou   Newsletter
+Cible          : Contacts / Pistes — (filtre : étiquette, ville, secteur…)
+Exclure        : (ex. ceux qui ont déjà répondu, exposants déjà inscrits)
+Ville          :
+Dates          :
+Lieu           :
+Candidats      : (seulement si vérifié)
+Lien           : https://
+Signature      : (prénom nom, fonction, téléphone)
+Objet          : (facultatif : sinon celui du modèle)
+Adaptation     : (facultatif : une phrase à personnaliser, un secteur…)
+E-mail de test : (votre adresse)
+Pour une newsletter, ajouter : accroche, faits clés, message clé, bouton (texte + lien).</code></pre>
+<p>La phrase à donner à l’IA :</p>
+<pre><code>Prépare dans Odoo Job Events la campagne e-mail décrite dans cette fiche,
+avec le script creer_campagne.py. Crée-la en brouillon, donne-moi le nombre
+de destinataires et envoie-moi un e-mail de test. Ne l'envoie pas.</code></pre>
+<p>Ce que l’IA vous renvoie : le nombre de destinataires, le lien vers
+le brouillon dans Odoo, l’e-mail de test dans votre boîte, et les points
+de la fiche qu’elle a dû compléter ou corriger.</p>
+<h2 id="étapes-4-et-5-vérifier-envoyer-suivre">Étapes 4 et 5 — Vérifier,
+envoyer, suivre</h2>
+<ol type="1">
+<li>Ouvrez l’e-mail de test : relisez le texte, les chiffres et les
+dates, cliquez sur chaque lien.</li>
+<li>Ouvrez le brouillon dans <em>Marketing par e-mail</em> (ou par le
+lien donné par l’IA). Vérifiez l’objet et le nombre de
+destinataires.</li>
+<li>Corrections : demandez-les à l’IA. Fermez l’onglet du brouillon
+pendant qu’elle travaille : un brouillon resté ouvert réécrit l’ancien
+contenu en s’enregistrant.</li>
+<li><em>Envoyer</em> ou <em>Planifier</em>, au moment que vous avez
+choisi. Si Odoo affiche un avertissement sur l’expéditeur ou le serveur
+de messagerie, n’envoyez pas et prévenez Marc-Antoine.</li>
+<li>Suivre dans Communications, puis préparer le message suivant pour
+ceux qui n’ont pas répondu.</li>
+</ol>
+<p>Chaque destinataire reçoit sur sa fiche une note « Campagne : <objet>
+», mise à jour automatiquement : Délivrée, Ouverte, Lien cliqué,
+Répondue, Non distribuée.</objet></p>
+<figure><img alt="Communications : le filtre Campagnes marketing" loading="lazy" src="/equipe/manuel/fiche-cam-p8-0.jpg"/><figcaption>Communications, filtre Campagnes marketing</figcaption></figure>
+
+<p>Après l’envoi : dans Communications, filtre <em>Campagnes
+marketing</em> puis recherche « Lien cliqué » : ce sont les contacts à
+appeler en priorité. Les « Non distribuée » signalent une adresse à
+corriger sur la fiche.</p>
+<h2 id="annexe-pour-lia-le-script-creer_campagne.py">Annexe pour l’IA —
+le script creer_campagne.py</h2>
+<p>Cette partie s’adresse à l’IA qui prépare la campagne. Le script
+transforme la fiche en brief JSON, construit l’e-mail (lettre à partir
+des 3 modèles, ou newsletter selon la charte) et crée la campagne en
+brouillon dans Odoo : Contacts ou Pistes, corps en fr_FR et en_US,
+campagne UTM. Il n’envoie jamais la campagne.</p>
+<p><strong>Procédure à suivre</strong></p>
+<ol type="1">
+<li>Convertir la fiche en brief.json (modèles :
+<code>--exemple-modele 1</code>, <code>2</code>, <code>3</code>, ou
+<code>--exemple</code> pour une newsletter). Information manquante : la
+demander, ne pas l’inventer.</li>
+<li>Traduire la cible et les exclusions en domaine Odoo ; vérifier les
+noms d’étiquettes dans Odoo.</li>
+<li>Adapter au besoin une phrase au secteur ou à la ville, sans changer
+la structure ni l’appel à l’action.</li>
+<li><code>--preview apercu.html</code> et relire le rendu.</li>
+<li><code>--dry-run</code> : faire valider le nombre de
+destinataires.</li>
+<li>Créer le brouillon avec <code>--test-email</code> (adresse du
+commercial).</li>
+<li>Renvoyer : nombre de destinataires, lien du brouillon, corrections
+faites.</li>
+</ol>
+<p><strong>Commandes</strong></p>
+<pre><code>export ODOO_API_KEY="..."
+python3 creer_campagne.py --exemple-modele 1 &gt; brief.json
+python3 creer_campagne.py brief.json --preview apercu.html
+python3 creer_campagne.py brief.json --url https://jobevents.odoo.com --db jobevents \
+  --user moi@job.events --dry-run
+python3 creer_campagne.py brief.json --url https://jobevents.odoo.com --db jobevents \
+  --user moi@job.events --test-email moi@job.events</code></pre>
+<p><strong>Brief d’un message de la séquence</strong></p>
+<pre><code>{
+  "nom_interne": "VDR {ville} - message 1",
+  "objet": "",
+  "campagne_utm": "VDR 2027",
+  "responsable": "",
+  "cible": {
+    "modele": "res.partner",
+    "domaine": [["category_id.name", "ilike", "VDR"]],
+    "description": "à préciser"
+  },
+  "contenu": {
+    "style": "lettre",
+    "modele": 1,
+    "variables": {
+      "ville": "Nantes",
+      "dates": "le jeudi 18 mars",
+      "lieu": "Exponantes",
+      "candidats": "1 700",
+      "lien": "https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register"
+    },
+    "signature": "Prénom Nom\nChargé(e) de relations entreprises · Job Events\n06 00 00 00 00"
+  }
+}</code></pre>
+<p>L’objet et le texte viennent du modèle choisi ; les variables sont
+remplacées par le script, qui refuse le brief si l’une d’elles
+manque.</p>
+<div class="callout rose"><strong>Attention — interdit à l’IA :</strong> cliquer sur
+<em>Envoyer</em> ou <em>Planifier</em>, viser une liste de diffusion,
+inventer un chiffre, un tarif ou un lien.</div>
+<p>Une question ? Contactez Marc-Antoine.</p>
+<div class="pager"><a href="/equipe/manuel/chapitre-10"><small>← Chapitre 10</small>Check-lists et
+améliorations proposées</a><a href="/equipe/manuel/fiche-b-communications" style="text-align:right"><small>Fiche pratique B →</small>Communications : tous les échanges avec un client</a></div>
+</main>
+</div>
+</div>
+</body>
+</html>

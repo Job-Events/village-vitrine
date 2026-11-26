@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Communications : tous les échanges avec un client · Manuel Odoo · Espace équipe</title>
+<style>
+:root{--rose:#E3007B;--rose-d:#B4005F;--blue:#006FB7;--navy:#08324F;--jaune:#F8B322;--green:#2FA36B;
+--ink:#241A12;--muted:#786859;--paper:#FFF9F1;--surface:#fff;--line:rgba(60,40,24,.14);--r:18px;
+--shadow-sm:0 8px 22px -14px rgba(80,45,20,.26)}
+*{box-sizing:border-box}
+@font-face{font-family:"Jost";src:url(/fonts/jost-latin.woff2) format("woff2");font-weight:300 900;font-display:swap}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.02rem/1.62 "Jost","Century Gothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--rose-d)}
+.wrap{max-width:76rem;margin:0 auto;padding:1.3rem clamp(.9rem,3vw,2rem) 4rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;background:var(--surface);border:1px solid var(--line);
+border-radius:var(--r);padding:1rem 1.2rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;
+background:linear-gradient(90deg,var(--rose) 0 20%,var(--jaune) 20% 40%,var(--green) 40% 60%,var(--blue) 60% 80%,#0FAE9E 80% 100%)}
+.brand{font-weight:800;font-size:1.15rem;margin-top:2px}
+.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3006A}
+.top .nav{margin-left:auto;font-size:.88rem;display:flex;gap:1rem;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:17rem minmax(0,1fr);gap:1.6rem;margin-top:1.4rem;align-items:start}
+.toc{position:sticky;top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem .9rem;font-size:.9rem}
+.toc b.sep{height:1px;background:var(--line);margin:.9rem .4rem}.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li a{display:flex;gap:.5rem;padding:.38rem .45rem;border-radius:10px;text-decoration:none;color:var(--ink);line-height:1.3}
+.toc li a span{color:var(--rose-d);font-weight:700;min-width:1.4rem}
+.toc li a:hover{background:#FDEBD8}
+.toc li a[aria-current]{background:var(--navy);color:#fff}.toc li a[aria-current] span{color:#FBE7B8}
+.toc .sub{margin:.1rem 0 .5rem 2.3rem;font-size:.82rem}
+.toc .sub a{display:block;padding:.15rem 0;color:var(--muted);text-decoration:none}
+.toc .sub a:hover{color:var(--rose-d)}
+main{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.1rem,3vw,2.4rem);min-width:0}
+.eyebrow{display:inline-block;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-d)}
+h1{font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:.2rem 0 1rem;color:var(--navy)}
+h2{font-size:1.3rem;color:var(--navy);margin:2.2rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line);scroll-margin-top:1rem}
+h3{font-size:1.08rem;color:var(--navy);margin:1.6rem 0 .4rem}
+p,li{max-width:48rem}
+img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block;margin:.8rem 0}
+figure{margin:1.2rem 0}figcaption{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.tbl{overflow-x:auto;margin:1rem 0 1.3rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .7rem;border-bottom:1px solid var(--line)}
+thead th{background:#136FB8;color:#fff;font-weight:700}
+tbody tr:nth-child(even){background:#F5F8FC}
+.callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
+.callout.rose{border-left-color:#E3145C;background:#FDEBF1}
+.callout p{margin:.2rem 0}.callout p+p{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(0,0,0,.08)}
+blockquote{margin:0}blockquote.lettre{border-left:3px solid var(--line);background:#FBF8F4;border-radius:0 12px 12px 0;padding:.6rem 1.1rem;margin:.8rem 0 1.4rem;max-width:48rem}pre{background:#F5F8FC;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;overflow-x:auto;font-size:.82rem;line-height:1.45;max-width:48rem}code{font-size:.88em}.callout ul{margin:.4rem 0 0}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
+.pager a small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
+.pager a:hover{border-color:var(--rose)}
+.chap-list{list-style:none;padding:0;margin:1.2rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.chap-list a{display:block;height:100%;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;background:#fff}
+.chap-list a:hover{border-color:var(--rose);box-shadow:var(--shadow-sm)}
+.chap-list span{display:block;font-weight:800;color:var(--rose-d);font-size:1.3rem}
+.meta{font-size:.9rem;color:var(--muted)}
+.menu-btn{display:none}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.toc{position:static}.toc .sub{display:none}}
+@media print{.top,.toc,.pager{display:none}.grid{display:block}main{border:0;padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="brand"><small>Espace équipe · Job Events</small>Manuel Odoo — processus commercial 2027</div><div class="nav"><a href="/equipe/manuel/">Sommaire</a><a href="/equipe">← Espace équipe</a></div></div>
+<div class="grid">
+<nav class="toc"><b>Sommaire</b><ol><li><a href="/equipe/manuel/chapitre-01"><span>01</span>Vue d&#x27;ensemble : la boucle
+complète</a></li><li><a href="/equipe/manuel/chapitre-02"><span>02</span>Préalable : des contacts
+propres</a></li><li><a href="/equipe/manuel/chapitre-03"><span>03</span>Le devis</a></li><li><a href="/equipe/manuel/chapitre-04"><span>04</span>La facturation</a></li><li><a href="/equipe/manuel/chapitre-05"><span>05</span>L&#x27;inscription aux événements</a></li><li><a href="/equipe/manuel/chapitre-06"><span>06</span>Les partenaires</a></li><li><a href="/equipe/manuel/chapitre-07"><span>07</span>Le
+suivi opérationnel : paniers repas, interviews, matériel</a></li><li><a href="/equipe/manuel/chapitre-08"><span>08</span>Matching Square</a></li><li><a href="/equipe/manuel/chapitre-09"><span>09</span>Communications
+automatisées et satisfaction</a></li><li><a href="/equipe/manuel/chapitre-10"><span>10</span>Check-lists et
+améliorations proposées</a></li></ol><b class="sep"></b><b>Fiches pratiques</b><ol><li><a href="/equipe/manuel/fiche-a-campagnes-email"><span>A</span>Lancer une campagne e-mail</a></li><li><a href="/equipe/manuel/fiche-b-communications" aria-current="page"><span>B</span>Communications : tous les échanges avec un client</a><div class="sub"><a href="#étape-1-trouver-lapplication">Étape 1 — Trouver
+l’application</a><a href="#étape-2-sur-une-fiche-contact-le-bouton-communications">Étape 2
+— Sur une fiche contact : le bouton Communications</a><a href="#étape-3-lire-la-liste-des-échanges">Étape 3 — Lire la liste des
+échanges</a><a href="#étape-4-les-campagnes-e-mail">Étape 4 — Les campagnes
+e-mail</a><a href="#étape-5-filtrer-et-regrouper">Étape 5 — Filtrer et
+regrouper</a><a href="#étape-6-les-communications-dun-village">Étape 6 — Les
+communications d’un Village</a><a href="#étape-7-tout-ce-qui-concerne-une-édition">Étape 7 — Tout ce qui
+concerne une édition</a><a href="#étape-8-que-contient-chaque-menu">Étape 8 — Que contient chaque
+menu ?</a></div></li><li><a href="/equipe/manuel/fiche-c-facturation-electronique"><span>C</span>Facturation électronique : nos coordonnées pour les fournisseurs</a></li></ol></nav>
+<main>
+<span class="eyebrow">Fiche pratique B</span><h1>Communications : tous les échanges avec un client</h1><p>L’application Communications rassemble les e-mails reçus et envoyés,
+les messages, les notes internes, les activités terminées et les
+campagnes e-mail d’une société et de toutes les personnes qui lui sont
+rattachées.</p>
+<h2 id="étape-1-trouver-lapplication">Étape 1 — Trouver
+l’application</h2>
+<p>Sur l’écran d’accueil d’Odoo, cliquez sur l’icône
+<em>Communications</em> (deux bulles de discussion). Si vous ne la voyez
+pas, rechargez Odoo avec la touche F5.</p>
+<figure><img alt="L’application Communications sur l’écran d’accueil" loading="lazy" src="/equipe/manuel/fiche-com-p1-0.jpg"/><figcaption>L’application Communications, en tête de l’écran
+d’accueil</figcaption></figure>
+
+<h2 id="étape-2-sur-une-fiche-contact-le-bouton-communications">Étape 2
+— Sur une fiche contact : le bouton Communications</h2>
+<p>Chaque fiche contact a un bouton <em>Communications</em>, le premier
+de la rangée en haut. Le chiffre indique le nombre d’échanges. Depuis la
+fiche d’une personne, vous voyez aussi les échanges de ses collègues de
+la même société.</p>
+<figure><img alt="Le bouton Communications et le champ Domaine email" loading="lazy" src="/equipe/manuel/fiche-com-p2-0.jpg"/><figcaption>(1) Bouton Communications · (2) Domaine email</figcaption></figure>
+
+<ol type="1">
+<li><strong>Bouton Communications</strong> : un clic ouvre tous les
+échanges de la société, de ses contacts, et de leurs opportunités, devis
+et factures.</li>
+<li><strong>Domaine email</strong> (sur les sociétés) : saisissez le
+domaine des adresses, sans @, par exemple abalone-emploi.fr. Les e-mails
+de personnes pas encore enregistrées dans Odoo apparaîtront aussi.</li>
+</ol>
+<h2 id="étape-3-lire-la-liste-des-échanges">Étape 3 — Lire la liste des
+échanges</h2>
+<p>La liste s’affiche du plus récent au plus ancien. Les messages
+automatiques d’Odoo (« Facture créée », « Étape changée »…) sont
+masqués. Cliquez sur une ligne pour lire le message en entier ; la
+colonne <em>Document lié</em> indique le devis, la facture ou
+l’opportunité concernés.</p>
+<figure><img alt="La liste des échanges" loading="lazy" src="/equipe/manuel/fiche-com-p3-0.jpg"/><figcaption>(1) Panneau de gauche · (2) Barre de recherche</figcaption></figure>
+
+<ol type="1">
+<li><strong>Panneau de gauche</strong> : cochez un ou plusieurs membres
+de l’équipe, ou choisissez un type d’échange (Commentaire = message
+envoyé depuis Odoo, E-mail entrant = e-mail reçu).</li>
+<li><strong>Barre de recherche</strong> : tapez un mot du message, un
+objet, une adresse e-mail ; la petite flèche ouvre les filtres.</li>
+</ol>
+<p>Astuce : cliquez sur l’en-tête d’une colonne (Date, Auteur, Objet…)
+pour trier la liste.</p>
+<h2 id="étape-4-les-campagnes-e-mail">Étape 4 — Les campagnes
+e-mail</h2>
+<p>Chaque e-mail de campagne (<em>Marketing par e-mail</em>) envoyé à un
+contact ou à une piste apparaît automatiquement dans ses Communications,
+sous la forme d’une note interne mise à jour à chaque ouverture, clic ou
+réponse. Vous savez ainsi, sans quitter la fiche, quelles campagnes un
+client a reçues et ce qu’il en a fait.</p>
+<figure><img alt="Une campagne dans les Communications d’un contact" loading="lazy" src="/equipe/manuel/fiche-com-p4-0.jpg"/><figcaption>(1) Objet · (2) Extrait · (3) Auteur</figcaption></figure>
+
+<ol type="1">
+<li><strong>Objet</strong> : « Campagne : » suivi de l’objet de l’e-mail
+envoyé, par exemple « Village des Recruteurs 2027 : 5 villes et
+conditions Early Booking ».</li>
+<li><strong>Extrait</strong> : le statut de l’e-mail et ses dates
+(envoi, ouverture, clic sur un lien, réponse). Pour un e-mail non
+distribué, l’adresse utilisée est rappelée.</li>
+<li><strong>Auteur</strong> : le responsable de la campagne.</li>
+</ol>
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Statut</th>
+<th>Ce que cela veut dire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Envoyée · Délivrée</td>
+<td>L’e-mail est parti et a été accepté par la messagerie du
+destinataire.</td>
+</tr>
+<tr>
+<td>Ouverte</td>
+<td>Le destinataire a ouvert l’e-mail ; « Lien cliqué » s’ajoute s’il a
+cliqué sur un lien.</td>
+</tr>
+<tr>
+<td>Répondue</td>
+<td>Le destinataire a répondu à l’e-mail.</td>
+</tr>
+<tr>
+<td>Non distribuée · Échec</td>
+<td>L’adresse ne fonctionne pas : vérifiez-la sur la fiche contact.</td>
+</tr>
+</tbody>
+</table></div>
+<figure><img alt="Les filtres Campagnes marketing et Hors campagnes" loading="lazy" src="/equipe/manuel/fiche-com-p4-1.jpg"/><figcaption>Voir ce qui provient des campagnes</figcaption></figure>
+
+<p>Ouvrez les filtres avec la petite flèche de la barre de recherche. Le
+filtre actif s’affiche dans la barre de recherche ; la croix le retire.
+<em>Campagnes marketing</em> n’affiche que les e-mails de campagne ;
+<em>Hors campagnes</em> les masque, pour ne garder que les échanges
+personnels.</p>
+<p>Astuce : tapez « Lien cliqué » dans la recherche pour retrouver les
+contacts les plus intéressés, à relancer en priorité.</p>
+<div class="callout rose"><strong>Attention.</strong> Seules les campagnes qui visent des
+<em>Contacts</em> ou des <em>Pistes</em> sont rattachées aux fiches. Une
+campagne envoyée à une liste de diffusion (par exemple les séquences de
+prospection Radar de Marketing Automation, qui visent les listes « Radar
+— Ville ») n’apparaît pas dans Communications.</div>
+<h2 id="étape-5-filtrer-et-regrouper">Étape 5 — Filtrer et
+regrouper</h2>
+<p>La flèche à droite de la barre de recherche ouvre le menu des filtres
+et des regroupements. Vous pouvez combiner plusieurs filtres.</p>
+<figure><img alt="Le menu des filtres et des regroupements" loading="lazy" src="/equipe/manuel/fiche-com-p5-0.jpg"/><figcaption>(1) Filtres · (2) Regrouper par</figcaption></figure>
+
+<ol type="1">
+<li><strong>Filtres</strong> : Mes communications, Écrits par l’équipe,
+Écrits par le client, E-mails reçus, E-mails et messages envoyés, Notes
+internes, Activités terminées, Campagnes marketing, Hors campagnes,
+Budgets, Projets et tâches, Achats, Opportunités, Expéditeur non
+rattaché, Avec pièce jointe, Date.</li>
+<li><strong>Regrouper par</strong> : date (jour, semaine, mois), auteur
+ou membre de l’équipe, type d’échange, type de document.</li>
+</ol>
+<p>Exemple : sur la fiche d’un client, <em>Communications</em> puis le
+filtre « Mes communications » montre uniquement vos échanges avec
+lui.</p>
+<h2 id="étape-6-les-communications-dun-village">Étape 6 — Les
+communications d’un Village</h2>
+<p>Le menu <em>Villages</em> liste toutes les éditions du Village et de
+la Semaine des Recruteurs (une ligne par ville et par année). Ouvrez une
+édition, par exemple « Lyon 2026 », puis cliquez sur son bouton
+<em>Communications</em>.</p>
+<figure><img alt="Le menu Villages" loading="lazy" src="/equipe/manuel/fiche-com-p6-0.jpg"/><figcaption>(1) Menu Villages · (2) Une édition : la colonne Référence
+indique VDR ou SDR</figcaption></figure>
+
+<figure><img alt="Le bouton Communications d’une édition" loading="lazy" src="/equipe/manuel/fiche-com-p6-1.jpg"/><figcaption>Le bouton Communications de l’édition, avec le nombre de messages
+(1 098 pour Lyon 2026)</figcaption></figure>
+
+<h2 id="étape-7-tout-ce-qui-concerne-une-édition">Étape 7 — Tout ce qui
+concerne une édition</h2>
+<p>La liste rassemble les messages de tous les documents imputés à
+l’édition : devis et commandes, factures, achats, notes de frais, et les
+opportunités qui ont donné lieu à un devis pour ce Village.</p>
+<figure><img alt="Les communications d’une édition" loading="lazy" src="/equipe/manuel/fiche-com-p7-0.jpg"/><figcaption>(1) Filtre par membre de l’équipe · (2) Document lié</figcaption></figure>
+
+<ol type="1">
+<li>Filtrez par membre de l’équipe pour voir les échanges de chaque
+commercial sur ce Village.</li>
+<li>La colonne <em>Document lié</em> indique le devis (S00…), la facture
+(INV/…) ou l’opportunité concernés.</li>
+</ol>
+<p>Astuce : combinez avec les filtres Opportunités, Achats ou E-mails
+reçus, ou regroupez par Type de document, pour retrouver rapidement un
+échange sur ce Village.</p>
+<div class="callout rose"><strong>Attention.</strong> Un document n’apparaît que s’il est
+imputé au compte analytique de l’édition (ex. « Lyon 2026 »). Pensez à
+renseigner la répartition analytique sur chaque devis, facture et
+achat.</div>
+<h2 id="étape-8-que-contient-chaque-menu">Étape 8 — Que contient chaque
+menu ?</h2>
+<p>Deux questions font la différence : de qui sont les messages, et de
+quelles applications.</p>
+<figure><img alt="Les menus de l’application Communications" loading="lazy" src="/equipe/manuel/fiche-com-p8-0.jpg"/><figcaption>Les menus de l’application Communications</figcaption></figure>
+
+<div class="tbl"><table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Menu</th>
+<th>Les messages de qui ?</th>
+<th>Sur quoi ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mes communications</td>
+<td>Les vôtres : écrits par vous, qui vous sont adressés ou vous
+mentionnent</td>
+<td>Toutes les applications, notifications qui vous sont destinées
+incluses</td>
+</tr>
+<tr>
+<td>Mes activités</td>
+<td>Les vôtres</td>
+<td>Vos activités à venir (appels, rendez-vous, relances)</td>
+</tr>
+<tr>
+<td>Tous les échanges</td>
+<td>Toute l’équipe</td>
+<td>Contacts, opportunités, devis, factures, campagnes e-mail — sans
+notifications</td>
+</tr>
+<tr>
+<td>Villages</td>
+<td>—</td>
+<td>Liste des éditions VDR / SDR ; le bouton Communications montre tout
+ce qui leur est imputé</td>
+</tr>
+<tr>
+<td>Sociétés</td>
+<td>—</td>
+<td>Liste des sociétés ; le bouton Communications d’une fiche montre ses
+échanges</td>
+</tr>
+<tr>
+<td>Activités planifiées</td>
+<td>Toute l’équipe</td>
+<td>Les activités à venir de tout le monde</td>
+</tr>
+</tbody>
+</table></div>
+<p>« Mes communications » contient toutes vos communications, pas celles
+de toute l’équipe. Pour ne voir que vos échanges sur un Village ou une
+société, ouvrez son bouton Communications puis ajoutez le filtre « Mes
+communications ».</p>
+<div class="callout"><strong>Do It Once, Do It Right. Pour que rien ne manque
+:</strong><ul>
+<li>Écrivez depuis Odoo (« Envoyer un message ») plutôt que depuis Gmail
+ou Outlook.</li>
+<li>Imputez chaque devis, facture et achat au compte analytique de
+l’édition.</li>
+<li>Rattachez chaque personne à sa société et remplissez le Domaine
+email des sociétés.</li>
+</ul></div>
+
+<p>Une question ? Contactez Marc-Antoine.</p>
+<div class="pager"><a href="/equipe/manuel/fiche-a-campagnes-email"><small>← Fiche pratique A</small>Lancer une campagne e-mail</a><a href="/equipe/manuel/fiche-c-facturation-electronique" style="text-align:right"><small>Fiche pratique C →</small>Facturation électronique : nos coordonnées pour les fournisseurs</a></div>
+</main>
+</div>
+</div>
+</body>
+</html>
