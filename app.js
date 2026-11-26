@@ -290,17 +290,17 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     {city:'Lyon',mois:'Octobre',venue:'Palais de la Bourse',date:'14–15 oct. 2026',count:'≈ 5 000 candidats',cA:'#FF5A5F',cB:'#c62a3f',region:'Auvergne-Rhône-Alpes',status:'',state:'open',ms:'https://lyon.levillagedesrecruteurs.fr/3c484faa-1f4a-4fdf-b357-118d71a871a5/login',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-4/register',photo:'https://jobevents.odoo.com/web/image/15150-redirect/COUV-ARTICLES-1920x1080-2023-03-15T133744.914.jpg',sectors:['Numérique','Santé','Banque','Industrie','Commerce']}
   ];
   /* Tournée 2027 : 5 Villages en deux tournées (printemps / automne). Les liens
-     "odoo" pointent vers les événements à venir mais restent masqués tant que
-     odooLive!==true (événements pas encore publiés dans Odoo). Pour activer une
-     ville : passer son odooLive à true (ou le piloter via EVT_LINKS_URL). */
+     "odoo" pointent vers les pages des événements dans Odoo (publiées le
+     26/11/2026). Une ville dont la page n'est pas publiée doit passer à
+     odooLive:false : le bouton renvoie alors vers le formulaire de demande. */
   var villages2027=[
      /* — Tournée du printemps — */
-     {city:'Nantes',mois:'Mars',date:'Jeudi 18 mars 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:false},
-     {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai 2027',venue:'Casino Pasino',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:false},
+     {city:'Nantes',mois:'Mars',date:'Jeudi 18 mars 2027',venue:'Exponantes',region:'Pays de la Loire',cA:'#E3007B',cB:'#B4005F',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-nantes-2027-5/register',odooLive:true},
+     {city:'Aix-en-Provence',mois:'Mai',date:'Mardi 11 mai 2027',venue:'Casino Pasino',region:'Aix-en-Provence (13090)',cA:'#F8B322',cB:'#D98E00',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-d-aix-en-provence-2027-7/register',odooLive:true},
      /* — Tournée de l’automne — */
-     {city:'Toulouse',mois:'Septembre',date:'Mardi 14 septembre 2027',venue:'Salle Mermoz',region:'Occitanie',cA:'#FF5A5F',cB:'#c62a3f',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-2027-8/register',odooLive:false},
-     {city:'Dijon',mois:'Septembre',date:'Jeudi 30 septembre 2027',venue:'Lieu à confirmer',region:'Bourgogne-Franche-Comté',cA:'#F8B322',cB:'#D98E00',coprod:'',pic:'/img/logo-dijon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2027-9/register',odooLive:false},
-     {city:'Lyon',mois:'Octobre',date:'Mardi 12 & mercredi 13 octobre 2027',venue:'Palais de la Bourse',region:'Auvergne-Rhône-Alpes',cA:'#1C6DA8',cB:'#08324F',coprod:'',pic:'/img/logo-lyon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-2027-10/register',odooLive:false}
+     {city:'Toulouse',mois:'Septembre',date:'Mardi 14 septembre 2027',venue:'Salle Mermoz',region:'Occitanie',cA:'#FF5A5F',cB:'#c62a3f',coprod:'',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-toulouse-2027-8/register',odooLive:true},
+     {city:'Dijon',mois:'Septembre',date:'Jeudi 30 septembre 2027',venue:'Lieu à confirmer',region:'Bourgogne-Franche-Comté',cA:'#F8B322',cB:'#D98E00',coprod:'',pic:'/img/logo-dijon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-dijon-2027-9/register',odooLive:true},
+     {city:'Lyon',mois:'Octobre',date:'Mardi 12 & mercredi 13 octobre 2027',venue:'Palais de la Bourse',region:'Auvergne-Rhône-Alpes',cA:'#1C6DA8',cB:'#08324F',coprod:'',pic:'/img/logo-lyon.webp',odoo:'https://jobevents.odoo.com/event/le-village-des-recruteurs-de-lyon-2027-10/register',odooLive:true}
    ];
   /* ---- État d’un événement calculé depuis sa date (page « Nos Villages » dynamique) ----
      La date de fin est déduite du libellé (« 16–17 sept. 2026 » -> 17/09/2026,
