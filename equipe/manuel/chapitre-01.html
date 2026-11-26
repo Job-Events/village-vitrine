@@ -48,7 +48,7 @@ thead th{background:#136FB8;color:#fff;font-weight:700}
 tbody tr:nth-child(even){background:#F5F8FC}
 .callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
 .callout.rose{border-left-color:#E3145C;background:#FDEBF1}
-.callout p{margin:.2rem 0}
+.callout p{margin:.2rem 0}.callout p+p{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(0,0,0,.08)}
 blockquote{margin:0}
 .pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
 .pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
@@ -77,61 +77,83 @@ améliorations proposées</a></li></ol></nav>
 <main>
 <span class="eyebrow">Chapitre 1</span><h1>Vue d&#x27;ensemble : la boucle
 complète</h1>
-<p>Le devis confirmé déclenche tout le reste : chaque étape suivante
-relit ce que le commercial y a saisi. Une erreur sur le devis (mauvaise
-société, mauvaise ville, contact sans e-mail) se propage donc partout ;
-un devis juste fait le travail à la place de l'équipe.</p>
-<figure><img alt="Capture Odoo" loading="lazy" src="/equipe/manuel/2b368c082a6bd6445453300cbfa153987a3022ed.png"/></figure>
-<p><strong>Figure 1 —</strong> Le processus commercial 2027, du devis à
-l'historique client</p>
-<p>Le commercial saisit une fois, à gauche ; tout ce qui est à droite de
-la confirmation est produit par Odoo à partir du devis.</p>
+<p>Un salon réussi se joue en trois temps : on vend, on engage, on
+livre. Le devis signé ouvre la deuxième phase, qui est souvent la plus
+longue et la plus exigeante pour l'équipe.</p>
+<figure><img alt="Capture Odoo" loading="lazy" src="/equipe/manuel/b6190a602468d8cb62e5d7949e38cd7202b3fc86.png"/></figure>
+<p><strong>Figure 1 —</strong> Les trois phases de la boucle, soutenues
+par Odoo de bout en bout</p>
+<p><strong>Phase 1 — Commercialisation.</strong> La prospection, le
+devis, le suivi et la signature. C'est l'objet des chapitres 2 à 4.</p>
+<p><strong>Phase 2 — Engagement.</strong> Entre la signature et le
+salon, chaque participant doit être mis en mouvement.</p>
+<ul>
+<li><p><strong>Les recruteurs.</strong> D'abord avoir les bons contacts
+dans la société : la personne qui gère le salon, celle qui signe le
+devis (parfois au siège ou au niveau national) et celle qui sera
+présente sur le stand. Ensuite engager la personne qui gère le salon :
+créer son profil Matching Square, inviter son équipe, charger ses offres
+sur la plateforme, préparer son encart pour la gazette, réserver ses
+paniers repas. Enfin engager les autres participants : création de leur
+profil, accès et badges, réponses à leurs questions.</p></li>
+<li><p><strong>Les partenaires.</strong> Les mêmes tâches, auxquelles
+s'ajoutent les comités de préparation : y définir avec eux les
+communications, leur soutien, la visite de la ville.</p></li>
+<li><p><strong>La presse.</strong> Préparer et envoyer les
+communiqués.</p></li>
+<li><p><strong>Les prestataires.</strong> Sécurité, incendie, mobilier,
+technique, traiteur, graphiste, journaliste, caméraman : choisir,
+réserver, briefer.</p></li>
+</ul>
+<p><strong>Phase 3 — Exécution.</strong> Confirmer sa participation à
+chaque prestataire (rôle de chacun, nombre de personnes, horaires),
+s'assurer que chacun livre ce qui est prévu, et surtout faire en sorte
+que les recruteurs et les partenaires soient satisfaits.</p>
 <div class="callout">
-<p><strong>Do It Once, Do It Right.</strong> La bonne société, les bons
-produits, les bons événements, une seule fois. L'information circule
-ensuite seule et revient au commercial l'année suivante, sous forme
-d'historique fiable : quelle société a participé à quel salon, avec
-quelles options.</p>
+<p><strong>Do It Once, Do It Right.</strong> Odoo soutient les trois
+phases : chaque personne y est enregistrée une fois, avec son rôle
+(gestionnaire du salon, signataire, présent sur le stand, partenaire,
+prestataire), et c'est de là que partent les devis, les factures, les
+inscriptions, les rappels par e-mail et, si on l'active, les messages
+WhatsApp. L'information revient ensuite au commercial l'année suivante,
+sous forme d'historique fiable.</p>
 </div>
 <div class="tbl"><table>
 
 
 
 <thead><tr>
-<th><strong>Étape</strong></th>
+<th><strong>Phase</strong></th>
 <th><strong>Ce que fait l'équipe</strong></th>
-<th><strong>Ce qu'Odoo fait seul</strong></th>
+<th><strong>Ce qu'Odoo apporte</strong></th>
 </tr></thead><tbody><tr>
-<td>Devis</td>
-<td>Choisit le client, le modèle, les variantes, les remises</td>
-<td>Rattache chaque stand à son événement et à son billet</td>
+<td>Commercialisation</td>
+<td>Prospecte, établit le devis, relance, fait signer</td>
+<td>Pipeline CRM, modèles de devis et listes de prix, campagnes de
+prospection, rattachement de chaque stand à son événement</td>
 </tr><tr>
-<td>Confirmation</td>
-<td>Confirme après le bon pour accord signé</td>
-<td>Inscrit le contact à chaque événement du devis (rôle Recruteur,
-statut Inscrit) et recalcule le suivi opérationnel</td>
+<td>Engagement — recruteurs et partenaires</td>
+<td>Identifie les bons contacts, fait créer les profils, charger les
+offres, préparer la gazette, réserver les paniers</td>
+<td>Inscriptions aux événements par rôle, e-mail de bienvenue à J+1,
+rappels programmés (chapitre 9), suivi des paniers repas et des
+interviews, facture et échéancier</td>
 </tr><tr>
-<td>Facture</td>
-<td>Crée la facture depuis la commande, la vérifie, la valide</td>
-<td>Calcule l'échéancier : 50 % à 30 jours, solde de chaque salon 1 mois
-avant sa date</td>
-</tr><tr>
-<td>Inscription</td>
-<td>Complète la société participante et l'équipe présente</td>
-<td>Envoie l'e-mail de bienvenue à J+1 au contact inscrit</td>
-</tr><tr>
-<td>Préparation</td>
-<td>Relance paniers repas et interviews</td>
-<td>Compte tables, tabourets, paniers, interviews commandés et réservés,
-et lève des alertes</td>
+<td>Engagement — presse et prestataires</td>
+<td>Envoie les communiqués, choisit et réserve les prestataires</td>
+<td>Contacts presse et fournisseurs enregistrés avec leur rôle, envois
+groupés, budget de chaque salon</td>
 </tr><tr>
 <td>Exécution</td>
-<td>Accueille, livre ce qui a été commandé</td>
-<td>Garde la trace de la participation pour l'année suivante</td>
+<td>Confirme chaque prestataire, accueille, livre ce qui a été
+commandé</td>
+<td>Suivi opérationnel (tables, tabourets, paniers, interviews), rappels
+avant le salon et questionnaire de satisfaction (chapitre 9), historique
+de participation</td>
 </tr></tbody></table></div>
 <p>Deux objectifs : plus d'efficacité (rien n'est saisi deux fois) et
-une meilleure satisfaction client (chaque client reçoit exactement ce
-qu'il a commandé).</p>
+une meilleure satisfaction client (chaque recruteur et chaque partenaire
+reçoit exactement ce qui a été convenu).</p>
 
 <div class="pager"><span></span><a href="/equipe/manuel/chapitre-02" style="text-align:right"><small>Chapitre 2 →</small>Préalable : des contacts
 propres</a></div>
