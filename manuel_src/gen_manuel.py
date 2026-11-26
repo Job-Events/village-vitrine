@@ -38,7 +38,7 @@ background:linear-gradient(90deg,var(--rose) 0 20%,var(--jaune) 20% 40%,var(--gr
 .top .nav{margin-left:auto;font-size:.88rem;display:flex;gap:1rem;flex-wrap:wrap}
 .grid{display:grid;grid-template-columns:17rem minmax(0,1fr);gap:1.6rem;margin-top:1.4rem;align-items:start}
 .toc{position:sticky;top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem .9rem;font-size:.9rem}
-.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
+.toc b.sep{height:1px;background:var(--line);margin:.9rem .4rem}.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
 .toc ol{list-style:none;margin:0;padding:0}
 .toc li a{display:flex;gap:.5rem;padding:.38rem .45rem;border-radius:10px;text-decoration:none;color:var(--ink);line-height:1.3}
 .toc li a span{color:var(--rose-d);font-weight:700;min-width:1.4rem}
@@ -63,7 +63,7 @@ tbody tr:nth-child(even){background:#F5F8FC}
 .callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
 .callout.rose{border-left-color:#E3145C;background:#FDEBF1}
 .callout p{margin:.2rem 0}.callout p+p{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(0,0,0,.08)}
-blockquote{margin:0}
+blockquote{margin:0}blockquote.lettre{border-left:3px solid var(--line);background:#FBF8F4;border-radius:0 12px 12px 0;padding:.6rem 1.1rem;margin:.8rem 0 1.4rem;max-width:48rem}pre{background:#F5F8FC;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;overflow-x:auto;font-size:.82rem;line-height:1.45;max-width:48rem}code{font-size:.88em}.callout ul{margin:.4rem 0 0}
 .pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
 .pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
 .pager a small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
@@ -194,24 +194,76 @@ def page(titre, corps, toc, courant=None):
             ) % (H.escape(titre), CSS, toc, corps)
 
 
+ANNEXES = [
+    ('A', 'fiche-a-campagnes-email', 'Lancer une campagne e-mail', 'a-campagnes-email.md'),
+    ('B', 'fiche-b-communications', 'Communications : tous les échanges avec un client', 'b-communications.md'),
+    ('C', 'fiche-c-facturation-electronique', 'Facturation électronique : nos coordonnées pour les fournisseurs', 'c-facturation-electronique.md'),
+]
+
+
+def charger_annexe(fichier, medias):
+    src = os.path.join(ICI, 'annexes', fichier)
+    out = subprocess.run(['pandoc', '-f', 'markdown-implicit_figures', '-t', 'html5', src],
+                         capture_output=True, text=True, check=True).stdout
+    soup = BeautifulSoup(out, 'html.parser')
+    for t in soup.find_all('table'):
+        t.attrs = {}
+        for r in t.find_all('tr'):
+            r.attrs = {}
+        t.wrap(soup.new_tag('div', attrs={'class': 'tbl'}))
+    for img in soup.find_all('img'):
+        nom = 'fiche-' + os.path.basename(img['src'])
+        medias[nom] = os.path.join(ICI, 'annexes', img['src'])
+        img['src'] = '/equipe/manuel/' + nom
+        img['loading'] = 'lazy'
+        p = img.find_parent('p')
+        fig = soup.new_tag('figure')
+        p.replace_with(fig); fig.append(img)
+        nxt = fig.find_next_sibling()
+        if nxt is not None and nxt.name == 'p' and nxt.find('em') and len(nxt.get_text()) < 200:
+            cap = soup.new_tag('figcaption'); cap.string = nxt.get_text(' ', strip=True)
+            fig.append(cap); nxt.decompose()
+    for p in soup.find_all('p'):
+        st = p.find('strong')
+        if st is not None and p.contents and p.contents[0] is st:
+            t = st.get_text()
+            if t.startswith('Attention'):
+                p.name = 'div'; p['class'] = ['callout', 'rose']
+            elif t.startswith('Do It Once'):
+                nx = p.find_next_sibling()
+                p.name = 'div'; p['class'] = ['callout']
+                if nx is not None and nx.name == 'ul':
+                    p.append(nx.extract())
+    for bq in soup.find_all('blockquote'):
+        bq['class'] = ['lettre']
+    sous = [(h.get('id'), h.get_text(' ', strip=True)) for h in soup.find_all('h2')]
+    return str(soup), sous
+
+
 def main():
     s, tmp = charger_html()
     soup = BeautifulSoup(s, 'html.parser')
     medias = {}
     nettoyer(soup, encadres(), medias, tmp)
 
-    # decoupage : tout ce qui precede le premier chapitre = couverture + sommaire + a propos
     h1s = [h for h in soup.find_all('h1') if h.get('id') != 'table-des-matières']
-    chapitres = []
+    pages = []
     for i, h in enumerate(h1s):
         bloc = []
         n = h.next_sibling
         while n is not None and not (getattr(n, 'name', None) == 'h1'):
             bloc.append(n); n = n.next_sibling
         sous = [(x.get('id'), x.get_text(' ', strip=True)) for x in bloc if getattr(x, 'name', None) == 'h2']
-        chapitres.append({'n': i + 1, 'titre': h.get_text(' ', strip=True), 'html': ''.join(str(x) for x in bloc),
-                          'sous': sous})
-    # a propos : blockquote/encadre et paragraphe d exemples avant le chapitre 1
+        pages.append({'cle': '%02d' % (i + 1), 'etiquette': 'Chapitre %d' % (i + 1), 'section': 'chap',
+                      'fichier': slug_chap(i + 1), 'titre': h.get_text(' ', strip=True),
+                      'html': ''.join(str(x) for x in bloc), 'sous': sous})
+    for lettre, fichier, titre, md in ANNEXES:
+        html, sous = charger_annexe(md, medias)
+        pages.append({'cle': lettre, 'etiquette': 'Fiche pratique ' + lettre, 'section': 'fiche',
+                      'fichier': fichier, 'titre': titre, 'html': html, 'sous': sous})
+    for p in pages:
+        p['url'] = '/equipe/manuel/' + p['fichier']
+
     apropos = []
     debut = soup.find(string=re.compile('propos de ce manuel'))
     if debut:
@@ -225,14 +277,19 @@ def main():
             meta.append(str(st.find_parent('p')))
 
     def toc(courant=None):
-        items = []
-        for c in chapitres:
-            cur = ' aria-current="page"' if courant == c['n'] else ''
-            li = '<li><a href="%s"%s><span>%02d</span>%s</a>' % (url_chap(c['n']), cur, c['n'], H.escape(c['titre']))
-            if courant == c['n'] and c['sous']:
-                li += '<div class="sub">' + ''.join('<a href="#%s">%s</a>' % (i, H.escape(t)) for i, t in c['sous']) + '</div>'
-            items.append(li + '</li>')
-        return '<nav class="toc"><b>Sommaire</b><ol>%s</ol></nav>' % ''.join(items)
+        blocs = []
+        for section, titre in (('chap', 'Sommaire'), ('fiche', 'Fiches pratiques')):
+            items = []
+            for p in pages:
+                if p['section'] != section:
+                    continue
+                cur = ' aria-current="page"' if courant is p else ''
+                li = '<li><a href="%s"%s><span>%s</span>%s</a>' % (p['url'], cur, p['cle'], H.escape(p['titre']))
+                if courant is p and p['sous']:
+                    li += '<div class="sub">' + ''.join('<a href="#%s">%s</a>' % (i, H.escape(t)) for i, t in p['sous']) + '</div>'
+                items.append(li + '</li>')
+            blocs.append('<b>%s</b><ol>%s</ol>' % (titre, ''.join(items)))
+        return '<nav class="toc">%s</nav>' % '<b class="sep"></b>'.join(blocs)
 
     if os.path.isdir(SORTIE):
         shutil.rmtree(SORTIE)
@@ -240,23 +297,25 @@ def main():
     for nom, chemin in medias.items():
         shutil.copy2(chemin, os.path.join(SORTIE, nom))
 
-    cartes = ''.join('<li><a href="%s"><span>%02d</span>%s</a></li>' % (url_chap(c['n']), c['n'], H.escape(c['titre'])) for c in chapitres)
+    def cartes(section):
+        return ''.join('<li><a href="%s"><span>%s</span>%s</a></li>' % (p['url'], p['cle'], H.escape(p['titre'])) for p in pages if p['section'] == section)
     accueil = ('<span class="eyebrow">Manuel d\'utilisation</span><h1>Odoo au service du processus commercial</h1>'
                '<p class="meta">Du devis à l\'exécution — Le Village des Recruteurs 2027</p>%s%s'
                '<h2>Les chapitres</h2><ul class="chap-list">%s</ul>'
+               '<h2>Les fiches pratiques</h2><ul class="chap-list">%s</ul>'
                '<p class="meta"><em>Document interne — ne pas diffuser à l\'extérieur de Job Events.</em></p>'
-               ) % (''.join(meta), ''.join(apropos), cartes)
+               ) % (''.join(meta), ''.join(apropos), cartes('chap'), cartes('fiche'))
     open(os.path.join(SORTIE, 'index.html'), 'w', encoding='utf-8').write(page('Sommaire', accueil, toc()))
 
-    for i, c in enumerate(chapitres):
-        prec = chapitres[i - 1] if i else None
-        suiv = chapitres[i + 1] if i + 1 < len(chapitres) else None
+    for i, c in enumerate(pages):
+        prec = pages[i - 1] if i else None
+        suiv = pages[i + 1] if i + 1 < len(pages) else None
         pager = '<div class="pager">%s%s</div>' % (
-            ('<a href="%s"><small>← Chapitre %d</small>%s</a>' % (url_chap(prec['n']), prec['n'], H.escape(prec['titre']))) if prec else '<span></span>',
-            ('<a href="%s" style="text-align:right"><small>Chapitre %d →</small>%s</a>' % (url_chap(suiv['n']), suiv['n'], H.escape(suiv['titre']))) if suiv else '<span></span>')
-        corps = '<span class="eyebrow">Chapitre %d</span><h1>%s</h1>%s%s' % (c['n'], H.escape(c['titre']), c['html'], pager)
-        open(os.path.join(SORTIE, slug_chap(c['n']) + '.html'), 'w', encoding='utf-8').write(page(c['titre'], corps, toc(c['n']), c['n']))
-    print('%d chapitres, %d images -> %s' % (len(chapitres), len(medias), SORTIE))
+            ('<a href="%s"><small>← %s</small>%s</a>' % (prec['url'], prec['etiquette'], H.escape(prec['titre']))) if prec else '<span></span>',
+            ('<a href="%s" style="text-align:right"><small>%s →</small>%s</a>' % (suiv['url'], suiv['etiquette'], H.escape(suiv['titre']))) if suiv else '<span></span>')
+        corps = '<span class="eyebrow">%s</span><h1>%s</h1>%s%s' % (c['etiquette'], H.escape(c['titre']), c['html'], pager)
+        open(os.path.join(SORTIE, c['fichier'] + '.html'), 'w', encoding='utf-8').write(page(c['titre'], corps, toc(c)))
+    print('%d pages, %d images -> %s' % (len(pages), len(medias), SORTIE))
 
 
 if __name__ == '__main__':
