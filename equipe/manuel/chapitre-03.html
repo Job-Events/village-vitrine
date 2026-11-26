@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Le devis · Manuel Odoo · Espace équipe</title>
+<style>
+:root{--rose:#E3007B;--rose-d:#B4005F;--blue:#006FB7;--navy:#08324F;--jaune:#F8B322;--green:#2FA36B;
+--ink:#241A12;--muted:#786859;--paper:#FFF9F1;--surface:#fff;--line:rgba(60,40,24,.14);--r:18px;
+--shadow-sm:0 8px 22px -14px rgba(80,45,20,.26)}
+*{box-sizing:border-box}
+@font-face{font-family:"Jost";src:url(/fonts/jost-latin.woff2) format("woff2");font-weight:300 900;font-display:swap}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.02rem/1.62 "Jost","Century Gothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--rose-d)}
+.wrap{max-width:76rem;margin:0 auto;padding:1.3rem clamp(.9rem,3vw,2rem) 4rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;background:var(--surface);border:1px solid var(--line);
+border-radius:var(--r);padding:1rem 1.2rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;
+background:linear-gradient(90deg,var(--rose) 0 20%,var(--jaune) 20% 40%,var(--green) 40% 60%,var(--blue) 60% 80%,#0FAE9E 80% 100%)}
+.brand{font-weight:800;font-size:1.15rem;margin-top:2px}
+.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3006A}
+.top .nav{margin-left:auto;font-size:.88rem;display:flex;gap:1rem;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:17rem minmax(0,1fr);gap:1.6rem;margin-top:1.4rem;align-items:start}
+.toc{position:sticky;top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem .9rem;font-size:.9rem}
+.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li a{display:flex;gap:.5rem;padding:.38rem .45rem;border-radius:10px;text-decoration:none;color:var(--ink);line-height:1.3}
+.toc li a span{color:var(--rose-d);font-weight:700;min-width:1.4rem}
+.toc li a:hover{background:#FDEBD8}
+.toc li a[aria-current]{background:var(--navy);color:#fff}.toc li a[aria-current] span{color:#FBE7B8}
+.toc .sub{margin:.1rem 0 .5rem 2.3rem;font-size:.82rem}
+.toc .sub a{display:block;padding:.15rem 0;color:var(--muted);text-decoration:none}
+.toc .sub a:hover{color:var(--rose-d)}
+main{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.1rem,3vw,2.4rem);min-width:0}
+.eyebrow{display:inline-block;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-d)}
+h1{font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:.2rem 0 1rem;color:var(--navy)}
+h2{font-size:1.3rem;color:var(--navy);margin:2.2rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line);scroll-margin-top:1rem}
+h3{font-size:1.08rem;color:var(--navy);margin:1.6rem 0 .4rem}
+p,li{max-width:48rem}
+img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block;margin:.8rem 0}
+figure{margin:1.2rem 0}figcaption{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.tbl{overflow-x:auto;margin:1rem 0 1.3rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .7rem;border-bottom:1px solid var(--line)}
+thead th{background:#136FB8;color:#fff;font-weight:700}
+tbody tr:nth-child(even){background:#F5F8FC}
+.callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
+.callout.rose{border-left-color:#E3145C;background:#FDEBF1}
+.callout p{margin:.2rem 0}
+blockquote{margin:0}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
+.pager a small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
+.pager a:hover{border-color:var(--rose)}
+.chap-list{list-style:none;padding:0;margin:1.2rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.chap-list a{display:block;height:100%;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;background:#fff}
+.chap-list a:hover{border-color:var(--rose);box-shadow:var(--shadow-sm)}
+.chap-list span{display:block;font-weight:800;color:var(--rose-d);font-size:1.3rem}
+.meta{font-size:.9rem;color:var(--muted)}
+.menu-btn{display:none}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.toc{position:static}.toc .sub{display:none}}
+@media print{.top,.toc,.pager{display:none}.grid{display:block}main{border:0;padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="brand"><small>Espace équipe · Job Events</small>Manuel Odoo — processus commercial 2027</div><div class="nav"><a href="/equipe/manuel/">Sommaire</a><a href="/equipe">← Espace équipe</a></div></div>
+<div class="grid">
+<nav class="toc"><b>Sommaire</b><ol><li><a href="/equipe/manuel/chapitre-01"><span>01</span>Vue d&#x27;ensemble : la boucle
+complète</a></li><li><a href="/equipe/manuel/chapitre-02"><span>02</span>Préalable : des contacts
+propres</a></li><li><a href="/equipe/manuel/chapitre-03" aria-current="page"><span>03</span>Le devis</a><div class="sub"><a href="#les-articles-2027">3.1 Les articles 2027</a><a href="#négocier-ligne-par-ligne">3.2 Négocier ligne par ligne</a><a href="#le-stand-est-lié-à-lévénement">3.3 Le stand est lié à
+l&#x27;événement</a><a href="#le-bon-contact-sur-le-devis">3.4 Le bon contact sur le
+devis</a><a href="#les-modèles-de-devis">3.5 Les modèles de devis</a><a href="#les-attributs">3.6 Les attributs</a><a href="#les-remises">3.7 Les remises</a><a href="#envoyer-et-confirmer">3.8 Envoyer et confirmer</a></div></li><li><a href="/equipe/manuel/chapitre-04"><span>04</span>La facturation</a></li><li><a href="/equipe/manuel/chapitre-05"><span>05</span>L&#x27;inscription aux événements</a></li><li><a href="/equipe/manuel/chapitre-06"><span>06</span>Les partenaires</a></li><li><a href="/equipe/manuel/chapitre-07"><span>07</span>Le
+suivi opérationnel : paniers repas, interviews, matériel</a></li><li><a href="/equipe/manuel/chapitre-08"><span>08</span>Matching Square</a></li><li><a href="/equipe/manuel/chapitre-09"><span>09</span>Communications
+automatisées et satisfaction</a></li><li><a href="/equipe/manuel/chapitre-10"><span>10</span>Check-lists et
+améliorations proposées</a></li></ol></nav>
+<main>
+<span class="eyebrow">Chapitre 3</span><h1>Le devis</h1>
+<p>En 2027, un stand n'est plus un forfait : c'est une addition
+d'articles, une ligne par composant et par ville. Cela permet de
+négocier ligne par ligne, et c'est ce que relisent ensuite la facture,
+les inscriptions et le suivi opérationnel.</p>
+<h2 id="les-articles-2027">3.1 Les articles 2027</h2>
+<p>Tous les articles existent en une variante par ville (attribut
+<strong>Ville</strong>). Prix catalogue HT au 25/11/2026 :</p>
+<div class="tbl"><table>
+
+
+
+<thead><tr>
+<th><strong>Article</strong></th>
+<th><strong>Prix HT</strong></th>
+<th><strong>Ce qu'il contient / à quoi il sert</strong></th>
+</tr></thead><tbody><tr>
+<td><strong>Stand équipé pour 1 professionnel</strong></td>
+<td>990 € (1 jour)<br/>1 290 € à Lyon (2 jours)</td>
+<td>1 mange-debout + 2 tabourets, 1/4 de page dans la gazette, page
+recruteur sur la plateforme, annonce réseaux sociaux. <strong>Seul
+article lié à l'événement</strong> : il déclenche l'inscription. Lyon
+existe aussi en 2 jours</td>
+</tr><tr>
+<td>Professionnel supplémentaire</td>
+<td>500 € par professionnel</td>
+<td>1 mange-debout + 2 tabourets par pro additionnel. Variante = taille du stand : « 2 pros + 1 » = 500 €, « 3 pros + 1 » = 1 000 €… jusqu'à « 8 pros + 1 » = 3 500 €</td>
+</tr><tr>
+<td>Frais d'inscription</td>
+<td>150 €</td>
+<td>Facturés une fois par inscription</td>
+</tr><tr>
+<td>Choix de l'emplacement</td>
+<td>190 €</td>
+<td>Remis à 100 % dans toutes les listes de prix (offre de
+lancement)</td>
+</tr><tr>
+<td>Pack digital</td>
+<td>400 €</td>
+<td>Profils digitaux des candidats, module de matching, 10 jours de
+rencontres virtuelles (5 avant, 5 après)</td>
+</tr><tr>
+<td>Envoi des CV dans votre ATS</td>
+<td>290 €</td>
+<td>Profils sélectionnés envoyés dans l'ATS du client</td>
+</tr><tr>
+<td>La Semaine des Recruteurs</td>
+<td>690 €</td>
+<td>Recrutement délégué : un recruteur expert sélectionne les candidats
+(rencontres à J+7)</td>
+</tr><tr>
+<td>Webinaire</td>
+<td>400 €</td>
+<td>Invitation de tous les candidats inscrits</td>
+</tr><tr>
+<td>Conférence</td>
+<td>400 €</td>
+<td>Jusqu'à 50 candidats, annonce au programme</td>
+</tr><tr>
+<td>Atelier</td>
+<td>250 €</td>
+<td>Espace privatisé, 15 candidats, 30 min</td>
+</tr><tr>
+<td>Interview vidéo le jour J</td>
+<td>250 €</td>
+<td>Créneau d'interview à réserver avant le salon (chapitre 7)</td>
+</tr><tr>
+<td>Panier repas</td>
+<td>20 € / personne</td>
+<td><strong>Jamais remisé</strong> (une automatisation bloque la
+remise). Le choix du menu se fait plus tard (chapitre 7)</td>
+</tr><tr>
+<td>1/2 page / pleine page magazine</td>
+<td>300 € / 400 €</td>
+<td>Espace supplémentaire dans la gazette</td>
+</tr><tr>
+<td>2e, 3e, dernière de couverture, bandeau</td>
+<td>500 €</td>
+<td>Emplacements premium de la gazette</td>
+</tr><tr>
+<td>Bannière page de l'événement</td>
+<td>200 €</td>
+<td>Pendant toute la durée de l'événement</td>
+</tr><tr>
+<td>Bannière site de la tournée</td>
+<td>400 € / mois</td>
+<td>Variante unique, sans ville</td>
+</tr><tr>
+<td>Pack TPE</td>
+<td>−250 €</td>
+<td>Réduction réservée aux sociétés de moins de 3 ans</td>
+</tr><tr>
+<td>Espace candidats partenaire, Partenariat visibilité &amp;
+communication, Espace conférence partenaire, Partenariat soirée
+inaugurale</td>
+<td>4 500 € / 1 000 € / 0 € / 0 €</td>
+<td>Réservés aux partenaires (chapitre 6)</td>
+</tr></tbody></table></div>
+<h2 id="négocier-ligne-par-ligne">3.2 Négocier ligne par ligne</h2>
+<p>Quand le client trouve l'offre trop chère, deux leviers, dans cet
+ordre :</p>
+<ol type="1">
+<li><p><strong>Retirer un article.</strong> Le client se demande quelle
+option lui est vraiment utile ; le prix baisse sans brader le
+stand.</p></li>
+<li><p><strong>Remiser un article précis</strong> (colonne <em>Rem.
+%</em> de la ligne). Exemple : un client déçu par le module digital l'an
+dernier obtient une remise sur le Pack digital seulement.</p></li>
+</ol>
+<p>Éviter de baisser le prix unitaire du stand : la remise doit rester
+visible ligne par ligne, pour le client comme pour l'analyse.</p>
+<h2 id="le-stand-est-lié-à-lévénement">3.3 Le stand est lié à
+l'événement</h2>
+<p>Chaque variante « Stand équipé (Ville, durée) » est rattachée au
+billet « Stand exposant » de l'événement de cette ville. Quand le
+commercial choisit la variante, Odoo renseigne seul l'événement et le
+billet sur la ligne. À la confirmation, le contact du devis est inscrit
+à <strong>chaque</strong> événement du devis : 5 stands sur 5 villes = 5
+inscriptions en un clic.</p>
+<div class="callout rose">
+<p><strong>Attention.</strong> Sur une ligne de stand déjà créée, Odoo
+n'ouvre plus le choix des attributs mais le choix de l'événement, limité
+à la ville de la variante. Pour changer de ville, <strong>supprimer la
+ligne et l'ajouter de nouveau</strong> en choisissant la bonne ville.
+C'est ce qui s'est produit sur S00884 (Québec), copié de Nantes.</p>
+</div>
+<h2 id="le-bon-contact-sur-le-devis">3.4 Le bon contact sur le
+devis</h2>
+<p>Le client du devis est inscrit tel quel aux événements. Il doit donc
+être :</p>
+<ol type="1">
+<li><p><strong>Une personne avec une adresse e-mail</strong>, rattachée
+à sa société. Sans e-mail, aucun message de bienvenue ni de rappel ne
+part.</p></li>
+<li><p><strong>Rattachée à la société de facturation</strong>, pour
+garder le lien devis → facture → événement.</p></li>
+</ol>
+<p>Contre-exemple : S00877 est au nom de la société CCLD SOLUTIONS RH,
+sans e-mail. Ses 5 inscriptions ont été créées sans adresse : personne
+ne recevra l'e-mail de bienvenue. Il aurait fallu mettre Juliette
+Bergiron (CCLD) comme client.</p>
+<figure><img alt="Capture Odoo" loading="lazy" src="/equipe/manuel/f2792fd2400d50fd33c44d9e4b376477943acd86.jpg"/></figure>
+<p><strong>Figure 2 —</strong> Devis S00877 confirmé : le client est la
+société, Juliette Bergiron n'est que l'adresse de facturation. En haut,
+le bouton Participants compte les 5 inscriptions.</p>
+<h2 id="les-modèles-de-devis">3.5 Les modèles de devis</h2>
+<p>Le champ <strong>Modèle de devis</strong> préremplit les lignes.
+Choisir le modèle selon le besoin, puis ajuster :</p>
+<div class="tbl"><table>
+
+
+
+<thead><tr>
+<th><strong>Besoin du client</strong></th>
+<th><strong>Modèle</strong></th>
+</tr></thead><tbody><tr>
+<td>Un seul salon</td>
+<td>VDR 2027 – Nantes, Aix-en-Provence, Toulouse, Dijon ou Lyon</td>
+</tr><tr>
+<td>La tournée, 1 professionnel</td>
+<td>VDR 2027 – Tournée Pack Standard 1 pro</td>
+</tr><tr>
+<td>La tournée, 2 professionnels</td>
+<td>VDR 2027 – Tournée Pack Standard 2 pros</td>
+</tr><tr>
+<td>La tournée, 3 professionnels</td>
+<td>VDR 2027 – Tournée Pack Standard 3 pros</td>
+</tr><tr>
+<td>Agence d'intérim</td>
+<td>VDR 2027 – Tournée Pack Intérim</td>
+</tr><tr>
+<td>Organisme de formation</td>
+<td>VDR 2027 – Tournée Pack Formation</td>
+</tr><tr>
+<td>Grand groupe, plusieurs marques</td>
+<td>VDR 2027 – Tournée Pack Multimarques</td>
+</tr></tbody></table></div>
+<p>Les modèles d'une ville contiennent : stand, choix de l'emplacement,
+professionnel supplémentaire, pack digital, frais d'inscription et la
+note d'offre de lancement. Après le modèle, <strong>retirer les villes
+ou articles non retenus</strong> et contrôler que chaque section porte
+les variantes de sa ville. Les modèles demandent une signature en ligne
+et restent valables 30 jours.</p>
+<h2 id="les-attributs">3.6 Les attributs</h2>
+<div class="tbl"><table>
+
+
+
+<thead><tr>
+<th><strong>Attribut</strong></th>
+<th><strong>Valeurs</strong></th>
+<th><strong>Où il compte</strong></th>
+</tr></thead><tbody><tr>
+<td>Ville</td>
+<td>Nantes, Aix-en-Provence, Toulouse, Dijon, Lyon</td>
+<td>Événement d'inscription, échéancier, suivi opérationnel</td>
+</tr><tr>
+<td>Durée (stand)</td>
+<td>1 jour, 2 jours</td>
+<td>Lyon seulement en 2 jours</td>
+</tr><tr>
+<td>Stand (pro supplémentaire)</td>
+<td>2 pros + 1, 3 pros + 1…</td>
+<td>Nombre de tables et tabourets</td>
+</tr><tr>
+<td>Année</td>
+<td>2027</td>
+<td>Fixe</td>
+</tr></tbody></table></div>
+<p>Règle : <strong>sous la section d'une ville, toutes les lignes
+portent cette ville.</strong> Sur S00877, la section Aix-en-Provence
+contient un « Professionnel supplémentaire (Nantes) » : Odoo comptera ce
+pro à Nantes, et l'échéancier rattache son montant au solde de
+Nantes.</p>
+<h2 id="les-remises">3.7 Les remises</h2>
+<p>La <strong>liste de prix</strong> applique la remise globale ; la
+colonne <em>Rem. %</em> gère les remises ponctuelles.</p>
+<div class="tbl"><table>
+
+
+
+<thead><tr>
+<th><strong>Liste de prix</strong></th>
+<th><strong>Remise</strong></th>
+</tr></thead><tbody><tr>
+<td>VDR 2027 – Tournée complète (posée par les modèles Tournée Pack Standard)</td>
+<td>30 % jusqu'au 31/12/2026, puis 20 %</td>
+</tr><tr>
+<td>VDR 2027 – Tournée complète, packs métiers (posée par les modèles Tournée Pack Intérim, Formation et Multimarques)</td>
+<td>47,5 % jusqu'au 31/12/2026, puis 40 %</td>
+</tr><tr>
+<td>Default – 1 évènement</td>
+<td>0 %</td>
+</tr><tr>
+<td>Défault – 2 évènements</td>
+<td>10 %</td>
+</tr><tr>
+<td>Défault – 3 évènements</td>
+<td>15 %</td>
+</tr><tr>
+<td>Early Booking – 1 / 2 / 3 évènements</td>
+<td>10 % / 15 % / 20 %</td>
+</tr><tr>
+<td>Offre Couplage VDR + SDR, Pack Intérim, Pack Spécial Job Events,
+Pack Spécial Organisme de Formation, Pack Multimarques – Grands
+Groupes</td>
+<td>Prix spécifiques du pack</td>
+</tr></tbody></table></div>
+<p>Dans toutes les listes : panier repas jamais remisé, choix de
+l'emplacement offert. <strong>Choisir la liste de prix avant d'ajouter
+les lignes</strong> ; si on la change après, cliquer sur <em>Mettre à
+jour les prix</em>.</p>
+<p>Les modèles <em>VDR 2027 – Tournée</em> posent eux-mêmes leur liste de prix dès qu'on les choisit : les remises de la tournée et de l'early booking s'appliquent aux lignes sans autre action. Le 1er janvier 2027, la remise passe seule de 30 % à 20 % (de 47,5 % à 40 % pour les packs métiers) sur les nouveaux devis ; un devis existant garde sa remise tant qu'on ne clique pas sur <em>Mettre à jour les prix</em>.</p>
+<h2 id="envoyer-et-confirmer">3.8 Envoyer et confirmer</h2>
+<ol type="1">
+<li><p><em>Envoyer</em> le devis par e-mail ; le client signe en
+ligne.</p></li>
+<li><p>À la réception du bon pour accord, <em>Confirmer</em> : le devis
+devient Commande client. Les inscriptions sont créées à cet instant
+(bouton <em>Participants</em> en haut du devis).</p></li>
+<li><p>Vérifier tout de suite le bouton <em>Participants</em> : un
+participant par stand, avec un e-mail.</p></li>
+</ol>
+
+<div class="pager"><a href="/equipe/manuel/chapitre-02"><small>← Chapitre 2</small>Préalable : des contacts
+propres</a><a href="/equipe/manuel/chapitre-04" style="text-align:right"><small>Chapitre 4 →</small>La facturation</a></div>
+</main>
+</div>
+</div>
+</body>
+</html>

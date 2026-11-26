@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>L&#x27;inscription aux événements · Manuel Odoo · Espace équipe</title>
+<style>
+:root{--rose:#E3007B;--rose-d:#B4005F;--blue:#006FB7;--navy:#08324F;--jaune:#F8B322;--green:#2FA36B;
+--ink:#241A12;--muted:#786859;--paper:#FFF9F1;--surface:#fff;--line:rgba(60,40,24,.14);--r:18px;
+--shadow-sm:0 8px 22px -14px rgba(80,45,20,.26)}
+*{box-sizing:border-box}
+@font-face{font-family:"Jost";src:url(/fonts/jost-latin.woff2) format("woff2");font-weight:300 900;font-display:swap}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.02rem/1.62 "Jost","Century Gothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--rose-d)}
+.wrap{max-width:76rem;margin:0 auto;padding:1.3rem clamp(.9rem,3vw,2rem) 4rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;background:var(--surface);border:1px solid var(--line);
+border-radius:var(--r);padding:1rem 1.2rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;
+background:linear-gradient(90deg,var(--rose) 0 20%,var(--jaune) 20% 40%,var(--green) 40% 60%,var(--blue) 60% 80%,#0FAE9E 80% 100%)}
+.brand{font-weight:800;font-size:1.15rem;margin-top:2px}
+.brand small{display:block;font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#C3006A}
+.top .nav{margin-left:auto;font-size:.88rem;display:flex;gap:1rem;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:17rem minmax(0,1fr);gap:1.6rem;margin-top:1.4rem;align-items:start}
+.toc{position:sticky;top:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem .9rem;font-size:.9rem}
+.toc b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .5rem .4rem}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li a{display:flex;gap:.5rem;padding:.38rem .45rem;border-radius:10px;text-decoration:none;color:var(--ink);line-height:1.3}
+.toc li a span{color:var(--rose-d);font-weight:700;min-width:1.4rem}
+.toc li a:hover{background:#FDEBD8}
+.toc li a[aria-current]{background:var(--navy);color:#fff}.toc li a[aria-current] span{color:#FBE7B8}
+.toc .sub{margin:.1rem 0 .5rem 2.3rem;font-size:.82rem}
+.toc .sub a{display:block;padding:.15rem 0;color:var(--muted);text-decoration:none}
+.toc .sub a:hover{color:var(--rose-d)}
+main{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.1rem,3vw,2.4rem);min-width:0}
+.eyebrow{display:inline-block;font-weight:700;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-d)}
+h1{font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.15;margin:.2rem 0 1rem;color:var(--navy)}
+h2{font-size:1.3rem;color:var(--navy);margin:2.2rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line);scroll-margin-top:1rem}
+h3{font-size:1.08rem;color:var(--navy);margin:1.6rem 0 .4rem}
+p,li{max-width:48rem}
+img{max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block;margin:.8rem 0}
+figure{margin:1.2rem 0}figcaption{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.tbl{overflow-x:auto;margin:1rem 0 1.3rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .7rem;border-bottom:1px solid var(--line)}
+thead th{background:#136FB8;color:#fff;font-weight:700}
+tbody tr:nth-child(even){background:#F5F8FC}
+.callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
+.callout.rose{border-left-color:#E3145C;background:#FDEBF1}
+.callout p{margin:.2rem 0}
+blockquote{margin:0}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
+.pager a small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
+.pager a:hover{border-color:var(--rose)}
+.chap-list{list-style:none;padding:0;margin:1.2rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.chap-list a{display:block;height:100%;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;background:#fff}
+.chap-list a:hover{border-color:var(--rose);box-shadow:var(--shadow-sm)}
+.chap-list span{display:block;font-weight:800;color:var(--rose-d);font-size:1.3rem}
+.meta{font-size:.9rem;color:var(--muted)}
+.menu-btn{display:none}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.toc{position:static}.toc .sub{display:none}}
+@media print{.top,.toc,.pager{display:none}.grid{display:block}main{border:0;padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="brand"><small>Espace équipe · Job Events</small>Manuel Odoo — processus commercial 2027</div><div class="nav"><a href="/equipe/manuel/">Sommaire</a><a href="/equipe">← Espace équipe</a></div></div>
+<div class="grid">
+<nav class="toc"><b>Sommaire</b><ol><li><a href="/equipe/manuel/chapitre-01"><span>01</span>Vue d&#x27;ensemble : la boucle
+complète</a></li><li><a href="/equipe/manuel/chapitre-02"><span>02</span>Préalable : des contacts
+propres</a></li><li><a href="/equipe/manuel/chapitre-03"><span>03</span>Le devis</a></li><li><a href="/equipe/manuel/chapitre-04"><span>04</span>La facturation</a></li><li><a href="/equipe/manuel/chapitre-05" aria-current="page"><span>05</span>L&#x27;inscription aux événements</a><div class="sub"><a href="#ce-qui-est-créé-automatiquement">5.1 Ce qui est créé
+automatiquement</a><a href="#recruteur-ou-partenaire-le-champ-rôle">5.2 Recruteur ou
+partenaire : le champ Rôle</a><a href="#la-société-participante">5.3 La société participante</a><a href="#les-e-mails-envoyés-au-participant">5.4 Les e-mails envoyés au
+participant</a><a href="#si-le-devis-doit-être-modifié-après-confirmation">5.5 Si le
+devis doit être modifié après confirmation</a></div></li><li><a href="/equipe/manuel/chapitre-06"><span>06</span>Les partenaires</a></li><li><a href="/equipe/manuel/chapitre-07"><span>07</span>Le
+suivi opérationnel : paniers repas, interviews, matériel</a></li><li><a href="/equipe/manuel/chapitre-08"><span>08</span>Matching Square</a></li><li><a href="/equipe/manuel/chapitre-09"><span>09</span>Communications
+automatisées et satisfaction</a></li><li><a href="/equipe/manuel/chapitre-10"><span>10</span>Check-lists et
+améliorations proposées</a></li></ol></nav>
+<main>
+<span class="eyebrow">Chapitre 5</span><h1>L&#x27;inscription aux événements</h1>
+<p>À la confirmation du devis, Odoo crée une inscription par ligne de
+stand, au nom du client du devis, au statut <em>Inscrit</em> et avec le
+rôle <em>Recruteur</em>. L'équipe n'a plus qu'à compléter la société
+participante et les personnes présentes.</p>
+<h2 id="ce-qui-est-créé-automatiquement">5.1 Ce qui est créé
+automatiquement</h2>
+<div class="tbl"><table>
+
+
+
+<thead><tr>
+<th><strong>Champ de l'inscription</strong></th>
+<th><strong>Valeur à la création</strong></th>
+<th><strong>D'où elle vient</strong></th>
+</tr></thead><tbody><tr>
+<td>Réservé par</td>
+<td>Client du devis</td>
+<td>Commande</td>
+</tr><tr>
+<td>Nom du participant, e-mail, téléphone</td>
+<td>Ceux du client du devis</td>
+<td>Fiche contact. <strong>Vide si le client est une société sans
+e-mail</strong></td>
+</tr><tr>
+<td>Nom de la société</td>
+<td>Société du client du devis</td>
+<td>Automatisation « Société participant = société du contact »</td>
+</tr><tr>
+<td>Billet</td>
+<td>Stand exposant</td>
+<td>Variante du stand</td>
+</tr><tr>
+<td>Rôle</td>
+<td>Recruteur</td>
+<td>Automatisation « Inscription depuis commande »</td>
+</tr><tr>
+<td>Statut</td>
+<td>Inscrit</td>
+<td>Commande confirmée</td>
+</tr></tbody></table></div>
+<h2 id="recruteur-ou-partenaire-le-champ-rôle">5.2 Recruteur ou
+partenaire : le champ Rôle</h2>
+<p>Ce qui distingue un recruteur d'un partenaire, c'est le champ
+<strong>Rôle</strong> de l'inscription, pas le type de contact. Valeurs
+possibles : Recruteur, Partenaire, Journaliste et caméraman, Visite
+officielle, Employé, Prestataire, Prestataire sécurité, Contacts
+catering, Contact autres, Visiteur.</p>
+<ul>
+<li><p>Inscription issue d'une commande client :
+<strong>Recruteur</strong> par défaut.</p></li>
+<li><p>Inscription d'un partenaire : passer le rôle à
+<strong>Partenaire</strong> après la confirmation de son devis à 0 €
+(chapitre 6).</p></li>
+<li><p>Deux cases complètent la fiche : <strong>Contact
+principal</strong> (l'interlocuteur de la société pour ce salon) et
+<strong>Inscrit MS</strong> (déjà chargé dans Matching Square).</p></li>
+</ul>
+<p>Le rôle sert ensuite partout : e-mails envoyés (Recruteur,
+Partenaire, Journaliste, Employé), tri du suivi opérationnel
+(partenaires en tête), listes Matching Square.</p>
+<h2 id="la-société-participante">5.3 La société participante</h2>
+<p>Le champ <strong>Nom de la société</strong> de l'inscription est le
+nom affiché sur le stand, dans Matching Square et dans la gazette. Il
+est rempli avec la société du contact, mais on peut le modifier.</p>
+<p>Quand la société qui paie n'est pas celle qui expose (S00877 : CCLD
+paie, Primark expose) :</p>
+<ol type="1">
+<li><p>Sur le devis confirmé, ouvrir le bouton
+<strong>Participants</strong>.</p></li>
+<li><p>Sur <strong>chacune</strong> des inscriptions (une par salon),
+remplacer « CCLD SOLUTIONS RH » par « PRIMARK » dans <em>Nom de la
+société</em>.</p></li>
+<li><p>Ne plus changer le champ <em>Réservé par</em> ensuite :
+l'automatisation réécrirait le nom de la société.</p></li>
+</ol>
+<p>On sait ainsi qui commande (le devis) et pour qui
+(l'inscription).</p>
+<h2 id="les-e-mails-envoyés-au-participant">5.4 Les e-mails envoyés au
+participant</h2>
+<p>Le lendemain de l'inscription, Odoo envoie l'e-mail <strong>« Votre
+inscription — « événement » »</strong> : confirmation, date et lieu,
+liens pour bloquer la date dans Google Agenda ou Outlook. Il part à
+l'adresse de l'inscription, pour les rôles Recruteur, Partenaire,
+Journaliste et Employé.</p>
+<ul>
+<li><p><strong>Un e-mail par événement</strong> : un client inscrit à 5
+salons reçoit 5 e-mails le même jour.</p></li>
+<li><p><strong>Pas d'adresse, pas d'e-mail</strong> : c'est le cas des 5
+inscriptions de S00877, créées au nom de la société CCLD. Ajouter
+l'e-mail de Juliette Bergiron sur chaque inscription ou, mieux, mettre
+une personne comme client du devis dès le départ.</p></li>
+</ul>
+<figure><img alt="Capture Odoo" loading="lazy" src="/equipe/manuel/13472d4a87ea4df30ff2a3c8fdb7512593a07062.jpg"/></figure>
+<p><strong>Figure 5 —</strong> Les 5 inscriptions créées par S00877 :
+colonne E-mail vide, donc aucun e-mail envoyé.</p>
+<div class="callout">
+<p><strong>Évolution proposée.</strong> Remplacer ces e-mails par un
+seul message par commande, qui liste les salons et contient un lien vers
+un formulaire. Le client y indique les membres de l'équipe à contacter,
+les personnes présentes à chaque salon et le nom de la société qui
+expose. Les réponses mettent à jour les inscriptions de
+<strong>tous</strong> les salons de la commande.</p>
+</div>
+<h2 id="si-le-devis-doit-être-modifié-après-confirmation">5.5 Si le
+devis doit être modifié après confirmation</h2>
+<p>Ce que fait la configuration actuelle :</p>
+<ul>
+<li><p><strong>Annuler la commande</strong> annule ses inscriptions. Une
+automatisation archive les inscriptions annulées.</p></li>
+<li><p><strong>Remettre en devis puis reconfirmer</strong> crée de
+nouvelles inscriptions. L'ancienne version, annulée, est archivée : pas
+de doublon visible.</p></li>
+<li><p>Mais les nouvelles inscriptions repartent de zéro : le nom de la
+société participante, le contact principal et les e-mails ajoutés à la
+main sont perdus, et <strong>l'e-mail de bienvenue repart</strong> pour
+chaque salon.</p></li>
+</ul>
+<p>Ce qu'il faut faire :</p>
+<ol type="1">
+<li><p>Préférer <strong>modifier directement la commande
+confirmée</strong> : une ligne de stand ajoutée crée une inscription,
+sans toucher aux autres.</p></li>
+<li><p>Pour retirer un salon, passer la quantité de la ligne à 0, puis
+annuler l'inscription correspondante (bouton <em>Annuler</em> dans la
+liste des participants).</p></li>
+<li><p>N'annuler puis reconfirmer qu'en dernier recours, et compléter à
+nouveau les inscriptions.</p></li>
+</ol>
+
+<div class="pager"><a href="/equipe/manuel/chapitre-04"><small>← Chapitre 4</small>La facturation</a><a href="/equipe/manuel/chapitre-06" style="text-align:right"><small>Chapitre 6 →</small>Les partenaires</a></div>
+</main>
+</div>
+</div>
+</body>
+</html>
