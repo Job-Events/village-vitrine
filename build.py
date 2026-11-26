@@ -19,7 +19,7 @@ SORTIE = 'dist'           # repertoire publie : lui seul part chez l hebergeur
 # _source.html, build.py, gestion.html, les runbooks et la configuration.
 ACTIFS = ['img', 'fonts', 'app.js', 'styles.css', 'og-image.png',
           'robots.txt', '_redirects', '_headers',
-          'equipe.html',
+          'equipe.html', 'equipe',
           'paniers-toulouse-4ac9b8dc.html', 'paniers-repas.html',
           'paniers-repas-guide.html',
           'interviews-toulouse-7f3a1c2e.html',
