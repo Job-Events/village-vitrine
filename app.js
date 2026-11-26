@@ -690,12 +690,18 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
       computeSim();});});
     var ea=document.getElementById('d-early'), line=document.getElementById('line-early');
     if(ea && line){
-      var is27=simState.year==='2027';
-      if(!is27)ea.checked=false;
-      ea.disabled=!is27;
-      line.style.opacity=is27?'1':'.5';
+      /* Early booking : coché d’office jusqu’au 31/12/2026 inclus, puis affiché mais grisé et non cochable */
+      var open=simState.year==='2027'&&earlyOpen();
+      ea.checked=open;
+      ea.disabled=!open;
+      line.style.opacity=open?'1':'.5';
+      line.title=open?'':'Offre early booking terminée le 31/12/2026';
+      var en=document.getElementById('early-note');
+      if(en)en.textContent=open?'Early booking, jusqu’au 31/12/2026 · Tournée 2027':'Offre terminée le 31/12/2026';
     }
   }
+  var EARLY_END=new Date(2026,11,31,23,59,59);
+  function earlyOpen(){return Date.now()<=EARLY_END.getTime();}
   function packFlipHTML(idx,title,config){
     return '<button class="pack-flip" data-pack="'+idx+'" aria-label="'+title+'"><span class="pf-inner">'
       +'<span class="pf-face pf-front">'+title+'</span>'
@@ -822,7 +828,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     document.querySelectorAll('#sim-cities .sim-city').forEach(function(c){c.checked=false;});
     document.querySelectorAll('#sim-partner input, #sim-partner-cities input').forEach(function(c){c.checked=false;});
     var _pcw=document.getElementById('sim-partner-cities-wrap'); if(_pcw)_pcw.hidden=true;
-    var ea=document.getElementById('d-early'); if(ea)ea.checked=false;
+    var ea=document.getElementById('d-early'); if(ea)ea.checked=(simState.year==='2027'&&earlyOpen());
     simState.packDisc=0; simState.packName='';
     document.querySelectorAll('#sim-packs-choice button').forEach(function(b){b.classList.remove('active');});
     var pd=document.getElementById('sim-pack-desc'); if(pd)pd.textContent='';
@@ -895,7 +901,7 @@ var LOGOS = {"village": "/img/logo-village.webp", "jobevents": "/img/logo-jobeve
     if(val('p_j2')){var _elig=(J2_ELIGIBLE[simState.year]||[]);var _j2c=cities.filter(function(c){return _elig.indexOf(c)>-1;});if(_j2c.length)lines.push('• Deuxième jour × '+_j2c.length+' ('+_j2c.join(', ')+'), '+euro(_j2c.length*300));}
     var disc=[];
     if(simState.packName)disc.push(simState.packName+' (-'+Math.round(simState.packDisc*100)+'%)');
-    if(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked)disc.push('Réservation anticipée (-10%)');
+    if(simState.year==='2027'&&document.getElementById('d-early')&&document.getElementById('d-early').checked)disc.push('Réservation anticipée (early booking)');
     var txt='=== Ma configuration (simulateur) ===\n'+(lines.length?lines.join('\n'):'(aucun produit sélectionné)');
     if(cities.length)txt+='\n\nVillages : '+cities.join(', ');
     txt+='\nNombre de salons : × '+(simState.lastN||1);
