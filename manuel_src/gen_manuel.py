@@ -15,40 +15,10 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(ICI)
 DOCX = os.path.join(ICI, 'manuel.docx')
 SORTIE = os.path.join(RACINE, 'equipe', 'manuel')
-VERSION = '1.1 — 26 novembre 2026'
+VERSION = '1.2 — 26 novembre 2026'
 
 # (ancien texte, nouveau texte) appliques au HTML produit par pandoc
-CORRECTIONS = [
-    ('<p><strong>Version</strong> 1.0 — 25 novembre 2026</p>',
-     '<p><strong>Version</strong> ' + VERSION + '</p>'),
-    ('VDR 2027 – Nantes, Aix-en-Provence, Toulouse, Dijon, Lyon ou\nOrléans',
-     'VDR 2027 – Nantes, Aix-en-Provence, Toulouse, Dijon ou Lyon'),
-    ('Nantes, Aix-en-Provence, Toulouse, Dijon, Lyon, Orléans',
-     'Nantes, Aix-en-Provence, Toulouse, Dijon, Lyon'),
-    ('<th>990 € (1 jour)</th>', '<th>990 € (1 jour)<br>1 290 € à Lyon (2 jours)</th>'),
-    ('<th>selon variante</th>', '<th>500 € par professionnel</th>'),
-    ('Variante = taille\ndu stand (« 2 pros + 1 »… jusqu\'à 7 valeurs)',
-     'Variante = taille du stand : « 2 pros + 1 » = 500 €, « 3 pros + 1 » = 1 000 €… '
-     'jusqu\'à « 8 pros + 1 » = 3 500 €'),
-    ('<th>VDR 2027 – Tournée Pack Standard 2 pros</th>\n</tr>',
-     '<th>VDR 2027 – Tournée Pack Standard 2 pros</th>\n</tr>\n<tr>\n'
-     '<th>La tournée, 3 professionnels</th>\n'
-     '<th>VDR 2027 – Tournée Pack Standard 3 pros</th>\n</tr>'),
-    ('<th><strong>Remise</strong></th>\n</tr>',
-     '<th><strong>Remise</strong></th>\n</tr>\n<tr>\n'
-     '<th>VDR 2027 – Tournée complète (posée par les modèles Tournée Pack Standard)</th>\n'
-     '<th>30 % jusqu\'au 31/12/2026, puis 20 %</th>\n</tr>\n<tr>\n'
-     '<th>VDR 2027 – Tournée complète, packs métiers (posée par les modèles '
-     'Tournée Pack Intérim, Formation et Multimarques)</th>\n'
-     '<th>47,5 % jusqu\'au 31/12/2026, puis 40 %</th>\n</tr>'),
-    ('jour les prix</em>.</p>',
-     'jour les prix</em>.</p>\n<p>Les modèles <em>VDR 2027 – Tournée</em> posent '
-     'eux-mêmes leur liste de prix dès qu\'on les choisit : les remises de la '
-     'tournée et de l\'early booking s\'appliquent aux lignes sans autre action. '
-     'Le 1er janvier 2027, la remise passe seule de 30 % à 20 % (de 47,5 % à 40 % '
-     'pour les packs métiers) sur les nouveaux devis ; un devis existant garde sa '
-     'remise tant qu\'on ne clique pas sur <em>Mettre à jour les prix</em>.</p>'),
-]
+CORRECTIONS = []  # le Word 1.2 du 26/11/2026 integre toutes les corrections
 
 CSS = r"""
 :root{--rose:#E3007B;--rose-d:#B4005F;--blue:#006FB7;--navy:#08324F;--jaune:#F8B322;--green:#2FA36B;
@@ -92,7 +62,7 @@ thead th{background:#136FB8;color:#fff;font-weight:700}
 tbody tr:nth-child(even){background:#F5F8FC}
 .callout{border-left:4px solid #136FB8;background:#EAF3FB;border-radius:0 12px 12px 0;padding:.8rem 1rem;margin:1.1rem 0;max-width:48rem}
 .callout.rose{border-left-color:#E3145C;background:#FDEBF1}
-.callout p{margin:.2rem 0}
+.callout p{margin:.2rem 0}.callout p+p{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(0,0,0,.08)}
 blockquote{margin:0}
 .pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line)}
 .pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem;color:var(--ink)}
