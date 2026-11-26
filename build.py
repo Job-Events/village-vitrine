@@ -267,6 +267,7 @@ def page_ville(v):
 '        <p style="font-size:.9rem">Objectif 2026 pour cette édition.</p>\r\n'
 '        <p style="margin-top:1rem"><a href="/exposer/">Exposer sur cette '
 'édition</a></p>\r\n'
+'        <p><a href="/simulateur/">Simuler mon coût</a></p>\r\n'
 '        <p><a href="/candidats/">Préparer ma visite</a></p>\r\n'
 '      </div></aside>\r\n'
 '    </div>\r\n'
